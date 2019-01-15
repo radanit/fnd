@@ -1,0 +1,17 @@
+
+// Fonts
+
+// Variables
+@import 'variables';
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~element-ui/packages/theme-chalk/src/index.scss';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import '~admin-lte/build/scss/AdminLTE.scss';
+@import '~admin-lte/build/scss/fonts/font-face.css';
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
