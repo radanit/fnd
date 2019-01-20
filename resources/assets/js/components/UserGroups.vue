@@ -81,7 +81,6 @@
     </div>
 </template>
 <script>
-import {Alert} from '../utilities';
     export default {
         data(){
             return{

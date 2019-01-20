@@ -17,36 +17,6 @@ Vue.prototype.trans = string => _.get(window.i18n, string);
 window.trans = (string) => _.get(window.i18n, string);
 //end Vue Translate
 
-//begin  VueProgressBar config
-//import VueProgressBar from 'vue-progressbar';
-//Vue.use(VueProgressBar, {
- // color: 'rgb(143, 255, 199)',
- // failedColor: 'red',
- // height: '2px'
-//});
-//end VueProgressBar config
-//begin  sweet alert config
-//import {Alert} from './utilities';
-//Vue.prototype.Alert = Alert;
-//end  sweet alert config
-
-//begin  vform config
-//import { Form, HasError, AlertError } from 'vform';
-//window.Form = Form;
-//Vue.component(HasError.name, HasError)
-//Vue.component(AlertError.name, AlertError)
-//end  vform config
-
-//begin using tree
-//import LiquorTree from 'liquor-tree';
-// global registration
-//Vue.use(LiquorTree);
-//end using tree
-
-//begin AutoComplete List
-//import VueSingleSelect from "vue-single-select";
-//Vue.component('vue-single-select', VueSingleSelect);
-//end AutoComplete List
 //begin config event listener
 window.Fire = new Vue();
 //end config event listener
