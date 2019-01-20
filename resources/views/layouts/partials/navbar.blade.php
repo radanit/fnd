@@ -139,10 +139,10 @@
               <img src="../images/user1-128x128.jpg" alt="User Avatar" class="img-size-50 ml-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  غولومی حج احمد
+                  test
                   <span class="float-left text-sm text-danger"><i class="fa fa-star"></i></span>
                 </h3>
-                <p class="text-sm">پ کوجای کیر خان....</p>
+                <p class="text-sm">test....</p>
                 <p class="text-sm text-muted"><i class="fas fa-clock mr-1"></i> 2 ساعت پیش</p>
               </div>
             </div>
@@ -155,10 +155,10 @@
               <img src="../images/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  علی کیانی
+                  test2
                   <span class="float-left text-sm text-muted"><i class="fa fa-star"></i></span>
                 </h3>
-                <p class="text-sm">حجیه میام ورت</p>
+                <p class="text-sm">test2</p>
                 <p class="text-sm text-muted"><i class="fas fa-clock mr-1"></i> 4 ساعت پیش</p>
               </div>
             </div>
@@ -171,10 +171,10 @@
               <img src="../images/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  میتیه دایی جون
+                  test3
                   <span class="float-left text-sm text-warning"><i class="fa fa-star"></i></span>
                 </h3>
-                <p class="text-sm">نرینی یهو ...</p>
+                <p class="text-sm">test3...</p>
                 <p class="text-sm text-muted"><i class="fas fa-clock mr-1"></i> 5 ساعت پیش</p>
               </div>
             </div>

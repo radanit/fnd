@@ -18,7 +18,12 @@ return [
     'Login' => 'ورود',
     'dir' => 'rtl',
     'E-Mail Address' => 'آدرس پست الکترونیک',
+	'Username' => '  نام کاربری  ' ,
     'Password' => 'کلمه عبور',
     'Remember Me' => 'مرا به خاطر بسپار',
-    'Forgot Your Password?' => 'فراموشی کلمه عبور؟'
+    'Forgot Your Password?' => 'فراموشی کلمه عبور؟',
+	'Register' => 'ثبت نام',
+	'Confirm Password' => 'تکرار کلمه عبور',
+	'Name' => 'نام و نام خانوادگی',
+	'News' =>'اخبار و اطلاعیه ها'
 ];

@@ -4,7 +4,7 @@
 // Variables
 @import 'variables';
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap';
 @import '~element-ui/packages/theme-chalk/src/index.scss';
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
@@ -15,3 +15,38 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+.login-icon{
+  margin-top:-28px;float:right;color:gray;margin-right:5px;
+}
+::-webkit-input-placeholder {
+  font-size: 14px;
+  color: #d0cdfa;
+  text-transform: uppercase;
+  text-transform: uppercase;
+  text-align: justify;
+  font-weight: bold;
+ }
+ :-moz-placeholder { /* older Firefox*/
+  font-size:14px;
+  color: #d0cdfa;
+  text-transform: uppercase;
+  text-align: justify;
+  font-weight: bold;
+ }
+ ::-moz-placeholder { /* Firefox 19+ */ 
+  font-size: 14px;
+  color: #d0cdfa; 
+  text-transform: uppercase;
+  text-align: justify;
+  font-weight: bold;
+ } 
+ :-ms-input-placeholder { 
+  font-size: 14px; 
+  color: #d0cdfa;
+  text-transform: uppercase;
+  text-align: justify;
+  font-weight: bold;
+ }
+ .navbar-expand .navbar-nav:lang(en){
+	 direction:ltr !important;
+ }

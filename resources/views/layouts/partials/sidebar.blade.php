@@ -12,6 +12,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="../images/profile.png" class="img-circle elevation-2" alt="User Image">
+		  <span class="brand-text font-weight-light" style="color:#fff">{{ __('app.baharRadiology') }}</span>
         </div>
         <div class="info">
           <a href="#" class="d-block"> {{ Auth::user()->name }}</a>

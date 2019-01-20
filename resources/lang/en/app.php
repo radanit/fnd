@@ -19,4 +19,17 @@ return [
     'confirmButtonText' => 'Yes, delete it!',
     'cancelButtonText' => 'Cancel',
     'dir' => 'ltr',
+	'customerCompanyName' => '‌Bahar Radiology',
+	'contact' => 'Contact',
+	'usefulLinks' => 'Useful Links',
+	'howToUseTheService' => 'How To Use The Service',
+	'customerAddress' => 'Isfahan',
+	'customerEmail' => 'info@baharRadiology.ir',
+	'customerTel' => '0313-66677788',
+	'customerFax' => '0313-66677789',
+	'privacy' => 'Privacy',
+	'help' => 'Help',
+	'frequentlyAskedQuestions' => 'Frequently Asked Questions',
+	'termsOfUse' => 'Term Of Use',
+	'baharRadiology' => 'Bahar radiology'
 ];

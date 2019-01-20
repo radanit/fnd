@@ -18,5 +18,18 @@ return [
     'noticTxt' => 'این عمل قابل بازگشت نمی باشد!',
     'confirmButtonText' => 'تایید',
     'cancelButtonText' => 'انصراف',
-    'dir' =>'rtl'
+    'dir' =>'rtl',
+	'customerCompanyName' => 'رادیولوژی بهار',
+	'contact' => 'تماس با ما',
+	'usefulLinks' => 'لینکهای سودمند',
+	'howToUseTheService' => 'شرایط استفاده از خدمات',
+	'customerAddress' => 'اصفهان-خیابان توحید میانی-قبل از چهارراه پلیس-مجتمع آریا-واحد 101-رادیولوژی بهار',
+	'customerEmail' => 'info@baharRadiology.ir',
+	'customerTel' => '0313-6286022',
+	'customerFax' => '0313-66677789',
+	'privacy' => 'حریم خصوصی',
+	'help' => 'راهنمای استفاده',
+	'frequentlyAskedQuestions' => 'پرسش های متداول',
+	'termsOfUse' => 'شرایط استفاده',
+	'baharRadiology' => ' رادیولوژی بهار' 
 ];

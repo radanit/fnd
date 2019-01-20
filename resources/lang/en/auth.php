@@ -20,4 +20,5 @@ return [
     'Password' => 'Password',
     'Remember Me' => 'Remember Me',
     'Forgot Your Password?' => 'Forgot Your Password?',
+	'News' => 'News'
 ];
