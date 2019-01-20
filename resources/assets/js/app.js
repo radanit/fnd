@@ -18,12 +18,12 @@ window.trans = (string) => _.get(window.i18n, string);
 //end Vue Translate
 
 //begin  VueProgressBar config
-import VueProgressBar from 'vue-progressbar';
-Vue.use(VueProgressBar, {
-  color: 'rgb(143, 255, 199)',
-  failedColor: 'red',
-  height: '2px'
-});
+//import VueProgressBar from 'vue-progressbar';
+//Vue.use(VueProgressBar, {
+ // color: 'rgb(143, 255, 199)',
+ // failedColor: 'red',
+ // height: '2px'
+//});
 //end VueProgressBar config
 //begin  sweet alert config
 //import {Alert} from './utilities';
