@@ -1,33 +1,33 @@
 @font-face {
   font-family: Vazir;
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir.eot?b3107e85ab4cd06b379624baa2ad56d1);
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir.eot?b3107e85ab4cd06b379624baa2ad56d1?#iefix) format('embedded-opentype'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir.woff?21996b67bae94dde1afea1865865f8ce) format('woff'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir.ttf?a83daff6a3fcaf7cf89f771c940e401f) format('truetype');
+  src: url(/fonts/Vazir.eot?b3107e85ab4cd06b379624baa2ad56d1);
+  src: url(/fonts/Vazir.eot?b3107e85ab4cd06b379624baa2ad56d1?#iefix) format('embedded-opentype'),
+       url(/fonts/Vazir.woff?21996b67bae94dde1afea1865865f8ce) format('woff'),
+       url(/fonts/Vazir.ttf?a83daff6a3fcaf7cf89f771c940e401f) format('truetype');
   font-weight: normal;
 }
 @font-face {
   font-family: Vazir;
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir-Bold.eot?47c7f9c48f3d93d5daa15b4eaef5f318);
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir-Bold.eot?47c7f9c48f3d93d5daa15b4eaef5f318?#iefix) format('embedded-opentype'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir-Bold.woff?748f32d92cf483f2eb5b46ca95fc4e40) format('woff'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir-Bold.ttf?7a8ce4ce3830de1cad8102c5f6184fa9) format('truetype');
+  src: url(/fonts/Vazir-Bold.eot?47c7f9c48f3d93d5daa15b4eaef5f318);
+  src: url(/fonts/Vazir-Bold.eot?47c7f9c48f3d93d5daa15b4eaef5f318?#iefix) format('embedded-opentype'),
+       url(/fonts/Vazir-Bold.woff?748f32d92cf483f2eb5b46ca95fc4e40) format('woff'),
+       url(/fonts/Vazir-Bold.ttf?7a8ce4ce3830de1cad8102c5f6184fa9) format('truetype');
   font-weight: bold;
 }
 @font-face {
   font-family: Vazir;
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir-Light.eot?0b44836d8724174b5011002b718d485c);
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir-Light.eot?0b44836d8724174b5011002b718d485c?#iefix) format('embedded-opentype'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir-Light.woff?1c7f779da0c3e054b7494cd74558f520) format('woff'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir-Light.ttf?29002bf5cccc9043dd777970f6241bfe) format('truetype');
+  src: url(/fonts/Vazir-Light.eot?0b44836d8724174b5011002b718d485c);
+  src: url(/fonts/Vazir-Light.eot?0b44836d8724174b5011002b718d485c?#iefix) format('embedded-opentype'),
+       url(/fonts/Vazir-Light.woff?1c7f779da0c3e054b7494cd74558f520) format('woff'),
+       url(/fonts/Vazir-Light.ttf?29002bf5cccc9043dd777970f6241bfe) format('truetype');
   font-weight: 300;
 }
 @font-face {
   font-family: Vazir;
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir-Medium.eot?f668b5fa32a33b0a58d3ca61aea3aac2);
-  src: url(/fonts/vendor/admin-lte/build/scss/Vazir-Medium.eot?f668b5fa32a33b0a58d3ca61aea3aac2?#iefix) format('embedded-opentype'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir-Medium.woff?7e5c1289975b413a1f109bc490d7508c) format('woff'),
-       url(/fonts/vendor/admin-lte/build/scss/Vazir-Medium.ttf?e7ef286ad1a9ecdc146bcfe51416ee6e) format('truetype');
+  src: url(/fonts/Vazir-Medium.eot?f668b5fa32a33b0a58d3ca61aea3aac2);
+  src: url(/fonts/Vazir-Medium.eot?f668b5fa32a33b0a58d3ca61aea3aac2?#iefix) format('embedded-opentype'),
+       url(/fonts/Vazir-Medium.woff?7e5c1289975b413a1f109bc490d7508c) format('woff'),
+       url(/fonts/Vazir-Medium.ttf?e7ef286ad1a9ecdc146bcfe51416ee6e) format('truetype');
   font-weight: 500;
 }
 @charset "UTF-8";
@@ -72581,12 +72581,6 @@ readers do not read off random characters that represent icons */
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-/*changed by e.bagherzadegan
-$modal-lg:                          800px !default;
-$modal-md:                          500px !default;
-$modal-sm:                          300px !default;
-*/
-
 :root {
   --blue: #3490dc;
   --indigo: #6574cd;
@@ -72650,20 +72644,7 @@ section {
   display: block;
 }
 
-body:lang(fa) {
-  margin: 0;
-  font-family: "Vazir", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #212529;
-  /*changed by e.bagherzadegan
-  text-align: left; // 3*/
-  text-align: justify;
-  background-color: #f8fafc;
-}
-
-body:lang(en) {
+body {
   margin: 0;
   font-family: "Vazir", sans-serif;
   font-size: 0.9rem;
@@ -74678,39 +74659,19 @@ textarea.form-control {
   padding-left: 5px;
 }
 
-.form-check:lang(en) {
+.form-check {
   position: relative;
   display: block;
   padding-left: 1.25rem;
 }
 
-/*added by e. bagherzadegan*/
-
-.form-check:lang(fa) {
-  position: relative;
-  display: block;
-  padding-right: 1.25rem;
-}
-
-.form-check-input:lang(en) {
+.form-check-input {
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.25rem;
 }
 
-.form-check-input:lang(en):disabled ~ .form-check-label {
-  color: #6c757d;
-}
-
-/*added by e. bagherzadegan*/
-
-.form-check-input:lang(fa) {
-  position: absolute;
-  margin-top: 0.3rem;
-  margin-right: -1.25rem;
-}
-
-.form-check-input:lang(fa):disabled ~ .form-check-label {
+.form-check-input:disabled ~ .form-check-label {
   color: #6c757d;
 }
 
@@ -76717,20 +76678,10 @@ input[type=button].btn-block {
   }
 }
 
-.nav:lang(en) {
+.nav {
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-
-/* Added by e.bagherzadegan*/
-
-.nav:lang(fa) {
-  display: flex;
-  flex-wrap: wrap;
-  padding-right: 0;
   margin-bottom: 0;
   list-style: none;
 }
@@ -76848,7 +76799,7 @@ input[type=button].btn-block {
   text-decoration: none;
 }
 
-.navbar-nav:lang(en) {
+.navbar-nav {
   display: flex;
   flex-direction: column;
   padding-left: 0;
@@ -76856,32 +76807,12 @@ input[type=button].btn-block {
   list-style: none;
 }
 
-.navbar-nav:lang(en) .nav-link {
+.navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
 }
 
-.navbar-nav:lang(en) .dropdown-menu {
-  position: static;
-  float: none;
-}
-
-/* added by e. bagherzadegan*/
-
-.navbar-nav:lang(fa) {
-  display: flex;
-  flex-direction: column;
-  padding-right: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-
-.navbar-nav:lang(fa) .nav-link {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.navbar-nav:lang(fa) .dropdown-menu {
+.navbar-nav .dropdown-menu {
   position: static;
   float: none;
 }
@@ -76937,17 +76868,11 @@ input[type=button].btn-block {
 @media (min-width: 576px) {
   .navbar-expand-sm {
     flex-flow: row nowrap;
-    /*changed by e.bagherzadegan
-    justify-content: flex-start;*/
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .navbar-expand-sm .navbar-nav {
     flex-direction: row;
-    /*begin added by e.bagherzadegan*/
-    direction: rtl;
-    text-align: justify;
-    /*end added by e.bagherzadegan*/
   }
 
   .navbar-expand-sm .navbar-nav .dropdown-menu {
@@ -76985,17 +76910,11 @@ input[type=button].btn-block {
 @media (min-width: 768px) {
   .navbar-expand-md {
     flex-flow: row nowrap;
-    /*changed by e.bagherzadegan
-    justify-content: flex-start;*/
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .navbar-expand-md .navbar-nav {
     flex-direction: row;
-    /*begin added by e.bagherzadegan*/
-    direction: rtl;
-    text-align: justify;
-    /*end added by e.bagherzadegan*/
   }
 
   .navbar-expand-md .navbar-nav .dropdown-menu {
@@ -77033,17 +76952,11 @@ input[type=button].btn-block {
 @media (min-width: 992px) {
   .navbar-expand-lg {
     flex-flow: row nowrap;
-    /*changed by e.bagherzadegan
-    justify-content: flex-start;*/
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .navbar-expand-lg .navbar-nav {
     flex-direction: row;
-    /*begin added by e.bagherzadegan*/
-    direction: rtl;
-    text-align: justify;
-    /*end added by e.bagherzadegan*/
   }
 
   .navbar-expand-lg .navbar-nav .dropdown-menu {
@@ -77081,17 +76994,11 @@ input[type=button].btn-block {
 @media (min-width: 1200px) {
   .navbar-expand-xl {
     flex-flow: row nowrap;
-    /*changed by e.bagherzadegan
-    justify-content: flex-start;*/
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .navbar-expand-xl .navbar-nav {
     flex-direction: row;
-    /*begin added by e.bagherzadegan*/
-    direction: rtl;
-    text-align: justify;
-    /*end added by e.bagherzadegan*/
   }
 
   .navbar-expand-xl .navbar-nav .dropdown-menu {
@@ -77120,9 +77027,7 @@ input[type=button].btn-block {
 
 .navbar-expand {
   flex-flow: row nowrap;
-  /*changed by e.bagherzadegan
-  justify-content: flex-start;*/
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .navbar-expand > .container,
@@ -77133,10 +77038,6 @@ input[type=button].btn-block {
 
 .navbar-expand .navbar-nav {
   flex-direction: row;
-  /*begin added by e.bagherzadegan*/
-  direction: rtl;
-  text-align: justify;
-  /*end added by e.bagherzadegan*/
 }
 
 .navbar-expand .navbar-nav .dropdown-menu {
@@ -78369,7 +78270,7 @@ button.mailbox-attachment-close {
   padding: 1rem;
 }
 
-.modal-footer:lang(en) {
+.modal-footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -78377,28 +78278,11 @@ button.mailbox-attachment-close {
   border-top: 1px solid #e9ecef;
 }
 
-.modal-footer:lang(en) > :not(:first-child) {
+.modal-footer > :not(:first-child) {
   margin-left: 0.25rem;
 }
 
-.modal-footer:lang(en) > :not(:last-child) {
-  margin-right: 0.25rem;
-}
-
-/*added by e.bagherzadegan*/
-
-.modal-footer:lang(fa) {
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1rem;
-  border-top: 1px solid #e9ecef;
-}
-
-.modal-footer:lang(fa) > :not(:first-child) {
-  margin-left: 0.25rem;
-}
-
-.modal-footer:lang(fa) > :not(:last-child) {
+.modal-footer > :not(:last-child) {
   margin-right: 0.25rem;
 }
 
@@ -84393,7 +84277,6 @@ body,
   position: relative;
   /* added by e.bagherzadegan*/
   direction: rtl;
-  text-align: justify;
 }
 
 .nav-sidebar:lang(fa):hover {
@@ -87565,5 +87448,65 @@ a.text-muted:hover {
 
 .navbar-expand .navbar-nav:lang(en) {
   direction: ltr !important;
+}
+
+/*Added By e.bagherzadegan*/
+
+.form-check:lang(en) {
+  padding-left: 1.25rem;
+}
+
+.form-check:lang(fa) {
+  padding-right: 1.25rem;
+}
+
+.form-check-input:lang(en) {
+  margin-left: -1.25rem;
+}
+
+.form-check-input:lang(fa) {
+  margin-right: -1.25rem;
+}
+
+.card-header:lang(en) {
+  text-align: left;
+}
+
+.card-header:lang(fa) {
+  text-align: right;
+}
+
+.nav-sidebar:lang(en) {
+  text-align: left;
+}
+
+.nav:lang(en) {
+  padding-left: 0;
+}
+
+.nav-sidebar:lang(fa) {
+  text-align: right;
+}
+
+.nav:lang(fa) {
+  padding-right: 0;
+}
+
+.brand-link:lang(en) {
+  text-align: left;
+}
+
+.brand-link:lang(fa) {
+  text-align: right;
+}
+
+.modal-header .close:lang(en),
+.modal-header .mailbox-attachment-close:lang(en) {
+  margin: -1rem -1rem -1rem auto;
+}
+
+.modal-header .close:lang(fa),
+.modal-header .mailbox-attachment-close:lang(fa) {
+  margin: -1rem auto -1rem -1rem;
 }
 

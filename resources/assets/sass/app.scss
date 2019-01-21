@@ -10,7 +10,7 @@
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import '~admin-lte/build/scss/AdminLTE.scss';
-@import '~admin-lte/build/scss/fonts/font-face.css';
+@import 'fonts/font-face.css';
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -50,3 +50,46 @@
  .navbar-expand .navbar-nav:lang(en){
 	 direction:ltr !important;
  }
+/*Added By e.bagherzadegan*/
+.form-check:lang(en) {
+    padding-left: 1.25rem;
+}
+.form-check:lang(fa) {
+    padding-right: 1.25rem;
+}
+.form-check-input:lang(en) {
+	margin-left: -1.25rem;
+}
+.form-check-input:lang(fa) {
+	margin-right: -1.25rem;
+}
+.card-header:lang(en){
+	text-align:left;
+}
+.card-header:lang(fa){
+	text-align:right;
+}
+.nav-sidebar:lang(en){
+	text-align:left;
+}
+.nav:lang(en){
+	padding-left:0;
+}
+.nav-sidebar:lang(fa){
+	text-align:right;
+}
+.nav:lang(fa){
+	padding-right:0;
+}
+.brand-link:lang(en){
+	text-align:left;
+}
+.brand-link:lang(fa){
+	text-align:right;
+}
+.modal-header .close:lang(en), .modal-header .mailbox-attachment-close:lang(en){
+	margin: -1rem -1rem -1rem auto;
+}
+.modal-header .close:lang(fa), .modal-header .mailbox-attachment-close:lang(fa){
+	margin: -1rem auto -1rem -1rem
+}
