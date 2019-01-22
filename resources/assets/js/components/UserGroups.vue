@@ -28,7 +28,7 @@
                         |
                         <a href="#" @click="deletepublicTable(publicTable.id)"><i class="fa fa-trash red"></i></a>
                         |                        
-                        <router-link :to="{ name: 'userGroups', params: { id:publicTable.id,code:publicTable.code,des:publicTable.description }}"><i class="fa fa-list-alt green"></i></router-link>
+                        <router-link :to="{ name: 'user_groups', params: { id:publicTable.id,code:publicTable.code,des:publicTable.description }}"><i class="fa fa-list-alt green"></i></router-link>
                     </td>
                   </tr>  
                                 
@@ -143,16 +143,8 @@
                 })                                
             },
 			createpublicTable() {
-				this.$Progress.start();
 				this.form.insertAlert=trans('publicTable.insertAlert');
                 let currentObj = this;
-                /*axios.post('../api/publicTable', {
-                    code: this.form.code,
-                    description: this.form.description
-                })
-                .then(function (response) {				   
-                   $('#addNew').modal('hide');                    
-                })*/
 				 axios.post('../api/publicTable',{code: this.form.code,
                     description: this.form.description}).then(() =>{
                     Fire.$emit('AfterCrud');

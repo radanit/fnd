@@ -51,7 +51,7 @@
                 </router-link>
               </li>
               <li class="nav-item">
-              <router-link to="/userGroups" class="nav-link">
+              <router-link to="/user_groups" class="nav-link">
                   <i class="fa fa-users-cog  nav-icon teal"></i>
                   <p>{{ __('menus.userGroups') }}</p>
                 </router-link>
@@ -72,10 +72,10 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/publicTable" class="nav-link">
+                <router-link to="/specialities" class="nav-link">
                   <i class="nav-icon fas fa-table cyan"></i>
                   <p>
-                  {{ __('menus.publicTable') }}
+                  {{ __('menus.speciality') }}
                   </p>
                 </router-link>
               </li>
