@@ -4,12 +4,13 @@ namespace App\Radan\Auth\Models;
 
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-	use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +28,8 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
-    ];
+    ];    
+    
 
     /**
      * The method overrides for authenticate with username and email
@@ -36,6 +38,16 @@ class User extends Authenticatable
      */
     public function findForPassport($identifier) {
         return $this->orWhere('email', $identifier)->orWhere('username', $identifier)->first();
+    }
+
+    /**
+     * The method for relationships
+     *
+     * @var void
+     */
+    public function userProfile()
+    {
+        return $this->hasOne('App\Radan\Models\UserProfile');
     }
 
 }

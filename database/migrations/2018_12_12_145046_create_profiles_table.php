@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Profiles extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,7 @@ class Profiles extends Migration
             $table->string('description');
             $table->json('structure');            
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,6 @@ class Profiles extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('profiles');
     }
 }

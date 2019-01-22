@@ -32,6 +32,6 @@ class CreateRuntimeConfigTable extends Migration
      */
     public function down()
     {
-        Schema::drop('config');
+        Schema::dropIfExists('configs');
     }
 }
