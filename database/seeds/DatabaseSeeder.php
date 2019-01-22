@@ -23,5 +23,9 @@ class DatabaseSeeder extends Seeder
 
 		$this->call('UserProfileTableSeeder');
 		$this->command->info('UserProfile table seeded!');
+
+        $this->call('ConfigTableSeeder');
+        $this->command->info('Radan Config table seeded!');
+        
 	}
 }

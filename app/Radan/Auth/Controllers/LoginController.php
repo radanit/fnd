@@ -40,6 +40,37 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        // return $request->only($this->username(), 'password');
+        $credentials = $request->only($this->username(), 'password');        
+        $credentials['active'] =  1;        
+        return $credentials;
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // Check if user activity loged enabled
+        if ($this->config->get('radan.auth.userActivityLog',0)) {
+            $user->last_login = Carbon::now();
+            $user->last_login_ip = $request->getClientIp();
+            $user->save();
+        }
+    }
     
     /**
      * Where to redirect users after login.
@@ -85,6 +116,7 @@ class LoginController extends Controller
         if (!$this->redirectAfterLogout) {
             $this->config->set('radan.auth.redirectAfterLogout','login');          
         }        
+    
     }
 
     /**

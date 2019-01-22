@@ -47,7 +47,7 @@ class User extends Authenticatable
      */
     public function userProfile()
     {
-        return $this->hasOne('App\Radan\Models\UserProfile');
+        return $this->hasOne('App\Radan\Profile\Models\UserProfile');
     }
 
 }
