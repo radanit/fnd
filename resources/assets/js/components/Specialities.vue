@@ -80,8 +80,8 @@
 					<el-input name="description" type="description" v-model="form.description" autocomplete="off"></el-input>
 				  </el-form-item>
 				  <el-form-item>
-				    <el-button type="success" @click="submitForm('form')" plain>{{trans('app.addBtnLbl')}} </el-button>
-					<el-button @click="resetForm('form')">Reset</el-button>
+				    <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+					<el-button size="mini" @click="resetForm('form')">{{trans('app.resetBtnLbl')}} </el-button>
 				  </el-form-item>
 				</el-form>
                 </div>

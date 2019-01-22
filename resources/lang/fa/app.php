@@ -36,4 +36,6 @@ return [
     'addBtnLbl' => 'درج',
     'editBtnLbl' => 'ویرایش',
 	'deleteBtnLbl' =>' حذف',
+	'submitBtnLbl' => ' ثبت',
+	'resetBtnLbl' => ' پاک کردن',
 ];
