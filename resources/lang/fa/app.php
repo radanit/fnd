@@ -31,5 +31,9 @@ return [
 	'help' => 'راهنمای استفاده',
 	'frequentlyAskedQuestions' => 'پرسش های متداول',
 	'termsOfUse' => 'شرایط استفاده',
-	'baharRadiology' => ' رادیولوژی بهار' 
+	'baharRadiology' => ' رادیولوژی بهار' ,
+	'closeBtnLbl' => 'بستن',
+    'addBtnLbl' => 'درج',
+    'editBtnLbl' => 'ویرایش',
+	'deleteBtnLbl' =>' حذف',
 ];

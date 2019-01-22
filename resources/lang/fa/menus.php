@@ -11,6 +11,7 @@ return [
 'basicInformation' => 'اطلاعات پایه',
 'profile' => 'پروفایل',
 'publicTable' => 'جداول عمومی',
+'speciality' => 'تخصص ها',
 'preventiveServiceManagment' => 'سرویسهای پیشگیرانه',
 'preventiveService' => 'مدیریت سرویس',
 'preventiveServicePlanning' =>'برنامه ریزی سرویس',
