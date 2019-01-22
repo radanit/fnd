@@ -8,33 +8,11 @@
                 <div class="card-tools">
 						<el-button type="success"
 						  size="mini"
-						  @click="newModal">{{trans('speciality.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+						  @click="newModal">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <!--<table class="table table-hover align-middle" :dir="trans('app.dir')">
-                  <tbody>
-                  <tr>
-                    <th class="text-center">{{trans('speciality.id')}}</th>
-                    <th class="text-center">{{trans('speciality.code')}}</th>
-                    <th class="text-center">{{trans('speciality.description')}}</th>
-                    <th class="text-center">{{trans('speciality.action')}}</th>
-                  </tr>
-                  <tr v-for="speciality in specialitys" :key="speciality.id">
-                    <td class="text-center">{{speciality.id}}</td>
-                    <td class="text-center">{{speciality.code}}</td>
-                    <td class="text-center">{{speciality.description}}</td>
-                    <td class="text-center">
-                        <a href="#" @click="editModal(speciality)"><i class="fa fa-edit blue"></i></a>
-                        |
-                        <a href="#" @click="deleteSpeciality(speciality.id)"><i class="fa fa-trash red"></i></a>
-                        |                        
-                        <router-link :to="{ name: 'user_groups', params: { id:speciality.id,code:speciality.code,des:speciality.description }}"><i class="fa fa-list-alt green"></i></router-link>
-                    </td>
-                  </tr>  
-                                
-                </tbody></table>-->
 				<el-table
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
 					style="width: 100%">
@@ -46,7 +24,7 @@
 					  label="Name"
 					  prop="name">
 					</el-table-column>
-					<el-table-column
+					<el-table-column class="float-left"
 					  align="right">
 					  <template slot="header" slot-scope="scope">
 						<el-input
@@ -56,11 +34,11 @@
 					  <template slot-scope="scope">
 						<el-button
 						  size="mini"
-						  @click="handleEdit(scope.$index, scope.row)">{{trans('speciality.btnUpdateLbl')}} <i class="fa fa-edit blue"></i></el-button>
+						  @click="handleEdit(scope.$index, scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
 						<el-button
 						  size="mini"
 						  type="danger"
-						  @click="handleDelete(scope.$index, scope.row)">{{trans('speciality.btnDeleteLbl')}} <i class="fa fa-trash red"></i></el-button>
+						  @click="handleDelete(scope.$index, scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>
 					</el-table-column>
 				  </el-table>
@@ -102,7 +80,7 @@
 					<el-input name="description" type="description" v-model="form.description" autocomplete="off"></el-input>
 				  </el-form-item>
 				  <el-form-item>
-					<el-button type="primary" @click="submitForm('form')">Submit</el-button>
+				    <el-button type="success" @click="submitForm('form')" plain>{{trans('app.addBtnLbl')}} </el-button>
 					<el-button @click="resetForm('form')">Reset</el-button>
 				  </el-form-item>
 				</el-form>
