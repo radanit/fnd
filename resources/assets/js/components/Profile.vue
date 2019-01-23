@@ -1,117 +1,491 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-12">
-                <!-- Widget: user widget style 1 -->
-                <div class="card card-widget widget-user">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header text-white" style="background: url('../images/photo1.png') center center;">
-                        <h3 class="widget-user-username">مهدی ریاحی منش</h3>
-                        <h5 class="widget-user-desc">برنامه نویس</h5>
-                    </div>
-                    <div class="widget-user-image">
-                        <img class="img-circle" src="images/user.png" alt="User Avatar">
-                    </div>
-                    <div class="card-footer">
-                        <div class="row">
-                        <div class="col-sm-4">
-                            <div class="description-block">
-                            <h5 class="description-header">3,200</h5>
-                            <span class="description-text">SALES</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-4 border-fa">
-                            <div class="description-block">
-                            <h5 class="description-header">13,000</h5>
-                            <span class="description-text">FOLLOWERS</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-4">
-                            <div class="description-block">
-                            <h5 class="description-header">35</h5>
-                            <span class="description-text">PRODUCTS</span>
-                            </div>
-                            <!-- /.description-block -->
-                        </div>
-                        <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                </div>
-                <!-- /.widget-user -->
-                <div class="card">
-                    <div class="card-header p-2">
-                        <ul class="nav nav-pills">                            
-                            <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">{{trans('profile.settingTabTitle')}}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">{{trans('profile.activityTabTitle')}}</a></li>                            
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content">
-                            <div class="tab-pane" id="activity">
-                                فعالیتها                            
-                            </div>
-                            <div class="tab-pane active show" id="settings">
-                                <form class="form-horizontal">
-                                    <div class="form-group">                                        
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="inputUserName" :placeholder="trans('profile.userName')" type="email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">                                       
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="inputEmail" :placeholder="trans('profile.email')" type="email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">                                      
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="inputFullName" :placeholder="trans('profile.fullName')" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">                                      
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="inputPassword" :placeholder="trans('profile.password')" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">                                      
-                                        <div class="col-sm-10">
-                                            <input class="form-control" id="inputConfirmPassword" :placeholder="trans('profile.confirmPass')" type="text">
-                                        </div>
-                                    </div>                                    
-                                    <div class="form-group">                                        
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputBiography" :placeholder="trans('profile.bio')"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-success">{{trans('profile.btnSubmitLbl')}}</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   <div class="container-fluid mt-3">
+	<div class="row">
+	  <div class="col-md-3">
+
+		<!-- Profile Image -->
+		<div class="card card-primary card-outline">
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img class="profile-user-img img-fluid img-circle" src="images/user4-128x128.jpg" alt="User profile picture">
+			</div>
+
+			<h3 class="profile-username text-center">Nina Mcintire</h3>
+
+			<p class="text-right text-center">Software Engineer</p>
+
+			<ul class="list-group list-group-unbordered mb-3">
+			  <li class="list-group-item">
+				<b>Followers</b> <a class="float-right">1,322</a>
+			  </li>
+			  <li class="list-group-item">
+				<b>Following</b> <a class="float-right">543</a>
+			  </li>
+			  <li class="list-group-item">
+				<b>Friends</b> <a class="float-right">13,287</a>
+			  </li>
+			</ul>
+
+			<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+		  </div>
+		  <!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+
+		<!-- About Me Box -->
+		<div class="card card-primary">
+		  <div class="card-header">
+			<h3 class="card-title">{{trans('userProfile.aboutUs')}}</h3>
+		  </div>
+		  <!-- /.card-header -->
+		  <div class="card-body">
+			<strong><i class="fa fa-book mr-1"></i> {{trans('userProfile.activities')}}</strong>
+			<p class="text-right">
+			  مجهز به پیشرفته ترین دستگاه سونوگرافی داپلر رنگی پروبهای ترانس واژینال-رادیولوژی ساده-رنگی و opg-و فتوگرافی
+			</p>
+			<hr>
+			<strong><i class="fa fa-map-marker mr-1"></i> {{trans('userProfile.location')}}</strong>
+			<p class="text-right">اصفهان – خیابان توحید میانی-نرسیده به چهارراه پلیس-ساختمان آریا-طبقه اول- مرکز تصویربرداری پزشکی بهار</p>
+			<hr>
+			<strong><i class="fa fa-pencil mr-1"></i> {{trans('userProfile.services')}}</strong>
+			<p class="text-right">
+			  <li class="tag tag-danger">UI Design</li>
+			  <li class="tag tag-success">Coding</li>
+			  <li class="tag tag-info">Javascript</li>
+			  <li class="tag tag-warning">PHP</li>
+			  <li class="tag tag-primary">Node.js</li>
+			</p>
+			<hr>
+			<strong><i class="fa fa-file-text-o mr-1"></i> {{trans('userProfile.manager')}}</strong>
+			<p class="text-right">جناب آقای دکتر محمدمهدی جعفری</p>			
+			<hr>
+			<strong><i class="fa fa-file-text-o mr-1"></i> {{trans('userProfile.technicalAssistant')}}</strong>
+			<p class="text-right">سرکارخانم دکتر مریم گلشاهی</p>
+		  </div>
+		  <!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+	  </div>
+	  <!-- /.col -->
+	  <div class="col-md-9">
+		<div class="card">
+		  <div class="card-header p-2">
+			<ul class="nav nav-pills">
+			  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">{{trans('userProfile.activity')}}</a></li>
+			  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">{{trans('userProfile.doctors')}}</a></li>
+			  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">{{trans('userProfile.setting')}}</a></li>
+			</ul>
+		  </div><!-- /.card-header -->
+		  <div class="card-body">
+			<div class="tab-content">
+			  <div class="active tab-pane" id="activity">
+				<!-- Post -->
+				<div class="post">
+				  <div class="user-block">
+					<img class="img-circle img-bordered-sm" src="images/user1-128x128.jpg" alt="user image">
+					<span class="username">
+					  <a href="#">Jonathan Burke Jr.</a>
+					  <a href="#" class="float-right btn-tool"><i class="fa fa-times"></i></a>
+					</span>
+					<span class="description">Shared publicly - 7:30 PM today</span>
+				  </div>
+				  <!-- /.user-block -->
+				  <p>
+					Lorem ipsum represents a long-held tradition for designers,
+					typographers and the like. Some people hate it and argue for
+					its demise, but others ignore the hate as they create awesome
+					tools to help create filler text for everyone from bacon lovers
+					to Charlie Sheen fans.
+				  </p>
+
+				  <p>
+					<a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> Share</a>
+					<a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up mr-1"></i> Like</a>
+					<span class="float-right">
+					  <a href="#" class="link-black text-sm">
+						<i class="fa fa-comments-o mr-1"></i> Comments (5)
+					  </a>
+					</span>
+				  </p>
+
+				  <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+				</div>
+				<!-- /.post -->
+
+				<!-- Post -->
+				<div class="post clearfix">
+				  <div class="user-block">
+					<img class="img-circle img-bordered-sm" src="images/user7-128x128.jpg" alt="User Image">
+					<span class="username">
+					  <a href="#">Sarah Ross</a>
+					  <a href="#" class="float-right btn-tool"><i class="fa fa-times"></i></a>
+					</span>
+					<span class="description">Sent you a message - 3 days ago</span>
+				  </div>
+				  <!-- /.user-block -->
+				  <p>
+					Lorem ipsum represents a long-held tradition for designers,
+					typographers and the like. Some people hate it and argue for
+					its demise, but others ignore the hate as they create awesome
+					tools to help create filler text for everyone from bacon lovers
+					to Charlie Sheen fans.
+				  </p>
+
+				  <form class="form-horizontal">
+					<div class="input-group input-group-sm mb-0">
+					  <input class="form-control form-control-sm" placeholder="Response">
+					  <div class="input-group-append">
+						<button type="submit" class="btn btn-danger">Send</button>
+					  </div>
+					</div>
+				  </form>
+				</div>
+				<!-- /.post -->
+
+				<!-- Post -->
+				<div class="post">
+				  <div class="user-block">
+					<img class="img-circle img-bordered-sm" src="images/user6-128x128.jpg" alt="User Image">
+					<span class="username">
+					  <a href="#">Adam Jones</a>
+					  <a href="#" class="float-right btn-tool"><i class="fa fa-times"></i></a>
+					</span>
+					<span class="description">Posted 5 photos - 5 days ago</span>
+				  </div>
+				  <!-- /.user-block -->
+				  <div class="row mb-3">
+					<div class="col-sm-6">
+					  <img class="img-fluid" src="images/photo1.png" alt="Photo">
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-6">
+					  <div class="row">
+						<div class="col-sm-6">
+						  <img class="img-fluid mb-3" src="images/photo2.png" alt="Photo">
+						  <img class="img-fluid" src="images/photo3.png" alt="Photo">
+						</div>
+						<!-- /.col -->
+						<div class="col-sm-6">
+						  <img class="img-fluid mb-3" src="images/photo4.png" alt="Photo">
+						  <img class="img-fluid" src="images/photo1.png" alt="Photo">
+						</div>
+						<!-- /.col -->
+					  </div>
+					  <!-- /.row -->
+					</div>
+					<!-- /.col -->
+				  </div>
+				  <!-- /.row -->
+
+				  <p>
+					<a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> Share</a>
+					<a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up mr-1"></i> Like</a>
+					<span class="float-right">
+					  <a href="#" class="link-black text-sm">
+						<i class="fa fa-comments-o mr-1"></i> Comments (5)
+					  </a>
+					</span>
+				  </p>
+
+				  <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+				</div>
+				<!-- /.post -->
+			  </div>
+			  <!-- /.tab-pane -->
+			  <div class="tab-pane" id="timeline">
+				<div class="row">
+				  <div class="col-md-4">
+					<!-- Widget: user widget style 1 -->
+					<div class="card card-widget widget-user">
+					  <!-- Add the bg color to the header using any of the bg-* classes -->
+					  <div class="widget-user-header text-white" style="background: url('images/photo1.png') center center;">
+						<h3 class="widget-user-username">Elizabeth Pierce</h3>
+						<h5 class="widget-user-desc">Web Designer</h5>
+					  </div>
+					  <div class="widget-user-image">
+						<img class="img-circle" src="images/user3-128x128.jpg" alt="User Avatar">
+					  </div>
+					  <div class="card-footer">
+						<div class="row">
+						  <div class="col-sm-4 border-right">
+							<div class="description-block">
+							  <h5 class="description-header">3,200</h5>
+							  <span class="description-text">SALES</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						  <div class="col-sm-4 border-left">
+							<div class="description-block">
+							  <h5 class="description-header">13,000</h5>
+							  <span class="description-text">FOLLOWERS</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						  <div class="col-sm-4">
+							<div class="description-block">
+							  <h5 class="description-header">35</h5>
+							  <span class="description-text">PRODUCTS</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						</div>
+						<!-- /.row -->
+					  </div>
+					</div>
+					<!-- /.widget-user -->
+				  </div>
+				  <!-- /.col -->
+				  <div class="col-md-4">
+					<!-- Widget: user widget style 1 -->
+					<div class="card card-widget widget-user">
+					  <!-- Add the bg color to the header using any of the bg-* classes -->
+					  <div class="widget-user-header text-white" style="background: url('images/photo1.png') center center;">
+						<h3 class="widget-user-username">Elizabeth Pierce</h3>
+						<h5 class="widget-user-desc">Web Designer</h5>
+					  </div>
+					  <div class="widget-user-image">
+						<img class="img-circle" src="images/user3-128x128.jpg" alt="User Avatar">
+					  </div>
+					  <div class="card-footer">
+						<div class="row">
+						  <div class="col-sm-4 border-right">
+							<div class="description-block">
+							  <h5 class="description-header">3,200</h5>
+							  <span class="description-text">SALES</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						  <div class="col-sm-4 border-left">
+							<div class="description-block">
+							  <h5 class="description-header">13,000</h5>
+							  <span class="description-text">FOLLOWERS</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						  <div class="col-sm-4">
+							<div class="description-block">
+							  <h5 class="description-header">35</h5>
+							  <span class="description-text">PRODUCTS</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						</div>
+						<!-- /.row -->
+					  </div>
+					</div>
+					<!-- /.widget-user -->
+				  </div>
+				  <!-- /.col -->
+				  <div class="col-md-4">
+					<!-- Widget: user widget style 1 -->
+					<div class="card card-widget widget-user">
+					  <!-- Add the bg color to the header using any of the bg-* classes -->
+					  <div class="widget-user-header text-white" style="background: url('images/photo1.png') center center;">
+						<h3 class="widget-user-username">Elizabeth Pierce</h3>
+						<h5 class="widget-user-desc">Web Designer</h5>
+					  </div>
+					  <div class="widget-user-image">
+						<img class="img-circle" src="images/user3-128x128.jpg" alt="User Avatar">
+					  </div>
+					  <div class="card-footer">
+						<div class="row">
+						  <div class="col-sm-4 border-right">
+							<div class="description-block">
+							  <h5 class="description-header">3,200</h5>
+							  <span class="description-text">SALES</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						  <div class="col-sm-4 border-left">
+							<div class="description-block">
+							  <h5 class="description-header">13,000</h5>
+							  <span class="description-text">تعداد پزشکان مجموعه</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						  <div class="col-sm-4">
+							<div class="description-block">
+							  <h5 class="description-header">35</h5>
+							  <span class="description-text">PRODUCTS</span>
+							</div>
+							<!-- /.description-block -->
+						  </div>
+						  <!-- /.col -->
+						</div>
+						<!-- /.row -->
+					  </div>
+					</div>
+					<!-- /.widget-user -->
+				  </div>
+				  <!-- /.col -->				  
+				</div>
+			  </div>
+			  <!-- /.tab-pane -->
+
+			  <div class="tab-pane" id="settings">
+					<el-form :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+					  <el-form-item 
+						:label="trans('userProfile.username')"
+						prop="username"
+					  >
+						<el-input :disabled="true" name="username" type="username" v-model="form.username" autocomplete="off"></el-input>
+					</el-form-item>				
+					  <el-form-item
+						:label="trans('userProfile.name')"
+						prop="name"
+						:rules="[
+						  { required: true, message: trans('userProfile.nameRequierdError')}
+						]"
+					  >
+						<el-input name="name" type="name" v-model="form.name" autocomplete="off"></el-input>
+					</el-form-item>
+					  <el-form-item
+						:label="trans('userProfile.email')"
+						prop="email"
+						:rules="[
+						  { required: true, message: trans('userProfile.emailRequierdError')}
+						]"
+					  >
+					<el-input name="email" type="email" v-model="form.email" autocomplete="off"></el-input>
+					  </el-form-item>
+					  <el-form-item
+						:label="trans('userProfile.tel')"
+						prop="tel"
+						:rules="[
+						  { required: true, message: trans('userProfile.telRequierdError')}
+						]"
+					  >
+					<el-input name="tel" type="tel" v-model="form.tel" autocomplete="off"></el-input>
+					</el-form-item>
+					  <el-form-item
+						:label="trans('userProfile.address')"
+						prop="address"
+						:rules="[
+						  { required: true, message: trans('userProfile.addressRequierdError')}
+						]"
+					  >
+					<el-input name="address" type="address" v-model="form.address" autocomplete="off"></el-input>
+					</el-form-item>
+					  <el-form-item
+						:label="trans('userProfile.password')"
+						prop="password"
+						:rules="[
+						  { required: true, message: trans('userProfile.passwordRequierdError')}
+						]"
+					  >
+					<el-input name="password" type="password" v-model="form.password" autocomplete="off"></el-input>
+					</el-form-item>
+						  <el-form-item
+							:label="trans('userProfile.confirmPassword')"
+							prop="confirmPassword"
+							:rules="[
+							  { required: true, message: trans('userProfile.confirmPasswordRequierdError')}
+							]"
+						  >
+						<el-input name="confirmPassword" type="confirmPassword" v-model="form.confirmPassword" autocomplete="off"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-switch
+						  style="display: block"
+						  v-model="form.condition"
+						  active-color="#13ce66"
+						  inactive-color="#ff4949"
+						  active-text="شرایط را می پذیرم"
+						  inactive-text="">
+						</el-switch>
+					</el-form-item>
+					<el-form-item>
+						<el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+						<el-button size="mini" type="info" plain @click="resetForm('form')">{{trans('app.resetBtnLbl')}}<i class="fas fa-broom"></i></el-button>
+				    </el-form-item>
+				</el-form>
+			  </div>
+			  <!-- /.tab-pane -->
+			</div>
+			<!-- /.tab-content -->
+		  </div><!-- /.card-body -->
+		</div>
+		<!-- /.nav-tabs-custom -->
+	  </div>
+	  <!-- /.col -->
+	</div>
+	<!-- /.row -->
+</div><!-- /.container-fluid -->
 </template>
 
 <script>
     export default {
+	data(){
+            return{
+                editMod :false,
+                specialitys :{},
+                specialityGroups:{},
+				form: {
+				  name: '',
+				  email: '',
+				  tel: '',
+				  username: '',
+				  password: '',
+				  confirmPassword: '',
+				  condition: '',
+				  address: '',
+				  loadAlert : '',
+                    insertAlert : '',
+                    updateAlert : '',
+                    deleteAlert : '',
+                    warningAlert : '',
+                    failedAlert : '',
+                    noticTxt : '',
+                    cancelButtonText : '',
+                    confirmButtonText : ''
+				},
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }
     }
 </script>
 <style>
-.border-fa{
-    border-right: 1px solid #dee2e6 !important;
-    border-left: 1px solid #dee2e6 !important;
+.el-form-item__label:lang(fa){
+	float:right;
+	text-align:left;
+	padding:0 0 0 10px;
+}
+.el-form-item__content:lang(fa){
+	margin-right:130px;
+	margin-left:0px;
+}
+.el-form-item__content:lang(en){
+	margin-right:100px;
+	margin-left:100px;
+}
+.el-form-item__error:lang(fa){
+	right:0;
+	left:auto;
+}
+.el-table .cell:lang(fa){
+    float: right;
+    text-align: right;
+    direction: rtl;
+}
+.el-table .cell:lang(en){
+    float: left;
+    text-align: left;
+    direction: ltr;
+}
+.border-right:lang(en){
+	border-right: 1px solid #dee2e6 !important;
+}
+.border-right:lang(fa){
+	border-left: 1px solid #dee2e6 !important;
 }
 </style>
