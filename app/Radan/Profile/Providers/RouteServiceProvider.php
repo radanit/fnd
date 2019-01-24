@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Radan\Auth\Providers;
+namespace App\Radan\Profile\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Providers\RouteServiceProvider;
+use App\Providers\RouteServiceProvider as BaseRouteServiceProvider;
 use Illuminate\Support\Facades\Route;
 
-class RadanAuthRouteServiceProvider extends RouteServiceProvider
+class RouteServiceProvider extends BaseRouteServiceProvider
 {
-    protected $namespace='App\Radan\Auth\Controllers';
+    protected $namespace='App\Radan\Profile\Controllers';
 
     public function boot()
     {
@@ -26,7 +26,7 @@ class RadanAuthRouteServiceProvider extends RouteServiceProvider
     protected function mapApiRoutes()
     {
         Route::middleware('api')
-            ->prefix('auth/api')
+            ->prefix('api')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/api.php');
     }

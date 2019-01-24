@@ -13,6 +13,15 @@ class UserProfile extends Model
     protected $table = 'user_profile';
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at', 'deleted_at',
+    ]; 
+
+    /**
      * The method for relationships
      *
      * @var void
@@ -24,7 +33,7 @@ class UserProfile extends Model
 
     public function profile()
     {
-        return $this->hasOne('App\Radan\Profile\Models\Profile');
+       return $this->belongsTo('App\Radan\Profile\Models\Profile');        
     }
 
 }

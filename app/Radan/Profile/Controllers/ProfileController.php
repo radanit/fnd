@@ -1,86 +1,81 @@
-<?php 
+<?php
 
 namespace App\Radan\Profile\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Radan\Profile\Models\Profile;
+use App\Radan\Profile\Resources\ProfileResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Radan\Profile\Request\ProfileRequest;
 
-class ProfileController extends Controller 
+class ProfileController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        // Return 
+        return ProfileResource::collection(Profile::all());
+    }
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ProfileRequest $request)
+    {
+        //        
+        $profile = Profile::create([
+            'name' => $request->name,        
+            'description' => $request->description,
+            'structure' => $request->structure,
+        ]);
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
+        return new ProfileResource($profile);
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-  }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return new ProfileResource(Profile::findOrFail($id));        
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ProfileRequest $request, $id)
+    {        
+      $profile = Profile::find($id);
+      $profile->update($request->only(['name', 'description', 'structure']));
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+      return new ProfileResource($profile);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $profile = Profile::find($id);
+        $profile->delete();
+        return response()->json(null, 204);
+    }
 }
-
-?>
