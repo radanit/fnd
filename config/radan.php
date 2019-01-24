@@ -24,5 +24,8 @@ return [
         // Radan Config pakage service providers
         App\Radan\Config\Providers\ServiceProvider::class,
         App\Radan\Config\Providers\RouteServiceProvider::class,
+
+        // Radan Profile pakage service providers        
+        App\Radan\Profile\Providers\RouteServiceProvider::class,
     ],
 ];

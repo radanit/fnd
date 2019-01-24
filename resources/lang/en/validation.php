@@ -151,7 +151,8 @@ return [
         'stopCodes' => 'Stop Code',
         'pmTypes' => 'Preventive Service Type',
         'programTypes' => 'Program Type',
-        'exeDeparts' => 'Executive Depart'
+        'exeDeparts' => 'Executive Depart',
+        'profile_name' => 'Profile Name'
     ],
 
 ];
