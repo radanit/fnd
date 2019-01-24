@@ -7,26 +7,21 @@
 		<div class="card card-primary card-outline">
 		  <div class="card-body box-profile">
 			<div class="text-center">
-			  <img class="profile-user-img img-fluid img-circle" src="images/user4-128x128.jpg" alt="User profile picture">
+			<el-upload
+			  class="avatar-uploader"
+			  action="https://jsonplaceholder.typicode.com/posts/"
+			  :show-file-list="false"
+			  :on-success="handleAvatarSuccess"
+			  :before-upload="beforeAvatarUpload">
+			  <img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid img-circle" alt="User profile picture">
+			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+			</el-upload>
+			  <!--<img class="profile-user-img img-fluid img-circle" src="images/user4-128x128.jpg" alt="User profile picture">-->
 			</div>
-
 			<h3 class="profile-username text-center">Nina Mcintire</h3>
 
 			<p class="text-right text-center">Software Engineer</p>
 
-			<ul class="list-group list-group-unbordered mb-3">
-			  <li class="list-group-item">
-				<b>Followers</b> <a class="float-right">1,322</a>
-			  </li>
-			  <li class="list-group-item">
-				<b>Following</b> <a class="float-right">543</a>
-			  </li>
-			  <li class="list-group-item">
-				<b>Friends</b> <a class="float-right">13,287</a>
-			  </li>
-			</ul>
-
-			<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
 		  </div>
 		  <!-- /.card-body -->
 		</div>
@@ -362,7 +357,7 @@
 						:rules="[
 						  { required: true, message: trans('userProfile.telRequierdError')}
 						]"
-					  >
+					  >					
 					<el-input name="tel" type="tel" v-model="form.tel" autocomplete="off"></el-input>
 					</el-form-item>
 					  <el-form-item
@@ -373,34 +368,6 @@
 						]"
 					  >
 					<el-input name="address" type="address" v-model="form.address" autocomplete="off"></el-input>
-					</el-form-item>
-					  <el-form-item
-						:label="trans('userProfile.password')"
-						prop="password"
-						:rules="[
-						  { required: true, message: trans('userProfile.passwordRequierdError')}
-						]"
-					  >
-					<el-input name="password" type="password" v-model="form.password" autocomplete="off"></el-input>
-					</el-form-item>
-						  <el-form-item
-							:label="trans('userProfile.confirmPassword')"
-							prop="confirmPassword"
-							:rules="[
-							  { required: true, message: trans('userProfile.confirmPasswordRequierdError')}
-							]"
-						  >
-						<el-input name="confirmPassword" type="confirmPassword" v-model="form.confirmPassword" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-switch
-						  style="display: block"
-						  v-model="form.condition"
-						  active-color="#13ce66"
-						  inactive-color="#ff4949"
-						  active-text="شرایط را می پذیرم"
-						  inactive-text="">
-						</el-switch>
 					</el-form-item>
 					<el-form-item>
 						<el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -425,30 +392,48 @@
     export default {
 	data(){
             return{
+            	imageUrl:'images/user4-128x128.jpg',
                 editMod :false,
                 specialitys :{},
                 specialityGroups:{},
 				form: {
-				  name: '',
-				  email: '',
-				  tel: '',
-				  username: '',
-				  password: '',
-				  confirmPassword: '',
-				  condition: '',
-				  address: '',
-				  loadAlert : '',
-                    insertAlert : '',
-                    updateAlert : '',
-                    deleteAlert : '',
-                    warningAlert : '',
-                    failedAlert : '',
-                    noticTxt : '',
-                    cancelButtonText : '',
-                    confirmButtonText : ''
+						name: '',
+						email: '',
+						tel: '',
+						username: '',
+						password: '',
+						confirmPassword: '',
+						condition: '',
+						address: '',
+						loadAlert : '',
+						insertAlert : '',
+						updateAlert : '',
+						deleteAlert : '',
+						warningAlert : '',
+						failedAlert : '',
+						noticTxt : '',
+						cancelButtonText : '',
+						confirmButtonText : ''
 				},
             }
         },
+        methods: {
+	      handleAvatarSuccess(res, file) {
+	        this.imageUrl = URL.createObjectURL(file.raw);
+	      },
+	      beforeAvatarUpload(file) {
+	        const isJPG = file.type === 'image/jpeg';
+	        const isLt2M = file.size / 1024 / 1024 < 2;
+
+	        if (!isJPG) {
+	          this.$message.error('Avatar picture must be JPG format!');
+	        }
+	        if (!isLt2M) {
+	          this.$message.error('Avatar picture size can not exceed 2MB!');
+	        }
+	        return isJPG && isLt2M;
+	      }
+	    },
         mounted() {
             console.log('Component mounted.')
         }

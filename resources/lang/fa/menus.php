@@ -19,5 +19,6 @@ return [
 'location' => 'مدیریت موقعیت ها',
 'groupAsset' => 'گروه تجهیزات',
 'asset' => 'تجهیزات',
-'assetSerial' => 'سریال تجهیزات'
+'assetSerial' => 'سریال تجهیزات',
+'profileStructure' => 'مدیریت پروفایل ها'
 ];

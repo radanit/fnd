@@ -72,6 +72,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <router-link to="/profileStructure" class="nav-link">
+                  <i class="nav-icon fas fa-table cyan"></i>
+                  <p>
+                  {{ __('menus.profileStructure') }}
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <router-link to="/specialities" class="nav-link">
                   <i class="nav-icon fas fa-table cyan"></i>
                   <p>
