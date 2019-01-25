@@ -5,7 +5,7 @@ namespace App\Radan\Profile\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\UserProfile;
-use App\Radan\Profile\Resources\UserProfileResource;
+use App\Radan\Resources\UserProfileResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Radan\Profile\Request\UserProfileRequest;
 
@@ -19,7 +19,7 @@ class UserProfileController extends Controller
     public function index()
     {
         // Return 
-        return UserProfileResource::collection(UserProfile::all());
+        return UserProfileResource::collection(UserProfile::paginate());
     }
 
     /**
