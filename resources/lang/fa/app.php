@@ -18,6 +18,7 @@ return [
     'noticTxt' => 'این عمل قابل بازگشت نمی باشد!',
     'confirmButtonText' => 'تایید',
     'cancelButtonText' => 'انصراف',
+    'cancelAlert' => 'عملیات لغو گردید',
     'dir' =>'rtl',
 	'customerCompanyName' => 'رادیولوژی بهار',
 	'contact' => 'تماس با ما',

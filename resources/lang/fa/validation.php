@@ -155,7 +155,7 @@ return [
         'latin_name' => 'عنوان لاتین',
         'persian_name' => 'عنوان فارسی',
         'periodType_id' => 'دوره تناوب',
-        'safty_description' => 'دستور العمل ایمنی'
+        'safty_description' => 'دستور العمل ایمنی',
         'profile_name' => ''
     ],
 

@@ -18,7 +18,7 @@ return [
     'action' => 'عملیات',
     'cardTitle' => 'لیست پروفایل ها',
     'updateAlert' =>'اطلاعات جدول با موفقیت بروزرسانی گردید',
-    'insertAlert' => 'اطلاعات جدول با موفقیت به ثبت رسید',
+    'insertAlert' => 'اطلاعات پروفایل با موفقیت به ثبت رسید',
     'updateAlert' => 'اطلاعات جدول با موفقیت بروزرسانی گردید',
     'deleteAlert' => 'اطلاعات جدول با موفقیت حذف گردید',
     'warningAlert' => 'آیا از انجام عملیات اطمینان دارید؟',
@@ -31,4 +31,13 @@ return [
     'showList' => 'مشاهده مقادیر',
 	'nameRequierdError' => ' عنوان پروفایل اجباری است!',
 	'desRequierdError' => ' شرح پروفایل اجباری است!',
+    'structure' => 'ساختار',
+    'structureName' => 'عنوان',
+    'structureType' => 'نوع',
+    'addStructureBtnLbl' => 'افزودن ساختار',
+    'delStructureBtnLbl' =>'حذف ساختار',
+    'field' => 'فیلد',
+    'stringType' =>'رشته ای',
+    'numberType' =>'عددی',
+
 ];

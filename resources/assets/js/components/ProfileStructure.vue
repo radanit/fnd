@@ -14,15 +14,15 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
 					style="width: 100%">
 					<el-table-column
-					  label="Date"
-					  prop="date">
+					  :label="trans('profileStructure.name')"
+					  prop="name">
 					</el-table-column>
 					<el-table-column
-					  label="Name"
-					  prop="name">
+					  :label="trans('profileStructure.description')"
+					  prop="description">
 					</el-table-column>
 					<el-table-column class="float-left"
 					  align="right">
@@ -31,14 +31,14 @@
 						  v-model="search"
 						  :placeholder="trans('profileStructure.searchPlaceholder')"/>
 					  </template>
-					  <template slot-scope="scope">
+					  <template slot-scope="scope" class="float-left">
 						<el-button
 						  size="mini"
-						  @click="handleEdit(scope.$index, scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
+						  @click="editModal(scope.$index, scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
 						<el-button
 						  size="mini"
 						  type="danger"
-						  @click="handleDelete(scope.$index, scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
+						  @click="deleteprofileStructure(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>
 					</el-table-column>
 				  </el-table>
@@ -60,7 +60,7 @@
                     </button>
                 </div>
 
-				<el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
+				<el-form  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
 				  <el-form-item
 					:label="trans('profileStructure.name')"
 					prop="name"
@@ -79,24 +79,27 @@
 				  >
 					<el-input name="description" type="description" v-model="form.description" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item v-for="(structure, index) in form.structures"
-                    :label="trans('profileStructure.structure')"
-                    prop="structure"
-                    :rules="[
-                      { required: true, message: trans('profileStructure.structureRequierdError')}
-                    ]"
+                    <el-form-item  v-for="(structure, index) in form.structures"
+                    :label="trans('profileStructure.field')+index"
+                    prop="structure"                    
                     >
-                    <el-input name="structure.name" type="structure.name" v-model="structure.name" autocomplete="off"></el-input>
-                    <el-select v-model="structure.type" placeholder="Activity zone">
-                      <el-option label="Zone one" value="shanghai"></el-option>
-                      <el-option label="Zone two" value="beijing"></el-option>
-                    </el-select>
-                    <el-button  size="mini" type="test" @click="addRow" plain>
-                    {{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                    <el-input :placeholder="trans('profileStructure.structure.name')" name="structure.name" type="structure.name" v-model="structure.name" autocomplete="off"></el-input>
+                    <el-select class="select-list" :placeholder="trans('profileStructure.structure.type')" v-model="structure.type">
+                      <el-option :label="trans('profileStructure.stringType')" value="string"></el-option>
+                      <el-option :label="trans('profileStructure.numberType')" value="number"></el-option>
+                    </el-select>                    
+                  </el-form-item>
+                  <el-form-item :label="trans('profileStructure.structure')"
+                    prop="structures">
+
+                  <el-button  size="mini" @click="addRow" plain>
+                    <i class="fas fa-plus fa-fw"></i></el-button>
+                  <el-button  size="mini" @click="deleteRow" plain>
+                    <i class="fas fa-minus"></i></el-button>
                   </el-form-item>
 				  <el-form-item>
 				    <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-					<el-button size="mini" @click="resetForm('form')">{{trans('app.resetBtnLbl')}} </el-button>
+					<el-button size="mini" @click="resetForm('form')">{{trans('app.resetBtnLbl')}}<i class="fas fa-eraser"></i> </el-button>
 				  </el-form-item>
 				</el-form>
                 </div>
@@ -112,36 +115,21 @@
                 profileStructures :{},
                 profileStructureGroups:{},
 				form: {
-				  name: '',
-				  description: '',
-                  structures:[],
-				  loadAlert : '',
-                    insertAlert : '',
-                    updateAlert : '',
-                    deleteAlert : '',
-                    warningAlert : '',
-                    failedAlert : '',
-                    noticTxt : '',
-                    cancelButtonText : '',
-                    confirmButtonText : ''
+                        name: '',
+                        description: '',
+                        structures:[],
+                        loadAlert : '',
+                        insertAlert : trans('profileStructure.insertAlert'),
+                        updateAlert : trans('profileStructure.updateAlert'),
+                        deleteAlert : trans('profileStructure.deleteAlert'),
+                        warningAlert : trans('profileStructure.warningAlert'),
+                        failedAlert : trans('app.failedAlert'),
+                        cancelAlert : trans('app.cancelAlert'),
+                        noticTxt : trans('app.noticTxt'),
+                        cancelButtonText : trans('app.cancelButtonText'),
+                        confirmButtonText : trans('app.confirmButtonText')
 				},
-				tableData: [{
-					  date: '2016-05-03',
-					  name: 'Tom',
-					  address: 'No. 189, Grove St, Los Angeles'
-					}, {
-					  date: '2016-05-02',
-					  name: 'John',
-					  address: 'No. 189, Grove St, Los Angeles'
-					}, {
-					  date: '2016-05-04',
-					  name: 'Morgan',
-					  address: 'No. 189, Grove St, Los Angeles'
-					}, {
-					  date: '2016-05-01',
-					  name: 'Jessy',
-					  address: 'No. 189, Grove St, Los Angeles'
-					}],
+				tableData:[],
 					search: '',
             }
         },
@@ -150,11 +138,12 @@
                 this.editMod = false,
                  $('#addNew').modal('show');
             },
-            editModal(profileStructure){
-                this.form.clear();
+            editModal(index, row){
+                //this.form.clear();
+                //this.resetForm(form);
                 this.editMod = true,
                 $('#addNew').modal('show');
-                this.form.fill(profileStructure);
+                this.form=row;
             },
             addRow() {
                   this.form.structures.push({
@@ -165,90 +154,87 @@
                 deleteRow(index) {
                   this.form.structures.splice(index,1)
                 },
+            /*
+            * Load Method
+            */
             loadprofileStructure(){
-                this.form.failedAlert=trans('profileStructure.failedAlert');
-                axios.get("../api/profileStructure").then(({data})=>(this.profileStructures = data.data)).catch(()=>{
-                    this.Alert.errorToast(this.form.failedAlert).then(() => {
-                        this.$router.push({name: 'profileStructure'});
+                axios.get("../api/profiles").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                    this.$message({
+                      title: '',
+                      message: this.form.failedAlert,
+                      center: true,
+                      type: 'error'
                     });
+                    this.$router.push({name: 'profileStructure'});
+                 
                 });
             },
 			createprofileStructure() {
-				this.form.insertAlert=trans('profileStructure.insertAlert');
                 let currentObj = this;
-				 axios.post('../api/profileStructure',{code: this.form.code,
-                    description: this.form.description}).then(() =>{
+                var obj = JSON.stringify(this.form.structures);
+				 axios.post('../api/profiles',{name: this.form.name,
+                    description: this.form.description,structure:obj}).then(() =>{
                     Fire.$emit('AfterCrud');
-                    /*Alert.successToast(this.form.insertAlert).then(() => {
-                        this.$router.push({name: 'userGroups'});
-                    });*/
-					this.$notify({
+					this.$message({
 					  title: '',
 					  message: this.form.insertAlert,
+                      center: true,
 					  type: 'success'
 					});
 					this.resetForm('form');
                     $('#addNew').modal('hide');
                 })
-                .catch(function (error) {
-                    currentObj.output = error;
+                .catch(() => {
+                    this.$message({
+                      title: '',
+                      message: this.form.failedAlert,
+                      center: true,
+                      type: 'error'
+                    });
                 });
             },
             updateprofileStructure(){
-                this.form.updateAlert=trans('profileStructure.updateAlert');
-                this.$Progress.start();
+   
                  this.form.put('../api/profileStructure/'+this.form.id).then(() =>{
                     Fire.$emit('AfterCrud');
-                    Alert.success(this.form.updateAlert).then(() => {
+              
                         this.$router.push({name: 'profileStructure'});
-                    });
-                    this.$Progress.finish();
+              
+ 
                     $('#addNew').modal('hide');
                 })
                 .catch(() => {
-                    this.form.failedAlert=trans('profileStructure.failedAlert');
-                    this.Alert.errorToast(this.form.failedAlert).then(() => {
+             
                         this.$router.push({name: 'profileStructure'});
-                    });
-                    this.$Progress.fail();
+             
                 })                     
             },
-            deleteprofileStructure(id){
-                this.form.warningAlert = trans('profileStructure.warningAlert');
-                this.form.deleteAlert = trans('profileStructure.deleteAlert');
-                this.form.confirmButtonText = trans('app.confirmButtonText');
-                this.form.cancelButtonText = trans('app.cancelButtonText');
-                this.form.noticTxt= trans('app.noticTxt')
-                /*Alert.warning(this.form.warningAlert,this.form.noticTxt,this.form.confirmButtonText,this.form.cancelButtonText)
-                .then((messcode) => {
-                axios.delete('../api/profileStructure/'+id)
+            deleteprofileStructure(record){
+				this.$confirm(this.form.warningAlert,this.form.noticTxt, {
+                  confirmButtonText: this.form.confirmButtonText,
+                  cancelButtonText: this.form.cancelButtonText,
+                  type: 'warning',
+                  center: true
+                }).then(() => {
+                  axios.delete('../api/profiles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
-                    Alert.successToast(this.form.deleteAlert);
+                     this.$message({
+                        type: 'success',
+                        center: true,
+                        message:this.form.deleteAlert
+                      });
                     this.$router.push({name: 'profileStructure'});
                 }).catch(() => {
-                    this.form.failedAlert=trans('profileStructure.failedAlert');
-                    this.Alert.errorToast(this.form.failedAlert).then(() => {
-                        this.$router.push({name: 'profileStructure'});
-                    });
-                    this.$Progress.fail();
-                    })  
-                })*/
-				this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
-				  confirmButtonText: 'OK',
-				  cancelButtonText: 'Cancel',
-				  type: 'warning'
-				}).then(() => {
-				  this.$message({
-					type: 'success',
-					message: 'Delete completed'
-				  });
-				}).catch(() => {
-				  this.$message({
-					type: 'info',
-					message: 'Delete canceled'
-				  });          
-				});
+                     this.$router.push({name: 'profileStructure'});
+                    }); 
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    center: true,
+                    message: this.form.cancelAlert
+                  });          
+                });
             },
             submitForm(formName) {
 			this.$refs[formName].validate((valid) => {
@@ -307,5 +293,15 @@
     float: left;
     text-align: left;
     direction: ltr;
+}
+.el-popper:lang(en){
+    text-align:left;
+}
+.el-popper:lang(fa){
+    text-align:right;
+}
+.el-message-box__header:lang(fa)
+{
+    direction:rtl;
 }
 </style>

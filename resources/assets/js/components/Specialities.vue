@@ -17,9 +17,13 @@
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
 					style="width: 100%">
 					<el-table-column
-					  label="Date"
-					  prop="date">
+					  label="id"
+					  prop="id">
 					</el-table-column>
+                    <el-table-column
+                      label="Date"
+                      prop="date">
+                    </el-table-column>
 					<el-table-column
 					  label="Name"
 					  prop="name">
@@ -34,7 +38,7 @@
 					  <template slot-scope="scope">
 						<el-button
 						  size="mini"
-						  @click="handleEdit(scope.$index, scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
+						  @click="editModal()">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
 						<el-button
 						  size="mini"
 						  type="danger"
