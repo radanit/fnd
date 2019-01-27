@@ -78,28 +78,37 @@
 					]"
 				  >
 					<el-input name="description" type="description" v-model="form.description" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item  v-for="(structure, index) in form.structures"
-                    :label="trans('profileStructure.field')+index"
-                    prop="structure"                    
-                    >
-                    <el-input :placeholder="trans('profileStructure.structure.name')" name="structure.name" type="structure.name" v-model="structure.name" autocomplete="off"></el-input>
-                    <el-select class="select-list" :placeholder="trans('profileStructure.structure.type')" v-model="structure.type">
-                      <el-option :label="trans('profileStructure.stringType')" value="string"></el-option>
-                      <el-option :label="trans('profileStructure.numberType')" value="number"></el-option>
-                    </el-select>                    
-                  </el-form-item>
-                  <el-form-item :label="trans('profileStructure.structure')"
-                    prop="structures">
-
-                  <el-button  size="mini" @click="addRow" plain>
-                    <i class="fas fa-plus fa-fw"></i></el-button>
-                  <el-button  size="mini" @click="deleteRow" plain>
-                    <i class="fas fa-minus"></i></el-button>
-                  </el-form-item>
+          </el-form-item>
+          <!--<el-form-item  v-for="(structure, index) in form.structures"
+          :label="trans('profileStructure.field')+index"
+          prop="structure"                    
+          >
+          <el-input :placeholder="trans('profileStructure.structure.name')" name="structure.name" type="structure.name" v-model="structure.name" autocomplete="off"></el-input>
+          <el-select class="select-list" :placeholder="trans('profileStructure.structure.type')" v-model="structure.type">
+            <el-option :label="trans('profileStructure.stringType')" value="string"></el-option>
+            <el-option :label="trans('profileStructure.numberType')" value="number"></el-option>
+          </el-select>                    
+        </el-form-item>
+        <el-form-item :label="trans('profileStructure.structure')"
+          prop="structures">
+          <el-button  size="mini" @click="addRow" plain>
+            <i class="fas fa-plus fa-fw"></i></el-button>
+          <el-button  size="mini" @click="deleteRow" plain>
+            <i class="fas fa-minus"></i></el-button>
+          </el-form-item>-->
+          <el-form-item
+          :label="trans('profileStructure.structure')"
+          prop="structure">
+            <el-input
+              type="textarea"
+              :rows="2"
+              :placeholder="trans('profileStructure.json')"
+              v-model="form.structure">
+            </el-input>
+          </el-form-item>
 				  <el-form-item>
 				    <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-					<el-button size="mini" @click="resetForm('form')">{{trans('app.resetBtnLbl')}}<i class="fas fa-eraser"></i> </el-button>
+					  <el-button size="mini" type="info" data-dismiss="modal" plain>{{trans('app.cancelBtnLbl')}} <i class="fas fa-times"></i> </el-button>
 				  </el-form-item>
 				</el-form>
                 </div>
@@ -115,19 +124,19 @@
                 profileStructures :{},
                 profileStructureGroups:{},
 				form: {
-                        name: '',
-                        description: '',
-                        structures:[],
-                        loadAlert : '',
-                        insertAlert : trans('profileStructure.insertAlert'),
-                        updateAlert : trans('profileStructure.updateAlert'),
-                        deleteAlert : trans('profileStructure.deleteAlert'),
-                        warningAlert : trans('profileStructure.warningAlert'),
-                        failedAlert : trans('app.failedAlert'),
-                        cancelAlert : trans('app.cancelAlert'),
-                        noticTxt : trans('app.noticTxt'),
-                        cancelButtonText : trans('app.cancelButtonText'),
-                        confirmButtonText : trans('app.confirmButtonText')
+                name: '',
+                description: '',
+                structure:'',
+                loadAlert : '',
+                insertAlert : trans('profileStructure.insertAlert'),
+                updateAlert : trans('profileStructure.updateAlert'),
+                deleteAlert : trans('profileStructure.deleteAlert'),
+                warningAlert : trans('profileStructure.warningAlert'),
+                failedAlert : trans('app.failedAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText')
 				},
 				tableData:[],
 					search: '',
@@ -171,7 +180,7 @@
             },
 			createprofileStructure() {
                 let currentObj = this;
-                var obj = JSON.stringify(this.form.structures);
+                var obj = JSON.stringify(this.form.structure);
 				 axios.post('../api/profiles',{name: this.form.name,
                     description: this.form.description,structure:obj}).then(() =>{
                     Fire.$emit('AfterCrud');
@@ -194,8 +203,9 @@
                 });
             },
             updateprofileStructure(){
-   
-                 this.form.put('../api/profileStructure/'+this.form.id).then(() =>{
+                  var obj = JSON.stringify(this.form.structure);
+                  axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
+                    description: this.form.description,structure:obj}).then(() =>{
                     Fire.$emit('AfterCrud');
               
                         this.$router.push({name: 'profileStructure'});
@@ -237,26 +247,26 @@
                 });
             },
             submitForm(formName) {
-			this.$refs[formName].validate((valid) => {
-			  if (valid) {
-				if (this.editMod)
-				{
-					this.updateprofileStructure();
-				}
-				else
-				{
-					this.createprofileStructure();
-				}
-			  }
-			  else {
-				console.log('error submit!!');
-				return false;
-			  }
-			});
-		  },
-		  resetForm(formName) {
-			this.$refs[formName].resetFields();
-		  }
+              this.$refs[formName].validate((valid) => {
+                if (valid) {
+                if (this.editMod)
+                {
+                  this.updateprofileStructure();
+                }
+                else
+                {
+                  this.createprofileStructure();
+                }
+                }
+                else {
+                console.log('error submit!!');
+                return false;
+                }
+              });
+           },
+           resetForm(formName) {
+            this.$refs[formName].resetFields();
+           }
         },        
         mounted() {
             this.loadprofileStructure();

@@ -472,5 +472,6 @@
 }
 .border-right:lang(fa){
 	border-left: 1px solid #dee2e6 !important;
+  border-right: 0px !important;
 }
 </style>

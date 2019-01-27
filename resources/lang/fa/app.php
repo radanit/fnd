@@ -17,7 +17,7 @@ return [
     'companyName' => ' توسط رایان داده اندیش سپاهان ',
     'noticTxt' => 'این عمل قابل بازگشت نمی باشد!',
     'confirmButtonText' => 'تایید',
-    'cancelButtonText' => 'انصراف',
+    'cancelBtnLbl' => 'انصراف',
     'cancelAlert' => 'عملیات لغو گردید',
     'dir' =>'rtl',
 	'customerCompanyName' => 'رادیولوژی بهار',

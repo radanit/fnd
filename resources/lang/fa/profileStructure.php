@@ -39,5 +39,6 @@ return [
     'field' => 'فیلد',
     'stringType' =>'رشته ای',
     'numberType' =>'عددی',
+    'json' => 'فرمت json',
 
 ];
