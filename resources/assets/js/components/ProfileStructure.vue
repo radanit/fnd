@@ -145,7 +145,8 @@
         methods :{            
             newModal(){
                 this.editMod = false,
-                 $('#addNew').modal('show');
+                this.resetForm('form');
+                $('#addNew').modal('show');
             },
             editModal(index, row){
                 //this.form.clear();
@@ -174,20 +175,19 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'profileStructure'});
-                 
+                    this.$router.push({name: 'profileStructure'});                 
                 });
             },
 			createprofileStructure() {
-                let currentObj = this;
-                var obj = JSON.stringify(this.form.structure);
-				 axios.post('../api/profiles',{name: this.form.name,
-                    description: this.form.description,structure:obj}).then(() =>{
-                    Fire.$emit('AfterCrud');
+          let currentObj = this;
+          var obj = JSON.stringify(this.form.structure);
+				  axios.post('../api/profiles',{name: this.form.name,
+          description: this.form.description,structure:obj}).then(() =>{
+          Fire.$emit('AfterCrud');
 					this.$message({
 					  title: '',
 					  message: this.form.insertAlert,
-                      center: true,
+            center: true,
 					  type: 'success'
 					});
 					this.resetForm('form');
@@ -206,21 +206,16 @@
                   var obj = JSON.stringify(this.form.structure);
                   axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
                     description: this.form.description,structure:obj}).then(() =>{
-                    Fire.$emit('AfterCrud');
-              
-                        this.$router.push({name: 'profileStructure'});
-              
- 
+                    Fire.$emit('AfterCrud');              
+                    this.$router.push({name: 'profileStructure'});
                     $('#addNew').modal('hide');
                 })
-                .catch(() => {
-             
-                        this.$router.push({name: 'profileStructure'});
-             
+                .catch(() => {             
+                  this.$router.push({name: 'profileStructure'});             
                 })                     
             },
             deleteprofileStructure(record){
-				this.$confirm(this.form.warningAlert,this.form.noticTxt, {
+				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
                   confirmButtonText: this.form.confirmButtonText,
                   cancelButtonText: this.form.cancelButtonText,
                   type: 'warning',
