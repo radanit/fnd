@@ -144,13 +144,11 @@
         },
         methods :{            
             newModal(){
-                this.editMod = false,
-                this.resetForm('form');
+                this.editMod = false,                
                 $('#addNew').modal('show');
+                this.resetForm('form');
             },
             editModal(index, row){
-                //this.form.clear();
-                //this.resetForm(form);
                 this.editMod = true,
                 $('#addNew').modal('show');
                 this.form=row;
@@ -209,8 +207,9 @@
                     Fire.$emit('AfterCrud');              
                     this.$router.push({name: 'profileStructure'});
                     $('#addNew').modal('hide');
+                    this.resetForm('form');
                 })
-                .catch(() => {             
+                .catch(() => {    
                   this.$router.push({name: 'profileStructure'});             
                 })                     
             },
@@ -243,19 +242,20 @@
             },
             submitForm(formName) {
               this.$refs[formName].validate((valid) => {
-                if (valid) {
-                if (this.editMod)
+                if (valid) 
                 {
-                  this.updateprofileStructure();
-                }
-                else
-                {
-                  this.createprofileStructure();
-                }
+                  if (this.editMod)
+                  {
+                    this.updateprofileStructure();
+                  }
+                  else
+                  {
+                    this.createprofileStructure();
+                  }
                 }
                 else {
-                console.log('error submit!!');
-                return false;
+                  console.log('error submit!!');
+                  //return false;
                 }
               });
            },
