@@ -144,7 +144,7 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'ProfileStructure'});                 
+                    this.$router.push({name: 'ProfileStructures'});                 
                 });
             },
             loadPage(){
@@ -196,9 +196,9 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'ProfileStructure'});
+                    this.$router.push({name: 'ProfileStructures'});
                 }).catch(() => {
-                     this.$router.push({name: 'ProfileStructure'});
+                     this.$router.push({name: 'ProfileStructures'});
                     }); 
                 }).catch(() => {
                   this.$message({
