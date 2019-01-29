@@ -6,9 +6,9 @@
               <div class="card-header">
                 <h3 class="card-title">{{trans('profileStructure.cardTitle')}}</h3>
                 <div class="card-tools">
-						<el-button type="success"
-						  size="mini"
-						  @click="createProfileStructure">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+				<el-button type="success"
+				  size="mini"
+				  @click="createProfileStructure">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -62,7 +62,7 @@
                             prev-text="<"
                             next-text=">"
                             :page-size="1"
-                            :total="2"
+                            :total="totalPage"
                             @current-change="loadPage"
                             :current-page.sync="page">
                         </el-pagination>             
@@ -99,6 +99,7 @@
 				tableData:[],
                 search: '',
                 page: 1,
+                totalPage:1,
                 list: [],
                 newsType: 'story',
                 infiniteId: +new Date(),
@@ -135,8 +136,7 @@
            /*
             * Load Method
             */
-            loadprofileStructure(page){
-                //alert(this.page);
+            loadprofileStructure(page){                
                 axios.get("../api/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
@@ -148,8 +148,8 @@
                 });
             },
             loadPage(){
-                console.log(this.page);
                 this.loadprofileStructure(this.page);
+                this.totalPage=Math.round(this.total/15);
             },
             /*
             |--------------------------------------------------------------------------
@@ -160,7 +160,7 @@
             |
             */      
             createProfileStructure(){
-              this.$router.push({ name: 'CreateProfileStructure'});
+              this.$router.push({ name: 'CreateProfileStructures'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -171,7 +171,7 @@
             |
             */      
             editProfileStructure(record){
-              this.$router.push({ name: 'EditProfileStructure', params: { profileId: record.id } });
+              this.$router.push({ name: 'EditProfileStructures', params: { profileId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
