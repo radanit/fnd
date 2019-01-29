@@ -200,7 +200,9 @@ Vue.component(
   'passport-personal-access-tokens',
   require('./components/passport/PersonalAccessTokens.vue').default
 );
+import InfiniteLoading from 'vue-infinite-loading';
 
+Vue.use(InfiniteLoading, { /* options */ });
 const app = new Vue({
     el: '#app',
     router

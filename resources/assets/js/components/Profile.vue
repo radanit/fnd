@@ -13,7 +13,7 @@
 			  :show-file-list="false"
 			  :on-success="handleAvatarSuccess"
 			  :before-upload="beforeAvatarUpload">
-			  <img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid img-circle" alt="User profile picture">
+			  <img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid img-circle el-icon-plus" alt="User profile picture">
 			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</el-upload>
 			  <!--<img class="profile-user-img img-fluid img-circle" src="images/user4-128x128.jpg" alt="User profile picture">-->
@@ -94,11 +94,11 @@
 				  </p>
 
 				  <p>
-					<a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> Share</a>
-					<a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up mr-1"></i> Like</a>
+					<a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> اشتراک </a>
+					<a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up mr-1"></i> پسندیدن</a>
 					<span class="float-right">
 					  <a href="#" class="link-black text-sm">
-						<i class="fa fa-comments-o mr-1"></i> Comments (5)
+						<i class="fa fa-comments-o mr-1"></i> دیدگاهها (5)
 					  </a>
 					</span>
 				  </p>
@@ -578,5 +578,39 @@ small {
 
 .el-alert {
 	margin-bottom: 15px
+}
+.card-body:lang(fa){
+	direction: rtl;
+	text-align: justify;
+}
+.card-body:lang(en){
+	direction: ltr;
+	text-align: justify;
+}
+.user-block .username:lang(fa), .user-block .description:lang(fa), .user-block .comment:lang(fa) {
+    display: block;
+    margin-right: 50px;
+		margin-left: 0px !important;
+		text-align: right;
+		direction: rtl;
+}
+.user-block .username:lang(en), .user-block .description:lang(en), .user-block .comment:lang(en) {
+    display: block;
+    margin-left: 50px;
+		margin-right: 0px !important;
+		text-align: left;
+		direction: ltr;
+}
+.user-block img:lang(fa){
+	float: right;
+}
+.user-block img:lang(en){
+	float: left;
+}
+.btn-tool:lang(fa){
+	float: left !important;
+}
+.btn-tool:lang(en){
+	float: right !important;
 }
 </style>

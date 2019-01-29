@@ -50,10 +50,10 @@ class UserController extends Controller
         ]);
 
         // Then create profile info base on profile type 
-        $user->userProfile()->create(            
+        $user->userProfile()->create([           
             'profile_id' => $request->profile_id,
             'data' => $request->profile_date,
-        ])
+        ]);
 
         return new UserResource($user);
     }

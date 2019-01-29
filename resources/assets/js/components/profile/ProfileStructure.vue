@@ -15,13 +15,20 @@
               <div class="card-body table-responsive p-0">
 				<el-table
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
-					style="width: 100%">
+                    :default-sort = "{prop: 'name', order: 'descending'}"
+					style="width: 100%" @selection-change="handleSelectionChange">
+                    <el-table-column
+                        type="selection"
+                        width="55">
+                    </el-table-column>
 					<el-table-column
 					  :label="trans('profileStructure.name')"
+                      sortable
 					  prop="name">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('profileStructure.description')"
+                      sortable
 					  prop="description">
 					</el-table-column>
 					<el-table-column class="float-left"
@@ -42,6 +49,11 @@
 						  @click="deleteProfileStructure(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
+                    <!--<infinite-loading
+                    slot="append"
+                    @infinite="infiniteHandler"
+                    force-use-infinite-wrapper=".el-table__body-wrapper">
+                    </infinite-loading>-->
 				  </el-table>
                   <div class="block">
                         <el-pagination
@@ -50,8 +62,9 @@
                             prev-text="<"
                             next-text=">"
                             :page-size="1"
-                            :total="10">
-                        </el-pagination>
+                            :total="10"
+                            :data="tableData">
+                        </el-pagination>             
                   </div>
               </div>
               <!-- /.card-body -->
@@ -83,10 +96,41 @@
                 confirmButtonText : trans('app.confirmButtonText')
 				},
 				tableData:[],
-				search: '',
+                search: '',
+                page: 1,
+                list: [],
+                newsType: 'story',
+                infiniteId: +new Date(),
             }
         },
         methods :{ 
+            infiniteHandler($state) {
+                axios.get("../api/profiles", {
+                    params: {
+                    page: this.page,
+                    },
+                }).then(({ data }) => {
+                    if (data.data.length) {
+                    this.page += 1;
+                    this.list.unshift(...data.data.reverse());
+                    $state.loaded();
+                    } else {
+                    $state.complete();
+                    }
+                });
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                rows.forEach(row => {
+                    this.$refs.multipleTable.toggleRowSelection(row);
+                });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
            /*
             * Load Method
             */
@@ -207,5 +251,8 @@
 }
 .el-pagination{
     text-align: center;
+}
+.el-checkbox{
+    top:6px;
 }
 </style>

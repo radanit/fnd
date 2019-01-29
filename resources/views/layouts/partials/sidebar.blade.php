@@ -56,6 +56,14 @@
                   <p>{{ __('menus.userGroups') }}</p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/profileStructures" class="nav-link">
+                  <i class="nav-icon fas fa-table cyan"></i>
+                  <p>
+                  {{ __('menus.profileStructure') }}
+                  </p>
+                </router-link>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -71,14 +79,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <router-link to="/profileStructure" class="nav-link">
-                  <i class="nav-icon fas fa-table cyan"></i>
-                  <p>
-                  {{ __('menus.profileStructure') }}
-                  </p>
-                </router-link>
-              </li>
               <li class="nav-item">
                 <router-link to="/specialities" class="nav-link">
                   <i class="nav-icon fas fa-table cyan"></i>
@@ -119,7 +119,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="/profiles" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
               <p>
               {{ __('menus.profile') }}
