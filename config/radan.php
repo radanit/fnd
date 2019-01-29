@@ -28,4 +28,75 @@ return [
         // Radan Profile pakage service providers        
         App\Radan\Profile\Providers\RouteServiceProvider::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Profile Fundation Pakage configurations
+    |--------------------------------------------------------------------------    
+    |
+    */
+    'profile' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Radan Profile Models
+        |--------------------------------------------------------------------------
+        |
+        | These are the models used by Radan Profile to define the profiles, user_profiles.
+        | If you want the Radan Profile to be in a different namespace or
+        | to have a different name, you can do it here.
+        |
+        */
+        'models' => [
+        /**
+         * Profile model
+         */
+        'profile' => 'App\Radan\Profile\Models\Profile',
+
+        /**
+         * User Profile model
+         */
+        'user_profile' => 'App\Radan\Profiles\Models\UserProfile',        
+
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Radan Proflile Tables
+        |--------------------------------------------------------------------------
+        |
+        | These are the tables used by Laratrust to store all the authorization data.
+        |
+        */
+        'tables' => [
+            /**
+             * Roles table.
+             */
+            'profiles' => 'profiles',
+
+            /**
+             * Permissions table.
+             */
+            'user_profiles' => 'user_profile',
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Radan Proflile Keys
+        |--------------------------------------------------------------------------
+        |
+        | These are the foreign keys used by Radan Proflile in the intermediate tables.
+        |
+        */
+        'foreign_keys' => [
+            /**
+             * User foreign key on Laratrust's role_user and permission_user tables.
+             */
+            'user' => 'user_id',
+
+            /**
+             * Role foreign key on Laratrust's role_user and permission_role tables.
+             */
+            'profile' => 'profile_id',    
+        ],
+    ],
 ];
