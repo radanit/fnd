@@ -7,9 +7,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laratrust\Traits\LaratrustUserTrait;
+use App\Radan\Profile\Traits\ProfileUserTrait;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
+    use ProfileUserTrait;
     use HasApiTokens, Notifiable, SoftDeletes;
 
     /**
@@ -38,16 +42,6 @@ class User extends Authenticatable
      */
     public function findForPassport($identifier) {
         return $this->orWhere('email', $identifier)->orWhere('username', $identifier)->first();
-    }
-
-    /**
-     * The method for relationships
-     *
-     * @var void
-     */
-    public function userProfile()
-    {
-        return $this->hasOne('App\Radan\Profile\Models\UserProfile');
     }
 
 }
