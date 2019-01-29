@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{trans('profileStructure.cardTitle')}}</h3>
+                <h3 class="card-title">{{trans('profileStructure.lblUpdateModal')}}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -39,7 +39,7 @@
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" data-dismiss="modal" plain>{{trans('app.cancelBtnLbl')}} <i class="fas fa-times"></i> </el-button>
+                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
                 </el-form-item>
               </el-form>
               </div>
@@ -55,51 +55,30 @@
     export default {
         data(){
             return{
-                editMod :false,
-                profileStructures :{},
-                profileStructureGroups:{},
-				form: {
-                name: '',
-                description: '',
-                structure:'',
-                loadAlert : '',
-                insertAlert : trans('profileStructure.insertAlert'),
-                updateAlert : trans('profileStructure.updateAlert'),
-                deleteAlert : trans('profileStructure.deleteAlert'),
-                warningAlert : trans('profileStructure.warningAlert'),
+                updateAlert : trans('profileStructure.updateAlert'),                
                 failedAlert : trans('app.failedAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
-				      },
+                form: 
+                {
+                  id: '',
+                  name: '',
+                  description: '',
+                  structure:'',
+            
+                },
             }
         },
-        methods :{            
-            newModal(){
-                this.editMod = false,                
-                $('#addNew').modal('show');
-                this.resetForm('form');
-            },
-            editModal(index, row){
-                this.editMod = true,
-                $('#addNew').modal('show');
-                this.form=row;
-            },
-            addRow() {
-                  this.form.structures.push({
-                    name: '',
-                    type: ''
-                  })
-                },
-                deleteRow(index) {
-                  this.form.structures.splice(index,1)
-                },
+        methods :{
             /*
-            * Load Method
+            |--------------------------------------------------------------------------
+            | Load Selected Profile Info
+            |--------------------------------------------------------------------------
+            |
+            | This method load profile info for edit
+            |
             */
             loadprofileStructure(){
-                axios.get("../api/profiles/"+this.$route.params.profileId).then(({data})=>(this.form = data.data)).catch(()=>{
+                this.form.id=this.$route.params.profileId;
+                axios.get("../api/profiles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -109,92 +88,48 @@
                     this.$router.push({name: 'EditProfileStructure'});                 
                 });
             },
-			createprofileStructure() {
-          let currentObj = this;
-          var obj = JSON.stringify(this.form.structure);
-				  axios.post('../api/profiles',{name: this.form.name,
-          description: this.form.description,structure:obj}).then(() =>{
-          Fire.$emit('AfterCrud');
-					this.$message({
-					  title: '',
-					  message: this.form.insertAlert,
-            center: true,
-					  type: 'success'
-					});
-					this.resetForm('form');
-                    $('#addNew').modal('hide');
-                })
-                .catch(() => {
-                    this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
-                      center: true,
-                      type: 'error'
-                    });
-                });
+            /*
+            |--------------------------------------------------------------------------
+            | Back to Profile List
+            |--------------------------------------------------------------------------
+            |
+            | This method go back to profiles list
+            |
+            */
+           
+            backToProfileList(){
+              this.$router.push({ name: 'ProfileStructure'});
             },
             updateprofileStructure(){
-                  var obj = JSON.stringify(this.form.structure);
-                  axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
-                    description: this.form.description,structure:obj}).then(() =>{
-                    Fire.$emit('AfterCrud');              
-                    this.$router.push({name: 'EditProfileStructure'});
-                    $('#addNew').modal('hide');
-                    this.resetForm('form');
-                })
-                .catch(() => {    
-                  this.$router.push({name: 'EditProfileStructure'});             
-                })                     
-            },
-            deleteprofileStructure(record){
-				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
-                  confirmButtonText: this.form.confirmButtonText,
-                  cancelButtonText: this.form.cancelButtonText,
-                  type: 'warning',
-                  center: true
-                }).then(() => {
-                  axios.delete('../api/profiles/'+record.id)
-                .then(response => {
-                    Fire.$emit('AfterCrud');
-                     this.$message({
-                        type: 'success',
-                        center: true,
-                        message:this.form.deleteAlert
-                      });
-                    this.$router.push({name: 'EditProfileStructure'});
-                }).catch(() => {
-                     this.$router.push({name: 'EditProfileStructure'});
-                    }); 
-                }).catch(() => {
+            var obj = JSON.stringify(this.form.structure);
+            axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
+              description: this.form.description,structure:obj}).then(response => {
+              this.$message({
+                type: 'success',
+                center: true,
+                message:this.updateAlert
+              });
+              Fire.$emit('AfterCrud');                  
+                }).catch((error) => {
+                  console.log(error.response.status);
                   this.$message({
-                    type: 'info',
+                    type: 'error',
                     center: true,
-                    message: this.form.cancelAlert
-                  });          
-                });
+                    message:error.response.data.errors.name
+                  });
+              }); 
             },
             submitForm(formName) {
               this.$refs[formName].validate((valid) => {
                 if (valid) 
                 {
-                  if (this.editMod)
-                  {
-                    this.updateprofileStructure();
-                  }
-                  else
-                  {
-                    this.createprofileStructure();
-                  }
+                  this.updateprofileStructure();
                 }
                 else {
-                  console.log('error submit!!');
-                  //return false;
+                  return false;
                 }
               });
            },
-           resetForm(formName) {
-            this.$refs[formName].resetFields();
-           }
         },        
         mounted() {
             this.loadprofileStructure();
@@ -213,6 +148,7 @@
 .el-form-item__content:lang(fa){
 	margin-right:100px;
 	margin-left:0px;
+  text-align: right;
 }
 .el-form-item__content:lang(en){
 	margin-right:100px;

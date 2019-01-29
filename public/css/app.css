@@ -85266,7 +85266,6 @@ body,
   position: relative;
   /* added by e.bagherzadegan*/
   direction: rtl;
-  text-align: justify;
 }
 
 .nav-sidebar:lang(fa):hover {

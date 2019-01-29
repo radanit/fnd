@@ -214,14 +214,8 @@
     </ul>
      <!-- Left navbar links -->
      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-        </li>
         <li class="nav-item mr-auto">
-          <ul class="nav nav-pills">
-            <li class="nav-item ">
-                <a href="#" class="nav-link active pr-2 pl-2 small">{{ Config::get('languages')[App::getLocale()] }}</a>
-            </li>
+          <ul class="nav nav-pills">            
             @foreach (Config::get('languages') as $lang => $language)
                 @if ($lang != App::getLocale())
                     <li class="nav-item">
@@ -229,7 +223,13 @@
                     </li>
                 @endif
             @endforeach
+            <li class="nav-item ">
+                <a href="#" class="nav-link active pr-2 pl-2 small">{{ Config::get('languages')[App::getLocale()] }}</a>
+            </li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
         </li>
     </ul>
     <!-- SEARCH FORM -->

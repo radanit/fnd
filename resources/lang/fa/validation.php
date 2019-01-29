@@ -128,6 +128,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+		'profile_name' => [
+			'unique' =>'نام پروفایل'
+		]
     ],
 
     /*
@@ -156,7 +159,7 @@ return [
         'persian_name' => 'عنوان فارسی',
         'periodType_id' => 'دوره تناوب',
         'safty_description' => 'دستور العمل ایمنی',
-        'profile_name' => ''
+        
     ],
 
 ];

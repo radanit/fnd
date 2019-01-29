@@ -19,6 +19,9 @@ class LanguageController extends Controller
         if (array_key_exists($lang, Config::get('languages'))) {
             Session::put('applocale', $lang);
             App::setLocale(session('locale', $lang));
+			config(['app.locale' => $lang]);
+			config(['app.fallback_locale' => $lang]);
+			//dd(config('app.locale'));
         }
         return Redirect::back();
         

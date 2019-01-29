@@ -8,7 +8,7 @@
                 <div class="card-tools">
 						<el-button type="success"
 						  size="mini"
-						  @click="">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+						  @click="createProfileStructure">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -30,19 +30,29 @@
 						<el-input
 						  v-model="search"
 						  :placeholder="trans('profileStructure.searchPlaceholder')"/>
-              <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
+                        <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
-            <el-button
-              size="mini"
-              @click="editProfileStructure(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
+                        <el-button
+                        size="mini"
+                        @click="editProfileStructure(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
 						<el-button
 						  size="mini"
 						  type="danger"
 						  @click="deleteProfileStructure(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
-					  </template>
+					  </template>                    
 					</el-table-column>
 				  </el-table>
+                  <div class="block">
+                        <el-pagination
+                            background
+                            layout="prev, pager, next"
+                            prev-text="<"
+                            next-text=">"
+                            :page-size="1"
+                            :total="10">
+                        </el-pagination>
+                  </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -73,11 +83,11 @@
                 confirmButtonText : trans('app.confirmButtonText')
 				},
 				tableData:[],
-					search: '',
+				search: '',
             }
         },
         methods :{ 
-            /*
+           /*
             * Load Method
             */
             loadprofileStructure(){
@@ -88,12 +98,39 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'profileStructure'});                 
+                    this.$router.push({name: 'ProfileStructure'});                 
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Go To Create Profile Page
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Create profile Component
+            |
+            */      
+            createProfileStructure(){
+              this.$router.push({ name: 'CreateProfileStructure'});
+            },
+            /*
+            |--------------------------------------------------------------------------
+            | Go To Edit Profile Page
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Edit profile Component
+            |
+            */      
             editProfileStructure(record){
               this.$router.push({ name: 'EditProfileStructure', params: { profileId: record.id } });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Delete Profile 
+            |--------------------------------------------------------------------------
+            |
+            | This method delete profile info
+            |
+            */         
             deleteProfileStructure(record){
 				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
                   confirmButtonText: this.form.confirmButtonText,
@@ -109,9 +146,9 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'profileStructure'});
+                    this.$router.push({name: 'ProfileStructure'});
                 }).catch(() => {
-                     this.$router.push({name: 'profileStructure'});
+                     this.$router.push({name: 'ProfileStructure'});
                     }); 
                 }).catch(() => {
                   this.$message({
@@ -167,5 +204,8 @@
 .el-message-box__header:lang(fa)
 {
     direction:rtl;
+}
+.el-pagination{
+    text-align: center;
 }
 </style>
