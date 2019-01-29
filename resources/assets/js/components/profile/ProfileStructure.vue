@@ -12,7 +12,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
+              <div class="card-body table-responsive p-0">                
 				<el-table
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
@@ -62,8 +62,9 @@
                             prev-text="<"
                             next-text=">"
                             :page-size="1"
-                            :total="10"
-                            :data="tableData">
+                            :total="2"
+                            @current-change="loadPage"
+                            :current-page.sync="page">
                         </el-pagination>             
                   </div>
               </div>
@@ -134,8 +135,9 @@
            /*
             * Load Method
             */
-            loadprofileStructure(){
-                axios.get("../api/profiles").then(({data})=>(this.tableData = data.data)).catch(()=>{
+            loadprofileStructure(page){
+                //alert(this.page);
+                axios.get("../api/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -144,6 +146,10 @@
                     });
                     this.$router.push({name: 'ProfileStructure'});                 
                 });
+            },
+            loadPage(){
+                console.log(this.page);
+                this.loadprofileStructure(this.page);
             },
             /*
             |--------------------------------------------------------------------------
