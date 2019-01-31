@@ -85,7 +85,7 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'EditProfileStructure'});                 
+                    this.$router.push({name: 'edit_profile_structures'});                 
                 });
             },
             /*
@@ -98,7 +98,7 @@
             */
            
             backToProfileList(){
-              this.$router.push({ name: 'ProfileStructure'});
+              this.$router.push({ name: 'profile_structures'});
             },
             updateprofileStructure(){
             var obj = JSON.stringify(this.form.structure);

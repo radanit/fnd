@@ -39,7 +39,7 @@
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>
+                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
                 </el-form-item>
               </el-form>
               </div>
@@ -83,7 +83,7 @@
             |
             */           
             backToProfileList(){
-              this.$router.push({ name: 'ProfileStructure'});
+              this.$router.push({ name: 'profile_structures'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -111,7 +111,7 @@
                   console.log(error.response.data.errors.name);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors.name,//this.form.failedAlert,
+                      message: error.response.data.errors,//this.form.failedAlert,
                       center: true,
                       type: 'error'
                     });

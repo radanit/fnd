@@ -171,7 +171,7 @@
             |
             */      
             editProfileStructure(record){
-              this.$router.push({ name: 'edit_profile_tructures', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_profile_structures', params: { profileId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
@@ -197,8 +197,15 @@
                         message:this.form.deleteAlert
                       });
                     this.$router.push({name: 'profile_structures'});
-                }).catch(() => {
+                }).catch((error) => {
+                     console.log(error);
                      this.$router.push({name: 'profile_structures'});
+                     console.log();
+                     this.$message({
+                        type: 'error',
+                        center: true,
+                        message: error.response.data.error,
+                      }); 
                     }); 
                 }).catch(() => {
                   this.$message({

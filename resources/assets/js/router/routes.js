@@ -11,7 +11,7 @@ const routes = [
 	/*Begin Profile Routes*/
 	{ path: '/profile_structures',name:'profile_structures', component: require('../components/profile/ProfileStructure.vue').default },
 	{ path: '/create_profile_structures',name:'create_profile_structures', component: require('../components/profile/CreateProfileStructure.vue').default },
-	{ path: '/edit_profile_tructures',name:'edit_profile_tructures', component: require('../components/profile/EditProfileStructure.vue').default },
+	{ path: '/edit_profile_structures',name:'edit_profile_structures', component: require('../components/profile/EditProfileStructure.vue').default },
 	/*End Profile Routes*/
 	
 	/*Begin User Profile Routes*/
