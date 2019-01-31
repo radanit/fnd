@@ -2,6 +2,7 @@
 
 namespace App\Radan\Profile\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\Profile;
