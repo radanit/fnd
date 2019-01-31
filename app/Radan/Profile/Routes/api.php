@@ -13,8 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['middleware' => 'auth:api'], function() {
-   
+  
 });
 Route::apiResource('profiles', 'ProfileController');
-Route::apiResource('user/profiles', 'ProfileUserController');
-
+  Route::apiResource('user/profiles', 'ProfileUserController');

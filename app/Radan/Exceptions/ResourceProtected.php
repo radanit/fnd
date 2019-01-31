@@ -44,6 +44,10 @@ class ResourceProtected extends Exception
      */
     public function render()
     {    
-        return response()->json(['error' => 'Resource is protected'], 403);            
+        return response()->json([
+                'message' => __('app.failedAlert'),
+                'errors' => __('app.protectedResourceAlert')
+            ]
+        ], 403);            
     }
 }
