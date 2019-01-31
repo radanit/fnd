@@ -31,5 +31,6 @@ return [
 	'help' => 'Help',
 	'frequentlyAskedQuestions' => 'Frequently Asked Questions',
 	'termsOfUse' => 'Term Of Use',
-	'baharRadiology' => 'Bahar radiology'
+	'baharRadiology' => 'Bahar radiology',
+    'protectedResourceAlert' => 'This record is protected',
 ];

@@ -130,7 +130,7 @@ return [
         ],
 		'profile_name' => [
 			'unique' =>'نام پروفایل'
-		]
+		],
     ],
 
     /*
