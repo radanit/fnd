@@ -39,7 +39,7 @@
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+                  <el-button size="mini" type="info" @click="backToPermissionList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
                 </el-form-item>
               </el-form>
               </div>
@@ -85,7 +85,7 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'EditUserPermissions'});                 
+                    this.$router.push({name: 'edit_user_permissions'});                 
                 });
             },
             /*
@@ -97,8 +97,8 @@
             |
             */
            
-            backToProfileList(){
-              this.$router.push({ name: 'Users'});
+            backToPermissionList(){
+              this.$router.push({ name: 'permissions'});
             },
             updateuser(){
             var obj = JSON.stringify(this.form.structure);

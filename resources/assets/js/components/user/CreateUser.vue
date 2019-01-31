@@ -83,7 +83,7 @@
             |
             */           
             backToProfileList(){
-              this.$router.push({ name: 'ProfileStructure'});
+              this.$router.push({ name: 'users'});
             },
             /*
             |--------------------------------------------------------------------------

@@ -161,7 +161,7 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'Users'});                 
+                    this.$router.push({name: 'users'});                 
                 });
             },
             /*
@@ -173,7 +173,7 @@
             |
             */      
             createUsers(){
-              this.$router.push({ name: 'CreateUsers'});
+              this.$router.push({ name: 'create_users'});
             },            
             /*
             |--------------------------------------------------------------------------
@@ -184,7 +184,7 @@
             |
             */      
             editUsers(record){
-              this.$router.push({ name: 'EditUsers', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_users', params: { profileId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
@@ -209,9 +209,9 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'Users'});
+                    this.$router.push({name: 'users'});
                 }).catch(() => {
-                     this.$router.push({name: 'Users'});
+                     this.$router.push({name: 'users'});
                     }); 
                 }).catch(() => {
                   this.$message({
