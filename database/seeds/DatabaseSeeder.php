@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
 		$this->call('ProfileTableSeeder');
 		$this->command->info('Profile table seeded!');
 
-		$this->call('UserProfileTableSeeder');
+		$this->call('ProfileUserTableSeeder');
 		$this->command->info('UserProfile table seeded!');
 
-        $this->call('ConfigTableSeeder');
-        $this->command->info('Radan Config table seeded!');
+    $this->call('ConfigTableSeeder');
+    $this->command->info('Radan Config table seeded!');
         
 	}
 }

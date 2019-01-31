@@ -28,6 +28,13 @@ return [
     App\Radan\Profile\Providers\RouteServiceProvider::class,
   ],
 
+  /**
+  * number of record fetched in request
+  */
+  'pagination' => [
+    'count' => 15, // if set to 0, return all records
+  ],
+
   /*
   |--------------------------------------------------------------------------
   | Profile Foundation Package configurations
@@ -51,12 +58,24 @@ return [
       /**
       * Profile model
       */
-      'profile' => 'App\Radan\Profile\Models\Profile',
+      'profiles' => 'App\Radan\Profile\Models\Profile',
 
       /**
       * User Profile model
       */
-      'user_profile' => 'App\Radan\Profile\Models\UserProfile',
+      'profile_user' => 'App\Radan\Profile\Models\ProfileUser',
+
+      /**
+      * User model
+      */
+      'user' => 'App\Radan\Auth\Models\User',
+
+      /**
+      * number of record fetched in request
+      */
+      'pagination' => [
+        'count' => 15, // if set to 0, return all records
+      ]
     ],
 
     /*
@@ -76,7 +95,7 @@ return [
       /**
       * user profile table.
       */
-      'user_profile' => 'user_profile',
+      'profile_user' => 'profile_user',
     ],
 
     /*
@@ -99,7 +118,7 @@ return [
       /**
       * user profile table prevents.
       */
-      'user_profile' => [
+      'profile_user' => [
       ],
     ],
 
@@ -120,7 +139,7 @@ return [
       /**
       * Role foreign key on Laratrust's role_user and permission_role tables.
       */
-      'profile' => 'profile_id',    
+      'profiles' => 'profile_id',
     ],
   ],
 ];
