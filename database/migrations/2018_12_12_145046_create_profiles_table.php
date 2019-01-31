@@ -20,7 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('description');
             $table->json('structure');            
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
         });
     }
 

@@ -75,10 +75,10 @@ class ProfileController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function update(Request $request, $id)
-  {        
-    // Validation rules
-    Validator::make($request->only('description','structure'), [        
-        'description' => 'string|max:255',
+  {    
+    // Validation rules   
+    Validator::make($request->all(), [
+        'description' => 'required|string|max:255',
         'structure' => 'required|json',
     ])->validate();
     
