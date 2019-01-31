@@ -88,10 +88,17 @@ return [
     |
     */
     'prevents' => [
+      /**
+      * profiles table prevents.
+      */
       'profiles' => [
         'id' => 1,
         'name' => 'default',
       ],
+
+      /**
+      * user profile table prevents.
+      */
       'user_profile' => [
       ],
     ],
