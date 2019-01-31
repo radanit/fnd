@@ -144,7 +144,7 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'ProfileStructures'});                 
+                    this.$router.push({name: 'profile_structures'});                 
                 });
             },
             loadPage(){
@@ -160,7 +160,7 @@
             |
             */      
             createProfileStructure(){
-              this.$router.push({ name: 'CreateProfileStructures'});
+              this.$router.push({ name: 'create_profile_structures'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -171,7 +171,7 @@
             |
             */      
             editProfileStructure(record){
-              this.$router.push({ name: 'EditProfileStructures', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_profile_tructures', params: { profileId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
@@ -196,9 +196,9 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'ProfileStructures'});
+                    this.$router.push({name: 'profile_structures'});
                 }).catch(() => {
-                     this.$router.push({name: 'ProfileStructures'});
+                     this.$router.push({name: 'profile_structures'});
                     }); 
                 }).catch(() => {
                   this.$message({
