@@ -67,35 +67,11 @@ return [
     | These are the tables used by Profile to store all the profile data.
     |
     */
-<<<<<<< HEAD
-    'profile' => [
-        /*
-        |--------------------------------------------------------------------------
-        | Radan Profile Models
-        |--------------------------------------------------------------------------
-        |
-        | These are the models used by Radan Profile to define the profiles, user_profiles.
-        | If you want the Radan Profile to be in a different namespace or
-        | to have a different name, you can do it here.
-        |
-        */
-        'models' => [
-        /**
-         * Profile model
-         */
-        'profile' => 'App\Radan\Profile\Models\Profile',
-
-        /**
-         * User Profile model
-         */
-        'user_profile' => 'App\Radan\Profile\Models\UserProfile',        
-=======
     'tables' => [
       /**
       * profiles table.
       */
       'profiles' => 'profiles',
->>>>>>> 169b56ec2d063a054e0cd773379e8ae166039f92
 
       /**
       * user profile table.
