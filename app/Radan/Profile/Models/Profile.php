@@ -4,16 +4,18 @@ namespace App\Radan\Profile\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
 
 class Profile extends Model 
 {        
-    use SoftDeletes;    
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
     protected $fillable = [
         'name', 'description', 'structure',
     ];
@@ -24,7 +26,19 @@ class Profile extends Model
      * @var array
      */
     protected $hidden = [       
-    ];  
+    ];
+
+    /**
+     * Creates a new instance of the model.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = Config::get('radan.profile.tables.profiles');
+    }
 
     /**
      * The method for relationships
@@ -33,7 +47,6 @@ class Profile extends Model
      */
     public function userProfiles()
     {
-        return $this->hasMany('App\Radan\Profile\Models\UserProfile');
+        return $this->hasMany(Config::get('radan.profile.models.user_profile'));        
     }
-
 }
