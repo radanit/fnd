@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Radan\Profile\Models\UserProfile;
+use App\Radan\Profile\Models\ProfileUser;
 
-class UserProfileTableSeeder extends Seeder 
+class ProfileUserTableSeeder extends Seeder 
 {
 
 	/**
@@ -15,7 +15,7 @@ class UserProfileTableSeeder extends Seeder
 	{
 		//DB::table('user_profile')->delete();
 		//
-		UserProfile::create(array(
+		ProfileUser::create(array(
 				'profile_id' => 1,
 				'user_id' => 1,
 				'data' => '{"name":"admin","family":"admin"}'

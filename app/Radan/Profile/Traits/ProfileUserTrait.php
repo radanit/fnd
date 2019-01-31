@@ -21,10 +21,10 @@ trait ProfileUserTrait
      *
      * @return \Illuminate\Database\Eloquent\Relations\OneToOne
      */
-    public function userProfile()
+    public function profileUser()
     {
         $userProfile = $this->hasOne(
-            Config::get('radan.profile.models.user_profile'));
+            Config::get('radan.profile.models.profile_user'));
 
         return $userProfile;
     }

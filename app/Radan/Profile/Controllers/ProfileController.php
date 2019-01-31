@@ -3,7 +3,6 @@
 namespace App\Radan\Profile\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\Profile;
 use App\Radan\Resources\ProfileResource;
@@ -21,7 +20,15 @@ class ProfileController extends Controller
   public function index()
   {
     // Return 
-    return ProfileResource::collection(Profile::paginate());
+    $count = Config::get('radan.profile.models.pagination.count',
+                          Config::get('radan.pagination.count',15));
+    if ($count) {
+      return ProfileResource::collection(Profile::paginate($count));
+    }
+    else {
+      return ProfileResource::collection(Profile::all()); 
+    }
+
   }
 
   /**
@@ -66,7 +73,7 @@ class ProfileController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(ProfileRequest $request, $id)
+  public function update(Request $request, $id)
   {        
     // Validation rules
     Validator::make($request->only('description','structure'), [        

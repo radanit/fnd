@@ -45,8 +45,11 @@ class Profile extends Model
      *
      * @var void
      */
-    public function userProfiles()
+    public function profileUsers()
     {
-        return $this->hasMany(Config::get('radan.profile.models.user_profile'));        
+        return $this->hasMany(
+            Config::get('radan.profile.models.profile_user'),
+            Config::get('radan.profile.foreign_keys.profiles')
+        );
     }
 }
