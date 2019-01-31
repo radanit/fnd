@@ -2,6 +2,7 @@
 
 namespace App\Radan\Auth\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
