@@ -88,7 +88,7 @@
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'edit_profile_structures'});                 
+                    //this.$router.push({name: 'edit_profile_structures'});                 
                 });
             },
             /*
@@ -104,7 +104,9 @@
               this.$router.push({ name: 'profile_structures'});
             },
             updateprofileStructure(){
-            var obj = JSON.stringify(this.form.structure);
+            var ValuesArray =this.form.structure;
+            var objMap = {"JSObject" : ValuesArray};
+            var obj = JSON.stringify(objMap, null, 2).trim();
             axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
               description: this.form.description,structure:obj}).then(response => {
               this.$message({
@@ -121,7 +123,6 @@
                     message:error.response.data.errors.name
                   });
               }); 
-              this.$router.push({name: 'edit_profile_structures'});
             },
             submitForm(formName) {
               this.$refs[formName].validate((valid) => {
@@ -138,7 +139,7 @@
         mounted() {
             this.loadprofileStructure();
             Fire.$on('AfterCrud',() => {
-                this.loadprofileStructure();
+                //this.loadprofileStructure();
             });
         }
     }

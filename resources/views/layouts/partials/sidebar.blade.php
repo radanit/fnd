@@ -33,7 +33,7 @@
           </li>         
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shield-alt lighGray"></i>
+              <i class="nav-icon fas fa-shield-alt yellow"></i>
               <p>
               {{ __('menus.auth_managment') }}
                 @if(App::isLocale('fa'))
@@ -58,7 +58,7 @@
               </li>
               <li class="nav-item">
               <router-link to="/user_permissions" class="nav-link">
-                  <i class="fas fa-user-lock  nav-icon teal"></i>
+                  <i class="fas fa-user-lock  nav-icon red"></i>
                   <p>{{ __('menus.user_permissions') }}</p>
                 </router-link>
               </li>

@@ -97,8 +97,9 @@
             |
             */
 		    	  createProfileStructure() {
-              let currentObj = this;
-              var obj = JSON.stringify(this.form.structure);
+              var ValuesArray =this.form.structure;
+              var objMap = {"JSObject" : ValuesArray};
+              var obj = JSON.stringify(objMap);
               axios.post('../api/profiles',{name: this.form.name,
               description: this.form.description,structure:obj}).then(() =>{
               Fire.$emit('AfterCrud');
@@ -111,7 +112,6 @@
                 this.resetForm('form');
                 })
                 .catch((error) => {
-                  console.log(error.response.data.errors.name);
                     this.$message({
                       title: '',
                       message: error.response.data.errors,//this.form.failedAlert,
@@ -136,7 +136,9 @@
             }            
         },        
         mounted() {
-          
+                Fire.$on('AfterCrud',() => {
+                this.$router.push({name: 'create_profile_structures'});
+            });
         }
     }
 </script>

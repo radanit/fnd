@@ -197,14 +197,12 @@
                         message:this.form.deleteAlert
                       });
                     this.$router.push({name: 'profile_structures'});
-                }).catch((error) => {
-                     console.log(error);
+                }).catch(() => {
                      this.$router.push({name: 'profile_structures'});
-                     console.log();
                      this.$message({
                         type: 'error',
                         center: true,
-                        message: error.response.data.errors,
+                        message: this.response.error,
                       }); 
                     }); 
                 }).catch(() => {
