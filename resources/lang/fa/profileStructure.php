@@ -40,5 +40,6 @@ return [
     'stringType' =>'رشته ای',
     'numberType' =>'عددی',
     'json' => 'فرمت json',
+    'structureRequierdError' => 'فیلد ساختار اجباری است',
 
 ];

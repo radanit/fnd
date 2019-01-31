@@ -16,7 +16,7 @@
                   { required: true, message: trans('profileStructure.nameRequierdError')}
                 ]"
                 >
-                <el-input name="name" type="name" v-model.number="form.name" autocomplete="off"></el-input>
+                <el-input name="name" type="name" :disabled="true" v-model="form.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('profileStructure.description')"
@@ -29,7 +29,10 @@
                 </el-form-item>
                 <el-form-item
                 :label="trans('profileStructure.structure')"
-                prop="structure">
+                prop="structure"
+                :rules="[
+                  { required: true, message: trans('profileStructure.structureRequierdError')}
+                ]">
                   <el-input
                     type="textarea"
                     :rows="2"
@@ -118,6 +121,7 @@
                     message:error.response.data.errors.name
                   });
               }); 
+              this.$router.push({name: 'edit_profile_structures'});
             },
             submitForm(formName) {
               this.$refs[formName].validate((valid) => {

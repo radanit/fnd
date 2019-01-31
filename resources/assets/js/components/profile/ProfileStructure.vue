@@ -204,7 +204,7 @@
                      this.$message({
                         type: 'error',
                         center: true,
-                        message: error.response.data.error,
+                        message: error.response.data.errors,
                       }); 
                     }); 
                 }).catch(() => {

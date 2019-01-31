@@ -29,7 +29,10 @@
                 </el-form-item>
                 <el-form-item
                 :label="trans('profileStructure.structure')"
-                prop="structure">
+                prop="structure"
+                :rules="[
+                  { required: true, message: trans('profileStructure.structureRequierdError')}
+                ]">
                   <el-input
                     type="textarea"
                     :rows="2"

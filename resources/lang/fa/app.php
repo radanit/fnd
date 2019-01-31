@@ -42,5 +42,5 @@ return [
 	'deleteBtnLbl' =>' حذف',
 	'submitBtnLbl' => ' ثبت',
 	'resetBtnLbl' => ' پاک کردن',
-    'protectedResourceAlert' => 'This record is protected',
+    'protectedResourceAlert' => 'امکان حذف رکورد انتخابی وجود ندارد',
 ];
