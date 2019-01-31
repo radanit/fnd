@@ -55,7 +55,7 @@ return [
         /**
          * User Profile model
          */
-        'user_profile' => 'App\Radan\Profiles\Models\UserProfile',        
+        'user_profile' => 'App\Radan\Profile\Models\UserProfile',        
 
         ],
 

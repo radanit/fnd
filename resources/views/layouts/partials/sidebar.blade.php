@@ -3,7 +3,7 @@
     <a href="/home#/dashboard" class="brand-link">
       <img src="../images/logo.png" alt="MAI Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ __('menus.adminArea') }}</span>
+      <span class="brand-text font-weight-light">{{ __('menus.admin_area') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -33,9 +33,9 @@
           </li>         
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog lighGray"></i>
+              <i class="nav-icon fas fa-shield-alt lighGray"></i>
               <p>
-              {{ __('menus.configuration') }}
+              {{ __('menus.auth_managment') }}
                 @if(App::isLocale('fa'))
                 <i class="right fa fa-angle-right"></i>
                 @elseif(App::isLocale('en'))
@@ -46,21 +46,27 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link">
-                  <i class="fa fa-users nav-icon indigo"></i>
+                  <i class="fas fa-users-cog nav-icon indigo"></i>
                   <p>{{ __('menus.users') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
-              <router-link to="/user_groups" class="nav-link">
-                  <i class="fa fa-users-cog  nav-icon teal"></i>
-                  <p>{{ __('menus.userGroups') }}</p>
+              <router-link to="/user_roles" class="nav-link">
+                  <i class="fas fa-users nav-icon teal"></i>
+                  <p>{{ __('menus.user_roles') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/profileStructures" class="nav-link">
+              <router-link to="/user_permissions" class="nav-link">
+                  <i class="fas fa-user-lock  nav-icon teal"></i>
+                  <p>{{ __('menus.user_permissions') }}</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/profile_structures" class="nav-link">
                   <i class="nav-icon fas fa-table cyan"></i>
                   <p>
-                  {{ __('menus.profileStructure') }}
+                  {{ __('menus.profile_structure') }}
                   </p>
                 </router-link>
               </li>
@@ -70,7 +76,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-info lighGray"></i>
               <p>
-              {{ __('menus.basicInformation') }}
+              {{ __('menus.basic_information') }}
                 @if(App::isLocale('fa'))
                 <i class="right fa fa-angle-right"></i>
                 @elseif(App::isLocale('en'))
@@ -92,7 +98,7 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-toolbox green"></i>
                   <p>
-                  {{ __('menus.preventiveServiceManagment') }}
+                  {{ __('menus.preventive_service_managment') }}
                     @if(App::isLocale('fa'))
                     <i class="right fa fa-angle-right"></i>
                     @elseif(App::isLocale('en'))
@@ -104,13 +110,13 @@
                   <li class="nav-item">
                     <router-link to="/preventiveService" class="nav-link">
                       <i class="fa fa-wrench nav-icon indigo"></i>
-                      <p>{{ __('menus.preventiveService') }}</p>
+                      <p>{{ __('menus.preventive_service') }}</p>
                     </router-link>
                   </li>
                   <li class="nav-item">
                     <router-link to="/userGroups" class="nav-link">
                         <i class="fa fa-tasks  nav-icon teal"></i>
-                        <p>{{ __('menus.preventiveServicePlanning') }}</p>
+                        <p>{{ __('menus.preventive_service_planning') }}</p>
                     </router-link>
                   </li>
                 </ul>
