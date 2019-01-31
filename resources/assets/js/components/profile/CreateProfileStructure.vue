@@ -97,11 +97,8 @@
             |
             */
 		    	  createProfileStructure() {
-              var ValuesArray =this.form.structure;
-              var objMap = {"JSObject" : ValuesArray};
-              var obj = JSON.stringify(objMap);
               axios.post('../api/profiles',{name: this.form.name,
-              description: this.form.description,structure:obj}).then(() =>{
+              description: this.form.description,structure:this.form.structure}).then(() =>{
               Fire.$emit('AfterCrud');
               this.$message({
                 title: '',

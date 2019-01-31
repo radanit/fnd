@@ -104,11 +104,8 @@
               this.$router.push({ name: 'profile_structures'});
             },
             updateprofileStructure(){
-            var ValuesArray =this.form.structure;
-            var objMap = {"JSObject" : ValuesArray};
-            var obj = JSON.stringify(objMap, null, 2).trim();
             axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
-              description: this.form.description,structure:obj}).then(response => {
+              description: this.form.description,structure:this.form.structure}).then(response => {
               this.$message({
                 type: 'success',
                 center: true,
@@ -120,7 +117,7 @@
                   this.$message({
                     type: 'error',
                     center: true,
-                    message:error.response.data.errors.name
+                    message:error.response.data.errors
                   });
               }); 
             },
