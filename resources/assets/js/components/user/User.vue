@@ -6,9 +6,12 @@
               <div class="card-header">
                 <h3 class="card-title">{{trans('user.cardTitle')}}</h3>
                 <div class="card-tools">
-						<el-button type="success"
-						  size="mini"
-						  @click="createUsers">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+				<el-button type="success"
+				  size="mini"
+				  @click="createUsers">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+                <el-button type="primary"
+                  size="mini"
+                  @click="userRole">{{trans('user.roleBtnLbl')}} <i class="fas fa-users"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -171,7 +174,7 @@
             */      
             createUsers(){
               this.$router.push({ name: 'CreateUsers'});
-            },
+            },            
             /*
             |--------------------------------------------------------------------------
             | Go To Edit Profile Page
@@ -217,6 +220,17 @@
                     message: this.form.cancelAlert
                   });          
                 });
+            },
+            /*
+            |--------------------------------------------------------------------------
+            | Go To Create Profile Page
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Create profile Component
+            |
+            */      
+            userRole(){
+              this.$router.push({ name: 'UserRoles'});
             },
         },        
         mounted() {

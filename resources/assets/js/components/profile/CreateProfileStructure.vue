@@ -107,10 +107,11 @@
               });					    
                 this.resetForm('form');
                 })
-                .catch(() => {
+                .catch((error) => {
+                  console.log(error.response.data.errors.name);
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: error.response.data.errors.name,//this.form.failedAlert,
                       center: true,
                       type: 'error'
                     });

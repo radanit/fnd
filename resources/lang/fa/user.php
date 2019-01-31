@@ -31,5 +31,16 @@ return [
     'lblUpdateCardTitle' => 'بروزرسانی اطلاعات کاربر',
     'usernameRequierdError' => 'نام کاربری اجباری است',
     'emailRequierdError' => 'پست الکترونیک اجباری است',
-    'status' => 'وضعیت'
+    'status' => 'وضعیت',
+    'permissionBtnLbl' => 'مدیریت سطوح دسترسی',
+    'addPermissionBtnLbl' => 'درج سطح دسترسی',
+    'permissionName' => 'عنوان سطح دسترسی',
+    'permissionDescription' => 'شرح سطح دسترسی',
+    'permissionCardTitle' => 'لیست سطوح دسترسی',
+    'addRoleBtnLbl' => 'درج نقش کاربری',
+    'roleBtnLbl' => 'مدیریت نقش های کاربری',
+    'roleName' => 'عنوان نقش',
+    'roleDescription' => 'شرح نقش',
+    'roleCardTitle' => 'لیست نقش های کاربری',
+
 ];

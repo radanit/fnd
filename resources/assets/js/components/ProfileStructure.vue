@@ -79,23 +79,6 @@
 				  >
 					<el-input name="description" type="description" v-model="form.description" autocomplete="off"></el-input>
           </el-form-item>
-          <!--<el-form-item  v-for="(structure, index) in form.structures"
-          :label="trans('profileStructure.field')+index"
-          prop="structure"                    
-          >
-          <el-input :placeholder="trans('profileStructure.structure.name')" name="structure.name" type="structure.name" v-model="structure.name" autocomplete="off"></el-input>
-          <el-select class="select-list" :placeholder="trans('profileStructure.structure.type')" v-model="structure.type">
-            <el-option :label="trans('profileStructure.stringType')" value="string"></el-option>
-            <el-option :label="trans('profileStructure.numberType')" value="number"></el-option>
-          </el-select>                    
-        </el-form-item>
-        <el-form-item :label="trans('profileStructure.structure')"
-          prop="structures">
-          <el-button  size="mini" @click="addRow" plain>
-            <i class="fas fa-plus fa-fw"></i></el-button>
-          <el-button  size="mini" @click="deleteRow" plain>
-            <i class="fas fa-minus"></i></el-button>
-          </el-form-item>-->
           <el-form-item
           :label="trans('profileStructure.structure')"
           prop="structure">
@@ -123,58 +106,58 @@
                 editMod :false,
                 profileStructures :{},
                 profileStructureGroups:{},
-				form: {
-                name: '',
-                description: '',
-                structure:'',
-                loadAlert : '',
-                insertAlert : trans('profileStructure.insertAlert'),
-                updateAlert : trans('profileStructure.updateAlert'),
-                deleteAlert : trans('profileStructure.deleteAlert'),
-                warningAlert : trans('profileStructure.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
-				},
-				tableData:[],
-					search: '',
-            }
-        },
-        methods :{            
-            newModal(){
-                this.editMod = false,                
-                $('#addNew').modal('show');
-                this.resetForm('form');
-            },
-            editModal(index, row){
-                this.editMod = true,
-                $('#addNew').modal('show');
-                this.form=row;
-            },
-            addRow() {
-                  this.form.structures.push({
-                    name: '',
-                    type: ''
-                  })
+        				form: {
+                  name: '',
+                  description: '',
+                  structure:'',
+                  loadAlert : '',
+                  insertAlert : trans('profileStructure.insertAlert'),
+                  updateAlert : trans('profileStructure.updateAlert'),
+                  deleteAlert : trans('profileStructure.deleteAlert'),
+                  warningAlert : trans('profileStructure.warningAlert'),
+                  failedAlert : trans('app.failedAlert'),
+                  cancelAlert : trans('app.cancelAlert'),
+                  noticTxt : trans('app.noticTxt'),
+                  cancelButtonText : trans('app.cancelButtonText'),
+                  confirmButtonText : trans('app.confirmButtonText')
+        				},
+        				tableData:[],
+        					search: '',
+                    }
                 },
-                deleteRow(index) {
-                  this.form.structures.splice(index,1)
-                },
-            /*
-            * Load Method
-            */
-            loadprofileStructure(){
-                axios.get("../api/profiles").then(({data})=>(this.tableData = data.data)).catch(()=>{
-                    this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
-                      center: true,
-                      type: 'error'
+                methods :{            
+                    newModal(){
+                        this.editMod = false,                
+                        $('#addNew').modal('show');
+                        this.resetForm('form');
+                    },
+                    editModal(index, row){
+                        this.editMod = true,
+                        $('#addNew').modal('show');
+                        this.form=row;
+                    },
+                    addRow() {
+                          this.form.structures.push({
+                            name: '',
+                            type: ''
+                          })
+                        },
+                        deleteRow(index) {
+                          this.form.structures.splice(index,1)
+                        },
+                    /*
+                    * Load Method
+                    */
+                    loadprofileStructure(){
+                    axios.get("../api/profiles").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                        this.$message({
+                          title: '',
+                          message: this.form.failedAlert,
+                          center: true,
+                          type: 'error'
+                        });
+                        this.$router.push({name: 'profileStructure'});                 
                     });
-                    this.$router.push({name: 'profileStructure'});                 
-                });
             },
 			createprofileStructure() {
           let currentObj = this;
