@@ -20,7 +20,7 @@ class RoleResource extends JsonResource
             'name' => $this->name,
             'displayname' => $this->display_name,
             'description' => $this->description,
-            'permissions' => new PermissionResource($this->roles),            
+            'permissions' => PermissionResource::collection($this->permissions),            
         ];
     }
 }
