@@ -18,28 +18,18 @@
                 >
                 <el-input name="roleName" type="roleName" v-model="form.roleName" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item
-                :label="trans('user.roleDes')"
-                prop="roleDes"
+                  <el-form-item
+                :label="trans('user.roleDescription')"
+                prop="roleDescription"
                 :rules="[
                   { required: true, message: trans('user.roleDesRequierdError')}
                 ]"
                 >
-                <el-input name="roleDes" type="roleDes" v-model="form.description" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                :label="trans('user.structure')"
-                prop="structure">
-                  <el-input
-                    type="textarea"
-                    :rows="2"
-                    :placeholder="trans('user.json')"
-                    v-model="form.structure">
-                  </el-input>
+                <el-input name="roleDescription" type="roleDescription" v-model="form.roleDescription" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>
+                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
                 </el-form-item>
               </el-form>
               </div>
@@ -57,8 +47,8 @@
             return{
                 form: 
                 {
-                  name: '',
-                  description: '',
+                  roleName: '',
+                  roleDescription: '',
                   structure:'',
                   loadAlert : '',
                   insertAlert : trans('user.insertAlert'),
@@ -83,7 +73,7 @@
             |
             */           
             backToProfileList(){
-              this.$router.push({ name: 'ProfileStructure'});
+              this.$router.push({ name: 'user_roles'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -93,11 +83,9 @@
             | This method Add Profile Info To Database
             |
             */
-		    	  createProfileStructure() {
-              let currentObj = this;
-              var obj = JSON.stringify(this.form.structure);
-              axios.post('../api/profiles',{name: this.form.name,
-              description: this.form.description,structure:obj}).then(() =>{
+		    	  createUserRole() {
+              axios.post('../api/auth/roles',{name: this.form.roleName,
+              description: this.form.roleDescription}).then(() =>{
               Fire.$emit('AfterCrud');
               this.$message({
                 title: '',
@@ -120,7 +108,7 @@
               this.$refs[formName].validate((valid) => {
                 if (valid) 
                 {
-                  this.createProfileStructure();
+                  this.createUserRole();
                 }
                 else {
                   return false;

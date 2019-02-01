@@ -36,7 +36,7 @@
 					  <template slot="header" slot-scope="scope">
 						<el-input
 						  v-model="search"
-						  :placeholder="trans('profileStructure.searchPlaceholder')"/>
+						  :placeholder="trans('app.searchPlaceholder')"/>
                         <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">

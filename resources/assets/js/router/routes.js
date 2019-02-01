@@ -25,7 +25,7 @@ const routes = [
 	{ path: '/create_users',name:'create_users', component: require('../components/user/CreateUser.vue').default },
 	{ path: '/edit_users',name:'edit_users', component: require('../components/user/EditUser.vue').default },
 	{ path: '/user_roles',name:'user_roles', component: require('../components/user/UserRole.vue').default },
-	{ path: '/create_User_roles',name:'create_User_roles', component: require('../components/user/CreateUserRole.vue').default },
+	{ path: '/create_user_roles',name:'create_user_roles', component: require('../components/user/CreateUserRole.vue').default },
 	{ path: '/edit_user_roles',name:'edit_user_roles', component: require('../components/user/EditUserRole.vue').default },	
 	{ path: '/user_permissions',name:'user_permissions', component: require('../components/user/UserPermission.vue').default },
 	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/user/CreateUserPermission.vue').default },

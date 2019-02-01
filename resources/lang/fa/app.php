@@ -43,4 +43,5 @@ return [
 	'submitBtnLbl' => ' ثبت',
 	'resetBtnLbl' => ' پاک کردن',
     'protectedResourceAlert' => 'امکان حذف رکورد انتخابی وجود ندارد',
+    'searchPlaceholder' => 'جستجو ...',
 ];

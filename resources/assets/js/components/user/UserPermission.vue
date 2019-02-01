@@ -8,10 +8,7 @@
                 <div class="card-tools">
 				<el-button type="success"
 				  size="mini"
-				  @click="createUsers">{{trans('user.addPermissionBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
-                <el-button type="primary"
-                  size="mini"
-                  @click="userPermission">{{trans('user.permissionBtnLbl')}} <i class="fas fa-user-lock"></i></el-button>  
+				  @click="createPermission">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -52,7 +49,7 @@
 					  <template slot="header" slot-scope="scope">
 						<el-input
 						  v-model="search"
-						  :placeholder="trans('user.searchPlaceholder')"/>
+						  :placeholder="trans('app.searchPlaceholder')"/>
                         <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
@@ -172,7 +169,7 @@
             | This method Load Create profile Component
             |
             */      
-            createUsers(){
+            createPermission(){
               this.$router.push({ name: 'create_users_permissions'});
             },
             /*

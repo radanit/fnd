@@ -54,9 +54,9 @@
                     :placeholder="trans('user.profile_choose_lbl')">
                     <el-option
                       v-for="item in profile_options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
+                      :key="item.id"
+                      :label="item.description"
+                      :value="item.id">
                     </el-option>
                   </el-select>
                 </el-form-item>                
@@ -103,7 +103,7 @@
             */
             loaduser(){
                 this.form.id=this.$route.params.profileId;
-                axios.get("../auth/api/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+                axios.get("../api/auth/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -126,7 +126,7 @@
 
             },
             loadRoles(){
-              axios.get("../auth/api/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
+              axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -150,7 +150,7 @@
             },
             updateuser(){
             var obj = JSON.stringify(this.form.structure);
-            axios.put('../auth/api/users/'+this.form.id,{name: this.form.name,
+            axios.put('../api/auth/users/'+this.form.id,{name: this.form.name,
               description: this.form.description,structure:obj}).then(response => {
               this.$message({
                 type: 'success',
@@ -181,6 +181,8 @@
         },        
         mounted() {
             this.loaduser();
+            this.loadProfiles();
+            this.loadRoles();
             Fire.$on('AfterCrud',() => {
                 this.loaduser();
             });

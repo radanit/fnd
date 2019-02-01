@@ -45,6 +45,8 @@ return [
     'roles_lbl' => 'نقش ها',
     'role_choose_lbl' => 'انتخاب نقش',
     'profile_lbl' => 'پروفایل ها',
-    'profile_choose_lbl' => 'انتخاب پروفایل'
+    'profile_choose_lbl' => 'انتخاب پروفایل',
+    'roleNameRequierdError' => 'عنوان نقش کاربری اجباری است!',
+    'roleDesRequierdError' => 'شرح نقش کاربری اجباری است!',
 
 ];

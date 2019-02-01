@@ -52,7 +52,7 @@
 					  <template slot="header" slot-scope="scope">
 						<el-input
 						  v-model="search"
-						  :placeholder="trans('user.searchPlaceholder')"/>
+						  :placeholder="trans('app.searchPlaceholder')"/>
                         <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
@@ -121,7 +121,7 @@
         },
         methods :{ 
             infiniteHandler($state) {
-                axios.get("../auth/api/users", {
+                axios.get("../api/auth/users", {
                     params: {
                     page: this.page,
                     },
@@ -201,7 +201,7 @@
                   type: 'warning',
                   center: true
                 }).then(() => {
-                  axios.delete('../api/profiles/'+record.id)
+                  axios.delete('../api/profile/profiles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({

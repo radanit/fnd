@@ -136,7 +136,7 @@
         mounted() {
             this.loadprofileStructure();
             Fire.$on('AfterCrud',() => {
-                //this.loadprofileStructure();
+                this.loadprofileStructure();
             });
         }
     }

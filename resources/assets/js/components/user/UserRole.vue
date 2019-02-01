@@ -8,17 +8,13 @@
                 <div class="card-tools">
 				<el-button type="success"
 				  size="mini"
-				  @click="createUserRole">{{trans('user.addRoleBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
-                <el-button type="primary"
-                  size="mini"
-                  @click="userPermission">{{trans('user.permissionBtnLbl')}} <i class="fas fa-users"></i></el-button>
+				  @click="createUserRole">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>                  
                 </div>
-              </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="tableData.filter(data => !search || data.roleName.toLowerCase().includes(search.toLowerCase())|| data.roleDescription.toLowerCase().includes(search.toLowerCase()))"
+					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'roleName', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -28,32 +24,19 @@
 					<el-table-column
 					  :label="trans('user.roleName')"
                       sortable
-					  prop="roleName">
+					  prop="name">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('user.roleDescription')"
                       sortable
-					  prop="roleDescription">
+					  prop="description">
 					</el-table-column>
-                    <el-table-column
-                        prop="active"
-                        :label="trans('user.status')"
-                        width="100"
-                        :filters="[{ text: 'فعال', value: 1 }, { text: 'غیرفعال', value: 0 }]"
-                        :filter-method="filterActive"
-                        filter-placement="bottom-end">
-                        <template slot-scope="scope">
-                            <el-tag
-                            :type="scope.row.active === 1 ? 'success' : 'danger'"
-                            disable-transitions><span v-if="scope.row.active==1">فعال</span><span v-else>غیرفعال</span></el-tag>
-                        </template>
-                    </el-table-column>
 					<el-table-column class="float-left"
 					  align="right">
 					  <template slot="header" slot-scope="scope">
 						<el-input
 						  v-model="search"
-						  :placeholder="trans('user.searchPlaceholder')"/>
+						  :placeholder="trans('app.searchPlaceholder')"/>
                         <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
@@ -63,7 +46,7 @@
 						<el-button
 						  size="mini"
 						  type="danger"
-						  @click="deleteUsers(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
+						  @click="deleteRoles(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
                     <infinite-loading
@@ -122,7 +105,7 @@
         },
         methods :{ 
             infiniteHandler($state) {
-                axios.get("../auth/api/users", {
+                axios.get("../api/auth/roles", {
                     params: {
                     page: this.page,
                     },
@@ -154,15 +137,15 @@
            /*
             * Load Method
             */
-            loaduser(){
-                axios.get("../auth/api/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
+            loadrole(){
+                axios.get("../api/auth/roles").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
                       center: true,
                       type: 'error'
                     });
-                    this.$router.push({name: 'UserRoles'});                 
+                    this.$router.push({name: 'user_roles'});                 
                 });
             },
             /*
@@ -174,7 +157,7 @@
             |
             */      
             createUserRole(){
-              this.$router.push({ name: 'CreateUserRoles'});
+              this.$router.push({ name: 'create_user_roles'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -185,7 +168,7 @@
             |
             */      
             editUsers(record){
-              this.$router.push({ name: 'EditUserRoles', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_user_roles', params: { profileId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
@@ -195,14 +178,14 @@
             | This method delete profile info
             |
             */         
-            deleteUsers(record){
+            deleteRoles(record){
 				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
                   confirmButtonText: this.form.confirmButtonText,
                   cancelButtonText: this.form.cancelButtonText,
                   type: 'warning',
                   center: true
                 }).then(() => {
-                  axios.delete('../api/profiles/'+record.id)
+                  axios.delete('../api/auth/roles'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({
@@ -210,9 +193,9 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'Users'});
+                    this.$router.push({name: 'roles'});
                 }).catch(() => {
-                     this.$router.push({name: 'Users'});
+                     this.$router.push({name: 'roles'});
                     }); 
                 }).catch(() => {
                   this.$message({
@@ -222,22 +205,11 @@
                   });          
                 });
             },
-            /*
-            |--------------------------------------------------------------------------
-            | Go To Create Profile Page
-            |--------------------------------------------------------------------------
-            |
-            | This method Load Create profile Component
-            |
-            */      
-            userRole(){
-              this.$router.push({ name: 'userPermissions'});
-            },
         },        
         mounted() {
-            this.loaduser();
+            this.loadrole();
             Fire.$on('AfterCrud',() => {
-                this.loaduser();
+                this.loadrole();
             });
         }
     }
