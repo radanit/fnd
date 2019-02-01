@@ -29,5 +29,32 @@ trait ProfileUserTrait
         return $profileUser;
     }
 
-    
+    /**
+     * Alias to eloquent one-to-one relation's attach() method.
+     *
+     * @param  mixed  $profileUser
+     * @return static
+     */
+    public function attachProfile($profile)
+    {        
+        $attributes = [];
+        return $this->$relationship()->attach(
+            $profile,
+            $attributes
+        );
+    }
+
+    /**
+     * Alias to eloquent one-to-one relation's detach() method.
+     *
+     * @param  mixed  $profileUser
+     * @return static
+     */
+    public function detachProfile($profile)
+    {
+        return $this->$relationship()->deattach(
+            $profile,
+            $attributes
+        );
+    }
 }
