@@ -154,7 +154,7 @@
             * Load Method
             */
             loaduser(){
-                axios.get("../auth/api/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/auth/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,

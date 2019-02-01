@@ -81,7 +81,7 @@
             */
             loadprofileStructure(){
                 this.form.id=this.$route.params.profileId;
-                axios.get("../api/profiles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+                axios.get("../api/profile/profiles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -104,7 +104,7 @@
               this.$router.push({ name: 'profile_structures'});
             },
             updateprofileStructure(){
-            axios.put('../api/profiles/'+this.form.id,{name: this.form.name,
+            axios.put('../api/profile/profiles/'+this.form.id,{name: this.form.name,
               description: this.form.description,structure:this.form.structure}).then(response => {
               this.$message({
                 type: 'success',

@@ -107,7 +107,7 @@
         },
         methods :{ 
             infiniteHandler($state) {
-                axios.get("../api/profiles", {
+                axios.get("../api/profile/profiles", {
                     params: {
                     page: this.page,
                     },
@@ -137,7 +137,7 @@
             * Load Method
             */
             loadprofileStructure(page){                
-                axios.get("../api/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/profile/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -188,7 +188,7 @@
                   type: 'warning',
                   center: true
                 }).then(() => {
-                  axios.delete('../api/profiles/'+record.id)
+                  axios.delete('../api/profile/profiles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({

@@ -97,7 +97,7 @@
             |
             */
 		    	  createProfileStructure() {
-              axios.post('../api/profiles',{name: this.form.name,
+              axios.post('../api/profile/profiles',{name: this.form.name,
               description: this.form.description,structure:this.form.structure}).then(() =>{
               Fire.$emit('AfterCrud');
               this.$message({
