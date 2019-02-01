@@ -20,6 +20,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('logout', 'LoginController@logout');
     
     Route::apiResource('roles', 'RoleController');
-    Route::apiResource('permission', 'PermissionController');
+    Route::apiResource('permissions', 'PermissionController');
 });
 Route::apiResource('users', 'UserController');
