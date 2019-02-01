@@ -42,5 +42,9 @@ return [
     'roleName' => 'عنوان نقش',
     'roleDescription' => 'شرح نقش',
     'roleCardTitle' => 'لیست نقش های کاربری',
+    'roles_lbl' => 'نقش ها',
+    'role_choose_lbl' => 'انتخاب نقش',
+    'profile_lbl' => 'پروفایل ها',
+    'profile_choose_lbl' => 'انتخاب پروفایل'
 
 ];

@@ -28,15 +28,38 @@
                 <el-input name="email" type="email" v-model="form.email" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
-                :label="trans('user.structure')"
-                prop="structure">
-                  <el-input
-                    type="textarea"
-                    :rows="2"
-                    :placeholder="trans('user.json')"
-                    v-model="form.structure">
-                  </el-input>
+                :label="trans('user.roles_lbl')"
+                prop="roles">
+                  <el-select
+                    v-model="roles"
+                    multiple
+                    filterable
+                    default-first-option
+                    :placeholder="trans('user.role_choose_lbl')">
+                    <el-option
+                      v-for="item in role_options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
+                <el-form-item
+                :label="trans('user.profile_lbl')"
+                prop="profile">
+                  <el-select
+                    v-model="profile"
+                    filterable
+                    default-first-option
+                    :placeholder="trans('user.profile_choose_lbl')">
+                    <el-option
+                      v-for="item in profile_options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>                
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -61,10 +84,12 @@
                 {
                   id: '',
                   username: '',
-                  email: '',
-                  structure:'',
-            
+                  email: '',                         
                 },
+                roles:'',
+                role_options: [],
+                profile:'',
+                profile_options:[],
             }
         },
         methods :{
@@ -88,6 +113,29 @@
                     this.$router.push({name: 'edit_users'});                 
                 });
             },
+            loadProfiles(){
+              axios.get("../api/profile/profiles").then(({data})=>(this.profile_options = data.data)).catch(()=>{
+                    this.$message({
+                      title: '',
+                      message: this.form.failedAlert,
+                      center: true,
+                      type: 'error'
+                    });
+                    this.$router.push({name: 'edit_users'});                 
+                });
+
+            },
+            loadRoles(){
+              axios.get("../auth/api/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
+                    this.$message({
+                      title: '',
+                      message: this.form.failedAlert,
+                      center: true,
+                      type: 'error'
+                    });
+                    this.$router.push({name: 'edit_users'});                 
+                });
+            },            
             /*
             |--------------------------------------------------------------------------
             | Back to Profile List
@@ -177,5 +225,14 @@
 .el-message-box__header:lang(fa)
 {
     direction:rtl;
+}
+.el-select__tags:lang(fa){
+  right:15%;
+}
+.el-select:lang(fa) .el-tag__close.el-icon-close:lang(fa){
+  right:0px !important;
+}
+.el-select-dropdown__item{
+  padding: 0 35px !important;
 }
 </style>

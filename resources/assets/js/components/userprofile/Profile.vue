@@ -1,4 +1,4 @@
-<template>
+npm<template>
    <div class="container-fluid mt-3">
 	<div class="row">
 	  <div class="col-md-3">
@@ -21,7 +21,7 @@
 			<h3 class="profile-username text-center">Nina Mcintire</h3>
 
 			<p class="text-right text-center">Software Engineer</p>
-
+	
 		  </div>
 		  <!-- /.card-body -->
 		</div>
@@ -457,7 +457,7 @@
 									editMod :false,
 									specialitys :{},
 									specialityGroups:{},
-									schema: require('../schema/newsletter'),
+									schema: require('../../schema/newsletter'),
 									model: {},
 									form: {
 											name: '',

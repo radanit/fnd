@@ -33,7 +33,7 @@ const routes = [
 	/*End User Routes*/
 
 
-    { path: '/profiles',name:'Profiles', component: require('../components/Profile.vue').default },
+    { path: '/profiles',name:'Profiles', component: require('../components/userprofile/Profile.vue').default },
 ];
 
 export default routes;
