@@ -18,6 +18,7 @@ Route::post('login', 'LoginController@login');
 Route::post('signup', 'RegisterController@signup');
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('logout', 'LoginController@logout');
-
+    Route::apiResource('users', 'UserController');
+    Route::apiResource('roles', 'RoleController');
+    Route::apiResource('permission', 'PermissionController');
 });
-Route::apiResource('users', 'UserController');

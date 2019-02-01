@@ -20,7 +20,9 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'active' => $this->active,
-            'userProfile' => new ProfileUserResource($this->userProfile),           
+            'profileUser' => new ProfileUserResource($this->profileUser),
+            'roles' => new RoleResource($this->roles),
+            // 'permissions' => new PermissionResource($this->permissions),
         ];
     }
 }
