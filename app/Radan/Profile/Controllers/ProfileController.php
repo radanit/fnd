@@ -29,7 +29,6 @@ class ProfileController extends Controller
     else {
       return ProfileResource::collection(Profile::all()); 
     }
-
   }
 
   /**

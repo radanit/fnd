@@ -23,9 +23,9 @@ trait ProfileUserTrait
      */
     public function profileUser()
     {
-        $userProfile = $this->hasOne(
+        $profileUser = $this->hasOne(
             Config::get('radan.profile.models.profile_user'));
 
-        return $userProfile;
+        return $profileUser;
     }
 }
