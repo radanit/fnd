@@ -28,4 +28,6 @@ trait ProfileUserTrait
 
         return $profileUser;
     }
+
+    
 }

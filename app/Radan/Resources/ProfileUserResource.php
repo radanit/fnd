@@ -18,7 +18,8 @@ class ProfileUserResource extends JsonResource
         return [
             'id' => $this->id,            
             'data' => $this->data,
-            'profile' => ProfileResource::collection($this->profile),
+            'profile' => $this->profile->name,
+            'user' => $this->user->username,
         ];
     }
 }
