@@ -24,7 +24,10 @@ trait ProfileUserTrait
     public function profileUser()
     {
         $profileUser = $this->hasOne(
-            Config::get('radan.profile.models.profile_user'));
+            Config::get('radan.profile.models.profile_user'),
+            Config::get('radan.profile.foreign_keys.user'),
+            $this->primaryKey
+        );
 
         return $profileUser;
     }
@@ -35,13 +38,20 @@ trait ProfileUserTrait
      * @param  mixed  $profileUser
      * @return static
      */
-    public function attachProfile($profile)
-    {        
-        $attributes = [];
-        return $this->$relationship()->attach(
-            $profile,
-            $attributes
-        );
+    public function attachProfile($object)
+    {                
+        /*if (is_array($object))
+        {
+            return $this->profileUser()->create($object);
+        }
+        else if ($object instanceof $object)
+        {
+            return $this->profileUser->save($object);
+        }            
+        
+        // $profileUser = ProfileUser->data = "";*/
+
+        
     }
 
     /**
@@ -52,9 +62,9 @@ trait ProfileUserTrait
      */
     public function detachProfile($profile)
     {
-        return $this->$relationship()->deattach(
+        /*return $this->$relationship()->deattach(
             $profile,
             $attributes
-        );
+        );*/
     }
 }

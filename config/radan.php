@@ -37,6 +37,28 @@ return [
 
   /*
   |--------------------------------------------------------------------------
+  | Auth Foundation Package configurations
+  |--------------------------------------------------------------------------    
+  | Auth package manage flexibility of user managment authenticatio and
+  | Authrization.
+  */
+  'auth' => [
+    /*
+    |--------------------------------------------------------------------------
+    | Radan Auth Models
+    |--------------------------------------------------------------------------
+    |
+    | These are the models used by Radan Auth to define the User, Role and 
+    | Permission. If you want the Radan Auth to be in a different namespace or
+    | to have a different name, you can do it here.
+    |
+    */
+    'models' => [
+    ],
+  ],
+  
+  /*
+  |--------------------------------------------------------------------------
   | Profile Foundation Package configurations
   |--------------------------------------------------------------------------    
   | Profile package manage flexibility of user information data type.

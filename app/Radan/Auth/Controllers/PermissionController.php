@@ -39,7 +39,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         //
-        // Validation rules
+        // Validation permission
         Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:permissions',
             'description' => 'string|max:255',
@@ -77,7 +77,7 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         //
-        // Validation rules   
+        // Validation permission   
         Validator::make($request->all(), [
             'description' => 'string|max:255',
             'displayname' => 'string|max:255',
