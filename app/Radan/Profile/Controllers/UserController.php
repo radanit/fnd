@@ -54,7 +54,7 @@ class UserController extends Controller
             'active' => 'boolean',
             'profile_id' => 'required|exists:'.$profileTable.',id',
             'profile_data' => 'json',
-            'roles' => 'string',            
+            'roles' => '',            
         ]);
 
         // First create user in users table     
