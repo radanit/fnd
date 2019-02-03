@@ -45,8 +45,6 @@
     export default {
         data(){
             return{
-                updateAlert : trans('user.updateAlert'),                
-                failedAlert : trans('app.failedAlert'),
                 form: 
                 {
                   id: '',
@@ -54,6 +52,15 @@
                   description: '',
             
                 },
+                insertAlert : trans('app.insertAlert'),
+                updateAlert : trans('app.updateAlert'),
+                deleteAlert : trans('app.deleteAlert'),
+                warningAlert : trans('app.warningAlert'),
+                failedAlert : trans('app.failedAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText')
             }
         },
         methods :{
@@ -87,7 +94,7 @@
             */
            
             backToRoleList(){
-              this.$router.push({ name: 'roles'});
+              this.$router.push({ name: 'user_roles'});
             },
             updateuser(){
             var obj = JSON.stringify(this.form.structure);

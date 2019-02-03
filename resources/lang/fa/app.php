@@ -18,9 +18,13 @@ return [
     'noticTxt' => 'این عمل قابل بازگشت نمی باشد!',
     'confirmButtonText' => 'تایید',
     'cancelBtnLbl' => 'انصراف',
+    'insertAlert' => '.عملیات درج با موفقیت انجام شد',
+    'updateAlert' => '.عملیات بروزرسانی با موفقیت انجام شد',
+    'deleteAlert' => '.عملیات حذف با موفقیت انجام شد',
+    'warningAlert' => 'آیا از انجام عملیات اطمینان دارید؟',
     'cancelAlert' => 'عملیات لغو گردید',
     'loadAlert' => 'خطا در نمایش اطلاعات!',
-    'failedAlert' => 'خطا در انجام عملیات با مسئول سیستم تماس بگیرید!',
+    'failedAlert' => '!خطا در انجام عملیات با مسئول سیستم تماس بگیرید',
     'dir' =>'rtl',
 	'customerCompanyName' => 'رادیولوژی بهار',
 	'contact' => 'تماس با ما',
@@ -44,4 +48,6 @@ return [
 	'resetBtnLbl' => ' پاک کردن',
     'protectedResourceAlert' => 'امکان حذف رکورد انتخابی وجود ندارد',
     'searchPlaceholder' => 'جستجو ...',
+    'emailFormatError' => 'فرمت پست الکترونیک وارده شده صحیح نمی باشد.',
+    'minPassLengthError' => 'طول کلمه عبور نبایستی کمتر از 6 کاراکتر باشد.'
 ];

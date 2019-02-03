@@ -9,9 +9,6 @@
 				<el-button type="success"
 				  size="mini"
 				  @click="createUsers">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
-                <el-button type="primary"
-                  size="mini"
-                  @click="userRole">{{trans('user.roleBtnLbl')}} <i class="fas fa-users"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -69,6 +66,7 @@
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
+                    <div slot="no-more"></div>
                     </infinite-loading>
 				  </el-table>
                   <div class="block">
@@ -103,8 +101,10 @@
                 username: '',
                 email: '',
                 loadAlert : '',
-                deleteAlert : trans('user.deleteAlert'),
-                warningAlert : trans('user.warningAlert'),
+                insertAlert : trans('app.insertAlert'),
+                updateAlert : trans('app.updateAlert'),
+                deleteAlert : trans('app.deleteAlert'),
+                warningAlert : trans('app.warningAlert'),
                 failedAlert : trans('app.failedAlert'),
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),

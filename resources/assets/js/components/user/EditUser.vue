@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+                	              <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('user.username')"
                 prop="username"
@@ -16,17 +16,38 @@
                   { required: true, message: trans('user.usernameRequierdError')}
                 ]"
                 >
-                <el-input name="username" type="username" v-model.number="form.username" autocomplete="off"></el-input>
+                <el-input name="username" type="username" v-model="form.username" :placeholder="trans('user.username')" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('user.email')"
                 prop="email"
                 :rules="[
-                  { required: true, message: trans('user.emailRequierdError')}
+                  { required: true, message: trans('user.emailRequierdError')},
+                  { type: 'email', message: trans('app.emailFormatError'), trigger: ['blur'] }
                 ]"
                 >
-                <el-input name="email" type="email" v-model="form.email" autocomplete="off"></el-input>
+                <el-input name="email" type="email" 
+                v-model="form.email" :placeholder="trans('user.email')" autocomplete="off">
+                </el-input>
                 </el-form-item>
+                <el-form-item :label="trans('user.password')" prop="password"
+                :rules="[
+                  { required: true, message: trans('user.passwordRequierdError')},
+                  { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
+                ]"
+                >
+                <el-input type="password" :placeholder="trans('user.password')" v-model="form.password">
+                </el-input>
+                </el-form-item>
+                <el-form-item :label="trans('user.confirmPassword')" prop="confirmPassword"
+                :rules="[
+                  { required: true, message: trans('user.confirmPasswordRequierdError')},
+                  { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
+                ]"
+                >
+                <el-input type="password" :placeholder="trans('user.confirmPassword')" v-model="form.confirmPassword">
+                </el-input>
+                </el-form-item>                
                 <el-form-item
                 :label="trans('user.roles_lbl')"
                 prop="roles">
@@ -38,28 +59,28 @@
                     :placeholder="trans('user.role_choose_lbl')">
                     <el-option
                       v-for="item in role_options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item
-                :label="trans('user.profile_lbl')"
-                prop="profile">
-                  <el-select
-                    v-model="profile"
-                    filterable
-                    default-first-option
-                    :placeholder="trans('user.profile_choose_lbl')">
-                    <el-option
-                      v-for="item in profile_options"
                       :key="item.id"
                       :label="item.description"
                       :value="item.id">
                     </el-option>
                   </el-select>
-                </el-form-item>                
+                </el-form-item>
+                <el-form-item
+                :label="trans('user.profile_lbl')"
+                prop="profile_id">
+                  <el-select
+                    v-model.number="profile_id"
+                    filterable
+                    default-first-option
+                    :placeholder="trans('user.profile_choose_lbl')">
+                    <el-option
+                      v-for="p_item in profile_options"
+                      :key="p_item.id"
+                      :label="p_item.description"
+                      :value="p_item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>                       
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -78,17 +99,27 @@
     export default {
         data(){
             return{
-                updateAlert : trans('user.updateAlert'),                
-                failedAlert : trans('app.failedAlert'),
                 form: 
                 {
-                  id: '',
-                  username: '',
-                  email: '',                         
+                  name: '',
+                  email: '',
+                  password: '',
+                  confirmPassword: '',
                 },
+                loadAlert : '',
+                insertAlert : trans('app.insertAlert'),
+                updateAlert : trans('app.updateAlert'),
+                deleteAlert : trans('app.deleteAlert'),
+                warningAlert : trans('app.warningAlert'),
+                failedAlert : trans('app.failedAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText'),                
                 roles:'',
                 role_options: [],
-                profile:'',
+                profile_id:'',
+                profile_data:'',
                 profile_options:[],
             }
         },

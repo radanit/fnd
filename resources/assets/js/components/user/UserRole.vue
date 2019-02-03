@@ -53,6 +53,7 @@
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
+                    <div slot="no-more"></div>
                     </infinite-loading>
 				  </el-table>
                   <div class="block">
@@ -87,8 +88,10 @@
                 roleName: '',
                 roleDescription: '',
                 loadAlert : '',
-                deleteAlert : trans('user.deleteAlert'),
-                warningAlert : trans('user.warningAlert'),
+                insertAlert : trans('app.insertAlert'),
+                updateAlert : trans('app.updateAlert'),
+                deleteAlert : trans('app.deleteAlert'),
+                warningAlert : trans('app.warningAlert'),
                 failedAlert : trans('app.failedAlert'),
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),

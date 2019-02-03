@@ -48,5 +48,11 @@ return [
     'profile_choose_lbl' => 'انتخاب پروفایل',
     'roleNameRequierdError' => 'عنوان نقش کاربری اجباری است!',
     'roleDesRequierdError' => 'شرح نقش کاربری اجباری است!',
+    'password' => 'کلمه عبور',
+    'confirm' => 'تایید کلمه عبور',
+    'passwordRequierdError' => 'فیلد پسورد اجباری است.',
+    'profileRequierdError' => 'فیلد پروفایل اجباری است.',
+    'confirmPassword' => 'تکرار کلمه عبور',
+    'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است'
 
 ];

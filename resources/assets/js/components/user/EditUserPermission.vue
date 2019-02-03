@@ -55,8 +55,15 @@
     export default {
         data(){
             return{
-                updateAlert : trans('user.updateAlert'),                
+                insertAlert : trans('app.insertAlert'),
+                updateAlert : trans('app.updateAlert'),
+                deleteAlert : trans('app.deleteAlert'),
+                warningAlert : trans('app.warningAlert'),
                 failedAlert : trans('app.failedAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText'),
                 form: 
                 {
                   id: '',
