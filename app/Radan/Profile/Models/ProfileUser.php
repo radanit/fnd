@@ -19,6 +19,10 @@ class ProfileUser extends Model
     protected $hidden = [        
     ]; 
 
+    //
+    protected $fillable = [
+        'user_id','profile_id', 'data'
+    ];
 
     /**
      * Creates a new instance of the model.

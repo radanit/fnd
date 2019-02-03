@@ -18,7 +18,7 @@ class CreateProfileUserTable extends Migration
             $table->increments('id');
             $table->integer('profile_id');
             $table->integer('user_id');
-            $table->json('data');          
+            $table->json('data')->nullable();          
             $table->timestamps();
             $table->softDeletes();
         });

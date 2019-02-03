@@ -16,4 +16,5 @@ Route::group(['middleware' => 'auth:api'], function() {
  // Route::apiResource('profiles', 'ProfileController');  
 });
 
-Route::apiResource('profiles', 'ProfileController');  
+Route::apiResource('profiles', 'ProfileController');
+Route::apiResource('users', 'UserController');

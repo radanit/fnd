@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Radan\Auth\Controllers;
+namespace App\Radan\Profile\Controllers;
 
 use Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\User;
+use App\Radan\Auth\Models\Role;
+use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Request\UserRequest;
 use App\Radan\Resources\UserResource;
+use Illuminate\Support\Facades\Config;
 
 
 class UserController extends Controller
@@ -20,8 +24,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Return 
-        return UserResource::collection(User::paginate());
+        // Return        
+        $count = Config::get('radan.profile.models.pagination.count',
+                             Config::get('radan.pagination.count',15));
+        if ($count) {
+            return UserResource::collection(User::paginate($count));
+        }
+        else {
+            return UserResource::collection(User::all());
+        }        
     }
 
     /**
@@ -31,15 +42,19 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
+        // Read Profile table name form config
+        $profileTable = Config::get('radan.profile.tables.profiles','profiles');
+                
         // Validation
         $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',                        
             'password' => 'required|string|min:6|confirmed',
             'active' => 'boolean',
-            'profile_id' => 'required|exists:profiles:id',
-            'profile_data' => 'required|json'
+            'profile_id' => 'required|exists:'.$profileTable.',id',
+            'profile_data' => 'json',
+            'roles' => 'string',            
         ]);
 
         // First create user in users table     
@@ -50,11 +65,18 @@ class UserController extends Controller
             'active' => $request->active,
         ]);
 
-        // Then create profile info base on profile type 
-        $user->userProfile()->create([           
-            'profile_id' => $request->profile_id,
-            'data' => $request->profile_date,
-        ]);
+        // create profile info base on profile type 
+        $user->profileUser()->create([           
+                'profile_id' => $request->profile_id,
+                'data' => $request->profile_date,
+        ]);        
+
+        // find role and assigned to user
+        $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
+        $roles = Role::findMany($roles);
+        foreach ($roles as $role) {
+            $user->attachRole($role);
+        }    
 
         return new UserResource($user);
     }
@@ -114,7 +136,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Find user_profile record by user_id relation
-        $user->userProfile()->delete();
+        $user->profileUser()->delete();
         $user->delete();        
         
         return response()->json(null, 204);
