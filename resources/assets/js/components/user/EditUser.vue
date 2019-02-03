@@ -29,30 +29,12 @@
                 <el-input name="email" type="email" 
                 v-model="form.email" :placeholder="trans('user.email')" autocomplete="off">
                 </el-input>
-                </el-form-item>
-                <el-form-item :label="trans('user.password')" prop="password"
-                :rules="[
-                  { required: true, message: trans('user.passwordRequierdError')},
-                  { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
-                ]"
-                >
-                <el-input type="password" :placeholder="trans('user.password')" v-model="form.password">
-                </el-input>
-                </el-form-item>
-                <el-form-item :label="trans('user.confirmPassword')" prop="confirmPassword"
-                :rules="[
-                  { required: true, message: trans('user.confirmPasswordRequierdError')},
-                  { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
-                ]"
-                >
-                <el-input type="password" :placeholder="trans('user.confirmPassword')" v-model="form.confirmPassword">
-                </el-input>
-                </el-form-item>                
+                </el-form-item>             
                 <el-form-item
                 :label="trans('user.roles_lbl')"
                 prop="roles">
                   <el-select
-                    v-model="roles"
+                    v-model="form.roles"
                     multiple
                     filterable
                     default-first-option
@@ -69,18 +51,18 @@
                 :label="trans('user.profile_lbl')"
                 prop="profile_id">
                   <el-select
-                    v-model.number="profile_id"
+                    v-model="form.profile_id"
                     filterable
                     default-first-option
                     :placeholder="trans('user.profile_choose_lbl')">
                     <el-option
-                      v-for="p_item in profile_options"
-                      :key="p_item.id"
-                      :label="p_item.description"
-                      :value="p_item.id">
+                      v-for="item in profile_options"
+                      :key="item.id"
+                      :label="item.description"
+                      :value="item">
                     </el-option>
                   </el-select>
-                </el-form-item>                       
+                </el-form-item>                      
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -101,11 +83,16 @@
             return{
                 form: 
                 {
-                  name: '',
+                  username: '',
                   email: '',
-                  password: '',
-                  confirmPassword: '',
+                  roles:{},                  
+                  profile_id:{},
+                  profile_data:'',
+               
                 },
+                   profile_options:[],
+                   role_options: [],
+                      
                 loadAlert : '',
                 insertAlert : trans('app.insertAlert'),
                 updateAlert : trans('app.updateAlert'),
@@ -115,12 +102,7 @@
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText'),                
-                roles:'',
-                role_options: [],
-                profile_id:'',
-                profile_data:'',
-                profile_options:[],
+                confirmButtonText : trans('app.confirmButtonText'),                              
             }
         },
         methods :{
@@ -134,14 +116,13 @@
             */
             loaduser(){
                 this.form.id=this.$route.params.profileId;
-                axios.get("../api/auth/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+                axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
                       center: true,
                       type: 'error'
-                    });
-                    this.$router.push({name: 'edit_users'});                 
+                    });              
                 });
             },
             loadProfiles(){
@@ -151,10 +132,8 @@
                       message: this.form.failedAlert,
                       center: true,
                       type: 'error'
-                    });
-                    this.$router.push({name: 'edit_users'});                 
+                    });              
                 });
-
             },
             loadRoles(){
               axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
@@ -181,7 +160,7 @@
             },
             updateuser(){
             var obj = JSON.stringify(this.form.structure);
-            axios.put('../api/auth/users/'+this.form.id,{name: this.form.name,
+            axios.put('../api/profile/users/'+this.form.id,{name: this.form.name,
               description: this.form.description,structure:obj}).then(response => {
               this.$message({
                 type: 'success',

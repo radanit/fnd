@@ -121,7 +121,7 @@
         },
         methods :{ 
             infiniteHandler($state) {
-                axios.get("../api/auth/users", {
+                axios.get("../api/profile/users", {
                     params: {
                     page: this.page,
                     },
@@ -154,7 +154,7 @@
             * Load Method
             */
             loaduser(){
-                axios.get("../api/auth/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -230,7 +230,7 @@
             |
             */      
             userRole(){
-              this.$router.push({ name: 'UserRoles'});
+              this.$router.push({ name: 'User_roles'});
             },
         },        
         mounted() {

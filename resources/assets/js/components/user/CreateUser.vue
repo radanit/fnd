@@ -52,13 +52,13 @@
                 :label="trans('user.roles_lbl')"
                 prop="roles">
                   <el-select
-                    v-model="roles"
+                    v-model="form.roles"
                     multiple
                     filterable
                     default-first-option
                     :placeholder="trans('user.role_choose_lbl')">
                     <el-option
-                      v-for="item in role_options"
+                      v-for="item in form.role_options"
                       :key="item.id"
                       :label="item.description"
                       :value="item.id">
@@ -69,18 +69,22 @@
                 :label="trans('user.profile_lbl')"
                 prop="profile_id">
                   <el-select
-                    v-model.number="profile_id"
+                    v-model.number="form.profile_id"
                     filterable
                     default-first-option
                     :placeholder="trans('user.profile_choose_lbl')">
                     <el-option
-                      v-for="p_item in profile_options"
+                      v-for="p_item in form.profile_options"
                       :key="p_item.id"
                       :label="p_item.description"
                       :value="p_item.id">
                     </el-option>
                   </el-select>
-                </el-form-item>                       
+                </el-form-item>
+                <el-form-item :label="trans('user.active')" prop="active">
+                <el-input type="active" :placeholder="trans('user.active')" v-model="form.active">
+                </el-input>
+                </el-form-item>                                     
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -101,10 +105,16 @@
             return{
                 form: 
                 {
-                  name: '',
+                  username: '',
                   email: '',
                   password: '',
                   confirmPassword: '',
+                  roles:'',
+                  role_options: [],
+                  profile_id:1,
+                  profile_data:'',
+                  profile_options:[],
+                  active:''
                 },
                 loadAlert : '',
                 insertAlert : trans('app.insertAlert'),
@@ -116,11 +126,7 @@
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
                 confirmButtonText : trans('app.confirmButtonText'),                
-                roles:'',
-                role_options: [],
-                profile_id:'',
-                profile_data:'',
-                profile_options:[],
+
             }
         },
         methods :{
@@ -129,7 +135,7 @@
               this.$router.push({ name: 'users'});
             },
             loadProfiles(){
-              axios.get("../api/profile/profiles").then(({data})=>(this.profile_options = data.data)).catch(()=>{
+              axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -141,7 +147,7 @@
 
             },
             loadRoles(){
-              axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
+              axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -173,8 +179,8 @@
 		    	  createProfileStructure() {
               let currentObj = this;
               var obj = JSON.stringify(this.form.structure);
-              axios.post('../api/auth/users',{name: this.form.name,
-              description: this.form.email,password:this.form.password,confirm:this.form.confirmPassword,profile_id:this.profile_id,profile_data:this.profile_data}).then(() =>{
+              axios.post('../api/profile/users',{username: this.form.username,
+              email: this.form.email,password:this.form.password,password_confirmation:this.form.confirmPassword,profile_id:this.form.profile_id,roles:this.form.roles}).then(() =>{
               Fire.$emit('AfterCrud');
               this.$message({
                 title: '',
