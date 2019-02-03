@@ -37,6 +37,7 @@ return [
     'permissionName' => 'عنوان سطح دسترسی',
     'permissionDescription' => 'شرح سطح دسترسی',
     'permissionCardTitle' => 'لیست سطوح دسترسی',
+    'permission_lbl' => 'سطوح دسترسی ',
     'addRoleBtnLbl' => 'درج نقش کاربری',
     'roleBtnLbl' => 'مدیریت نقش های کاربری',
     'roleName' => 'عنوان نقش',
@@ -53,6 +54,8 @@ return [
     'passwordRequierdError' => 'فیلد پسورد اجباری است.',
     'profileRequierdError' => 'فیلد پروفایل اجباری است.',
     'confirmPassword' => 'تکرار کلمه عبور',
-    'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است'
+    'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است',
+    'permissionNameRequierdError' => 'فیلد عنوان سطح دسترسی اجباری است',
+    'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است'
 
 ];

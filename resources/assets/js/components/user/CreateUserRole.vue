@@ -27,6 +27,23 @@
                 >
                 <el-input name="roleDescription" type="roleDescription" v-model="form.roleDescription" autocomplete="off"></el-input>
                 </el-form-item>
+                <el-form-item
+                :label="trans('user.permission_lbl')"
+                prop="permission">
+                  <el-select
+                    v-model="permissions"
+                    multiple
+                    filterable
+                    default-first-option
+                    :placeholder="trans('user.permission_choose_lbl')">
+                    <el-option
+                      v-for="item in permission_options"
+                      :key="item.id"
+                      :label="item.description"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -49,7 +66,6 @@
                 {
                   roleName: '',
                   roleDescription: '',
-                  structure:'',
                   loadAlert : '',
                   insertAlert : trans('app.insertAlert'),
                   updateAlert : trans('app.updateAlert'),
@@ -61,6 +77,8 @@
                   cancelButtonText : trans('app.cancelButtonText'),
                   confirmButtonText : trans('app.confirmButtonText')
                 },
+                permissions: '',
+                permission_options:[],
             }
         },
         methods :{
@@ -75,6 +93,16 @@
             backToProfileList(){
               this.$router.push({ name: 'user_roles'});
             },
+            loadPermission(){
+              axios.get("../api/auth/permissions").then(({data})=>(this.permission_options = data.data)).catch(()=>{
+                    this.$message({
+                      title: '',
+                      message: this.form.failedAlert,
+                      center: true,
+                      type: 'error'
+                    });                
+                });
+            }, 
             /*
             |--------------------------------------------------------------------------
             | Create Profile Method
@@ -120,7 +148,7 @@
             }            
         },        
         mounted() {
-          
+          this.loadPermission();
         }
     }
 </script>

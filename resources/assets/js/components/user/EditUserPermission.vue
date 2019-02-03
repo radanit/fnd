@@ -153,7 +153,7 @@
 	padding:0 0 0 10px;
 }
 .el-form-item__content:lang(fa){
-	margin-right:140px !important;
+	margin-right:160px !important;
 	margin-left:0px;
   text-align: right;
 }

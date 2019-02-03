@@ -4,38 +4,28 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{trans('user.lblAddCardTitle')}}</h3>
+                <h3 class="card-title">{{trans('user.addPermissionBtnLbl')}}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+	              <el-form  :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
                 <el-form-item
-                :label="trans('user.username')"
-                prop="username"
+                :label="trans('user.permissionName')"
+                prop="permissionName"
                 :rules="[
-                  { required: true, message: trans('user.usernameRequierdError')}
+                  { required: true, message: trans('user.permissionNameRequierdError')}
                 ]"
                 >
-                <el-input name="username" type="username" v-model="form.username" autocomplete="off"></el-input>
+                <el-input name="permissionName" type="text" v-model="form.permissionName" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
-                :label="trans('user.email')"
-                prop="email"
+                :label="trans('user.permissionDescription')"
+                prop="permissionDescription"
                 :rules="[
-                  { required: true, message: trans('user.emailRequierdError')}
+                  { required: true, message: trans('user.permissionDescriptionRequierdError')}
                 ]"
                 >
-                <el-input name="email" type="email" v-model="form.description" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                :label="trans('user.structure')"
-                prop="structure">
-                  <el-input
-                    type="textarea"
-                    :rows="2"
-                    :placeholder="trans('user.json')"
-                    v-model="form.structure">
-                  </el-input>
+                <el-input name="permissionDescription" type="text" v-model="form.permissionDescription" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -57,8 +47,8 @@
             return{
                 form: 
                 {
-                  name: '',
-                  description: '',
+                  permissionName: '',
+                  permissionDescription: '',
                   structure:'',
                   loadAlert : '',
                   insertAlert : trans('app.insertAlert'),
@@ -83,7 +73,7 @@
             |
             */           
             backToProfileList(){
-              this.$router.push({ name: 'ProfileStructure'});
+              this.$router.push({ name: 'user_permissions'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -93,11 +83,11 @@
             | This method Add Profile Info To Database
             |
             */
-		    	  createProfileStructure() {
+		    	  createuserPermission() {
               let currentObj = this;
               var obj = JSON.stringify(this.form.structure);
-              axios.post('../api/profiles',{name: this.form.name,
-              description: this.form.description,structure:obj}).then(() =>{
+              axios.post('../api/auth/permissions',{name: this.form.permissionName,
+              description: this.form.permissionDescription}).then(() =>{
               Fire.$emit('AfterCrud');
               this.$message({
                 title: '',
@@ -120,7 +110,7 @@
               this.$refs[formName].validate((valid) => {
                 if (valid) 
                 {
-                  this.createProfileStructure();
+                  this.createuserPermission();
                 }
                 else {
                   return false;
@@ -143,7 +133,7 @@
 	padding:0 0 0 10px;
 }
 .el-form-item__content:lang(fa){
-	margin-right:100px;
+	margin-right:160px !important;
 	margin-left:0px;
   text-align: right;
 }

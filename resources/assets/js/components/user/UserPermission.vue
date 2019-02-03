@@ -31,19 +31,6 @@
                       sortable
 					  prop="permissionDescription">
 					</el-table-column>
-                    <el-table-column
-                        prop="active"
-                        :label="trans('user.status')"
-                        width="100"
-                        :filters="[{ text: 'فعال', value: 1 }, { text: 'غیرفعال', value: 0 }]"
-                        :filter-method="filterActive"
-                        filter-placement="bottom-end">
-                        <template slot-scope="scope">
-                            <el-tag
-                            :type="scope.row.active === 1 ? 'success' : 'danger'"
-                            disable-transitions><span v-if="scope.row.active==1">فعال</span><span v-else>غیرفعال</span></el-tag>
-                        </template>
-                    </el-table-column>
 					<el-table-column class="float-left"
 					  align="right">
 					  <template slot="header" slot-scope="scope">
@@ -114,13 +101,12 @@
                 search: '',
                 page: 1,
                 list: [],
-                newsType: 'story',
                 infiniteId: +new Date(),
             }
         },
         methods :{ 
             infiniteHandler($state) {
-                axios.get("../auth/api/users", {
+                axios.get("../api/auth/permissions", {
                     params: {
                     page: this.page,
                     },
@@ -153,7 +139,7 @@
             * Load Method
             */
             loaduser(){
-                axios.get("../auth/api/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/auth/permissions").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
@@ -172,7 +158,7 @@
             |
             */      
             createPermission(){
-              this.$router.push({ name: 'create_users_permissions'});
+              this.$router.push({ name: 'create_user_permissions'});
             },
             /*
             |--------------------------------------------------------------------------
@@ -208,9 +194,9 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'users'});
+                    this.$router.push({name: 'user_permissions'});
                 }).catch(() => {
-                     this.$router.push({name: 'users'});
+                     this.$router.push({name: 'user_permissions'});
                     }); 
                 }).catch(() => {
                   this.$message({
