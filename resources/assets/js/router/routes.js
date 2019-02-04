@@ -24,13 +24,18 @@ const routes = [
 	{ path: '/users',name:'users', component: require('../components/user/User.vue').default },
 	{ path: '/create_users',name:'create_users', component: require('../components/user/CreateUser.vue').default },
 	{ path: '/edit_users',name:'edit_users', component: require('../components/user/EditUser.vue').default },
-	{ path: '/user_roles',name:'user_roles', component: require('../components/user/UserRole.vue').default },
-	{ path: '/create_user_roles',name:'create_user_roles', component: require('../components/user/CreateUserRole.vue').default },
-	{ path: '/edit_user_roles',name:'edit_user_roles', component: require('../components/user/EditUserRole.vue').default },	
-	{ path: '/user_permissions',name:'user_permissions', component: require('../components/user/UserPermission.vue').default },
-	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/user/CreateUserPermission.vue').default },
-	{ path: '/edit_user_permissions',name:'edit_user_permissions', component: require('../components/user/EditUserPermission.vue').default },	
 	/*End User Routes*/
+	/*Begin Role Routes*/
+	{ path: '/user_roles',name:'user_roles', component: require('../components/user/role/UserRole.vue').default },
+	{ path: '/create_user_roles',name:'create_user_roles', component: require('../components/user/role/CreateUserRole.vue').default },
+	{ path: '/edit_user_roles',name:'edit_user_roles', component: require('../components/user/role/EditUserRole.vue').default },	
+	/*End Role Routes*/
+	/*Begin Permission Routes*/
+	{ path: '/user_permissions',name:'user_permissions', component: require('../components/user/permission/UserPermission.vue').default },
+	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/permission/user/CreateUserPermission.vue').default },
+	{ path: '/edit_user_permissions',name:'edit_user_permissions', component: require('../components/user/permission/EditUserPermission.vue').default },
+	/*End Permission Routes*/
+
 
 
     { path: '/profiles',name:'Profiles', component: require('../components/userprofile/Profile.vue').default },

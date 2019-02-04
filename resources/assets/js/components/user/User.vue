@@ -201,7 +201,7 @@
                   type: 'warning',
                   center: true
                 }).then(() => {
-                  axios.delete('../api/profile/profiles/'+record.id)
+                  axios.delete('../api/profile/users/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({
@@ -209,7 +209,6 @@
                         center: true,
                         message:this.form.deleteAlert
                       });
-                    this.$router.push({name: 'users'});
                 }).catch(() => {
                      this.$router.push({name: 'users'});
                     }); 
