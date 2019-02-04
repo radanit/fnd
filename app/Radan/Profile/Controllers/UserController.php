@@ -132,13 +132,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        // Find user by id
-        $user = User::findOrFail($id);
+        // Find user by id        
+        $user = User::findOrFail($id);        
 
         // Find user_profile record by user_id relation
         $user->profileUser()->delete();
         $user->delete();        
         
-        return response()->json(null, 204);
+        return response()->json(['message' => __('app.deleteAlert') ], 200);
     }
 }
