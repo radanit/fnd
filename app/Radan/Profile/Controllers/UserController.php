@@ -137,8 +137,15 @@ class UserController extends Controller
 
         // Find user_profile record by user_id relation
         $user->profileUser()->delete();
+
+        // deattach all roles and permmisions
+        $user->syncRoles([]);
+        $user->syncPermissions([]);
+
+        // delete user
         $user->delete();        
         
+        // return 
         return response()->json(['message' => __('app.deleteAlert') ], 200);
     }
 }

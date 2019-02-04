@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 class ProfileUser extends Model 
 {
 
-    use SoftDeletes;    
+   //use SoftDeletes;    
 
     /**
      * The attributes that should be hidden for arrays.

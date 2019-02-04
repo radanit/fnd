@@ -20,7 +20,7 @@ class CreateProfileUserTable extends Migration
             $table->integer('user_id');
             $table->json('data')->nullable();          
             $table->timestamps();
-            $table->softDeletes();
+            //$table->softDeletes();
         });
     }
 
