@@ -5,12 +5,16 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{trans('user.cardTitle')}}</h3>
-                <div class="card-tools">
-				<el-button type="success"
-				  size="mini"
-				  @click="createUsers">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+                <!-- /.card-tools -->
+                    <div class="card-tools">
+                        <el-button type="success"
+                        size="mini"
+                        @click="createUser">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+                        <el-button type="primary"
+                        size="mini"
+                        @click="activeUser">{{trans('app.activeBtnLbl')}} <i class="fas fa-lamp"></i></el-button>
+                    </div>                
                 </div>
-              </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
@@ -30,6 +34,11 @@
 					  :label="trans('user.email')"
                       sortable
 					  prop="email">
+					</el-table-column>
+                    <el-table-column
+					  :label="trans('user.profile_name')"
+                      sortable
+					  prop="profile_name">
 					</el-table-column>
                     <el-table-column
                         prop="active"
@@ -55,11 +64,11 @@
 					  <template slot-scope="scope" class="float-left">
                         <el-button
                         size="mini"
-                        @click="editUsers(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
+                        @click="editUser(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
 						<el-button
 						  size="mini"
 						  type="danger"
-						  @click="deleteUsers(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
+						  @click="deleteUser(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>                        
 					  </template>                    
 					</el-table-column>
                     <infinite-loading
@@ -100,6 +109,8 @@
                 active:'',
                 username: '',
                 email: '',
+                profile_name: '',
+                roles: '',
                 loadAlert : '',
                 insertAlert : trans('app.insertAlert'),
                 updateAlert : trans('app.updateAlert'),
@@ -117,6 +128,7 @@
                 list: [],
                 newsType: 'story',
                 infiniteId: +new Date(),
+                multipleSelection:[],
             }
         },
         methods :{ 
@@ -153,16 +165,23 @@
            /*
             * Load Method
             */
-            loaduser(){
+            loadUser(){
                 axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
+                      message: response.data.message,
                       center: true,
                       type: 'error'
                     });
                     this.$router.push({name: 'users'});                 
                 });
+            },
+            activeUser(){
+               if(this.multipleSelection.length){
+                   alert('selected is exist');
+               }
+               else{
+                   alert('oops selected dont exist');
+               }
             },
             /*
             |--------------------------------------------------------------------------
@@ -172,7 +191,7 @@
             | This method Load Create profile Component
             |
             */      
-            createUsers(){
+            createUser(){
               this.$router.push({ name: 'create_users'});
             },            
             /*
@@ -183,7 +202,7 @@
             | This method Load Edit profile Component
             |
             */      
-            editUsers(record){
+            editUser(record){
               this.$router.push({ name: 'edit_users', params: { profileId: record.id } });
             },
             /*
@@ -194,7 +213,7 @@
             | This method delete profile info
             |
             */         
-            deleteUsers(record){
+            deleteUser(record){
 				  this.$confirm(this.form.warningAlert,this.form.noticTxt, {
                   confirmButtonText: this.form.confirmButtonText,
                   cancelButtonText: this.form.cancelButtonText,
@@ -203,14 +222,19 @@
                 }).then(() => {
                   axios.delete('../api/profile/users/'+record.id)
                 .then(response => {
+                    console.log(response);
                     Fire.$emit('AfterCrud');
                      this.$message({
                         type: 'success',
                         center: true,
-                        message:this.form.deleteAlert
+                        message:response.data.message
                       });
                 }).catch(() => {
-                     this.$router.push({name: 'users'});
+                     this.$message({
+                        type: 'error',
+                        center: true,
+                        message:response.data.message
+                      });
                     }); 
                 }).catch(() => {
                   this.$message({
@@ -233,9 +257,9 @@
             },
         },        
         mounted() {
-            this.loaduser();
+            this.loadUser();
             Fire.$on('AfterCrud',() => {
-                this.loaduser();
+                this.loadUser();
             });
         }
     }

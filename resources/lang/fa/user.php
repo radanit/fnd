@@ -56,6 +56,7 @@ return [
     'confirmPassword' => 'تکرار کلمه عبور',
     'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است',
     'permissionNameRequierdError' => 'فیلد عنوان سطح دسترسی اجباری است',
-    'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است'
+    'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است',
+    'active' => 'فعال',
 
 ];

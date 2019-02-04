@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                	              <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+                <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('user.username')"
                 prop="username"
@@ -29,7 +29,25 @@
                 <el-input name="email" type="email" 
                 v-model="form.email" :placeholder="trans('user.email')" autocomplete="off">
                 </el-input>
-                </el-form-item>             
+                </el-form-item>
+                <el-form-item :label="trans('user.password')" prop="password"
+                :rules="[
+                  { required: true, message: trans('user.passwordRequierdError')},
+                  { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
+                ]"
+                >
+                <el-input type="password" :placeholder="trans('user.password')" v-model="form.password">
+                </el-input>
+                </el-form-item>
+                <el-form-item :label="trans('user.confirmPassword')" prop="confirmPassword"
+                :rules="[
+                  { required: true, message: trans('user.confirmPasswordRequierdError')},
+                  { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
+                ]"
+                >
+                <el-input type="password" :placeholder="trans('user.confirmPassword')" v-model="form.confirmPassword">
+                </el-input>
+                </el-form-item>                             
                 <el-form-item
                 :label="trans('user.roles_lbl')"
                 prop="roles">
@@ -62,7 +80,14 @@
                       :value="item">
                     </el-option>
                   </el-select>
-                </el-form-item>                      
+                </el-form-item>
+                <el-form-item :label="trans('user.active')" prop="active">
+                  <el-switch
+                    v-model="form.active"
+                    active-color="#13ce66"
+                    inactive-color="#ff4949">
+                  </el-switch>
+                </el-form-item>              
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -85,9 +110,14 @@
                 {
                   username: '',
                   email: '',
+                  password: '',
+                  confirmPassword: '',
                   roles:{},                  
                   profile_id:{},
                   profile_data:'',
+                  roles:'',
+                  role_options: [],
+                  active:false
                
                 },
                    profile_options:[],
@@ -119,7 +149,7 @@
                 axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: response.data.message,
                       center: true,
                       type: 'error'
                     });              
@@ -129,7 +159,7 @@
               axios.get("../api/profile/profiles").then(({data})=>(this.profile_options = data.data)).catch(()=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: response.data.message,
                       center: true,
                       type: 'error'
                     });              
@@ -139,7 +169,7 @@
               axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: response.data.message,
                       center: true,
                       type: 'error'
                     });
@@ -168,12 +198,11 @@
                 message:this.updateAlert
               });
               Fire.$emit('AfterCrud');                  
-                }).catch((error) => {
-                  console.log(error.response.status);
+                }).catch(() => {
                   this.$message({
                     type: 'error',
                     center: true,
-                    message:error.response.data.errors.name
+                    message:response.data.message
                   });
               }); 
             },

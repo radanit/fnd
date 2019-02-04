@@ -82,8 +82,11 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item :label="trans('user.active')" prop="active">
-                <el-input type="active" :placeholder="trans('user.active')" v-model="form.active">
-                </el-input>
+                <el-switch
+                  v-model="form.active"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949">
+                </el-switch>
                 </el-form-item>                                     
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -114,7 +117,7 @@
                   profile_id:1,
                   profile_data:'',
                   profile_options:[],
-                  active:''
+                  active:false
                 },
                 loadAlert : '',
                 insertAlert : trans('app.insertAlert'),
@@ -183,17 +186,15 @@
               email: this.form.email,password:this.form.password,password_confirmation:this.form.confirmPassword,profile_id:this.form.profile_id,roles:this.form.roles}).then(() =>{
               Fire.$emit('AfterCrud');
               this.$message({
-                title: '',
-                message: this.form.insertAlert,
-                center: true,
-                type: 'success'
-              });					    
+                        type: 'success',
+                        center: true,
+                        message:response.data.message
+                      });				    
                 this.resetForm('form');
                 })
                 .catch(() => {
                     this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
+                      message: response.data.message,
                       center: true,
                       type: 'error'
                     });

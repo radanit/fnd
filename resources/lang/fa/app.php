@@ -49,5 +49,6 @@ return [
     'protectedResourceAlert' => 'امکان حذف رکورد انتخابی وجود ندارد',
     'searchPlaceholder' => 'جستجو ...',
     'emailFormatError' => 'فرمت پست الکترونیک وارده شده صحیح نمی باشد.',
-    'minPassLengthError' => 'طول کلمه عبور نبایستی کمتر از 6 کاراکتر باشد.'
+    'minPassLengthError' => 'طول کلمه عبور نبایستی کمتر از 6 کاراکتر باشد.',
+    'activeBtnLbl' => 'فعالسازی',
 ];
