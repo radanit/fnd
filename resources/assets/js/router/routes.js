@@ -32,7 +32,7 @@ const routes = [
 	/*End Role Routes*/
 	/*Begin Permission Routes*/
 	{ path: '/user_permissions',name:'user_permissions', component: require('../components/user/permission/UserPermission.vue').default },
-	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/permission/user/CreateUserPermission.vue').default },
+	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/user/permission/CreateUserPermission.vue').default },
 	{ path: '/edit_user_permissions',name:'edit_user_permissions', component: require('../components/user/permission/EditUserPermission.vue').default },
 	/*End Permission Routes*/
 

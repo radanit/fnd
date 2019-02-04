@@ -195,7 +195,7 @@
             |
             */         
             deleteUsers(record){
-				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
+				  this.$confirm(this.form.warningAlert,this.form.noticTxt, {
                   confirmButtonText: this.form.confirmButtonText,
                   cancelButtonText: this.form.cancelButtonText,
                   type: 'warning',
