@@ -12,7 +12,7 @@
                         @click="createUser">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                         <el-button type="primary"
                         size="mini"
-                        @click="activeUser">{{trans('app.activeBtnLbl')}} <i class="fas fa-lamp"></i></el-button>
+                        @click="activeUser">{{trans('app.activeBtnLbl')}} <i class="fa fa-lightbulb"></i></el-button>
                     </div>                
                 </div>
               <!-- /.card-header -->
@@ -44,13 +44,13 @@
                         prop="active"
                         :label="trans('user.status')"
                         width="100"
-                        :filters="[{ text: 'فعال', value: 1 }, { text: 'غیرفعال', value: 0 }]"
+                        :filters="[{ text: 'فعال', value: '1' }, { text: 'غیرفعال', value: '0' }]"
                         :filter-method="filterActive"
                         filter-placement="bottom-end">
                         <template slot-scope="scope">
                             <el-tag
-                            :type="scope.row.active === 1 ? 'success' : 'danger'"
-                            disable-transitions><span v-if="scope.row.active==1">فعال</span><span v-else>غیرفعال</span></el-tag>
+                            :type="scope.row.active === '1' ? 'success' : 'danger'"
+                            disable-transitions><span v-if="scope.row.active=='1'">فعال</span><span v-else>غیرفعال</span></el-tag>
                         </template>
                     </el-table-column>
 					<el-table-column class="float-left"
@@ -110,6 +110,7 @@
                 username: '',
                 email: '',
                 profile_name: '',
+                profileId:'',
                 roles: '',
                 loadAlert : '',
                 insertAlert : trans('app.insertAlert'),
@@ -168,7 +169,7 @@
             loadUser(){
                 axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
-                      message: response.data.message,
+                      message:'',
                       center: true,
                       type: 'error'
                     });

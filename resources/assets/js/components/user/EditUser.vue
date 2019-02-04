@@ -39,13 +39,13 @@
                 <el-input type="password" :placeholder="trans('user.password')" v-model="form.password">
                 </el-input>
                 </el-form-item>
-                <el-form-item :label="trans('user.confirmPassword')" prop="confirmPassword"
+                <el-form-item :label="trans('user.confirmPassword')" prop="password_confirmation"
                 :rules="[
                   { required: true, message: trans('user.confirmPasswordRequierdError')},
                   { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
                 ]"
                 >
-                <el-input type="password" :placeholder="trans('user.confirmPassword')" v-model="form.confirmPassword">
+                <el-input type="password" :placeholder="trans('user.confirmPassword')" v-model="form.password_confirmation">
                 </el-input>
                 </el-form-item>                             
                 <el-form-item
@@ -77,14 +77,16 @@
                       v-for="item in profile_options"
                       :key="item.id"
                       :label="item.description"
-                      :value="item">
+                      :value="item.id">
                     </el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item :label="trans('user.active')" prop="active">
                   <el-switch
-                    v-model="form.active"
+                    v-model='form.active'
                     active-color="#13ce66"
+                    active-value=1
+                    inactive-value=0
                     inactive-color="#ff4949">
                   </el-switch>
                 </el-form-item>              
@@ -108,16 +110,16 @@
             return{
                 form: 
                 {
+                  id:'',
                   username: '',
                   email: '',
                   password: '',
-                  confirmPassword: '',
-                  roles:{},                  
-                  profile_id:{},
+                  password_confirmation: '',
+                  roles:[],                  
+                  profile_id:'',
                   profile_data:'',
-                  roles:'',
                   role_options: [],
-                  active:false
+                  active:'1'
                
                 },
                    profile_options:[],
@@ -132,7 +134,7 @@
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText'),                              
+                confirmButtonText : trans('app.confirmButtonText'),                      
             }
         },
         methods :{
@@ -146,7 +148,7 @@
             */
             loaduser(){
                 this.form.id=this.$route.params.profileId;
-                axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+                axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: response.data.message,
@@ -217,7 +219,7 @@
                 }
               });
            },
-        },        
+        },      
         mounted() {
             this.loaduser();
             this.loadProfiles();

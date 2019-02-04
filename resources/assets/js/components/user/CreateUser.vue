@@ -183,7 +183,7 @@
               let currentObj = this;
               var obj = JSON.stringify(this.form.structure);
               axios.post('../api/profile/users',{username: this.form.username,
-              email: this.form.email,password:this.form.password,password_confirmation:this.form.confirmPassword,profile_id:this.form.profile_id,roles:this.form.roles}).then(() =>{
+              email: this.form.email,password:this.form.password,password_confirmation:this.form.confirmPassword,profile_id:this.form.profile_id,roles:this.form.roles,active:this.form.active}).then((response) =>{
               Fire.$emit('AfterCrud');
               this.$message({
                         type: 'success',
@@ -218,6 +218,10 @@
         mounted() {
           this.loadProfiles();
           this.loadRoles();
+           Fire.$on('AfterCrud',() => {
+            this.loadProfiles();
+            this.loadRoles();
+            });
         }
     }
 </script>
