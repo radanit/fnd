@@ -24,9 +24,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Return        
+        // Get number of pagination count
         $count = Config::get('radan.profile.models.pagination.count',
                              Config::get('radan.pagination.count',15));
+        
+        // Return        
         if ($count) {
             return UserResource::collection(User::paginate($count));
         }
@@ -65,20 +67,22 @@ class UserController extends Controller
             'active' => $request->active,
         ]);
 
-        // create profile info base on profile type 
+        // Create profile info base on profile type 
         $user->profileUser()->create([           
                 'profile_id' => $request->profile_id,
                 'data' => $request->profile_date,
         ]);        
 
-        // find role and assigned to user
+        // Find role and assigned to user
         $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
-        $roles = Role::findMany($roles);
-        foreach ($roles as $role) {
+        //$roles = Role::findMany($roles);
+        $user->attachRoles($roles);
+        /*foreach ($roles as $role) {
             $user->attachRole($role);
-        }    
+        }   */ 
 
-        return new UserResource($user);
+        // Return
+        return response()->json(['message' => __('app.insertAlert') ], 200);
     }
 
     /**
@@ -89,6 +93,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        // Return
         return new UserResource(User::findOrFail($id));        
     }
 
@@ -99,29 +104,51 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {        
-        // Validation
-        $request->validate([           
-            'email' => 'required|string|email|max:255|unique:users',
+        // Read Profile table name form config
+        $profileTable = Config::get('radan.profile.tables.profiles','profiles');
+        //$request->roles = [1,2];
+        //dd($request->roles);
+        // Validation        
+        $request->validate([            
+            'email' => 'string|email|max:255|unique:users',                        
             'password' => 'string|min:6|confirmed',
             'active' => 'boolean',
-            'profile_id' => 'exists:profiles:id',
-            'profile_data' => 'json'
+            'profile_id' => 'exists:'.$profileTable.',id',
+            'profile_data' => 'json',
+            //'roles' => 'exists:roles,id',            
         ]);
-
-        // Update user profile data
-        $user = User::findOrFail($id);
-        $userProfile = $user->userProfile()->first();
-        $userProfile->profile_id = ($request->has('profile_id')) ? $request->profile_id: $userProfile->profile_id;
-        $userProfile->data = ($request->has('profile_data')) ? $request->profile_data: $userProfile->data;
-
-        $user->update($request->only(['email', 'password', 'active']));
-
         
-
-
-        return new ProfileResource($profile);
+        // Find user
+        $user = User::findOrFail($id);
+        $updates = $request->only('email','active','password');
+        foreach ($updates as $key => $value) {
+            if ($key = 'password') {
+                $updates['password'] = bcrypt($request->password);
+            }
+        }
+        $user->update($updates);
+        
+        // Set user profile data
+        if ($request->has('profile_id')) {
+            $profileUser = $user->profileUser()->first();
+            $profileUser->profile_id = ($request->has('profile_id')) ? $request->profile_id: $profileUser->profile_id;
+            $profileUser->data = ($request->has('profile_data')) ? $request->profile_data: $profileUser->data;
+            $user->profileUser()->save($profileUser);
+        }
+               
+        // Set user roles and update        
+        if ($request->has('roles')) {                      
+            $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
+            $rolesCnt = Role::findMany($roles)->count();
+            if ($rolesCnt==count($roles) and $rolesCnt) {
+                $user->syncRoles($roles);
+            }                                
+        }        
+        
+        // Return 
+        return response()->json(['message' => __('app.updateAlert') ], 200);
     }
 
     /**
