@@ -93,6 +93,12 @@
                   <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
                 </el-form-item>
               </el-form>
+              <el-card class="form2">
+                <form-schema ref="reform"
+                  :schema="schema" v-model="model" @submit.prevent="submit">
+                  <el-button type="primary" @click="submit">Subscribe</el-button>
+                </form-schema>
+              </el-card>
               </div>
               <!-- /.card-body -->
             </div>
@@ -103,9 +109,50 @@
     </div>
 </template>
 <script>
+import FormSchema from 'vue-json-schema';
+import {
+    Form,
+    FormItem,
+    Input,
+    Radio,
+    Checkbox,
+    Switch,
+    Select,
+    Option,
+    Button
+  } from 'element-ui'
+FormSchema.setComponent('reform', Form, (vm) => {
+    // vm is the FormSchema VM
+
+    const labelWidth = '120px'
+    const model = vm.data
+    const rules = {}
+
+    vm.fields.forEach((field) => {
+      rules[field.name] = {
+        required: field.required,
+        message: field.title
+      }
+    })
+
+    return { labelWidth, rules, model }
+  })
+
+// Use `FormSchema.setComponent(type, component[, props = {}])` to define custom element to use for rendering.
+  FormSchema.setComponent('label', FormItem)
+  FormSchema.setComponent('email', Input)
+  FormSchema.setComponent('text', Input)
+  FormSchema.setComponent('textarea', Input)
+  FormSchema.setComponent('checkbox', Checkbox)
+  FormSchema.setComponent('checkbox', Switch)
+  FormSchema.setComponent('radio', Radio)
+  FormSchema.setComponent('select', Select)
+  FormSchema.setComponent('option', Option)
     export default {
         data(){
             return{
+                schema:{},
+                model: {},
                 form: 
                 {
                   username: '',
@@ -132,8 +179,12 @@
 
             }
         },
-        methods :{
-                       
+        methods :{ 
+            submit (e) {
+                  // this.model contains the valid data according your JSON Schema.
+                  // You can submit your model to the server here
+                  console.log(JSON.stringify(this.model))
+                },                      
             backToUserList(){
               this.$router.push({ name: 'users'});
             },
@@ -146,6 +197,17 @@
                       type: 'error'
                     });
                     this.$router.push({name: 'edit_users'});                 
+                });
+
+            },
+            loadProfileStructure(){
+              axios.get("../api/profile/profiles/2").then(({data})=>(this.schema = data.data.structure)).catch(()=>{
+                    this.$message({
+                      title: '',
+                      message: this.form.failedAlert,
+                      center: true,
+                      type: 'error'
+                    });             
                 });
 
             },
@@ -218,11 +280,14 @@
         mounted() {
           this.loadProfiles();
           this.loadRoles();
+          this.loadProfileStructure();
            Fire.$on('AfterCrud',() => {
             this.loadProfiles();
             this.loadRoles();
             });
-        }
+        },
+            components: { FormSchema }
+
     }
 </script>
 <style>

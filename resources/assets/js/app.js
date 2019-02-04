@@ -21,6 +21,7 @@ window.trans = (string) => _.get(window.i18n, string);
 window.Fire = new Vue();
 //end config event listener
 //Begin TimePicker
+
 import {Pagination,
   Dialog,
   Autocomplete,
