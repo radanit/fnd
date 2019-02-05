@@ -22,8 +22,6 @@ class UserResource extends JsonResource
             'active' => "$this->active",
             'profile_id' => $this->profileUser->profile_id,
             'profile_name' => $this->profileUser->name,
-            'password' => $this->password,
-            'password_confirmation' => $this->password,
             'data' => $this->profileUser->data,
             //'profileUser' => new ProfileUserResource($this->profileUser),
             'roles' => RoleResource::collection($this->roles),
