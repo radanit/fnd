@@ -5,6 +5,7 @@ namespace App\Radan\Profile\Controllers;
 use Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\User;
@@ -115,7 +116,7 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users',                        
             'password' => 'string|min:6|confirmed',
             'active' => 'boolean',
-            'profile_id' => 'exists:'.$profileTable.',id',
+            'profile_id' => 'required|exists:'.$profileTable.',id',
             'profile_data' => 'json',
             'roles.*' => 'exists:roles,id',
         ]);
@@ -125,7 +126,8 @@ class UserController extends Controller
             // Find user
             $user = User::findOrFail($id);
             if ($request->has('password')) {
-                 $request->password = bcrypt($request->password);
+                Input::replace(['password' => bcrypt($request->password)]);
+                //$request->password = bcrypt($request->password);
             }
             $user->update($request->only('email','active','password'));
         
