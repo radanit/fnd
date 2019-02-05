@@ -201,7 +201,7 @@ FormSchema.setComponent('reform', Form, (vm) => {
 
             },
             loadProfileStructure(){
-              axios.get("../api/profile/profiles/2").then(({data})=>(this.schema = data.data.structure)).catch(()=>{
+              axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
