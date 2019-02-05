@@ -32,7 +32,7 @@
                 </el-form-item>
                 <el-form-item :label="trans('user.password')" prop="password"
                 :rules="[
-                  { required: true, message: trans('user.passwordRequierdError')},
+                  { required: false, message: trans('user.passwordRequierdError')},
                   { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
                 ]"
                 >
@@ -41,7 +41,7 @@
                 </el-form-item>
                 <el-form-item :label="trans('user.confirmPassword')" prop="password_confirmation"
                 :rules="[
-                  { required: true, message: trans('user.confirmPasswordRequierdError')},
+                  { required: false, message: trans('user.confirmPasswordRequierdError')},
                   { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
                 ]"
                 >
