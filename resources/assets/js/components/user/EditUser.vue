@@ -193,18 +193,19 @@
             updateuser(){
             var obj = JSON.stringify(this.form.structure);
             axios.put('../api/profile/users/'+this.form.id,{name: this.form.name,
-              description: this.form.description,structure:obj}).then(response => {
+              description: this.form.description,structure:obj,profile_id:this.form.profile_id,active:this.form.active}).then(response => {
               this.$message({
                 type: 'success',
                 center: true,
-                message:this.updateAlert
+                message:response.data.message
               });
               Fire.$emit('AfterCrud');                  
-                }).catch(() => {
+                }).catch((error) => {
+                  console.log(error.response);
                   this.$message({
                     type: 'error',
                     center: true,
-                    message:response.data.errors
+                    message:error.response.data.errors
                     
                   });
               }); 
