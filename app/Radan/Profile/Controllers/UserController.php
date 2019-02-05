@@ -108,8 +108,7 @@ class UserController extends Controller
     {        
         // Read Profile table name form config
         $profileTable = Config::get('radan.profile.tables.profiles','profiles');
-        //$request->roles = [1,2];
-        //dd($request->roles);
+        
         // Validation        
         $request->validate([            
             'email' => 'string|email|max:255|unique:users',                        
@@ -117,7 +116,7 @@ class UserController extends Controller
             'active' => 'boolean',
             'profile_id' => 'exists:'.$profileTable.',id',
             'profile_data' => 'json',
-            //'roles' => 'exists:roles,id',            
+            'roles.*' => 'exists:roles,id',
         ]);
         
         // Find user
