@@ -152,7 +152,9 @@ return [
         'pmTypes' => 'Preventive Service Type',
         'programTypes' => 'Program Type',
         'exeDeparts' => 'Executive Depart',
-        'profile_name' => 'Profile Name'
+        'profile_id' => 'Profile Name',
+		'roles' => 'User Role',
+		'roles.*' => 'one of user roles'
     ],
 
 ];

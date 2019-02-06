@@ -39,7 +39,7 @@ return [
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'فرمت :attribute وارد شده معتبر نمی باشد.',
-    'exists'               => 'The selected :attribute is invalid.',
+    'exists'               => 'مقدار :attribute نامعتیر است.',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
     'gt'                   => [
@@ -159,7 +159,9 @@ return [
         'persian_name' => 'عنوان فارسی',
         'periodType_id' => 'دوره تناوب',
         'safty_description' => 'دستور العمل ایمنی',
-        'profile_name' => 'عنوان پروفایل'
+        'profile_id' => 'عنوان پروفایل',
+		'roles' => 'نقش کاربری',
+		'roles.*' => 'یکی از نقش های کاربری'
     ],
 
 ];

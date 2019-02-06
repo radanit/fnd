@@ -111,42 +111,41 @@ class UserController extends Controller
         // Read Profile table name form config
         $profileTable = Config::get('radan.profile.tables.profiles','profiles');
 
-        // Validation        
-        $request->validate([            
+        // Validation
+		$request->validate([         
             'email' => 'string|email|max:255|unique:users',                        
             'password' => 'string|min:6|confirmed',
             'active' => 'boolean',
             'profile_id' => 'required|exists:'.$profileTable.',id',
             'profile_data' => 'json',
+			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
-
+		
+		// Begin Database transaction			
         DB::beginTransaction();
         try{
             // Find user
             $user = User::findOrFail($id);
+			$updates = $request->only('email','active','password');
             if ($request->has('password')) {
-                Input::replace(['password' => bcrypt($request->password)]);
-                //$request->password = bcrypt($request->password);
-            }
-            $user->update($request->only('email','active','password'));
-        
+                $updates['password'] = bcrypt($request->password);				;
+            }            
+			$user->update($updates);
+						
             // Set user profile data            
             $profileUser = $user->profileUser()->first();
             $profileUser->profile_id = $request->profile_id;
             $profileUser->data = ($request->has('profile_data')) ? $request->profile_data: $profileUser->data;
             $user->profileUser()->save($profileUser);
                            
-            // Set user roles and update        
+            // Set user roles and update
             if ($request->has('roles')) {
-                $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
-                $rolesCnt = Role::findMany($roles)->count();
-                if ($rolesCnt==count($roles) and $rolesCnt) {
-                    $user->syncRoles($roles);
-                }
-            }
+				$user->syncRoles($request->roles);
+            }		
         } catch (\Exception $e) {
-            // Return 
+            // Return
+			dd($e);
             DB::rollBack();
             return response()->json(['message' => 'Error update user' , 'errors' => __('app.failedAlert') ], 500);
         }
