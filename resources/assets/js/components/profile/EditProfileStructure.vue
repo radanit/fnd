@@ -56,19 +56,17 @@
 </template>
 <script>
     export default {
-        data(){
-            return{
-                updateAlert : trans('profileStructure.updateAlert'),                
-                failedAlert : trans('app.failedAlert'),
-                form: 
-                {
-                  id: '',
-                  name: '',
-                  description: '',
-                  structure:'',
-            
-                },
-            }
+        data()
+        {
+          return{
+            form: 
+            {
+              id: '',
+              name: '',
+              description: '',
+              structure:'',        
+            },
+          }
         },
         methods :{
             /*
@@ -79,16 +77,15 @@
             | This method load profile info for edit
             |
             */
-            loadprofileStructure(){
+            loadProfileStructure(){
                 this.form.id=this.$route.params.profileId;
                 axios.get("../api/profile/profiles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message:error.response.data.errors,
                       center: true,
                       type: 'error'
-                    });
-                    //this.$router.push({name: 'edit_profile_structures'});                 
+                    });                
                 });
             },
             /*
@@ -98,29 +95,44 @@
             |
             | This method go back to profiles list
             |
-            */
-           
+            */               
             backToProfileList(){
               this.$router.push({ name: 'profile_structures'});
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Update Profile Method
+            |--------------------------------------------------------------------------
+            |
+            | This method Update Profile Info To Database
+            |
+            */
             updateprofileStructure(){
             axios.put('../api/profile/profiles/'+this.form.id,{name: this.form.name,
               description: this.form.description,structure:this.form.structure}).then(response => {
               this.$message({
                 type: 'success',
                 center: true,
-                message:this.updateAlert
+                message:response.data.message
               });
               Fire.$emit('AfterCrud');                  
                 }).catch((error) => {
-                  console.log(error.response.status);
                   this.$message({
+                    title: error.response.data.message,
                     type: 'error',
                     center: true,
                     message:error.response.data.errors
                   });
               }); 
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Submit Form Method
+            |--------------------------------------------------------------------------
+            |
+            | This method Submit Form
+            |
+            */
             submitForm(formName) {
               this.$refs[formName].validate((valid) => {
                 if (valid) 
@@ -134,9 +146,9 @@
            },
         },        
         mounted() {
-            this.loadprofileStructure();
+            this.loadProfileStructure();
             Fire.$on('AfterCrud',() => {
-                this.loadprofileStructure();
+                this.loadProfileStructure();
             });
         }
     }

@@ -76,9 +76,16 @@
     </div>
 </template>
 <script>
-    export default {
-        data(){
+    export default 
+    {
+        data()
+        {
             return{
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText'),
+                warningAlert : trans('app.warningAlert'),
                 editMod :false,
                 profileStructures :{},
                 profileStructureGroups:{},
@@ -87,14 +94,6 @@
                 name: '',
                 description: '',
                 structure:'',
-                loadAlert : '',
-                deleteAlert : trans('profileStructure.deleteAlert'),
-                warningAlert : trans('profileStructure.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
 				},
 				tableData:[],
                 search: '',
@@ -136,7 +135,7 @@
            /*
             * Load Method
             */
-            loadprofileStructure(page){                
+            loadProfileStructure(page){                
                 axios.get("../api/profile/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
@@ -148,7 +147,7 @@
                 });
             },
             loadPage(){
-                this.loadprofileStructure(this.page);
+                this.loadProfileStructure(this.page);
                 this.totalPage=Math.round(this.total/15);
             },
             /*
@@ -182,9 +181,9 @@
             |
             */         
             deleteProfileStructure(record){
-				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
-                  confirmButtonText: this.form.confirmButtonText,
-                  cancelButtonText: this.form.cancelButtonText,
+				    this.$confirm(this.noticTxt,this.warningAlert, {
+                  confirmButtonText: this.confirmButtonText,
+                  cancelButtonText: this.cancelButtonText,
                   type: 'warning',
                   center: true
                 }).then(() => {
@@ -194,30 +193,29 @@
                      this.$message({
                         type: 'success',
                         center: true,
-                        message:this.form.deleteAlert
+                        message: response.data.message
                       });
-                    this.$router.push({name: 'profile_structures'});
                 }).catch(() => {
-                     this.$router.push({name: 'profile_structures'});
                      this.$message({
+                         title: error.response.data.message,
                         type: 'error',
                         center: true,
-                        message: this.response.error,
+                        message: error.response.data.errors,
                       }); 
                     }); 
                 }).catch(() => {
                   this.$message({
                     type: 'info',
                     center: true,
-                    message: this.form.cancelAlert
+                    message: this.cancelAlert
                   });          
                 });
             },
         },        
         mounted() {
-            this.loadprofileStructure();
+            this.loadProfileStructure();
             Fire.$on('AfterCrud',() => {
-                this.loadprofileStructure();
+                this.loadProfileStructure();
             });
         }
     }

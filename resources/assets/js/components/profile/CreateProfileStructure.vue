@@ -55,28 +55,29 @@
     </div>
 </template>
 <script>
-    export default {
-        data(){
+    export default 
+    {
+      data(){
             return{
-                form: 
-                {
-                  name: '',
-                  description: '',
-                  structure:'',
-                  loadAlert : '',
-                  insertAlert : trans('profileStructure.insertAlert'),
-                  updateAlert : trans('profileStructure.updateAlert'),
-                  deleteAlert : trans('profileStructure.deleteAlert'),
-                  warningAlert : trans('profileStructure.warningAlert'),
-                  failedAlert : trans('app.failedAlert'),
-                  cancelAlert : trans('app.cancelAlert'),
-                  noticTxt : trans('app.noticTxt'),
-                  cancelButtonText : trans('app.cancelButtonText'),
-                  confirmButtonText : trans('app.confirmButtonText')
-                },
+              form: 
+              {
+                name: '',
+                description: '',
+                structure:'',
+                loadAlert : '',
+                insertAlert : trans('profileStructure.insertAlert'),
+                updateAlert : trans('profileStructure.updateAlert'),
+                deleteAlert : trans('profileStructure.deleteAlert'),
+                warningAlert : trans('profileStructure.warningAlert'),
+                failedAlert : trans('app.failedAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText')
+              },
             }
         },
-        methods :{
+      methods :{
             /*
             |--------------------------------------------------------------------------
             | Back to Profile List
@@ -96,27 +97,34 @@
             | This method Add Profile Info To Database
             |
             */
-		    	  createProfileStructure() {
+            createProfileStructure() {
               axios.post('../api/profile/profiles',{name: this.form.name,
-              description: this.form.description,structure:this.form.structure}).then(() =>{
+              description: this.form.description,structure:this.form.structure}).then((response) =>{
               Fire.$emit('AfterCrud');
               this.$message({
-                title: '',
-                message: this.form.insertAlert,
+                title:'',
+                message:response.data.message,
                 center: true,
                 type: 'success'
-              });					    
-                this.resetForm('form');
+              });					                    
                 })
                 .catch((error) => {
                     this.$message({
-                      title: '',
-                      message: error.response.data.errors,//this.form.failedAlert,
+                      title: error.response.data.message,
+                      message: error.response.data.errors,
                       center: true,
                       type: 'error'
                     });
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Submit Form Method
+            |--------------------------------------------------------------------------
+            |
+            | This method Submit Form
+            |
+            */
             submitForm(formName) {
               this.$refs[formName].validate((valid) => {
                 if (valid) 
@@ -127,16 +135,24 @@
                   return false;
                 }
               });
-           },
+          },
+            /*
+            |--------------------------------------------------------------------------
+            | Reset Form Method
+            |--------------------------------------------------------------------------
+            |
+            | This method Rest Form After Create profiel
+            |
+            */
             resetForm(formName) {
               this.$refs[formName].resetFields();
             }            
         },        
-        mounted() {
-                Fire.$on('AfterCrud',() => {
-                this.$router.push({name: 'create_profile_structures'});
-            });
-        }
+      mounted() {
+                      Fire.$on('AfterCrud',() => {
+                        this.resetForm('form');
+                  });
+              }
     }
 </script>
 <style>

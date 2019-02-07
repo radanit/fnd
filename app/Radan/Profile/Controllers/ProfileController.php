@@ -52,7 +52,8 @@ class ProfileController extends Controller
       'structure' => $request->structure,
     ]);
 
-    return new ProfileResource($profile);
+    //return new ProfileResource($profile);
+    return response()->json(['message' => __('app.insertAlert') ], 200);
   }
 
   /**

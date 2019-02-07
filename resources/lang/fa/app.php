@@ -15,7 +15,7 @@ return [
     'designDate' => '1397',
     'footerMsg'  =>' طراحی و پیاده سازی با ',    
     'companyName' => ' توسط رایان داده اندیش سپاهان ',
-    'noticTxt' => 'این عمل قابل بازگشت نمی باشد!',
+    'noticTxt' => '!این عمل قابل بازگشت نمی باشد',
     'confirmButtonText' => 'تایید',
     'cancelBtnLbl' => 'انصراف',
     'insertAlert' => '.عملیات درج با موفقیت انجام شد',
