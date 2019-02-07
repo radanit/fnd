@@ -3,19 +3,18 @@
 namespace App\Radan\Profile\Controllers;
 
 use Validator;
+use Exception;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Models\Role;
 use App\Radan\Profile\Models\ProfileUser;
-use App\Radan\Auth\Request\UserRequest;
 use App\Radan\Resources\UserResource;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
-
 
 class UserController extends Controller
 {
@@ -116,7 +115,7 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users',                        
             'password' => 'string|min:6|confirmed',
             'active' => 'boolean',
-            'profile_id' => 'required|exists:'.$profileTable.',id',
+            'profile_id' => 'exists:'.$profileTable.',id',
             'profile_data' => 'json',
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
@@ -133,20 +132,22 @@ class UserController extends Controller
             }            
 			$user->update($updates);
 						
-            // Set user profile data            
-            $profileUser = $user->profileUser()->first();
-            $profileUser->profile_id = $request->profile_id;
-            $profileUser->data = ($request->has('profile_data')) ? $request->profile_data: $profileUser->data;
-            $user->profileUser()->save($profileUser);
+            // Set user profile data
+			if ($request->filled('profile_id')) {
+				$profileUser = $user->profileUser()->first();
+				$profileUser->profile_id = $request->profile_id;
+				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
+				$user->profileUser()->save($profileUser);
+			}
                            
             // Set user roles and update
-            if ($request->has('roles')) {
+            if ($request->filled('roles')) {
 				$user->syncRoles($request->roles);
             }		
-        } catch (\Exception $e) {
-            // Return
-			dd($e);
-            DB::rollBack();
+        } catch (Exception $e) {
+            Log::error(print_r($e, true));
+			// Return			
+            DB::rollBack();			
             return response()->json(['message' => 'Error update user' , 'errors' => __('app.failedAlert') ], 500);
         }
 

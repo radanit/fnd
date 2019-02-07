@@ -3,13 +3,15 @@
 namespace App\Radan\Auth\Controllers;
 
 use Validator;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\Permission;
 use App\Radan\Resources\PermissionResource;
 use App\Radan\Exceptions\ResourceProtected;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Config;
 
 class PermissionController extends Controller
 {
@@ -37,8 +39,7 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
         // Validation permission
         Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:permissions',
@@ -46,13 +47,22 @@ class PermissionController extends Controller
             'displayname' => 'string|max:255',
         ])->validate();
     
-        $permission = new Permission();
-        $permission->name = $request->name;
-        $permission->display_name = $request->displayname; // optional
-        $permission->description = $request->description; // optional
-        $permission->save();     
-  
-        return new PermissionResource($permission);
+        try {
+			// Insert new permission
+			$permission = new Permission();
+			$permission->name = $request->name;
+			$permission->display_name = $request->displayname; // optional
+			$permission->description = $request->description; // optional
+			$permission->save();
+			
+			// Return
+			return response()->json(['message' => __('app.insertAlert') ], 200);
+		}
+		catch (Exceptions $e) {
+			Log::error(print_r($e, true));
+			// Return
+			return response()->json(['message' => 'Error insert permmision' , 'errors' => __('app.failedAlert') ], 500);
+		}		        
     }
 
     /**
@@ -75,18 +85,21 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {        
         // Validation permission   
         Validator::make($request->all(), [
             'description' => 'string|max:255',
-            'displayname' => 'string|max:255',
+            'display_name' => 'string|max:255',
         ])->validate();
         
-        $permission = Permission::findOrFail($id);
-        $permission->update($request->only(['description', 'displayname']));
-
-        return new PermissionResource($permission);
+		try {
+			$permission = Permission::findOrFail($id);
+			$permission->update($request->only('description', 'display_name'));
+			return response()->json(['message' => __('app.updateAlert') ], 200);
+		} catch (Exception $e) {						
+			Log::error($e);
+			return response()->json(['message' => 'Error update permission' , 'errors' => __('app.failedAlert') ], 500);
+		}        
     }
 
     /**
@@ -97,20 +110,9 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        // destroy profile
-      $permission = Permission::findOrFail($id);
-
-      // get prevernts from config files
-      // $prevents = Config::get('radan.profile.prevents.profiles');
-
-      // Check prevents rule
-      /*
-      foreach ($prevents as $key => $value) {
-        if ($profile->$key==$value) {          
-          throw new ResourceProtected;
-        }
-      }
-      */
-      $permission->delete();
+		// destroy profile
+		$permission = Permission::findOrFail($id);
+		$permission->delete();
+		return response()->json(['message' => __('app.deleteAlert') ], 200);
     }
 }
