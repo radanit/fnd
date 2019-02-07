@@ -145,7 +145,7 @@ class UserController extends Controller
 				$user->syncRoles($request->roles);
             }		
         } catch (Exception $e) {
-            Log::error(print_r($e, true));
+            Log::error($e->getMessage());
 			// Return			
             DB::rollBack();			
             return response()->json(['message' => 'Error update user' , 'errors' => __('app.failedAlert') ], 500);

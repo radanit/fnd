@@ -59,7 +59,7 @@ class PermissionController extends Controller
 			return response()->json(['message' => __('app.insertAlert') ], 200);
 		}
 		catch (Exceptions $e) {
-			Log::error(print_r($e, true));
+			Log::error($e->getMessage());
 			// Return
 			return response()->json(['message' => 'Error insert permmision' , 'errors' => __('app.failedAlert') ], 500);
 		}		        
@@ -97,7 +97,7 @@ class PermissionController extends Controller
 			$permission->update($request->only('description', 'display_name'));
 			return response()->json(['message' => __('app.updateAlert') ], 200);
 		} catch (Exception $e) {						
-			Log::error($e);
+			Log::error($e->getMessage());
 			return response()->json(['message' => 'Error update permission' , 'errors' => __('app.failedAlert') ], 500);
 		}        
     }
