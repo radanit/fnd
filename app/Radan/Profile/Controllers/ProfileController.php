@@ -4,11 +4,10 @@ namespace App\Radan\Profile\Controllers;
 
 use Validator;
 use Exception;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\Profile;
 use App\Radan\Resources\ProfileResource;
@@ -46,12 +45,13 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         // Validation rules
-        Validator::make($request->all(), [
+        Validator::make($request->only('name','description','structure'), [
             'name' => 'required|string|max:255|unique:profiles',
             'description' => 'required|string|max:255',
             'structure' => 'required|json',
         ])->validate();
 
+        // Create Profile
         try {
             $profile = Profile::create([
                 'name' => $request->name,        
@@ -60,11 +60,11 @@ class ProfileController extends Controller
             ]);
 
             // Return
-            return response()->json(['message' => __('app.insertAlert') ], 200);
+            return response()->json(['message' => __('app.insertAlert') ], $this->httpCreated);
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['message' => 'Error create profile' , 'errors' => __('app.failedAlert') ], 500);
+            return response()->json(['message' => 'Error create profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
         }        
     }
 
@@ -99,11 +99,11 @@ class ProfileController extends Controller
             $profile->update($request->only(['description', 'structure']));
             
             // Return
-            return response()->json(['message' => __('app.updateAlert') ], 200);
+            return response()->json(['message' => __('app.updateAlert') ], $this->httpOk);
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['message' => 'Error update profile' , 'errors' => __('app.failedAlert') ], 500);
+            return response()->json(['message' => 'Error update profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
         }
     }
 
@@ -132,11 +132,11 @@ class ProfileController extends Controller
             $profile->delete();
             
             // Return
-            return response()->json(['message' => __('app.deleteAlert') ], 200);
+            return response()->json(['message' => __('app.deleteAlert') ], $this->httpOk);
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['message' => 'Error delete profile' , 'errors' => __('app.failedAlert') ], 500);
+            return response()->json(['message' => 'Error delete profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
         }                    
     }
 }
