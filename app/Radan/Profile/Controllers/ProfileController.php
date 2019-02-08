@@ -3,90 +3,109 @@
 namespace App\Radan\Profile\Controllers;
 
 use Validator;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\Profile;
 use App\Radan\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Config;
 
 class ProfileController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-    // Return 
-    $count = Config::get('radan.profile.models.pagination.count',
-                          Config::get('radan.pagination.count',15));
-    if ($count) {
-      return ProfileResource::collection(Profile::paginate($count));
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function index()
+    {
+        // Return
+        $count = Config::get(
+            'radan.profile.models.pagination.count', 
+            Config::get('radan.pagination.count',15)
+        );
+        
+        if ($count) {
+            return ProfileResource::collection(Profile::paginate($count));
+        }
+        else {
+            return ProfileResource::collection(Profile::all()); 
+        }
     }
-    else {
-      return ProfileResource::collection(Profile::all()); 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // Validation rules
+        Validator::make($request->only('name','description','structure'), [
+            'name' => 'required|string|max:255|unique:profiles',
+            'description' => 'required|string|max:255',
+            'structure' => 'required|json',
+        ])->validate();
+
+        // Create Profile
+        try {
+            $profile = Profile::create([
+                'name' => $request->name,        
+                'description' => $request->description,
+                'structure' => $request->structure,
+            ]);
+
+            // Return
+            return response()->json(['message' => __('app.insertAlert') ], $this->httpCreated);
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Error create profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
+        }        
     }
-  }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    // Validation rules
-    Validator::make($request->all(), [
-      'name' => 'required|string|max:255|unique:profiles',
-      'description' => 'required|string|max:255',
-      'structure' => 'required|json',
-    ])->validate();
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return new ProfileResource(Profile::findOrFail($id));        
+    }
 
-    $profile = Profile::create([
-      'name' => $request->name,        
-      'description' => $request->description,
-      'structure' => $request->structure,
-    ]);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {    
+        // Validation rules   
+        Validator::make($request->all(), [
+            'description' => 'required|string|max:255',
+            'structure' => 'required|json',
+        ])->validate();
 
-    //return new ProfileResource($profile);
-    return response()->json(['message' => __('app.insertAlert') ], 200);
-  }
+        try {
+            $profile = Profile::findOrFail($id);
+            $profile->update($request->only(['description', 'structure']));
+            
+            // Return
+            return response()->json(['message' => __('app.updateAlert') ], $this->httpOk);
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-    return new ProfileResource(Profile::findOrFail($id));        
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {    
-    // Validation rules   
-    Validator::make($request->all(), [
-        'description' => 'required|string|max:255',
-        'structure' => 'required|json',
-    ])->validate();
-    
-    $profile = Profile::findOrFail($id);
-    $profile->update($request->only(['description', 'structure']));
-
-    return new ProfileResource($profile);
-  }
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Error update profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -96,20 +115,28 @@ class ProfileController extends Controller
      */
     public function destroy($id)    
     {
-      
-      // destroy profile
-      $profile = Profile::findOrFail($id);
+        // destroy profile
+        $profile = Profile::findOrFail($id);
 
-      // get prevernts from config files
-      $prevents = Config::get('radan.profile.prevents.profiles');
+        try {
+            // get prevernts from config files
+            $prevents = Config::get('radan.profile.prevents.profiles');
 
-      // Check prevents rule
-      foreach ($prevents as $key => $value) {
-        if ($profile->$key==$value) {          
-          throw new ResourceProtected;
-        }
-      }
-      
-      $profile->delete();      
+            // Check prevents rule
+            foreach ($prevents as $key => $value) {
+                if ($profile->$key==$value) {          
+                    throw new ResourceProtected;
+                }
+            }
+
+            $profile->delete();
+            
+            // Return
+            return response()->json(['message' => __('app.deleteAlert') ], $this->httpOk);
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'Error delete profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
+        }                    
     }
 }
