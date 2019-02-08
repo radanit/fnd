@@ -14,8 +14,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="tableData.filter(data => !search || data.permissionName.toLowerCase().includes(search.toLowerCase())|| data.permissionDescription.toLowerCase().includes(search.toLowerCase()))"
-                    :default-sort = "{prop: 'permissionName', order: 'descending'}"
+					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+                    :default-sort = "{prop: 'name', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
                         type="selection"
@@ -24,12 +24,12 @@
 					<el-table-column
 					  :label="trans('user.permissionName')"
                       sortable
-					  prop="permissionName">
+					  prop="name">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('user.permissionDescription')"
                       sortable
-					  prop="permissionDescription">
+					  prop="description">
 					</el-table-column>
 					<el-table-column class="float-left"
 					  align="right">
@@ -46,7 +46,7 @@
 						<el-button
 						  size="mini"
 						  type="danger"
-						  @click="deleteUsers(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
+						  @click="deleteUserPermissions(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
                     <infinite-loading
@@ -78,24 +78,19 @@
     export default {
         data(){
             return{
-                editMod :false,
-                users :{},
-                userGroups:{},
-				form: {
-                id: '',
-                active:'',
-                permissionName: '',
-                permissionDescription: '',
-                loadAlert : '',
-                insertAlert : trans('app.insertAlert'),
-                updateAlert : trans('app.updateAlert'),
-                deleteAlert : trans('app.deleteAlert'),
                 warningAlert : trans('app.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
+                confirmButtonText : trans('app.confirmButtonText'),
+                users :{},
+                userGroups:{},
+                form: 
+                {
+                    id: '',
+                    active:'',
+                    name: '',
+                    description: '',
 				},
 				tableData:[],
                 search: '',
@@ -105,6 +100,15 @@
             }
         },
         methods :{ 
+            /*
+            |--------------------------------------------------------------------------
+            | Lazy Load Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Is For Lazy Load Users Info
+            |
+            */               
             infiniteHandler($state) {
                 axios.get("../api/auth/permissions", {
                     params: {
@@ -120,41 +124,44 @@
                     }
                 });
             },
-            toggleSelection(rows) {
-                if (rows) {
-                rows.forEach(row => {
-                    this.$refs.multipleTable.toggleRowSelection(row);
-                });
-                } else {
-                this.$refs.multipleTable.clearSelection();
-                }
-            },
+            /*
+            |--------------------------------------------------------------------------
+            | handleSelectionChange Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method handle Selection User Change
+            |
+            */              
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
-            filterActive(value, row) {
-                return row.active === value;
-            },
-           /*
-            * Load Method
+            /*
+            |--------------------------------------------------------------------------
+            | Load Permission Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Permission Info
+            |
             */
-            loaduser(){
+            loadUserPermissions(){
                 axios.get("../api/auth/permissions").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: this.form.failedAlert,
                       center: true,
                       type: 'error'
-                    });
-                    this.$router.push({name: 'user_permissions'});                 
+                    });         
                 });
             },
             /*
             |--------------------------------------------------------------------------
-            | Go To Create Profile Page
+            | Go To Create Permission Page
+            | Added By e.bagherzadegan                 
             |--------------------------------------------------------------------------
             |
-            | This method Load Create profile Component
+            | This method Load Create Permission Component
             |
             */      
             createPermission(){
@@ -162,41 +169,46 @@
             },
             /*
             |--------------------------------------------------------------------------
-            | Go To Edit Profile Page
+            | Go To Edit Permission Page
+            | Added By e.bagherzadegan                 
             |--------------------------------------------------------------------------
             |
-            | This method Load Edit profile Component
+            | This method Load Edit Permission Component
             |
             */      
             editUsers(record){
-              this.$router.push({ name: 'edit_user_permissions', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_user_permissions', params: { permissionId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
-            | Delete Profile 
+            | Delete Permission
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
-            | This method delete profile info
+            | This method delete Permission info
             |
             */         
-            deleteUsers(record){
-				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
-                  confirmButtonText: this.form.confirmButtonText,
-                  cancelButtonText: this.form.cancelButtonText,
+            deleteUserPermissions(record){
+				  this.$confirm(this.noticTxt,this.warningAlert, {
+                  confirmButtonText: this.confirmButtonText,
+                  cancelButtonText: this.cancelButtonText,
                   type: 'warning',
                   center: true
                 }).then(() => {
-                  axios.delete('../api/profiles/'+record.id)
+                  axios.delete('../api/auth/permissions/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
-                     this.$message({
+                        this.$message({
                         type: 'success',
                         center: true,
-                        message:this.form.deleteAlert
+                        message:response.data.message
                       });
-                    this.$router.push({name: 'user_permissions'});
                 }).catch(() => {
-                     this.$router.push({name: 'user_permissions'});
+                        this.$message({
+                        type: 'error',
+                        center: true,
+                        message:response.data.errors                        
+                      }); 
                     }); 
                 }).catch(() => {
                   this.$message({
@@ -208,52 +220,52 @@
             },
         },        
         mounted() {
-            this.loaduser();
+            this.loadUserPermissions();
             Fire.$on('AfterCrud',() => {
-                this.loaduser();
+                this.loadUserPermissions();
             });
         }
     }
 </script>
 <style>
-.el-form-item__label:lang(fa){
-	float:right;
-	text-align:left;
-	padding:0 0 0 10px;
-}
-.el-form-item__content:lang(fa){
-	margin-right:100px;
-	margin-left:0px;
-}
-.el-form-item__content:lang(en){
-	margin-right:100px;
-	margin-left:100px;
-}
-.el-form-item__error:lang(fa){
-	right:0;
-	left:auto;
-}
-.el-table .cell:lang(fa){
-    float: right;
-    text-align: right;
-    direction: rtl;
-}
-.el-table .cell:lang(en){
-    float: left;
-    text-align: left;
-    direction: ltr;
-}
-.el-popper:lang(en){
-    text-align:left;
-}
-.el-popper:lang(fa){
-    text-align:right;
-}
-.el-message-box__header:lang(fa)
-{
-    direction:rtl;
-}
-.el-pagination{
-    text-align: center;
-}
+    .el-form-item__label:lang(fa){
+        float:right;
+        text-align:left;
+        padding:0 0 0 10px;
+    }
+    .el-form-item__content:lang(fa){
+        margin-right:100px;
+        margin-left:0px;
+    }
+    .el-form-item__content:lang(en){
+        margin-right:100px;
+        margin-left:100px;
+    }
+    .el-form-item__error:lang(fa){
+        right:0;
+        left:auto;
+    }
+    .el-table .cell:lang(fa){
+        float: right;
+        text-align: right;
+        direction: rtl;
+    }
+    .el-table .cell:lang(en){
+        float: left;
+        text-align: left;
+        direction: ltr;
+    }
+    .el-popper:lang(en){
+        text-align:left;
+    }
+    .el-popper:lang(fa){
+        text-align:right;
+    }
+    .el-message-box__header:lang(fa)
+    {
+        direction:rtl;
+    }
+    .el-pagination{
+        text-align: center;
+    }
 </style>

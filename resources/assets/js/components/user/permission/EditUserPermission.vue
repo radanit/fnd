@@ -1,150 +1,148 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center mt-4">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">{{trans('user.lblUpdateCardTitle')}}</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
-                <el-form-item
-                :label="trans('user.permissionName')"
-                prop="permissionName"
-                :rules="[
-                  { required: true, message: trans('user.permissionNameRequierdError')}
-                ]"
-                >
-                <el-input name="permissionName" type="permissionName" v-model.number="form.permissionName" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                :label="trans('user.permissionDescription')"
-                prop="permissionDescription"
-                :rules="[
-                  { required: true, message: trans('user.permissionDescriptionRequierdError')}
-                ]"
-                >
-                <el-input name="permissionDescription" type="permissionDescription" v-model="form.permissionDescription" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                :label="trans('user.structure')"
-                prop="structure">
-                  <el-input
-                    type="textarea"
-                    :rows="2"
-                    :placeholder="trans('user.json')"
-                    v-model="form.structure">
-                  </el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToPermissionList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
-                </el-form-item>
-              </el-form>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">{{trans('user.lblUpdatePermissionCardTitle')}}</h3>
           </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <el-form  :model="form" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
+            <el-form-item
+            :label="trans('user.permissionName')"
+            prop="name"
+            :rules="[
+              { required: true, message: trans('user.permissionNameRequierdError')}
+            ]"
+            >
+            <el-input name="name" type="text" v-model.number="form.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item
+            :label="trans('user.permissionDescription')"
+            prop="description"
+            :rules="[
+              { required: true, message: trans('user.permissionDescriptionRequierdError')}
+            ]"
+            >
+            <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+              <el-button size="mini" type="info" @click="backToPermissionList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+            </el-form-item>
+          </el-form>
+          </div>
+          <!-- /.card-body -->
         </div>
-      
+        <!-- /.card -->
+      </div>
     </div>
+  </div>
 </template>
 <script>
-    export default {
-        data(){
-            return{
-                insertAlert : trans('app.insertAlert'),
-                updateAlert : trans('app.updateAlert'),
-                deleteAlert : trans('app.deleteAlert'),
-                warningAlert : trans('app.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText'),
-                form: 
-                {
-                  id: '',
-                  permissionName: '',
-                  permissionDescription: '',
-                  structure:'',
-            
-                },
-            }
-        },
-        methods :{
-            /*
-            |--------------------------------------------------------------------------
-            | Load Selected Profile Info
-            |--------------------------------------------------------------------------
-            |
-            | This method load profile info for edit
-            |
-            */
-            loaduser(){
-                this.form.id=this.$route.params.profileId;
-                axios.get("../auth/api/users/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
-                    this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
-                      center: true,
-                      type: 'error'
-                    });
-                    this.$router.push({name: 'edit_user_permissions'});                 
-                });
+  export default 
+  {
+    data(){
+        return{
+            form: 
+            {
+              id: '',
+              name: '',
+              description: '',          
             },
-            /*
-            |--------------------------------------------------------------------------
-            | Back to Profile List
-            |--------------------------------------------------------------------------
-            |
-            | This method go back to profiles list
-            |
-            */
-           
-            backToPermissionList(){
-              this.$router.push({ name: 'permissions'});
-            },
-            updateuser(){
-            var obj = JSON.stringify(this.form.structure);
-            axios.put('../auth/api/users/'+this.form.id,{name: this.form.name,
-              description: this.form.description,structure:obj}).then(response => {
-              this.$message({
-                type: 'success',
-                center: true,
-                message:this.updateAlert
-              });
-              Fire.$emit('AfterCrud');                  
-                }).catch((error) => {
-                  console.log(error.response.status);
-                  this.$message({
-                    type: 'error',
-                    center: true,
-                    message:error.response.data.errors.name
-                  });
-              }); 
-            },
-            submitForm(formName) {
-              this.$refs[formName].validate((valid) => {
-                if (valid) 
-                {
-                  this.updateuser();
-                }
-                else {
-                  return false;
-                }
-              });
-           },
-        },        
-        mounted() {
-            this.loaduser();
-            Fire.$on('AfterCrud',() => {
-                this.loaduser();
-            });
         }
+    },
+    methods :{
+        /*
+        |--------------------------------------------------------------------------
+        | Load Selected Permission Info
+        | Added By e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method load Permission info for edit
+        |
+        */
+        loadUserPermission(){
+          this.form.id=this.$route.params.permissionId;
+          axios.get("../api/auth/permissions/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+              this.$message({
+                title: '',
+                message:error.response.data.errors,
+                center: true,
+                type: 'error'
+              });
+              this.$router.push({name: 'edit_user_permissions'});                 
+          });
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Back to Permission List
+        | Added By e.bagherzadegan        
+        |--------------------------------------------------------------------------
+        |
+        | This method go back to Permissions list
+        |
+        */
+        
+        backToPermissionList(){
+          this.$router.push({ name: 'user_permissions'});
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Update Permission Method
+        | Added By e.bagherzadegan        
+        |--------------------------------------------------------------------------
+        |
+        | This method Update Permission Info To Database
+        |
+        */          
+        updateUserPermission(){
+          axios.put('../api/auth/permissions/'+this.form.id,{name: this.form.name,
+          description: this.form.description}).then(response => {
+          this.$message({
+            type: 'success',
+            center: true,
+            message:response.data.message
+          });
+          Fire.$emit('AfterCrud');                  
+            }).catch((error) => {              
+              this.$message({
+                title: error.response.data.message,
+                type: 'error',
+                center: true,
+                message:error.response.data.errors
+              });
+          }); 
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Form Method
+        | Added By e.bagherzadegan        
+        |--------------------------------------------------------------------------
+        |
+        | This method Submit Form
+        |
+        */             
+        submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) 
+            {
+              this.updateUserPermission();
+            }
+            else {
+              return false;
+            }
+          });
+        },
+    },        
+    mounted() {
+        this.loadUserPermission();
+        Fire.$on('AfterCrud',() => {
+            this.loadUserPermission();
+        });
     }
+  }
 </script>
 <style>
 .el-form-item__label:lang(fa){

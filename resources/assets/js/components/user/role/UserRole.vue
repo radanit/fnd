@@ -15,7 +15,7 @@
               <div class="card-body table-responsive p-0">
 				<el-table
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
-                    :default-sort = "{prop: 'roleName', order: 'descending'}"
+                    :default-sort = "{prop: 'name', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
                         type="selection"
@@ -82,21 +82,16 @@
                 editMod :false,
                 users :{},
                 userGroups:{},
-				form: {
-                id: '',
-                active:'',
-                roleName: '',
-                roleDescription: '',
-                loadAlert : '',
-                insertAlert : trans('app.insertAlert'),
-                updateAlert : trans('app.updateAlert'),
-                deleteAlert : trans('app.deleteAlert'),
                 warningAlert : trans('app.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
+                confirmButtonText : trans('app.confirmButtonText'),
+				form: {
+                    id: '',
+                    active:'',
+                    name: '',
+                    roleDescription: '',
 				},
 				tableData:[],
                 search: '',
@@ -106,7 +101,16 @@
                 infiniteId: +new Date(),
             }
         },
-        methods :{ 
+        methods :{
+            /*
+            |--------------------------------------------------------------------------
+            | Lazy Load Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Is For Lazy Load Users Info
+            |
+            */     
             infiniteHandler($state) {
                 axios.get("../api/auth/roles", {
                     params: {
@@ -122,41 +126,46 @@
                     }
                 });
             },
-            toggleSelection(rows) {
-                if (rows) {
-                rows.forEach(row => {
-                    this.$refs.multipleTable.toggleRowSelection(row);
-                });
-                } else {
-                this.$refs.multipleTable.clearSelection();
-                }
-            },
+            /*
+            |--------------------------------------------------------------------------
+            | handleSelectionChange Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method handle Selection User Change
+            |
+            */ 
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
             filterActive(value, row) {
                 return row.active === value;
             },
-           /*
-            * Load Method
+            /*
+            |--------------------------------------------------------------------------
+            | Load Load User Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Load User Role Info
+            |
             */
-            loadrole(){
+            LoadUserRole(){
                 axios.get("../api/auth/roles").then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: error.response.data.errors,
                       center: true,
                       type: 'error'
-                    });
-                    this.$router.push({name: 'user_roles'});                 
+                    });          
                 });
             },
             /*
             |--------------------------------------------------------------------------
-            | Go To Create Profile Page
+            | Go To Create User Role Page
             |--------------------------------------------------------------------------
             |
-            | This method Load Create profile Component
+            | This method Load Create User Role Component
             |
             */      
             createUserRole(){
@@ -164,55 +173,59 @@
             },
             /*
             |--------------------------------------------------------------------------
-            | Go To Edit Profile Page
+            | Go To Edit User Role Page
             |--------------------------------------------------------------------------
             |
-            | This method Load Edit profile Component
+            | This method Load Edit User Role Component
             |
             */      
             editUsers(record){
-              this.$router.push({ name: 'edit_user_roles', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_user_roles', params: { roleId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
-            | Delete Profile 
+            | Delete User Role 
             |--------------------------------------------------------------------------
             |
-            | This method delete profile info
+            | This method delete User Role info
             |
             */         
             deleteRoles(record){
-				    this.$confirm(this.form.warningAlert,this.form.noticTxt, {
-                  confirmButtonText: this.form.confirmButtonText,
-                  cancelButtonText: this.form.cancelButtonText,
-                  type: 'warning',
-                  center: true
+                this.$confirm(this.noticTxt,this.warningAlert, {
+                confirmButtonText: this.confirmButtonText,
+                cancelButtonText: this.cancelButtonText,
+                type: 'warning',
+                center: true
                 }).then(() => {
-                  axios.delete('../api/auth/roles'+record.id)
+                  axios.delete('../api/auth/roles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({
                         type: 'success',
                         center: true,
-                        message:this.form.deleteAlert
+                        message:response.data.message
                       });
-                    this.$router.push({name: 'roles'});
                 }).catch(() => {
-                     this.$router.push({name: 'roles'});
+                    this.$message({
+                        title: error.response.data.message,
+                        type: 'error',
+                        center: true,
+                        message:error.response.data.errors
+                      });
                     }); 
                 }).catch(() => {
                   this.$message({
                     type: 'info',
                     center: true,
-                    message: this.form.cancelAlert
+                    message: this.cancelAlert
                   });          
                 });
             },
         },        
         mounted() {
-            this.loadrole();
+            this.LoadUserRole();
             Fire.$on('AfterCrud',() => {
-                this.loadrole();
+                this.LoadUserRole();
             });
         }
     }

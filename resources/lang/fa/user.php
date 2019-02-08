@@ -41,14 +41,16 @@ return [
     'addRoleBtnLbl' => 'درج نقش کاربری',
     'roleBtnLbl' => 'مدیریت نقش های کاربری',
     'roleName' => 'عنوان نقش',
+    'profileName' => 'پروفایل',
     'roleDescription' => 'شرح نقش',
     'roleCardTitle' => 'لیست نقش های کاربری',
     'roles_lbl' => 'نقش ها',
     'role_choose_lbl' => 'انتخاب نقش',
     'profile_lbl' => 'پروفایل ها',
     'profile_choose_lbl' => 'انتخاب پروفایل',
+    'roles' => 'نقش ها',
     'roleNameRequierdError' => 'عنوان نقش کاربری اجباری است!',
-    'roleDesRequierdError' => 'شرح نقش کاربری اجباری است!',
+    'roleDescriptionRequierdError' => 'شرح نقش کاربری اجباری است!',
     'password' => 'کلمه عبور',
     'confirm' => 'تایید کلمه عبور',
     'passwordRequierdError' => 'فیلد پسورد اجباری است.',
@@ -57,6 +59,8 @@ return [
     'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است',
     'permissionNameRequierdError' => 'فیلد عنوان سطح دسترسی اجباری است',
     'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است',
+    'status' => 'وضعیت',
     'active' => 'فعال',
+    'inActive' => 'غیر فعال'
 
 ];

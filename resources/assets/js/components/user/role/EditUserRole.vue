@@ -1,139 +1,187 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center mt-4">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">{{trans('user.lblUpdateRoleCardTitle')}}</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
-                <el-form-item
-                :label="trans('user.roleName')"
-                prop="name"
-                :rules="[
-                  { required: true, message: trans('user.roleNameRequierdError')}
-                ]"
-                >
-                <el-input name="roleName" type="roleName" v-model.number="form.name" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item
-                :label="trans('user.roleDescription')"
-                prop="description"
-                :rules="[
-                  { required: true, message: trans('user.roleDescriptionRequierdError')}
-                ]"
-                >
-                <el-input name="roleDescription" type="roleDescription" v-model="form.description" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToRoleList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
-                </el-form-item>
-              </el-form>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">{{trans('user.lblUpdateRoleCardTitle')}}</h3>
           </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <el-form  :model="form" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
+            <el-form-item
+            :label="trans('user.roleName')"
+            prop="name"
+            :rules="[
+              { required: true, message: trans('user.roleNameRequierdError')}
+            ]"
+            >
+            <el-input name="name" type="text" v-model.number="form.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item
+            :label="trans('user.roleDescription')"
+            prop="description"
+            :rules="[
+              { required: true, message: trans('user.roleDescriptionRequierdError')}
+            ]"
+            >
+            <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item
+            :label="trans('user.permission_lbl')"
+            prop="permission">
+              <el-select
+                v-model="form.permissions"
+                multiple
+                filterable
+                default-first-option
+                :placeholder="trans('user.permission_choose_lbl')">
+                <el-option
+                  v-for="item in permission_options"
+                  :key="item.id"
+                  :label="item.description"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+              <el-form-item>
+                <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                <el-button size="mini" type="info" @click="backToroleList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+              </el-form-item>
+          </el-form>
+          </div>
+          <!-- /.card-body -->
         </div>
-      
+        <!-- /.card -->
+      </div>
     </div>
+  </div>
 </template>
 <script>
-    export default {
-        data(){
-            return{
-                form: 
-                {
-                  id: '',
-                  rname: '',
-                  description: '',
-            
-                },
-                insertAlert : trans('app.insertAlert'),
-                updateAlert : trans('app.updateAlert'),
-                deleteAlert : trans('app.deleteAlert'),
-                warningAlert : trans('app.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
-            }
-        },
-        methods :{
-            /*
-            |--------------------------------------------------------------------------
-            | Load Selected Profile Info
-            |--------------------------------------------------------------------------
-            |
-            | This method load profile info for edit
-            |
-            */
-            loaduser(){
-                this.form.id=this.$route.params.profileId;
-                axios.get("../api/auth/roles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
-                    this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
-                      center: true,
-                      type: 'error'
-                    });
-                    this.$router.push({name: 'edit_user_roles'});                 
-                });
+  export default 
+  {
+    data(){
+        return{
+            form: 
+            {
+              id: '',
+              name: '',
+              description: '', 
+              permissions: [],
             },
-            /*
-            |--------------------------------------------------------------------------
-            | Back to Profile List
-            |--------------------------------------------------------------------------
-            |
-            | This method go back to profiles list
-            |
-            */
-           
-            backToRoleList(){
-              this.$router.push({ name: 'user_roles'});
-            },
-            updateuser(){
-            var obj = JSON.stringify(this.form.structure);
-            axios.put('../api/auth/roles/'+this.form.id,{name: this.form.name,
-              description: this.form.description}).then(response => {
-              this.$message({
-                type: 'success',
-                center: true,
-                message:this.updateAlert
-              });
-              Fire.$emit('AfterCrud');                  
-                }).catch((error) => {
-                  console.log(error.response.status);
-                  this.$message({
-                    type: 'error',
-                    center: true,
-                    message:error.response.data.errors.name
-                  });
-              }); 
-            },
-            submitForm(formName) {
-              this.$refs[formName].validate((valid) => {
-                if (valid) 
-                {
-                  this.updateuser();
-                }
-                else {
-                  return false;
-                }
-              });
-           },
-        },        
-        mounted() {
-            this.loaduser();
-            Fire.$on('AfterCrud',() => {
-                this.loaduser();
-            });
+            permission_options:[],
         }
+    },
+    methods :{
+        /*
+        |--------------------------------------------------------------------------
+        | Load Selected User Role Info
+        | Added By e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method load User Role info for edit
+        |
+        */
+        loadUserRole(){
+          this.form.id=this.$route.params.roleId;
+          axios.get("../api/auth/roles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+              this.$message({
+                title: '',
+                message:error.response.data.errors,
+                center: true,
+                type: 'error'
+              });
+              this.$router.push({name: 'edit_user_roles'});                 
+          });
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Load Permissions
+        | Added by e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method Permissions list
+        |
+        */    
+        loadUserPermission(){
+          axios.get("../api/auth/permissions").then(({data})=>(this.permission_options = data.data)).catch(()=>{
+            this.$message({
+              title: '',
+              message: error.respons.data.errors,
+              center: true,
+              type: 'error'
+            });                
+          });
+        },       
+        /*
+        |--------------------------------------------------------------------------
+        | Back to User Role List
+        | Added By e.bagherzadegan        
+        |--------------------------------------------------------------------------
+        |
+        | This method go back to User Roles list
+        |
+        */
+        
+        backToroleList(){
+          this.$router.push({ name: 'user_roles'});
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Update User Role Method
+        | Added By e.bagherzadegan        
+        |--------------------------------------------------------------------------
+        |
+        | This method Update User Role Info To Database
+        |
+        */          
+        updateUserRole(){
+          axios.put('../api/auth/roles/'+this.form.id,{name: this.form.name,
+          description: this.form.description}).then(response => {
+          this.$message({
+            type: 'success',
+            center: true,
+            message:response.data.message
+          });
+          Fire.$emit('AfterCrud');                  
+            }).catch((error) => {              
+              this.$message({
+                title: error.response.data.message,
+                type: 'error',
+                center: true,
+                message:error.response.data.errors
+              });
+          }); 
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Form Method
+        | Added By e.bagherzadegan        
+        |--------------------------------------------------------------------------
+        |
+        | This method Submit Form
+        |
+        */             
+        submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) 
+            {
+              this.updateUserRole();
+            }
+            else {
+              return false;
+            }
+          });
+        },
+    },        
+    mounted() {
+        this.loadUserRole();
+        this.loadUserPermission()
+        Fire.$on('AfterCrud',() => {
+            this.loadUserRole();
+        });
     }
+  }
 </script>
 <style>
 .el-form-item__label:lang(fa){
@@ -142,7 +190,7 @@
 	padding:0 0 0 10px;
 }
 .el-form-item__content:lang(fa){
-	margin-right:100px;
+	margin-right:160px !important;
 	margin-left:0px;
   text-align: right;
 }

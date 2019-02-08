@@ -36,10 +36,14 @@
 					  prop="email">
 					</el-table-column>
                     <el-table-column
-					  :label="trans('user.profile_name')"
+					  :label="trans('user.profileName')"
                       sortable
 					  prop="profile_name">
 					</el-table-column>
+                    <el-table-column label="Properties">
+                        <el-table-column :prop="item.prop" :label="item.label" :width="item.width" v-for="item in items" :key="item.prop" sortable>
+                        </el-table-column>        
+                    </el-table-column>
                     <el-table-column
                         prop="active"
                         :label="trans('user.status')"
@@ -98,31 +102,34 @@
     </div>
 </template>
 <script>
-    export default {
+    export default 
+    {
         data(){
             return{
-                editMod :false,
-                users :{},
-                userGroups:{},
-				form: {
-                id: '',
-                active:'',
-                username: '',
-                email: '',
-                profile_name: '',
-                profileId:'',
-                roles: '',
-                loadAlert : '',
-                insertAlert : trans('app.insertAlert'),
-                updateAlert : trans('app.updateAlert'),
-                deleteAlert : trans('app.deleteAlert'),
                 warningAlert : trans('app.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
                 cancelAlert : trans('app.cancelAlert'),
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
-				},
+                confirmButtonText : trans('app.confirmButtonText'),
+				form: {
+                    id: '',
+                    active:'',
+                    username: '',
+                    email: '',
+                    profile_name: '',
+                    profileId:'',
+                    
+                },
+                items: [{
+                    prop:"roles[1].name",
+                    label: "City",
+                    width: "120"
+                },          
+                {
+                    prop:"roles[0].name",
+                    label: "Zip",
+                    width: "100"
+                }],             
 				tableData:[],
                 search: '',
                 page: 1,
@@ -132,50 +139,83 @@
                 multipleSelection:[],
             }
         },
-        methods :{ 
+        methods :{
+            /*
+            |--------------------------------------------------------------------------
+            | Lazy Load Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Is For Lazy Load Users Info
+            |
+            */    
             infiniteHandler($state) {
                 axios.get("../api/profile/users", {
                     params: {
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (data.data.length) {
-                    this.page += 1;
-                    this.list.unshift(...data.data.reverse());
-                    $state.loaded();
+                        if (data.data.length) {
+                        this.page += 1;
+                        this.list.unshift(...data.data.reverse());
+                        $state.loaded();
                     } else {
-                    $state.complete();
+                        $state.complete();
                     }
                 });
             },
-            toggleSelection(rows) {
-                if (rows) {
-                rows.forEach(row => {
-                    this.$refs.multipleTable.toggleRowSelection(row);
-                });
-                } else {
-                this.$refs.multipleTable.clearSelection();
-                }
-            },
+            /*
+            |--------------------------------------------------------------------------
+            | handleSelectionChange Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method handle Selection User Change
+            |
+            */  
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Filter Active user Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Filter Active Users
+            |
+            */  
             filterActive(value, row) {
                 return row.active === value;
             },
-           /*
-            * Load Method
-            */
+            /*
+            |--------------------------------------------------------------------------
+            | Load User Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Users Info
+            |
+            */    
             loadUser(){
                 axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
-                    this.$message({
-                      message:'',
+                    this.$message({                      
+                      message:error.response.data.errors,
                       center: true,
                       type: 'error'
-                    });
-                    this.$router.push({name: 'users'});                 
+                    }); 
+                    console.log(tableData);
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Active User Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Activate Selected Users
+            |
+            */  
             activeUser(){
                if(this.multipleSelection.length){
                    alert('selected is exist');
@@ -186,10 +226,11 @@
             },
             /*
             |--------------------------------------------------------------------------
-            | Go To Create Profile Page
+            | Go To Create User Page
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
-            | This method Load Create profile Component
+            | This method Load User Component
             |
             */      
             createUser(){
@@ -197,33 +238,34 @@
             },            
             /*
             |--------------------------------------------------------------------------
-            | Go To Edit Profile Page
+            | Go To Edit User Page
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
-            | This method Load Edit profile Component
+            | This method Load Edit User Component
             |
             */      
             editUser(record){
-              this.$router.push({ name: 'edit_users', params: { profileId: record.id } });
+              this.$router.push({ name: 'edit_users', params: { userId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
-            | Delete Profile 
+            | Delete User Method
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
-            | This method delete profile info
+            | This method delete User info
             |
             */         
             deleteUser(record){
-				  this.$confirm(this.form.warningAlert,this.form.noticTxt, {
-                  confirmButtonText: this.form.confirmButtonText,
-                  cancelButtonText: this.form.cancelButtonText,
+				  this.$confirm(this.noticTxt,this.warningAlert, {
+                  confirmButtonText: this.confirmButtonText,
+                  cancelButtonText: this.cancelButtonText,
                   type: 'warning',
                   center: true
                 }).then(() => {
                   axios.delete('../api/profile/users/'+record.id)
                 .then(response => {
-                    console.log(response);
                     Fire.$emit('AfterCrud');
                      this.$message({
                         type: 'success',
@@ -234,28 +276,16 @@
                      this.$message({
                         type: 'error',
                         center: true,
-                        message:response.data.errors
-                        
+                        message:response.data.errors                        
                       });
                     }); 
                 }).catch(() => {
                   this.$message({
                     type: 'info',
                     center: true,
-                    message: this.form.cancelAlert
+                    message: this.cancelAlert
                   });          
                 });
-            },
-            /*
-            |--------------------------------------------------------------------------
-            | Go To Create Profile Page
-            |--------------------------------------------------------------------------
-            |
-            | This method Load Create profile Component
-            |
-            */      
-            userRole(){
-              this.$router.push({ name: 'User_roles'});
             },
         },        
         mounted() {
@@ -267,44 +297,44 @@
     }
 </script>
 <style>
-.el-form-item__label:lang(fa){
-	float:right;
-	text-align:left;
-	padding:0 0 0 10px;
-}
-.el-form-item__content:lang(fa){
-	margin-right:100px;
-	margin-left:0px;
-}
-.el-form-item__content:lang(en){
-	margin-right:100px;
-	margin-left:100px;
-}
-.el-form-item__error:lang(fa){
-	right:0;
-	left:auto;
-}
-.el-table .cell:lang(fa){
-    float: right;
-    text-align: right;
-    direction: rtl;
-}
-.el-table .cell:lang(en){
-    float: left;
-    text-align: left;
-    direction: ltr;
-}
-.el-popper:lang(en){
-    text-align:left;
-}
-.el-popper:lang(fa){
-    text-align:right;
-}
-.el-message-box__header:lang(fa)
-{
-    direction:rtl;
-}
-.el-pagination{
-    text-align: center;
-}
+    .el-form-item__label:lang(fa){
+        float:right;
+        text-align:left;
+        padding:0 0 0 10px;
+    }
+    .el-form-item__content:lang(fa){
+        margin-right:100px;
+        margin-left:0px;
+    }
+    .el-form-item__content:lang(en){
+        margin-right:100px;
+        margin-left:100px;
+    }
+    .el-form-item__error:lang(fa){
+        right:0;
+        left:auto;
+    }
+    .el-table .cell:lang(fa){
+        float: right;
+        text-align: right;
+        direction: rtl;
+    }
+    .el-table .cell:lang(en){
+        float: left;
+        text-align: left;
+        direction: ltr;
+    }
+    .el-popper:lang(en){
+        text-align:left;
+    }
+    .el-popper:lang(fa){
+        text-align:right;
+    }
+    .el-message-box__header:lang(fa)
+    {
+        direction:rtl;
+    }
+    .el-pagination{
+        text-align: center;
+    }
 </style>

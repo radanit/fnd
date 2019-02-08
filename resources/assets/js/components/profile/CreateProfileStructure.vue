@@ -148,11 +148,12 @@
               this.$refs[formName].resetFields();
             }            
         },        
-      mounted() {
-                      Fire.$on('AfterCrud',() => {
-                        this.resetForm('form');
-                  });
-              }
+      mounted() 
+      {
+        Fire.$on('AfterCrud',() => {
+            this.resetForm('form');
+        });      
+      }
     }
 </script>
 <style>

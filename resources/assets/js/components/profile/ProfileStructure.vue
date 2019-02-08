@@ -89,11 +89,12 @@
                 editMod :false,
                 profileStructures :{},
                 profileStructureGroups:{},
-				form: {
-                id: '',
-                name: '',
-                description: '',
-                structure:'',
+                form: 
+                {
+                    id: '',
+                    name: '',
+                    description: '',
+                    structure:'',
 				},
 				tableData:[],
                 search: '',
@@ -104,7 +105,16 @@
                 infiniteId: +new Date(),
             }
         },
-        methods :{ 
+        methods :{
+            /*
+            |--------------------------------------------------------------------------
+            | Lazy Load Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Is For Lazy Load Users Info
+            |
+            */                
             infiniteHandler($state) {
                 axios.get("../api/profile/profiles", {
                     params: {
@@ -120,20 +130,26 @@
                     }
                 });
             },
-            toggleSelection(rows) {
-                if (rows) {
-                rows.forEach(row => {
-                    this.$refs.multipleTable.toggleRowSelection(row);
-                });
-                } else {
-                    this.$refs.multipleTable.clearSelection();
-                }
-            },
+            /*
+            |--------------------------------------------------------------------------
+            | handleSelectionChange Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method handle Selection User Change
+            |
+            */              
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
-           /*
-            * Load Method
+            /*
+            |--------------------------------------------------------------------------
+            | Load Profile Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Profile Info
+            |
             */
             loadProfileStructure(page){                
                 axios.get("../api/profile/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
@@ -146,6 +162,15 @@
                     this.$router.push({name: 'profile_structures'});                 
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Load Page Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Set Pagination
+            |
+            */            
             loadPage(){
                 this.loadProfileStructure(this.page);
                 this.totalPage=Math.round(this.total/15);
@@ -153,6 +178,7 @@
             /*
             |--------------------------------------------------------------------------
             | Go To Create Profile Page
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
             | This method Load Create profile Component
@@ -164,6 +190,7 @@
             /*
             |--------------------------------------------------------------------------
             | Go To Edit Profile Page
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
             | This method Load Edit profile Component
@@ -175,13 +202,14 @@
             /*
             |--------------------------------------------------------------------------
             | Delete Profile 
+            | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
             |
             | This method delete profile info
             |
             */         
             deleteProfileStructure(record){
-				    this.$confirm(this.noticTxt,this.warningAlert, {
+				  this.$confirm(this.noticTxt,this.warningAlert, {
                   confirmButtonText: this.confirmButtonText,
                   cancelButtonText: this.cancelButtonText,
                   type: 'warning',
@@ -221,47 +249,47 @@
     }
 </script>
 <style>
-.el-form-item__label:lang(fa){
-	float:right;
-	text-align:left;
-	padding:0 0 0 10px;
-}
-.el-form-item__content:lang(fa){
-	margin-right:100px;
-	margin-left:0px;
-}
-.el-form-item__content:lang(en){
-	margin-right:100px;
-	margin-left:100px;
-}
-.el-form-item__error:lang(fa){
-	right:0;
-	left:auto;
-}
-.el-table .cell:lang(fa){
-    float: right;
-    text-align: right;
-    direction: rtl;
-}
-.el-table .cell:lang(en){
-    float: left;
-    text-align: left;
-    direction: ltr;
-}
-.el-popper:lang(en){
-    text-align:left;
-}
-.el-popper:lang(fa){
-    text-align:right;
-}
-.el-message-box__header:lang(fa)
-{
-    direction:rtl;
-}
-.el-pagination{
-    text-align: center;
-}
-.el-checkbox{
-    top:6px;
-}
+    .el-form-item__label:lang(fa){
+        float:right;
+        text-align:left;
+        padding:0 0 0 10px;
+    }
+    .el-form-item__content:lang(fa){
+        margin-right:100px;
+        margin-left:0px;
+    }
+    .el-form-item__content:lang(en){
+        margin-right:100px;
+        margin-left:100px;
+    }
+    .el-form-item__error:lang(fa){
+        right:0;
+        left:auto;
+    }
+    .el-table .cell:lang(fa){
+        float: right;
+        text-align: right;
+        direction: rtl;
+    }
+    .el-table .cell:lang(en){
+        float: left;
+        text-align: left;
+        direction: ltr;
+    }
+    .el-popper:lang(en){
+        text-align:left;
+    }
+    .el-popper:lang(fa){
+        text-align:right;
+    }
+    .el-message-box__header:lang(fa)
+    {
+        direction:rtl;
+    }
+    .el-pagination{
+        text-align: center;
+    }
+    .el-checkbox{
+        top:6px;
+    }
 </style>

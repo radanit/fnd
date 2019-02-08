@@ -11,21 +11,21 @@
 	              <el-form  :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('user.permissionName')"
-                prop="permissionName"
+                prop="name"
                 :rules="[
                   { required: true, message: trans('user.permissionNameRequierdError')}
                 ]"
                 >
-                <el-input name="permissionName" type="text" v-model="form.permissionName" autocomplete="off"></el-input>
+                <el-input name="name" type="text" v-model="form.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('user.permissionDescription')"
-                prop="permissionDescription"
+                prop="description"
                 :rules="[
                   { required: true, message: trans('user.permissionDescriptionRequierdError')}
                 ]"
                 >
-                <el-input name="permissionDescription" type="text" v-model="form.permissionDescription" autocomplete="off"></el-input>
+                <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -42,88 +42,99 @@
     </div>
 </template>
 <script>
-    export default {
-        data(){
-            return{
-                form: 
-                {
-                  permissionName: '',
-                  permissionDescription: '',
-                  structure:'',
-                  loadAlert : '',
-                  insertAlert : trans('app.insertAlert'),
-                  updateAlert : trans('app.updateAlert'),
-                  deleteAlert : trans('app.deleteAlert'),
-                  warningAlert : trans('app.warningAlert'),
-                  failedAlert : trans('app.failedAlert'),
-                  cancelAlert : trans('app.cancelAlert'),
-                  noticTxt : trans('app.noticTxt'),
-                  cancelButtonText : trans('app.cancelButtonText'),
-                  confirmButtonText : trans('app.confirmButtonText')
-                },
-            }
-        },
-        methods :{
-            /*
-            |--------------------------------------------------------------------------
-            | Back to Profile List
-            |--------------------------------------------------------------------------
-            |
-            | This method go back to profiles list
-            |
-            */           
-            backToProfileList(){
-              this.$router.push({ name: 'user_permissions'});
-            },
-            /*
-            |--------------------------------------------------------------------------
-            | Create Profile Method
-            |--------------------------------------------------------------------------
-            |
-            | This method Add Profile Info To Database
-            |
-            */
-		    	  createuserPermission() {
-              let currentObj = this;
-              var obj = JSON.stringify(this.form.structure);
-              axios.post('../api/auth/permissions',{name: this.form.permissionName,
-              description: this.form.permissionDescription}).then(() =>{
-              Fire.$emit('AfterCrud');
-              this.$message({
-                title: '',
-                message: this.form.insertAlert,
-                center: true,
-                type: 'success'
-              });					    
-                this.resetForm('form');
-                })
-                .catch(() => {
-                    this.$message({
-                      title: '',
-                      message: this.form.failedAlert,
-                      center: true,
-                      type: 'error'
-                    });
-                });
-            },
-            submitForm(formName) {
-              this.$refs[formName].validate((valid) => {
-                if (valid) 
-                {
-                  this.createuserPermission();
-                }
-                else {
-                  return false;
-                }
+    export default 
+    {
+      data(){
+          return{
+              warningAlert : trans('app.warningAlert'),
+              failedAlert : trans('app.failedAlert'),
+              cancelAlert : trans('app.cancelAlert'),
+              noticTxt : trans('app.noticTxt'),
+              cancelButtonText : trans('app.cancelButtonText'),
+              confirmButtonText : trans('app.confirmButtonText'),
+              form: 
+              {
+                name: '',
+                description: '',
+              },
+          }
+      },
+      methods :{
+          /*
+          |--------------------------------------------------------------------------
+          | Back to Permission List
+          |--------------------------------------------------------------------------
+          |
+          | This method go back to Permission list
+          |
+          */           
+          backToProfileList(){
+            this.$router.push({ name: 'user_permissions'});
+          },
+          /*
+          |--------------------------------------------------------------------------
+          | Create Permission Method
+          |--------------------------------------------------------------------------
+          |
+          | This method Add Permission Info To Database
+          |
+          */
+          createUserPermission() {
+            axios.post('../api/auth/permissions',{name: this.form.name,
+            description: this.form.description}).then(() =>{
+            Fire.$emit('AfterCrud');
+            this.$message({
+              title: '',
+              message: response.data.message,
+              center: true,
+              type: 'success'
+            });					                  
+              })
+              .catch(() => {
+                  this.$message({
+                    title: error.response.data.message,
+                    message:error.response.data.errors,
+                    center: true,
+                    type: 'error'
+                  });
               });
-           },
-            resetForm(formName) {
-              this.$refs[formName].resetFields();
-            }            
-        },        
-        mounted() {
-          
-        }
+          },
+          /*
+          |--------------------------------------------------------------------------
+          | Submit Form Method
+          |--------------------------------------------------------------------------
+          |
+          | This method Submit Form
+          |
+          */            
+          submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+              if (valid) 
+              {
+                this.createUserPermission();
+              }
+              else {
+                return false;
+              }
+            });
+          },
+          /*
+          |--------------------------------------------------------------------------
+          | Reset Form Method
+          |--------------------------------------------------------------------------
+          |
+          | This method Rest Form After Create profiel
+          |
+          */           
+          resetForm(formName) {
+            this.$refs[formName].resetFields();
+          }            
+      },        
+      mounted() {
+        Fire.$on('AfterCrud',() => {
+          this.resetForm('form');
+        });    
+      }
     }
 </script>
 <style>
