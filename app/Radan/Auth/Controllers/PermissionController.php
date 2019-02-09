@@ -5,9 +5,9 @@ namespace App\Radan\Auth\Controllers;
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\Permission;
 use App\Radan\Resources\PermissionResource;
@@ -41,27 +41,34 @@ class PermissionController extends Controller
     public function store(Request $request)
     {        
         // Validation permission
-        Validator::make($request->all(), [
+        Validator::make($request->only('name','display_name','description'), [
             'name' => 'required|string|max:255|unique:permissions',
+            'display_name' => 'string|max:255',
             'description' => 'string|max:255',
-            'displayname' => 'string|max:255',
         ])->validate();
     
         try {
 			// Insert new permission
-			$permission = new Permission();
-			$permission->name = $request->name;
-			$permission->display_name = $request->displayname; // optional
-			$permission->description = $request->description; // optional
-			$permission->save();
-			
+            $permission = new Permission();
+            $profipermissionle = Permission::create([
+                'name' => $request->name,        
+                'display_name' => $request->display_name,
+                'description' => $request->description,
+            ]);
+		
 			// Return
-			return response()->json(['message' => __('app.insertAlert') ], 200);
+            return response()->json([
+                'message' => __('app.insertAlert')],
+                $this->httpCreated
+            );
 		}
 		catch (Exceptions $e) {
 			Log::error($e->getMessage());
-			// Return
-			return response()->json(['message' => 'Error insert permmision' , 'errors' => __('app.failedAlert') ], 500);
+            return response()->json([
+                'message' => 'Error create profile',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
 		}		        
     }
 
@@ -87,18 +94,27 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {        
         // Validation permission   
-        Validator::make($request->all(), [
+        Validator::make($request->only('display_name','description'), [
             'description' => 'string|max:255',
             'display_name' => 'string|max:255',
         ])->validate();
         
 		try {
-			$permission = Permission::findOrFail($id);
-			$permission->update($request->only('description', 'display_name'));
-			return response()->json(['message' => __('app.updateAlert') ], 200);
+            $permission = Permission::findOrFail($id);            
+			$permission->update($request->only('display_name', 'description'));
+            
+            // Return
+            return response()->json([
+                'message' => __('app.updateAlert')],
+                $this->httpOk
+            );
 		} catch (Exception $e) {						
 			Log::error($e->getMessage());
-			return response()->json(['message' => 'Error update permission' , 'errors' => __('app.failedAlert') ], 500);
+            return response()->json([
+                'message' => 'Error update profile',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
 		}        
     }
 
@@ -110,9 +126,36 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-		// destroy profile
-		$permission = Permission::findOrFail($id);
-		$permission->delete();
-		return response()->json(['message' => __('app.deleteAlert') ], 200);
+		// destroy permission
+		$permission = Permission::findOrFail($id);		        
+
+        try {
+            // Get prevernts from config files
+            $prevents = Config::get('radan.auth.prevents.permission');
+
+            // Check prevents rule
+            foreach ($prevents as $key => $value) {
+                if ($permission->$key==$value) {
+                    throw new ResourceProtected;
+                }
+            }
+
+            // Destory profile
+            $permission->delete();
+            
+            // Return
+            return response()->json([
+                'message' => __('app.deleteAlert')],
+                $this->httpOk
+            );
+
+        } catch (Exception $e) {        
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Error delete profile',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
+        }                 
     }
 }
