@@ -12,6 +12,6 @@ class Permission extends LaratrustPermission
      * @var array
      */
     protected $fillable = [
-        'display_name', 'description',
+        'display_name', 'description','name',
     ];
 }

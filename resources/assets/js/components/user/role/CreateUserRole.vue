@@ -28,25 +28,25 @@
             <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
-            :label="trans('user.permission_lbl')"
-            prop="permission">
-              <el-select
-                v-model="form.permissions"
-                multiple
-                filterable
-                default-first-option
-                :placeholder="trans('user.permission_choose_lbl')">
-                <el-option
-                  v-for="item in permission_options"
-                  :key="item.id"
-                  :label="item.description"
-                  :value="item.id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
+              :label="trans('user.permission_lbl')"
+              prop="permission">
+                <el-select
+                  v-model="form.permissions"
+                  multiple
+                  filterable
+                  default-first-option
+                  :placeholder="trans('user.permission_choose_lbl')">
+                  <el-option
+                    v-for="item in form.permission_options"
+                    :key="item.id"
+                    :label="item.description"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
 
-                <el-transfer
+                <!--<el-transfer
                   filterable
                   :filter-method="filterMethod"
                   filter-placeholder="State Abbreviations"
@@ -58,11 +58,11 @@
                       initial:'name'
                     }"
                   :data="permission_options">
-                </el-transfer>
+                </el-transfer>-->
             </el-form-item>    
             <el-form-item>
-              <el-button  size="mini" type="success" @click="createProfileStructure()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-              <el-button  size="mini" type="primary" @click="createContinueProfileStructure()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
+              <el-button  size="mini" type="success" @click="createUserRole()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+              <el-button  size="mini" type="primary" @click="createContinueUserRole()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
               <el-button size="mini" type="info" @click="backToUserRoleList" plain>{{trans('app.backBtnLbl')}} </el-button>   
             </el-form-item>
           </el-form>
@@ -89,9 +89,9 @@
               name: '',
               description: '',
               permissions: '',
-            },            
-            permission_options:[],
-            data2: generateData2(),
+              permission_options:[],
+            },                        
+            data2:[],
             value2: [],
             filterMethod(query, item) {
               return item.initial.toLowerCase().indexOf(query.toLowerCase()) > -1;
@@ -120,7 +120,7 @@
         |
         */    
         loadUserPermission(){
-          axios.get("../api/auth/permissions").then(({data})=>(this.permission_options = data.data)).catch(()=>{
+          axios.get("../api/auth/permissions").then(({data})=>(this.form.permission_options = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.respons.data.errors,
@@ -138,44 +138,79 @@
         |
         */
         createUserRole() {
-          let newRole = {
-            name: this.form.name,
-            description: this.form.description,
-            permissions:this.form.permissions
-          }
-          axios.post('../api/auth/roles',newRole).then(() =>{
-            Fire.$emit('AfterCrud');
-            this.$message({
-            title: '',
-            message: respons.data.message,
-            center: true,
-            type: 'success'
-            });					                    
-          })
-          .catch(() => {
-            this.$message({
-              title: error.respons.data.message,
-              message: error.respons.data.errors,
-              center: true,
-              type: 'error'
-            });
+            this.$refs['form'].validate((valid) => {
+            if (valid) 
+            {
+              let newRole = {
+                name: this.form.name,
+                description: this.form.description,
+                display_name: this.form.description,
+                permissions:this.form.permissions
+              }
+              axios.post('../api/auth/roles',newRole).then((respons) =>{
+                Fire.$emit('AfterCrud');
+                this.$message({
+                title: '',
+                message: respons.data.message,
+                center: true,
+                type: 'success'
+                });
+                this.backToUserRoleList();
+              })
+              .catch((error) => {
+                this.$message({
+                  title: error.respons.data.message,
+                  message: error.respons.data.errors,
+                  center: true,
+                  type: 'error'
+                });
+              });
+            }
+            else 
+            {
+              return false;
+            }
           });
         },
         /*
         |--------------------------------------------------------------------------
-        | Submit Form Method
+        | Create and contine User Role Method
         |--------------------------------------------------------------------------
         |
-        | This method Submit Form
+        | This method Add User Role Info To Database
         |
-        */                 
-        submitForm(formName) {
-          this.$refs[formName].validate((valid) => {
+        */
+        createContinueUserRole() {
+           this.$refs['form'].validate((valid) => {
             if (valid) 
             {
-              this.createUserRole();
+              let newRole = {
+                name: this.form.name,
+                description: this.form.description,
+                display_name: this.form.description,
+                permissions:this.form.permissions
+              }
+              axios.post('../api/auth/roles',newRole).then((respons) =>{
+                Fire.$emit('AfterCrud');
+                this.$message({
+                title: '',
+                message: respons.data.message,
+                center: true,
+                type: 'success'
+                });
+                this.resetForm('form');
+              })
+              .catch((error) => {
+                this.$message({
+                  title: error.respons.data.message,
+                  message: error.respons.data.errors,
+                  center: true,
+                  type: 'error'
+                });
+              });
             }
-            else {
+            else 
+            {
               return false;
             }
           });
@@ -195,7 +230,7 @@
       mounted() {
         this.loadUserPermission();
         Fire.$on('AfterCrud',() => {
-          this.resetForm('form');
+          //this.resetForm('form');
         });
       }
     }

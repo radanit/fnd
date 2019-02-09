@@ -208,7 +208,7 @@
                         this.$message({
                         type: 'error',
                         center: true,
-                        message:response.data.errors                        
+                        message:error.response.data.errors                        
                       }); 
                     }); 
                 }).catch(() => {
@@ -223,7 +223,7 @@
         mounted() {
             this.loadUserPermissions();
             Fire.$on('AfterCrud',() => {
-                this.loadUserPermissions();
+                //this.loadUserPermissions();
             });
         }
     }

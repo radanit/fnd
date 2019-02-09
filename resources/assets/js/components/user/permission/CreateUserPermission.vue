@@ -86,7 +86,8 @@
                   {
                     let newPermission ={
                     name: this.form.name,
-                    description: this.form.description
+                    description: this.form.description,
+                    display_name: this.form.description
                   }
                   axios.post('../api/auth/permissions',newPermission).then((response) =>{
                   Fire.$emit('AfterCrud');
@@ -127,7 +128,8 @@
               {
                 let newPermission ={
                 name: this.form.name,
-                description: this.form.description
+                description: this.form.description,
+                display_name: this.form.description
               }
                   axios.post('../api/auth/permissions',newPermission).then((response) =>{
                   Fire.$emit('AfterCrud');

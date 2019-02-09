@@ -86,8 +86,6 @@
             <el-switch
               v-model="form.active"
               active-color='#13ce66'
-              :active-text="trans('user.active')"            
-              :inactive-text="trans('user.inActive')"
               inactive-color='#ff4949' 
               >
             </el-switch>
@@ -206,14 +204,14 @@
         |
         */          
       updateUser(){
-       var roles_id=[];
-       this.form.roles.forEach((role, index) => {
-         if (role){
-            roles_id.push({
-            id: role.id,
-          });
-         }
+      var roles_id=[];
+      this.form.roles.forEach((role, index) => {
+        if (role){
+          roles_id.push({
+          id: role.id,
         });
+        }
+      });
       let userInfo={
           name: this.form.name,
           description: this.form.description,

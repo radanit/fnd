@@ -210,7 +210,18 @@
             */  
             activeUser(){
                if(this.multipleSelection.length){
-                   axios.post('../api/profile/users/batch/active',this.multipleSelection).then((response) =>{
+                var user_ids=[];
+                this.multipleSelection.forEach((user, index) => {
+                    if (user){
+                        user_ids.push({
+                            id: user.id,
+                         });
+                        }
+                    });
+                //users_id =users_id.join();
+                   //console.log(Object.values(user_ids));
+                   console.log(user_ids);
+                   axios.post('../api/profile/users/batch/active',user_ids).then((response) =>{
                     Fire.$emit('AfterCrud');
                     this.$message({
                             type: 'success',

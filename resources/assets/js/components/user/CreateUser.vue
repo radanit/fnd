@@ -85,8 +85,6 @@
             <el-switch
               v-model="form.active"
               active-color='#13ce66'
-              :active-text="trans('user.active')"            
-              :inactive-text="trans('user.inActive')"
               inactive-color='#ff4949'
               active-value='1'
               inactive-value='0'

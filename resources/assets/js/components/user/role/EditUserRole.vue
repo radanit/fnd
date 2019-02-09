@@ -28,11 +28,12 @@
             <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
-            :label="trans('user.permission_lbl')"
-            prop="permission">
+              :label="trans('user.permission_lbl')"
+              prop="permission">
               <el-select
                 v-model="form.permissions"
                 multiple
+                value-key="id"
                 filterable
                 default-first-option
                 :placeholder="trans('user.permission_choose_lbl')">
@@ -40,7 +41,7 @@
                   v-for="item in permission_options"
                   :key="item.id"
                   :label="item.description"
-                  :value="item.id">
+                  :value="item">
                 </el-option>
               </el-select>
             </el-form-item>
