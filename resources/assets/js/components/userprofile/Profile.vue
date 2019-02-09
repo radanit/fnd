@@ -326,54 +326,6 @@ npm<template>
 			  <!-- /.tab-pane -->
 
 			  <div class="tab-pane" id="settings">
-					<!--<el-form :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
-					  <el-form-item 
-						:label="trans('userProfile.username')"
-						prop="username"
-					  >
-						<el-input :disabled="true" name="username" type="username" v-model="form.username" autocomplete="off"></el-input>
-					</el-form-item>				
-					  <el-form-item
-						:label="trans('userProfile.name')"
-						prop="name"
-						:rules="[
-						  { required: true, message: trans('userProfile.nameRequierdError')}
-						]"
-					  >
-						<el-input name="name" type="name" v-model="form.name" autocomplete="off"></el-input>
-					</el-form-item>
-					  <el-form-item
-						:label="trans('userProfile.email')"
-						prop="email"
-						:rules="[
-						  { required: true, message: trans('userProfile.emailRequierdError')}
-						]"
-					  >
-					<el-input name="email" type="email" v-model="form.email" autocomplete="off"></el-input>
-					  </el-form-item>
-					  <el-form-item
-						:label="trans('userProfile.tel')"
-						prop="tel"
-						:rules="[
-						  { required: true, message: trans('userProfile.telRequierdError')}
-						]"
-					  >					
-					<el-input name="tel" type="tel" v-model="form.tel" autocomplete="off"></el-input>
-					</el-form-item>
-					  <el-form-item
-						:label="trans('userProfile.address')"
-						prop="address"
-						:rules="[
-						  { required: true, message: trans('userProfile.addressRequierdError')}
-						]"
-					  >
-					<el-input name="address" type="address" v-model="form.address" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item>
-						<el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-						<el-button size="mini" type="info" plain @click="resetForm('form')">{{trans('app.resetBtnLbl')}}<i class="fas fa-broom"></i></el-button>
-				    </el-form-item>
-				</el-form>-->
 				  <el-form>
 						<form-schema ref="formSchema" :schema="schema" v-model="model">
 							<el-button type="primary" @click="submit">Subscribe</el-button>

@@ -41,8 +41,9 @@
                   </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+                  <el-button  size="mini" type="success" @click="createProfileStructure()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                  <el-button  size="mini" type="primary" @click="createContinueProfileStructure()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
+                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>                  
                 </el-form-item>
               </el-form>
               </div>
@@ -98,60 +99,84 @@
             |
             */
             createProfileStructure() {
-              axios.post('../api/profile/profiles',{name: this.form.name,
-              description: this.form.description,structure:this.form.structure}).then((response) =>{
-              Fire.$emit('AfterCrud');
-              this.$message({
-                title:'',
-                message:response.data.message,
-                center: true,
-                type: 'success'
-              });					                    
-                })
-                .catch((error) => {
+              this.$refs['form'].validate((valid) => {
+                  if (valid) 
+                  {
+                    let newProfile = {
+                      name: this.form.name,
+                      description: this.form.description,
+                      structure:this.form.structure
+                    }
+                    axios.post('../api/profile/profiles',newProfile).then((response) =>{
+                    Fire.$emit('AfterCrud');
                     this.$message({
-                      title: error.response.data.message,
-                      message: error.response.data.errors,
+                      title:'',
+                      message:response.data.message,
                       center: true,
-                      type: 'error'
-                    });
+                      type: 'success'
+                      });
+                      this.$router.push({ name: 'profile_structures'});				                    
+                      })
+                      .catch((error) => {
+                          this.$message({
+                            title: error.response.data.message,
+                            message: error.response.data.errors,
+                            center: true,
+                            type: 'error'
+                          });
+                      });
+                  }
+                  else {
+                    return false;
+                  }
                 });
-            },
+              },
+
             /*
             |--------------------------------------------------------------------------
-            | Submit Form Method
+            | Create and Continue Profile Method
             |--------------------------------------------------------------------------
             |
-            | This method Submit Form
+            | This method Add Profile Info To Database
             |
             */
-            submitForm(formName) {
-              this.$refs[formName].validate((valid) => {
-                if (valid) 
-                {
-                  this.createProfileStructure();
-                }
-                else {
-                  return false;
-                }
-              });
-          },
-            /*
-            |--------------------------------------------------------------------------
-            | Reset Form Method
-            |--------------------------------------------------------------------------
-            |
-            | This method Rest Form After Create profiel
-            |
-            */
-            resetForm(formName) {
-              this.$refs[formName].resetFields();
-            }            
+            createContinueProfileStructure() {
+              this.$refs['form'].validate((valid) => {
+                  if (valid) 
+                  {
+                    let newProfile = {
+                      name: this.form.name,
+                      description: this.form.description,
+                      structure:this.form.structure
+                    }
+                    axios.post('../api/profile/profiles',newProfile).then((response) =>{
+                    this.$message({
+                      title:'',
+                      message:response.data.message,
+                      center: true,
+                      type: 'success'
+                      });
+                      this.$refs['form'].resetFields();			                    
+                      })
+                      .catch((error) => {
+                          this.$message({
+                            title: error.response.data.message,
+                            message: error.response.data.errors,
+                            center: true,
+                            type: 'error'
+                          });
+                      });
+                  }
+                  else {
+                    return false;
+                  }
+                });
+              }       
         },        
       mounted() 
       {
         Fire.$on('AfterCrud',() => {
-            this.resetForm('form');
+            //
         });      
       }
     }

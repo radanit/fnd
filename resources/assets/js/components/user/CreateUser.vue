@@ -222,8 +222,17 @@
         |
         */
         createUser() {
-          axios.post('../api/profile/users',{username: this.form.username,
-          email: this.form.email,password:this.form.password,password_confirmation:this.form.confirmPassword,profile_id:this.form.profile_id,roles:this.form.roles,active:this.form.active}).then((response) =>{
+          //define New User
+          let newUser ={            
+            username: this.form.username,
+            email: this.form.email,
+            password: this.form.password,
+            password_confirmation:  this.form.confirmPassword,
+            profile_id: this.form.profile_id,
+            roles:  this.form.roles,
+            active: this.form.active
+          }
+          axios.post('../api/profile/users',newUser).then((response) =>{
           Fire.$emit('AfterCrud');
           this.$message({
                 type: 'success',

@@ -155,11 +155,10 @@
                 axios.get("../api/profile/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: error.response.data.errors,
                       center: true,
                       type: 'error'
-                    });
-                    this.$router.push({name: 'profile_structures'});                 
+                    });               
                 });
             },
             /*
@@ -214,7 +213,7 @@
                   cancelButtonText: this.cancelButtonText,
                   type: 'warning',
                   center: true
-                }).then(() => {
+                }).then((response) => {
                   axios.delete('../api/profile/profiles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
@@ -223,9 +222,9 @@
                         center: true,
                         message: response.data.message
                       });
-                }).catch(() => {
+                }).catch((error) => {
                      this.$message({
-                         title: error.response.data.message,
+                        title: error.response.data.message,
                         type: 'error',
                         center: true,
                         message: error.response.data.errors,

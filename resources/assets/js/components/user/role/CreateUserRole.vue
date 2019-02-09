@@ -142,8 +142,12 @@
         |
         */
         createUserRole() {
-          axios.post('../api/auth/roles',{name: this.form.name,
-          description: this.form.description,permissions:this.form.permissions}).then(() =>{
+          let newRole = {
+            name: this.form.name,
+            description: this.form.description,
+            permissions:this.form.permissions
+          }
+          axios.post('../api/auth/roles',newRole).then(() =>{
             Fire.$emit('AfterCrud');
             this.$message({
             title: '',

@@ -53,6 +53,7 @@
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
+                      <div slot="no-more"></div>
                     </infinite-loading>
 				  </el-table>
                   <div class="block">
@@ -194,7 +195,7 @@
                   cancelButtonText: this.cancelButtonText,
                   type: 'warning',
                   center: true
-                }).then(() => {
+                }).then((response) => {
                   axios.delete('../api/auth/permissions/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
@@ -203,7 +204,7 @@
                         center: true,
                         message:response.data.message
                       });
-                }).catch(() => {
+                }).catch((error) => {
                         this.$message({
                         type: 'error',
                         center: true,

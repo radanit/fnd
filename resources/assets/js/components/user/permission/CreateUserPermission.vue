@@ -28,8 +28,9 @@
                 <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>
+                  <el-button  size="mini" type="success" @click="createUserPermission()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                  <el-button  size="mini" type="primary" @click="createContinueUserPermission()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
+                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>   
                 </el-form-item>
               </el-form>
               </div>
@@ -80,59 +81,82 @@
           |
           */
           createUserPermission() {
-            axios.post('../api/auth/permissions',{name: this.form.name,
-            description: this.form.description}).then(() =>{
-            Fire.$emit('AfterCrud');
-            this.$message({
-              title: '',
-              message: response.data.message,
-              center: true,
-              type: 'success'
-            });					                  
-              })
-              .catch(() => {
+            this.$refs['form'].validate((valid) => {
+                if (valid) 
+                  {
+                    let newPermission ={
+                    name: this.form.name,
+                    description: this.form.description
+                  }
+                  axios.post('../api/auth/permissions',newPermission).then((response) =>{
+                  Fire.$emit('AfterCrud');
                   this.$message({
-                    title: error.response.data.message,
-                    message:error.response.data.errors,
+                    title: '',
+                    message: response.data.message,
                     center: true,
-                    type: 'error'
+                    type: 'success'
                   });
-              });
-          },
-          /*
-          |--------------------------------------------------------------------------
-          | Submit Form Method
-          |--------------------------------------------------------------------------
-          |
-          | This method Submit Form
-          |
-          */            
-          submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-              if (valid) 
-              {
-                this.createUserPermission();
+                  this.$router.push({ name: 'user_permissions'});				                  
+                })
+                .catch((error) => {
+                    this.$message({
+                      title: error.response.data.message,
+                      message:error.response.data.errors,
+                      center: true,
+                      type: 'error'
+                    });
+                });
               }
               else {
                 return false;
               }
             });
+            
           },
           /*
           |--------------------------------------------------------------------------
-          | Reset Form Method
+          | Create Permission Method
           |--------------------------------------------------------------------------
           |
-          | This method Rest Form After Create profiel
+          | This method Add Permission Info To Database
           |
-          */           
-          resetForm(formName) {
-            this.$refs[formName].resetFields();
-          }            
+          */
+          createContinueUserPermission() {
+            this.$refs['form'].validate((valid) => {
+              if (valid) 
+              {
+                let newPermission ={
+                name: this.form.name,
+                description: this.form.description
+              }
+                  axios.post('../api/auth/permissions',newPermission).then((response) =>{
+                  Fire.$emit('AfterCrud');
+                  this.$message({
+                    title: '',
+                    message: response.data.message,
+                    center: true,
+                    type: 'success'
+                  });
+                  this.$refs['form'].resetFields();	                  
+                })
+                .catch((error) => {
+                    this.$message({
+                      title: error.response.data.message,
+                      message:error.response.data.errors,
+                      center: true,
+                      type: 'error'
+                    });
+                });
+              }
+              else {
+                return false;
+              }
+            });            
+          }
       },        
       mounted() {
         Fire.$on('AfterCrud',() => {
-          this.resetForm('form');
+          //this.resetForm('form');
         });    
       }
     }

@@ -58,13 +58,13 @@
                 default-first-option
                 :placeholder="trans('user.role_choose_lbl')">
                 <el-option
-                  v-for="item in form.role_options"
+                  v-for="item in role_options"
                   :key="item.id"
                   :label="item.description"
                   :value="item.id">
                 </el-option>
               </el-select>
-            </el-form-item>
+              </el-form-item>
             <el-form-item
             :label="trans('user.profile_lbl')"
             prop="profile_id">
@@ -88,8 +88,6 @@
               :active-text="trans('user.active')"            
               :inactive-text="trans('user.inActive')"
               inactive-color='#ff4949' 
-              active-value='1'
-              inactive-value='0'
               >
             </el-switch>
             </el-form-item>            
@@ -120,7 +118,7 @@
             roles:[],                  
             profile_id:'',
             profile_data:'',
-            active:'1'            
+            active:''            
           },
           profile_options:[],
           role_options: [],                   
@@ -208,7 +206,7 @@
         */          
       updateUser(){
       axios.put('../api/profile/users/'+this.form.id,{name: this.form.name,
-        description: this.form.description,data:this.profile_data,profile_id:this.form.profile_id,active:this.form.active,roles:this.form.roles}).then(response => {
+        description: this.form.description,data:this.profile_data,profile_id:this.form.profile_id,active:this.form.active}).then(response => {
         this.$message({
           type: 'success',
           center: true,

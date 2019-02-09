@@ -38,7 +38,8 @@
                   </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                  <el-button  size="mini" type="success" @click="createProfileStructure()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                  <el-button  size="mini" type="success" @click="createContinueProfileStructure()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>
                 </el-form-item>
               </el-form>
@@ -94,6 +95,7 @@
             |
             */
 		    	  createProfileStructure() {
+              this.validateForm('form');
               let currentObj = this;
               var obj = JSON.stringify(this.form.structure);
               axios.post('../api/profiles',{name: this.form.name,
@@ -101,7 +103,39 @@
               Fire.$emit('AfterCrud');
               this.$message({
                 title: '',
-                message: this.form.insertAlert,
+                message: response.data.message,
+                center: true,
+                type: 'success'
+              });					    
+                this.$router.push({ name: 'ProfileStructure'});
+                })
+                .catch(() => {
+                    this.$message({
+                      title: '',
+                      message:error.response.data.errors,
+                      center: true,
+                      type: 'error'
+                    });
+                });
+            },
+                        /*
+            |--------------------------------------------------------------------------
+            | Create Profile Method
+            |--------------------------------------------------------------------------
+            |
+            | This method Add Profile Info To Database
+            |
+            */
+		    	  createContinueProfileStructure() {
+              this.validateForm('form');
+              let currentObj = this;
+              var obj = JSON.stringify(this.form.structure);
+              axios.post('../api/profiles',{name: this.form.name,
+              description: this.form.description,structure:obj}).then(() =>{
+              Fire.$emit('AfterCrud');
+              this.$message({
+                title: '',
+                message: response.data.message,
                 center: true,
                 type: 'success'
               });					    
@@ -110,17 +144,18 @@
                 .catch(() => {
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message:error.response.data.errors,
                       center: true,
                       type: 'error'
                     });
                 });
             },
-            submitForm(formName) {
+            validateForm(formName) {
               this.$refs[formName].validate((valid) => {
                 if (valid) 
                 {
-                  this.createProfileStructure();
+                  //this.createProfileStructure();
+                  return true;
                 }
                 else {
                   return false;

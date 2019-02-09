@@ -18,7 +18,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="tableData.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'username', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -40,9 +40,13 @@
                       sortable
 					  prop="profile_name">
 					</el-table-column>
-                    <el-table-column label="Properties">
-                        <el-table-column :prop="item.prop" :label="item.label" :width="item.width" v-for="item in items" :key="item.prop" sortable>
-                        </el-table-column>        
+                    <el-table-column :label="trans('user.roles')" sortable                     
+                    >
+                    <el-table-column v-for="(item,index) in list" 
+                    :v-if="item.roles[index]" :prop="item.roles[index].name" 
+                    :label="item.roles[index].name"
+                    :key="index">
+                    </el-table-column>               
                     </el-table-column>
                     <el-table-column
                         prop="active"
@@ -82,6 +86,11 @@
                     <div slot="no-more"></div>
                     </infinite-loading>
 				  </el-table>
+                 <div v-for="(item,index) in list">
+                    <div v-if="item.roles[index]">{{ item.roles[index].name }}</div>
+                    <div v-else>alternate content</div>
+                 </div>
+
                   <div class="block">
                        <!-- <el-pagination
                             background
@@ -117,18 +126,13 @@
                     username: '',
                     email: '',
                     profile_name: '',
-                    profileId:'',
-                    
+                    profileId:'',                    
                 },
                 items: [{
-                    prop:"roles[1].name",
-                    label: "City",
-                    width: "120"
-                },          
+                    name:'test'
+                },
                 {
-                    prop:"roles[0].name",
-                    label: "Zip",
-                    width: "100"
+                    name:'test3'
                 }],             
 				tableData:[],
                 search: '',
@@ -204,8 +208,42 @@
                       center: true,
                       type: 'error'
                     }); 
-                    console.log(tableData);
                 });
+            },
+            selectedRole(){
+                var i,j;
+               if(this.list.length!=0)
+               {
+                    /*for ( i = 0; i < this.list.length; i++) 
+                    {
+                        if (this.list[i])
+                        {
+                            if (this.list[i].roles.length!=0)
+                            {
+                                for (j=0; j<this.list[i].roles.length;j++)
+                                {
+                                    if (this.list[i].roles[j])
+                                    {
+                                        //items.push(this.list[i].roles[j].name);
+                                        //console.log(this.items);
+                                        this.items.push (this.list[i].roles[j].name);
+                                        console.log(this.items);
+                                    }
+                                }
+                            }                       
+                        }                     
+                    }*/
+                    for ( i = 0; i < this.list.length; i++)
+                    {
+                         this.list[i].roles.forEach((element,index) => {
+                             this.items[i]+=element.name;
+                             return this.items
+                             console.log(this.items);
+                    });
+                    }
+
+                }
+                   
             },
             /*
             |--------------------------------------------------------------------------
@@ -289,9 +327,10 @@
             },
         },        
         mounted() {
-            this.loadUser();
+            //this.loadUser();
+            this.selectedRole();
             Fire.$on('AfterCrud',() => {
-                this.loadUser();
+                this.infiniteHandler();
             });
         }
     }
