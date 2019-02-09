@@ -23,10 +23,15 @@ trait ProfileUserTrait
      */
     public function getFullNameAttribute()
     {
-        $profileUserData = $this->profileUser->first()->data;
-        $name = (array_key_exists('name',$profileUserData)) ? $profileUserData['name'] : '';
-        $family = (array_key_exists('family',$profileUserData)) ? $profileUserData['family'] : '';
-        return trim("{$name} {$family}");
+        $profileUserData = $this->profileUser->data;
+        if (is_array($profileUserData)) {
+            $name = (array_key_exists('name',$profileUserData)) ? $profileUserData['name'] : '';
+            $family = (array_key_exists('family',$profileUserData)) ? $profileUserData['family'] : '';
+            return trim("{$name} {$family}");
+        }
+        else {
+            return null;
+        }
     }
 
     /**

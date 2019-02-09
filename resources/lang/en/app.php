@@ -33,5 +33,6 @@ return [
 	'termsOfUse' => 'Term Of Use',
 	'baharRadiology' => 'Bahar radiology',
     'protectedResourceAlert' => 'This record is protected',
-    'resourceNotFound' => 'Resource not found'
+    'resourceNotFound' => 'Resource not found',
+    'routeNotFound' => 'Route not found'
 ];
