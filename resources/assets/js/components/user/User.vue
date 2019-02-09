@@ -18,7 +18,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="list.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
+					:data="tableData.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'username', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -30,35 +30,36 @@
                       sortable
 					  prop="username">
 					</el-table-column>
-					<el-table-column
+					<!--<el-table-column
 					  :label="trans('user.email')"
                       sortable
 					  prop="email">
-					</el-table-column>
+					</el-table-column>-->
                     <el-table-column
 					  :label="trans('user.profileName')"
                       sortable
 					  prop="profile_name">
 					</el-table-column>
-                    <el-table-column :label="trans('user.roles')" sortable                     
-                    >
-                    <el-table-column v-for="(item,index) in list" 
-                    :v-if="item.roles[index]" :prop="item.roles[index].name" 
-                    :label="item.roles[index].name"
-                    :key="index">
-                    </el-table-column>               
+                    <!--<el-table-column value-key="id" :label="trans('user.roles')" sortable >
+                        <el-table-column v-for="(item,index) in list.roles" 
+                            :key="item[index].id"
+                            :prop="item"
+                            :value="item[index].description"  >
+                        </el-table-column>
+                    </el-table-column>-->
+                    <el-table-column prop="roles[0].description" :label="trans('user.roles')" sortable>                        
                     </el-table-column>
                     <el-table-column
                         prop="active"
                         :label="trans('user.status')"
                         width="100"
-                        :filters="[{ text: 'فعال', value: '1' }, { text: 'غیرفعال', value: '0' }]"
+                        :filters="[{ text: 'فعال', value: true }, { text: 'غیرفعال', value: false }]"
                         :filter-method="filterActive"
                         filter-placement="bottom-end">
                         <template slot-scope="scope">
                             <el-tag
-                            :type="scope.row.active === '1' ? 'success' : 'danger'"
-                            disable-transitions><span v-if="scope.row.active=='1'">فعال</span><span v-else>غیرفعال</span></el-tag>
+                            :type="scope.row.active === true ? 'success' : 'danger'"
+                            disable-transitions><span v-if="scope.row.active==true">فعال</span><span v-else>غیرفعال</span></el-tag>
                         </template>
                     </el-table-column>
 					<el-table-column class="float-left"
@@ -86,11 +87,6 @@
                     <div slot="no-more"></div>
                     </infinite-loading>
 				  </el-table>
-                 <div v-for="(item,index) in list">
-                    <div v-if="item.roles[index]">{{ item.roles[index].name }}</div>
-                    <div v-else>alternate content</div>
-                 </div>
-
                   <div class="block">
                        <!-- <el-pagination
                             background
@@ -127,18 +123,11 @@
                     email: '',
                     profile_name: '',
                     profileId:'',                    
-                },
-                items: [{
-                    name:'test'
-                },
-                {
-                    name:'test3'
-                }],             
+                },          
 				tableData:[],
                 search: '',
                 page: 1,
                 list: [],
-                newsType: 'story',
                 infiniteId: +new Date(),
                 multipleSelection:[],
             }
@@ -202,48 +191,13 @@
             |
             */    
             loadUser(){
-                axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch((error)=>{
                     this.$message({                      
                       message:error.response.data.errors,
                       center: true,
                       type: 'error'
                     }); 
                 });
-            },
-            selectedRole(){
-                var i,j;
-               if(this.list.length!=0)
-               {
-                    /*for ( i = 0; i < this.list.length; i++) 
-                    {
-                        if (this.list[i])
-                        {
-                            if (this.list[i].roles.length!=0)
-                            {
-                                for (j=0; j<this.list[i].roles.length;j++)
-                                {
-                                    if (this.list[i].roles[j])
-                                    {
-                                        //items.push(this.list[i].roles[j].name);
-                                        //console.log(this.items);
-                                        this.items.push (this.list[i].roles[j].name);
-                                        console.log(this.items);
-                                    }
-                                }
-                            }                       
-                        }                     
-                    }*/
-                    for ( i = 0; i < this.list.length; i++)
-                    {
-                         this.list[i].roles.forEach((element,index) => {
-                             this.items[i]+=element.name;
-                             return this.items
-                             console.log(this.items);
-                    });
-                    }
-
-                }
-                   
             },
             /*
             |--------------------------------------------------------------------------
@@ -301,7 +255,7 @@
                   cancelButtonText: this.cancelButtonText,
                   type: 'warning',
                   center: true
-                }).then(() => {
+                }).then((response) => {
                   axios.delete('../api/profile/users/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
@@ -310,11 +264,11 @@
                         center: true,
                         message:response.data.message
                       });
-                }).catch(() => {
+                }).catch((error) => {
                      this.$message({
                         type: 'error',
                         center: true,
-                        message:response.data.errors                        
+                        message:error.response.data.errors                        
                       });
                     }); 
                 }).catch(() => {
@@ -327,10 +281,9 @@
             },
         },        
         mounted() {
-            //this.loadUser();
-            this.selectedRole();
+            this.loadUser();
             Fire.$on('AfterCrud',() => {
-                this.infiniteHandler();
+                this.loadUser();
             });
         }
     }

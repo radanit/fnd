@@ -94,7 +94,8 @@
             </el-switch>
             </el-form-item>                                     
             <el-form-item>
-              <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+              <el-button  size="mini" type="success" @click="createUser()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+              <el-button  size="mini" type="primary" @click="createContinueUser()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>              
               <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
             </el-form-item>
           </el-form>
@@ -160,10 +161,10 @@
         |
         */
         loadProfiles(){
-          axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch(()=>{
+          axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
                 this.$message({
                   title: '',
-                  message: this.form.failedAlert,
+                  message: error.response.data.errors,
                   center: true,
                   type: 'error'
                 });
@@ -172,10 +173,10 @@
 
         },
         loadProfileStructure(){
-          axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch(()=>{
+          axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch((error)=>{
                 this.$message({
                   title: '',
-                  message: this.form.failedAlert,
+                  message: error.response.data.errors,
                   center: true,
                   type: 'error'
                 });             
@@ -192,10 +193,10 @@
         |
         */        
         loadRoles(){
-          axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch(()=>{
+          axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
                 this.$message({
                   title: '',
-                  message: this.form.failedAlert,
+                  message:error.response.data.errors,
                   center: true,
                   type: 'error'
                 });
@@ -222,6 +223,9 @@
         |
         */
         createUser() {
+          this.$refs['form'].validate((valid) => {
+          if (valid) 
+          {
           //define New User
           let newUser ={            
             username: this.form.username,
@@ -239,34 +243,65 @@
                 center: true,
                 message:response.data.message
               });
+              this.backToUserList();
             })
-            .catch(() => {
+            .catch((error) => {
               this.$message({
-                message: response.data.message,
+                message: error.response.data.errors,
                 center: true,
                 type: 'error'
               });
-            });
+            });     
+          }
+          else {
+                  return false;
+               }
+          });
         },
         /*
         |--------------------------------------------------------------------------
-        | Submit Form Method
+        | Create User Method
         |--------------------------------------------------------------------------
         |
-        | This method Submit Form
+        | This method Add User Info To Database
         |
-        */        
-        submitForm(formName) {
-          this.$refs[formName].validate((valid) => {
+        */
+        createContinueUser() {
+          this.$refs['form'].validate((valid) => {
             if (valid) 
             {
-              this.createUser();
+              //define New User
+              let newUser ={            
+                username: this.form.username,
+                email: this.form.email,
+                password: this.form.password,
+                password_confirmation:  this.form.confirmPassword,
+                profile_id: this.form.profile_id,
+                roles:  this.form.roles,
+                active: this.form.active
+              }
+              axios.post('../api/profile/users',newUser).then((response) =>{
+              Fire.$emit('AfterCrud');
+              this.$message({
+                    type: 'success',
+                    center: true,
+                    message:response.data.message
+                  });
+                  this.resetForm('form');
+                })
+                .catch((error) => {
+                  this.$message({
+                    message: error.response.data.errors,
+                    center: true,
+                    type: 'error'
+                  });
+                });
             }
             else {
               return false;
             }
           });
-        },
+        },        
         /*
         |--------------------------------------------------------------------------
         | Reset Form Method
@@ -283,9 +318,7 @@
       this.loadProfiles();
       this.loadRoles();
       Fire.$on('AfterCrud',() => {
-        this.loadProfiles();
-        this.loadRoles();
-        this.resetForm('form');
+
       });
     },
   }
