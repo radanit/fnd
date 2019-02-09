@@ -96,7 +96,7 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {    
         // Validation rules   
-        Validator::make($request->all(), [
+        Validator::make($request->only('description','structure'), [
             'description' => 'required|string|max:255',
             'structure' => 'required|string|json',
         ])->validate();
@@ -151,7 +151,7 @@ class ProfileController extends Controller
                 'message' => __('app.deleteAlert')],
                 $this->httpOk
             );
-
+            
         } catch (Exception $e) {        
             Log::error($e->getMessage());
             return response()->json([

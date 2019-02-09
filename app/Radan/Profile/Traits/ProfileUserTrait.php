@@ -15,7 +15,20 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 
 trait ProfileUserTrait
-{
+{    
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        $profileUserData = $this->profileUser->first()->data;
+        $name = (array_key_exists('name',$profileUserData)) ? $profileUserData['name'] : '';
+        $family = (array_key_exists('family',$profileUserData)) ? $profileUserData['family'] : '';
+        return trim("{$name} {$family}");
+    }
+
     /**
      * One-to-One relations with Role.
      *

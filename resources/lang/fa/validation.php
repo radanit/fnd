@@ -20,7 +20,7 @@ return [
     'alpha'                => 'The :attribute may only contain letters.',
     'alpha_dash'           => 'The :attribute may only contain letters, numbers, dashes and underscores.',
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
-    'array'                => 'The :attribute must be an array.',
+    'array'                => 'فیلد :attribute باید یک مقدار آرایه ای باشد',
     'before'               => 'The :attribute must be a date before :date.',
     'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
     'between'              => [
@@ -30,7 +30,7 @@ return [
         'array'   => 'The :attribute must have between :min and :max items.',
     ],
     'boolean'              => 'The :attribute field must be true or false.',
-    'confirmed'            => 'The :attribute confirmation does not match.',
+    'confirmed'            => 'فیلد :attribute با تکرار آن برابر نیست',
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
@@ -83,9 +83,9 @@ return [
     'mimes'                => 'The :attribute must be a file of type: :values.',
     'mimetypes'            => 'The :attribute must be a file of type: :values.',
     'min'                  => [
-        'numeric' => 'The :attribute must be at least :min.',
+        'numeric' => 'مقدار فیلد :attribute باید حداقل :min رقم باشد',
         'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
+        'string'  => 'مقدار فیلد :attribute باید حداقل :min کارکتر باشد',
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
@@ -107,7 +107,7 @@ return [
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
     ],
-    'string'               => 'The :attribute must be a string.',
+    'string'               => 'فیلد :attribute باید یک مقدار رشته ای باشد',
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'این :attribute قبلا ثبت شده است.',
     'uploaded'             => 'The :attribute failed to upload.',
@@ -161,7 +161,7 @@ return [
         'safty_description' => 'دستور العمل ایمنی',
         'profile_id' => 'عنوان پروفایل',
 		'roles' => 'نقش کاربری',
-        'roles.*' => 'یکی از نقش های کاربری',
+        'roles.*' => 'این نقش کاربری',
         'structure' => 'ساختار'
     ],
 

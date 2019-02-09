@@ -4,12 +4,11 @@ namespace App\Radan\Profile\Controllers;
 
 use Validator;
 use Exception;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Models\Role;
@@ -26,8 +25,10 @@ class UserController extends Controller
     public function index()
     {
         // Get number of pagination count
-        $count = Config::get('radan.profile.models.pagination.count',
-                             Config::get('radan.pagination.count',15));
+        $count = Config::get(
+            'radan.profile.models.pagination.count',
+            Config::get('radan.pagination.count',15)
+        );
         
         // Return        
         if ($count) {
@@ -57,33 +58,46 @@ class UserController extends Controller
             'active' => 'boolean',
             'profile_id' => 'required|exists:'.$profileTable.',id',
             'profile_data' => 'json',
-            'roles' => '',            
+            'roles' => 'array',
+            'roles.*' => 'exists:roles,id',
         ]);
 
-        // First create user in users table     
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'active' => $request->active,
-        ]);
+        // Begin Database transaction			
+        DB::beginTransaction();
+        try {
+            // First create user in users table     
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'active' => $request->active,
+            ]);
 
-        // Create profile info base on profile type 
-        $user->profileUser()->create([           
-                'profile_id' => $request->profile_id,
-                'data' => $request->profile_date,
-        ]);        
+            // Create profile info base on profile type 
+            $user->profileUser()->create([           
+                    'profile_id' => $request->profile_id,
+                    'data' => $request->profile_date,
+            ]);        
 
-        // Find role and assigned to user
-        $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
-        //$roles = Role::findMany($roles);
-        $user->attachRoles($roles);
-        /*foreach ($roles as $role) {
-            $user->attachRole($role);
-        }   */ 
-
-        // Return
-        return response()->json(['message' => __('app.insertAlert') ], 200);
+            // Find role and assigned to user
+            $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
+            $user->attachRoles($roles);
+            
+            // Return
+            DB::commit();
+            return response()->json([
+                'message' => __('app.insertAlert')],
+                $this->httpCreated
+            );
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Error create user',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
+        }                
     }
 
     /**
@@ -108,8 +122,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {        
         // Read Profile table name form config
-        $profileTable = Config::get('radan.profile.tables.profiles','profiles');
-
+        $profileTable = Config::get('radan.profile.tables.profiles','profiles');        
+        
         // Validation
 		$request->validate([         
             'email' => 'string|email|max:255|unique:users',                        
@@ -143,17 +157,24 @@ class UserController extends Controller
             // Set user roles and update
             if ($request->filled('roles')) {
 				$user->syncRoles($request->roles);
-            }		
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-			// Return			
-            DB::rollBack();			
-            return response()->json(['message' => 'Error update user' , 'errors' => __('app.failedAlert') ], 500);
-        }
+            }
 
-        // Return 
-        DB::commit();
-        return response()->json(['message' => __('app.updateAlert') ], 200);
+            // Return 
+            DB::commit();
+            return response()->json([
+                'message' => __('app.updateAlert')],
+                $this->httpOk
+            );
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Error update user',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
+        }
     }
 
     /**
@@ -165,19 +186,32 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Find user by id        
-        $user = User::findOrFail($id);        
+        $user = User::findOrFail($id);
 
-        // Find user_profile record by user_id relation
-        $user->profileUser()->delete();
+        try {
+            // Find user_profile record by user_id relation
+            $user->profileUser()->delete();
 
-        // deattach all roles and permmisions
-        $user->syncRoles([]);
-        $user->syncPermissions([]);
+            // deattach all roles and permmisions
+            $user->syncRoles([]);
+            $user->syncPermissions([]);
 
-        // delete user
-        $user->delete();        
-        
-        // return 
-        return response()->json(['message' => __('app.deleteAlert') ], 200);
+            // delete user
+            $user->delete();        
+            
+            /// Return
+            return response()->json([
+                'message' => __('app.deleteAlert')],
+                $this->httpOk
+            );
+
+        } catch (Exception $e) {        
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Error delete user',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
+        }                    
     }
 }
