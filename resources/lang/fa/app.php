@@ -51,4 +51,5 @@ return [
     'emailFormatError' => 'فرمت پست الکترونیک وارده شده صحیح نمی باشد.',
     'minPassLengthError' => 'طول کلمه عبور نبایستی کمتر از 6 کاراکتر باشد.',
     'activeBtnLbl' => 'فعالسازی',
+    'resourceNotFound' => 'اطلاعات مورد نظر یافت نشد'
 ];
