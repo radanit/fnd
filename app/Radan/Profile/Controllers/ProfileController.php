@@ -48,7 +48,7 @@ class ProfileController extends Controller
         Validator::make($request->only('name','description','structure'), [
             'name' => 'required|string|max:255|unique:profiles',
             'description' => 'required|string|max:255',
-            'structure' => 'required|json',
+            'structure' => 'required|string|json',
         ])->validate();
 
         // Create Profile
@@ -60,11 +60,18 @@ class ProfileController extends Controller
             ]);
 
             // Return
-            return response()->json(['message' => __('app.insertAlert') ], $this->httpCreated);
+            return response()->json([
+                'message' => __('app.insertAlert')],
+                $this->httpCreated
+            );
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['message' => 'Error create profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
+            return response()->json([
+                'message' => 'Error create profile',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
         }        
     }
 
@@ -91,7 +98,7 @@ class ProfileController extends Controller
         // Validation rules   
         Validator::make($request->all(), [
             'description' => 'required|string|max:255',
-            'structure' => 'required|json',
+            'structure' => 'required|string|json',
         ])->validate();
 
         try {
@@ -99,11 +106,18 @@ class ProfileController extends Controller
             $profile->update($request->only(['description', 'structure']));
             
             // Return
-            return response()->json(['message' => __('app.updateAlert') ], $this->httpOk);
+            return response()->json([
+                'message' => __('app.updateAlert')],
+                $this->httpOk
+            );
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['message' => 'Error update profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
+            return response()->json([
+                'message' => 'Error update profile',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
         }
     }
 
@@ -119,24 +133,32 @@ class ProfileController extends Controller
         $profile = Profile::findOrFail($id);
 
         try {
-            // get prevernts from config files
+            // Get prevernts from config files
             $prevents = Config::get('radan.profile.prevents.profiles');
 
             // Check prevents rule
             foreach ($prevents as $key => $value) {
-                if ($profile->$key==$value) {          
+                if ($profile->$key==$value) {
                     throw new ResourceProtected;
                 }
             }
 
+            // Destory profile
             $profile->delete();
             
             // Return
-            return response()->json(['message' => __('app.deleteAlert') ], $this->httpOk);
+            return response()->json([
+                'message' => __('app.deleteAlert')],
+                $this->httpOk
+            );
 
-        } catch (Exception $e) {
+        } catch (Exception $e) {        
             Log::error($e->getMessage());
-            return response()->json(['message' => 'Error delete profile' , 'errors' => __('app.failedAlert') ], $this->httpInternalServerError);
+            return response()->json([
+                'message' => 'Error delete profile',
+                'errors' => __('app.failedAlert')],
+                $this->httpInternalServerError
+            );
         }                    
     }
 }

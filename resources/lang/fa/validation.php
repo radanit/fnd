@@ -61,7 +61,7 @@ return [
     'ip'                   => 'The :attribute must be a valid IP address.',
     'ipv4'                 => 'The :attribute must be a valid IPv4 address.',
     'ipv6'                 => 'The :attribute must be a valid IPv6 address.',
-    'json'                 => 'The :attribute must be a valid JSON string.',
+    'json'                 => 'فیلد :attribute باید یک رشته با فرمت json باشد',
     'lt'                   => [
         'numeric' => 'The :attribute must be less than :value.',
         'file'    => 'The :attribute must be less than :value kilobytes.',
@@ -161,7 +161,8 @@ return [
         'safty_description' => 'دستور العمل ایمنی',
         'profile_id' => 'عنوان پروفایل',
 		'roles' => 'نقش کاربری',
-		'roles.*' => 'یکی از نقش های کاربری'
+        'roles.*' => 'یکی از نقش های کاربری',
+        'structure' => 'ساختار'
     ],
 
 ];

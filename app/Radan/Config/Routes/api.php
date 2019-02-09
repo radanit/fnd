@@ -12,4 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('settings', 'ConfigController');
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::apiResource('settings', 'ConfigController');
+});

@@ -22,10 +22,8 @@ class UserResource extends JsonResource
             'active' => "$this->active",
             'profile_id' => $this->profileUser->profile_id,
             'profile_name' => $this->profileUser->profile->description,
-            'data' => $this->profileUser->data,
-            //'profileUser' => new ProfileUserResource($this->profileUser),
-            'roles' => RoleResource::collection($this->roles),
-            //'permissions' => new PermissionResource($this->permissions),
+            'data' => $this->profileUser->data,            
+            'roles' => $this->roles,
         ];
     }
 }

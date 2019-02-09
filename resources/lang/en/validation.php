@@ -154,7 +154,8 @@ return [
         'exeDeparts' => 'Executive Depart',
         'profile_id' => 'Profile Name',
 		'roles' => 'User Role',
-		'roles.*' => 'one of user roles'
+        'roles.*' => 'one of user roles',
+        'structure' => 'structure'
     ],
 
 ];
