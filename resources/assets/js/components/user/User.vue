@@ -53,13 +53,13 @@
                         prop="active"
                         :label="trans('user.status')"
                         width="100"
-                        :filters="[{ text: 'فعال', value: '1' }, { text: 'غیرفعال', value: '0' }]"
+                        :filters="[{ text: 'فعال', value: true }, { text: 'غیرفعال', value: false }]"
                         :filter-method="filterActive"
                         filter-placement="bottom-end">
                         <template slot-scope="scope">
                             <el-tag
-                            :type="scope.row.active === '1' ? 'success' : 'danger'"
-                            disable-transitions><span v-if="scope.row.active=='1'">فعال</span><span v-else>غیرفعال</span></el-tag>
+                            :type="scope.row.active === true ? 'success' : 'danger'"
+                            disable-transitions><span v-if="scope.row.active==true">فعال</span><span v-else>غیرفعال</span></el-tag>
                         </template>
                     </el-table-column>
 					<el-table-column class="float-left"

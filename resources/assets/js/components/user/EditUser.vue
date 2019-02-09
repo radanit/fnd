@@ -206,13 +206,21 @@
         |
         */          
       updateUser(){
+       var roles_id=[];
+       this.form.roles.forEach((role, index) => {
+         if (role){
+            roles_id.push({
+            id: role.id,
+          });
+         }
+        });
       let userInfo={
           name: this.form.name,
           description: this.form.description,
           data:this.profile_data,
           profile_id:this.form.profile_id,
           active:this.form.active,
-          roles:this.form.roles
+          roles:roles_id
       }
       axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {
         this.$message({
@@ -256,8 +264,8 @@
       this.loadRoles();
       Fire.$on('AfterCrud',() => {
         this.LoadUser();
-        this.loadProfiles();
-        this.loadRoles();
+        //this.loadProfiles();
+        //this.loadRoles();
       });
     }
   }

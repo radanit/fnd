@@ -318,9 +318,7 @@
       this.loadProfiles();
       this.loadRoles();
       Fire.$on('AfterCrud',() => {
-        this.loadProfiles();
-        this.loadRoles();
-        this.resetForm('form');
+
       });
     },
   }
