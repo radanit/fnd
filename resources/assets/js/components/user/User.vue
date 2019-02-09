@@ -210,10 +210,26 @@
             */  
             activeUser(){
                if(this.multipleSelection.length){
-                   alert('selected is exist');
+                   axios.post('../api/profile/users/batch/active',this.multipleSelection).then((response) =>{
+                    Fire.$emit('AfterCrud');
+                    this.$message({
+                            type: 'success',
+                            center: true,
+                            message:response.data.message
+                        });
+                    this.resetForm('form');
+                    })
+                    .catch((error) => {
+                        this.$message({
+                            message: error.response.data.errors,
+                            center: true,
+                            type: 'error'
+                        });
+                    });
                }
-               else{
-                   alert('oops selected dont exist');
+               else
+               {
+                   return false;
                }
             },
             /*
