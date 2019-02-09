@@ -101,7 +101,6 @@
                 page: 1,
                 totalPage:1,
                 list: [],
-                newsType: 'story',
                 infiniteId: +new Date(),
             }
         },

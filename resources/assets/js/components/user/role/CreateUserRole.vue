@@ -45,17 +45,25 @@
               </el-select>
             </el-form-item>
             <el-form-item>
-              <el-transfer
-                filterable
-                :filter-method="filterMethod2"
-                filter-placeholder="State Abbreviations"
-                v-model="value2"
-                :data="permission_options">
-              </el-transfer>
+
+                <el-transfer
+                  filterable
+                  :filter-method="filterMethod"
+                  filter-placeholder="State Abbreviations"
+                  v-model="value2"
+                  :titles="['کلیه سطوح دسترسی','اختصاص یافته']"
+                  :props="{
+                      key:'name',
+                      label: 'description',
+                      initial:'name'
+                    }"
+                  :data="permission_options">
+                </el-transfer>
             </el-form-item>    
             <el-form-item>
-              <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-              <el-button size="mini" type="info" @click="backToUserRoleList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+              <el-button  size="mini" type="success" @click="createProfileStructure()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+              <el-button  size="mini" type="primary" @click="createContinueProfileStructure()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
+              <el-button size="mini" type="info" @click="backToUserRoleList" plain>{{trans('app.backBtnLbl')}} </el-button>   
             </el-form-item>
           </el-form>
           </div>
@@ -69,19 +77,6 @@
 <script>
   export default {
     data(){ 
-        const generateData2 = _ => {
-        const data = [];
-        const states = ['California', 'Illinois', 'Maryland', 'Texas', 'Florida', 'Colorado', 'Connecticut '];
-        const initials = ['CA', 'IL', 'MD', 'TX', 'FL', 'CO', 'CT'];
-        states.forEach((city, index) => {
-          data.push({
-            label: city,
-            key: index,
-            initial: initials[index]
-          });
-        });
-        return data;
-      };
       return{
             warningAlert : trans('app.warningAlert'),
             failedAlert : trans('app.failedAlert'),
@@ -94,13 +89,14 @@
               name: '',
               description: '',
               permissions: '',
-            },
+            },            
             permission_options:[],
+            data2: generateData2(),
             value2: [],
-              filterMethod2(query, item) {
-                return item.initial.toLowerCase().indexOf(query.toLowerCase()) > -1;
-              }
-            };
+            filterMethod(query, item) {
+              return item.initial.toLowerCase().indexOf(query.toLowerCase()) > -1;
+            }
+          };
     },
     methods :{
         /*
@@ -243,4 +239,5 @@
 {
     direction:rtl;
 }
+
 </style>

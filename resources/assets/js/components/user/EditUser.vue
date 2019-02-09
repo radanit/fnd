@@ -49,11 +49,12 @@
             </el-input>
             </el-form-item>                             
             <el-form-item
-            :label="trans('user.roles_lbl')"
-            prop="roles">
+             :label="trans('user.roles_lbl')"
+             prop="roles">
               <el-select
                 v-model="form.roles"
                 multiple
+                value-key="id"
                 filterable
                 default-first-option
                 :placeholder="trans('user.role_choose_lbl')">
@@ -61,13 +62,13 @@
                   v-for="item in role_options"
                   :key="item.id"
                   :label="item.description"
-                  :value="item.id">
+                  :value="item">
                 </el-option>
               </el-select>
-              </el-form-item>
+            </el-form-item>
             <el-form-item
-            :label="trans('user.profile_lbl')"
-            prop="profile_id">
+              :label="trans('user.profile_lbl')"
+              prop="profile_id">
               <el-select
                 v-model="form.profile_id"
                 filterable
@@ -136,10 +137,10 @@
       */
       LoadUser(){
           this.form.id=this.$route.params.userId;
-          axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data)).catch(()=>{
+          axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data)).catch((error)=>{
               this.$message({
                 title: '',
-                message: response.data.message,
+                message: error.response.data.errors,
                 center: true,
                 type: 'error'
               });              
@@ -155,10 +156,10 @@
       |
       */      
       loadProfiles(){
-        axios.get("../api/profile/profiles").then(({data})=>(this.profile_options = data.data)).catch(()=>{
+        axios.get("../api/profile/profiles").then(({data})=>(this.profile_options = data.data)).catch((error)=>{
               this.$message({
                 title: '',
-                message: response.data.message,
+                message: error.response.data.errors,
                 center: true,
                 type: 'error'
               });              
@@ -174,10 +175,10 @@
       |
       */          
       loadRoles(){
-        axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch(()=>{
+        axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch((error)=>{
               this.$message({
                 title: '',
-                message: response.data.message,
+                message: error.response.data.errors,
                 center: true,
                 type: 'error'
               });                
@@ -205,8 +206,15 @@
         |
         */          
       updateUser(){
-      axios.put('../api/profile/users/'+this.form.id,{name: this.form.name,
-        description: this.form.description,data:this.profile_data,profile_id:this.form.profile_id,active:this.form.active}).then(response => {
+      let userInfo={
+          name: this.form.name,
+          description: this.form.description,
+          data:this.profile_data,
+          profile_id:this.form.profile_id,
+          active:this.form.active,
+          roles:this.form.roles
+      }
+      axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {
         this.$message({
           type: 'success',
           center: true,
@@ -217,8 +225,7 @@
             this.$message({
               type: 'error',
               center: true,
-              message:error.response.data.errors
-              
+              message:error.response.data.errors              
             });
         }); 
       },
