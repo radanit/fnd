@@ -18,7 +18,7 @@ class ProfileUserTableSeeder extends Seeder
 		ProfileUser::create(array(
 				'profile_id' => 1,
 				'user_id' => 1,
-				'data' => '{"name":"admin","family":"admin"}'
+				'data' => '{"name":"مدیر سیستم","family":""}'
 			));
 	}
 }

@@ -25,6 +25,15 @@ class ProfileUser extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'data' => 'array',
+    ];
+
+    /**
      * Creates a new instance of the model.
      *
      * @param  array  $attributes
