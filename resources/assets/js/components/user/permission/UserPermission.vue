@@ -147,10 +147,10 @@
             |
             */
             loadUserPermissions(){
-                axios.get("../api/auth/permissions").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/auth/permissions").then(({data})=>(this.tableData = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
-                      message: this.form.failedAlert,
+                      message: error.response.data.errors,
                       center: true,
                       type: 'error'
                     });         

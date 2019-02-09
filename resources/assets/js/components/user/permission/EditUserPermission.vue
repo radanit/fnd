@@ -65,7 +65,7 @@
         */
         loadUserPermission(){
           this.form.id=this.$route.params.permissionId;
-          axios.get("../api/auth/permissions/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+          axios.get("../api/auth/permissions/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message:error.response.data.errors,
