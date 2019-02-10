@@ -261,7 +261,7 @@
       this.loadProfiles();
       this.loadRoles();
       Fire.$on('AfterCrud',() => {
-        this.LoadUser();
+        //this.LoadUser();
         //this.loadProfiles();
         //this.loadRoles();
       });

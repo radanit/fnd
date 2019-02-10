@@ -219,25 +219,21 @@
                          });
                         }
                     });
-                //users_id =users_id.join();
-                   //console.log(Object.values(user_ids));
-                   console.log(user_ids);
-                   axios.post('../api/profile/users/batch/active',user_ids).then((response) =>{
-                    Fire.$emit('AfterCrud');
+                let userIds={ids:user_ids}
+                axios.post('../api/profile/users/batch/active',userIds).then(response => {
                     this.$message({
-                            type: 'success',
-                            center: true,
-                            message:response.data.message
-                        });
-                    this.resetForm('form');
-                    })
-                    .catch((error) => {
-                        this.$message({
-                            message: error.response.data.errors,
-                            center: true,
-                            type: 'error'
-                        });
+                    type: 'success',
+                    center: true,
+                    message:response.data.message
                     });
+                    Fire.$emit('AfterCrud');                  
+                    }).catch((error) => {
+                        this.$message({
+                        type: 'error',
+                        center: true,
+                        message:error.response.data.errors              
+                        });
+                    }); 
                }
                else
                {
