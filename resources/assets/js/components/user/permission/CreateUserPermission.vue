@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
+	              <el-form @submit.native.prevent :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('user.permissionName')"
                 prop="name"
@@ -25,7 +25,7 @@
                   { required: true, message: trans('user.permissionDescriptionRequierdError')}
                 ]"
                 >
-                <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
+                <el-input @keyup.enter.native="submitByEnter()" name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="createUserPermission()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -154,8 +154,11 @@
                 return false;
               }
             });            
+          },
+          submitByEnter(){
+            this.createUserPermission();
           }
-      },        
+      },       
       mounted() {
         Fire.$on('AfterCrud',() => {
           //this.resetForm('form');

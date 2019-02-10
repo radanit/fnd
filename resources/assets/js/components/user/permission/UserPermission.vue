@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" >
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -8,12 +8,13 @@
                 <div class="card-tools">
 				<el-button type="success"
 				  size="mini"
+                  
 				  @click="createPermission">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-				<el-table
+				<el-table 
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
@@ -45,7 +46,7 @@
                         @click="editUsers(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
 						<el-button
 						  size="mini"
-						  type="danger"
+						  type="danger"                        
 						  @click="deleteUserPermissions(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
@@ -110,7 +111,10 @@
             |
             | This method Is For Lazy Load Users Info
             |
-            */               
+            */ 
+            onClick(){
+                alert(asas);
+            },       
             infiniteHandler($state) {
                 axios.get("../api/auth/permissions", {
                     params: {
@@ -224,7 +228,7 @@
         mounted() {
             this.loadUserPermissions();
             Fire.$on('AfterCrud',() => {
-                //this.loadUserPermissions();
+                this.loadUserPermissions();
             });
         }
     }

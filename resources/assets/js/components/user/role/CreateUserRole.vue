@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responseive p-0">
-            <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form @submit.native.prevent  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.roleName')"
             prop="name"
