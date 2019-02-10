@@ -53,7 +53,8 @@
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    <div slot="no-more"></div>
+                      <div slot="no-more"></div>
+                      <div slot="no-results"></div>
                     </infinite-loading>
 				  </el-table>
                   <div class="block">

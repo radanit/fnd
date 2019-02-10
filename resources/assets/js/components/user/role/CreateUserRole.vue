@@ -225,6 +225,7 @@
         */          
         resetForm(formName) {
           this.$refs[formName].resetFields();
+          this.$refs.form.resetFields();
         }            
       },        
       mounted() {
