@@ -137,9 +137,11 @@ class ProfileController extends Controller
             $prevents = Config::get('radan.profile.prevents.profiles');
 
             // Check prevents rule
-            foreach ($prevents as $key => $value) {
-                if ($profile->$key==$value) {
-                    throw new ResourceProtected;
+            if (!is_null($prevents)) {
+                foreach ($prevents as $key => $value) {
+                    if ($profile->$key==$value) {
+                        throw new ResourceProtected;
+                    }
                 }
             }
 

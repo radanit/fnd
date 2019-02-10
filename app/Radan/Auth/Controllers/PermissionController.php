@@ -132,11 +132,13 @@ class PermissionController extends Controller
         try {
             // Get prevernts from config files
             $prevents = Config::get('radan.auth.prevents.permission');
-
+            
             // Check prevents rule
-            foreach ($prevents as $key => $value) {
-                if ($permission->$key==$value) {
-                    throw new ResourceProtected;
+            if (!is_null($prevents)) {
+                foreach ($prevents as $key => $value) {
+                    if ($permission->$key==$value) {
+                        throw new ResourceProtected;
+                    }
                 }
             }
 
@@ -152,7 +154,7 @@ class PermissionController extends Controller
         } catch (Exception $e) {        
             Log::error($e->getMessage());
             return response()->json([
-                'message' => 'Error delete profile',
+                'message' => 'Error delete permission',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );

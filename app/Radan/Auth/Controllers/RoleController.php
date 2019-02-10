@@ -153,6 +153,18 @@ class RoleController extends Controller
 
         try {        
 
+            // Get prevernts from config files
+            $prevents = Config::get('radan.auth.prevents.role');
+            
+            // Check prevents rule
+            if (!is_null($prevents)) {
+                foreach ($prevents as $key => $value) {
+                    if ($role->$key==$value) {
+                        throw new ResourceProtected;
+                    }
+                }
+            }
+            
             // deattach all permmisions
             $role->syncPermissions([]);            
 
