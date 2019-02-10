@@ -162,6 +162,8 @@ return [
         'profile_id' => 'عنوان پروفایل',
 		'roles' => 'نقش کاربری',
         'roles.*' => 'این نقش کاربری',
+        'permissions' => 'سطح دسترسی',
+        'permissions.*' => 'این سطح دسترسی',
         'structure' => 'ساختار'
     ],
 

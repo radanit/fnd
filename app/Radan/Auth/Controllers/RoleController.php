@@ -115,7 +115,7 @@ class RoleController extends Controller
         
         try {
             $role = Role::findOrFail($id);
-            $role->update($request->only(['description', 'display_name']));
+            $role->update($request->only('description', 'display_name'));
             
             // Set role permissions and update
             if ($request->filled('permissions')) {
