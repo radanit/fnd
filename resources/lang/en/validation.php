@@ -155,6 +155,8 @@ return [
         'profile_id' => 'Profile Name',
 		'roles' => 'User Role',
         'roles.*' => 'one of user roles',
+        'permissions' => 'Role Permission',
+        'permissions.*' => 'one of role permission',
         'structure' => 'structure'
     ],
 
