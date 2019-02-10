@@ -137,12 +137,20 @@
         |
         */          
         updateUserRole(){
-          userRoleInfo = {
-            name: this.form.name,
+          var permissions_id=[];
+            this.form.permissions.forEach((permission, index) => {
+              if (permission){
+                permissions_id.push({
+                id: permission.id,
+              });
+              }
+            });
+          let userRoleInfo = {
+            //name: this.form.name,
             description: this.form.description,
             display_name: this.form.description,
-            permissions:this.form.permissions
-          }
+            permissions:permissions_id
+          }          
           axios.put('../api/auth/roles/'+this.form.id,userRoleInfo).then(response => {
           this.$message({
             type: 'success',

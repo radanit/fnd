@@ -53,7 +53,7 @@
                         prop="active"
                         :label="trans('user.status')"
                         width="100"
-                        :filters="[{ text: 'فعال', value: true }, { text: 'غیرفعال', value: false }]"
+                        :filters="[{ text:trans('user.active'), value: true }, { text: trans('user.inActive'), value: false }]"
                         :filter-method="filterActive"
                         filter-placement="bottom-end">
                         <template slot-scope="scope">
@@ -97,7 +97,7 @@
                             :page-size="1"
                             :total="10"
                             :data="tableData">
-                        </el-pagination>-->              
+                        </el-pagination>-->                                  
                   </div>
               </div>
               <!-- /.card-body -->
@@ -181,6 +181,18 @@
             */  
             filterActive(value, row) {
                 return row.active === value;
+            },
+            /*
+            |--------------------------------------------------------------------------
+            | Filter  user role Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Filter Active Users
+            |
+            */  
+            filterRole(value, row) {
+                return row.role === value;
             },
             /*
             |--------------------------------------------------------------------------
