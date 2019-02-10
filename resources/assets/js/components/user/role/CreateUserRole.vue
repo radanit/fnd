@@ -4,10 +4,10 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">{{trans('user.lblUserRoleCardTitle')}}</h3>
+            <h3 class="card-title">{{trans('user.lblAddUserRoleCardTitle')}}</h3>
           </div>
           <!-- /.card-header -->
-          <div class="card-body table-responsive p-0">
+          <div class="card-body table-responseive p-0">
             <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.roleName')"
@@ -22,7 +22,7 @@
             :label="trans('user.roleDescription')"
             prop="description"
             :rules="[
-              { required: true, message: trans('user.roleDesRequierdError')}
+              { required: true, message: trans('user.roleDescriptionRequierdError')}
             ]"
             >
             <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
@@ -58,7 +58,7 @@
                       initial:'name'
                     }"
                   :data="permission_options">
-                </el-transfer>-->
+                </el-transfer>-->                  
             </el-form-item>    
             <el-form-item>
               <el-button  size="mini" type="success" @click="createUserRole()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -123,7 +123,7 @@
           axios.get("../api/auth/permissions").then(({data})=>(this.form.permission_options = data.data)).catch((error)=>{
             this.$message({
               title: '',
-              message: error.respons.data.errors,
+              message: error.response.data.errors,
               center: true,
               type: 'error'
             });                
@@ -147,11 +147,11 @@
                 display_name: this.form.description,
                 permissions:this.form.permissions
               }
-              axios.post('../api/auth/roles',newRole).then((respons) =>{
+              axios.post('../api/auth/roles',newRole).then((response) =>{
                 Fire.$emit('AfterCrud');
                 this.$message({
                 title: '',
-                message: respons.data.message,
+                message: response.data.message,
                 center: true,
                 type: 'success'
                 });
@@ -159,8 +159,8 @@
               })
               .catch((error) => {
                 this.$message({
-                  title: error.respons.data.message,
-                  message: error.respons.data.errors,
+                  title: error.response.data.message,
+                  message: error.response.data.errors,
                   center: true,
                   type: 'error'
                 });
@@ -190,11 +190,11 @@
                 display_name: this.form.description,
                 permissions:this.form.permissions
               }
-              axios.post('../api/auth/roles',newRole).then((respons) =>{
+              axios.post('../api/auth/roles',newRole).then((response) =>{
                 Fire.$emit('AfterCrud');
                 this.$message({
                 title: '',
-                message: respons.data.message,
+                message: response.data.message,
                 center: true,
                 type: 'success'
                 });
@@ -202,8 +202,8 @@
               })
               .catch((error) => {
                 this.$message({
-                  title: error.respons.data.message,
-                  message: error.respons.data.errors,
+                  title: error.response.data.message,
+                  message: error.response.data.errors,
                   center: true,
                   type: 'error'
                 });

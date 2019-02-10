@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">{{trans('user.lblUpdateRoleCardTitle')}}</h3>
+            <h3 class="card-title">{{trans('user.lblUpdateUserRoleCardTitle')}}</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
@@ -105,7 +105,7 @@
         |
         */    
         loadUserPermission(){
-          axios.get("../api/auth/permissions").then(({data})=>(this.permission_options = data.data)).catch(()=>{
+          axios.get("../api/auth/permissions").then(({data})=>(this.permission_options = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.respons.data.errors,
@@ -137,8 +137,13 @@
         |
         */          
         updateUserRole(){
-          axios.put('../api/auth/roles/'+this.form.id,{name: this.form.name,
-          description: this.form.description}).then(response => {
+          userRoleInfo = {
+            name: this.form.name,
+            description: this.form.description,
+            display_name: this.form.description,
+            permissions:this.form.permissions
+          }
+          axios.put('../api/auth/roles/'+this.form.id,userRoleInfo).then(response => {
           this.$message({
             type: 'success',
             center: true,
@@ -179,7 +184,7 @@
         this.loadUserRole();
         this.loadUserPermission()
         Fire.$on('AfterCrud',() => {
-            this.loadUserRole();
+            //this.loadUserRole();
         });
     }
   }

@@ -42,6 +42,8 @@ return [
     'roleBtnLbl' => 'مدیریت نقش های کاربری',
     'roleName' => 'عنوان نقش',
     'profileName' => 'پروفایل',
+    'lblAddUserRoleCardTitle' => 'درج اطلاعات نقش کاربری',
+    'lblUpdateUserRoleCardTitle' => 'بروزرسانی اطلاعات نقش کاربری',
     'roleDescription' => 'شرح نقش',
     'roleCardTitle' => 'لیست نقش های کاربری',
     'roles_lbl' => 'نقش ها',
