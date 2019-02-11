@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @keydown.esc="backToProfileList">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
+	              <el-form  :model="form" ref="form" @submit.native.prevent @keyup.enter.native="createProfileStructure"  @keyup.alt.enter.native="createContinueProfileStructure" label-width="100px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('profileStructure.name')"
                 prop="name"
@@ -16,7 +16,7 @@
                   { required: true, message: trans('profileStructure.nameRequierdError')}
                 ]"
                 >
-                <el-input name="name" type="name" v-model.number="form.name" autocomplete="off"></el-input>
+                <el-input name="name" ref="name" type="name" v-model.number="form.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('profileStructure.description')"
@@ -58,128 +58,149 @@
 <script>
     export default 
     {
-      data(){
-            return{
-              form: 
-              {
-                name: '',
-                description: '',
-                structure:'',
-                loadAlert : '',
-                insertAlert : trans('profileStructure.insertAlert'),
-                updateAlert : trans('profileStructure.updateAlert'),
-                deleteAlert : trans('profileStructure.deleteAlert'),
-                warningAlert : trans('profileStructure.warningAlert'),
-                failedAlert : trans('app.failedAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText')
-              },
-            }
-        },
+    data(){
+      return{
+          form: 
+          {
+            name: '',
+            description: '',
+            structure:'',
+            loadAlert : '',
+            insertAlert : trans('profileStructure.insertAlert'),
+            updateAlert : trans('profileStructure.updateAlert'),
+            deleteAlert : trans('profileStructure.deleteAlert'),
+            warningAlert : trans('profileStructure.warningAlert'),
+            failedAlert : trans('app.failedAlert'),
+            cancelAlert : trans('app.cancelAlert'),
+            noticTxt : trans('app.noticTxt'),
+            cancelButtonText : trans('app.cancelButtonText'),
+            confirmButtonText : trans('app.confirmButtonText')
+          },
+        }
+      },
       methods :{
-            /*
-            |--------------------------------------------------------------------------
-            | Back to Profile List
-            |--------------------------------------------------------------------------
-            |
-            | This method go back to profiles list
-            |
-            */           
-            backToProfileList(){
-              this.$router.push({ name: 'profile_structures'});
-            },
-            /*
-            |--------------------------------------------------------------------------
-            | Create Profile Method
-            |--------------------------------------------------------------------------
-            |
-            | This method Add Profile Info To Database
-            |
-            */
-            createProfileStructure() {
-              this.$refs['form'].validate((valid) => {
-                  if (valid) 
-                  {
-                    let newProfile = {
-                      name: this.form.name,
-                      description: this.form.description,
-                      structure:this.form.structure
-                    }
-                    axios.post('../api/profile/profiles',newProfile).then((response) =>{
-                    Fire.$emit('AfterCrud');
-                    this.$message({
-                      title:'',
-                      message:response.data.message,
-                      center: true,
-                      type: 'success'
-                      });
-                      this.$router.push({ name: 'profile_structures'});				                    
-                      })
-                      .catch((error) => {
-                          this.$message({
-                            title: error.response.data.message,
-                            message: error.response.data.errors,
-                            center: true,
-                            type: 'error'
-                          });
-                      });
-                  }
-                  else {
-                    return false;
-                  }
+      /*
+      |--------------------------------------------------------------------------
+      | Back to Profile List
+      |--------------------------------------------------------------------------
+      |
+      | This method go back to profiles list
+      |
+      */           
+      backToProfileList(){
+        this.$router.push({ name: 'profile_structures'});
+      },
+      /*
+      |--------------------------------------------------------------------------
+      | Create Profile Method
+      |--------------------------------------------------------------------------
+      |
+      | This method Add Profile Info To Database
+      |
+      */
+      createProfileStructure() {
+        this.$refs['form'].validate((valid) => {
+            if (valid) 
+            {
+              let newProfile = {
+                name: this.form.name,
+                description: this.form.description,
+                structure:this.form.structure
+              }
+              axios.post('../api/profile/profiles',newProfile).then((response) =>{
+              Fire.$emit('AfterCrud');
+              this.$message({
+                title:'',
+                message:response.data.message,
+                center: true,
+                type: 'success'
                 });
-              },
+                  this.backToProfileList();
+                })
+                .catch((error) => {
+                    this.$message({
+                      title: error.response.data.message,
+                      message: error.response.data.errors,
+                      center: true,
+                      type: 'error'
+                    });
+                });
+            }
+            else {
+              return false;
+            }
+          });
+        },
 
-            /*
-            |--------------------------------------------------------------------------
-            | Create and Continue Profile Method
-            |--------------------------------------------------------------------------
-            |
-            | This method Add Profile Info To Database
-            |
-            */
-            createContinueProfileStructure() {
-              this.$refs['form'].validate((valid) => {
-                  if (valid) 
-                  {
-                    let newProfile = {
-                      name: this.form.name,
-                      description: this.form.description,
-                      structure:this.form.structure
-                    }
-                    axios.post('../api/profile/profiles',newProfile).then((response) =>{
-                    this.$message({
-                      title:'',
-                      message:response.data.message,
-                      center: true,
-                      type: 'success'
-                      });
-                      this.$refs['form'].resetFields();			                    
-                      })
-                      .catch((error) => {
-                          this.$message({
-                            title: error.response.data.message,
-                            message: error.response.data.errors,
-                            center: true,
-                            type: 'error'
-                          });
-                      });
-                  }
-                  else {
-                    return false;
-                  }
+      /*
+      |--------------------------------------------------------------------------
+      | Create and Continue Profile Method
+      |--------------------------------------------------------------------------
+      |
+      | This method Add Profile Info To Database
+      |
+      */
+      createContinueProfileStructure() {
+        this.$refs['form'].validate((valid) => {
+        if (valid) 
+        {
+          let newProfile = {
+            name: this.form.name,
+            description: this.form.description,
+            structure:this.form.structure
+          }
+          axios.post('../api/profile/profiles',newProfile).then((response) =>{
+          this.$message({
+            title:'',
+            message:response.data.message,
+            center: true,
+            type: 'success'
+            });
+            this.resetForm('form');
+            })
+            .catch((error) => {
+                this.$message({
+                  title: error.response.data.message,
+                  message: error.response.data.errors,
+                  center: true,
+                  type: 'error'
                 });
-              }       
-        },        
-      mounted() 
-      {
-        Fire.$on('AfterCrud',() => {
-            //
-        });      
-      }
+            });
+        }
+        else 
+        {
+          return false;
+        }
+      });
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Form Method
+    |--------------------------------------------------------------------------
+    |
+    | This method Rest Form After Create User Role
+    |
+    */        
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }          
+  },
+  directives: {
+    focus: {
+        // directive definition
+        inserted: function (el) {
+        el.focus()
+        }
     }
+  },                 
+  mounted() 
+  {
+    this.$refs.name.focus();
+    Fire.$on('AfterCrud',() => {
+        //
+    });      
+  }
+}
 </script>
 <style>
 .el-form-item__label:lang(fa){

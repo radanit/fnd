@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @keydown.esc="backToUserRoleList">
     <div class="row justify-content-center mt-4">
       <div class="col-md-12">
         <div class="card">
@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responseive p-0">
-            <el-form @submit.native.prevent  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form @submit.native.prevent  @keyup.enter.native="createUserRole" :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.roleName')"
             prop="name"
@@ -16,7 +16,7 @@
               { required: true, message: trans('user.roleNameRequierdError')}
             ]"
             >
-            <el-input name="name" type="text" v-model="form.name" autocomplete="off"></el-input>
+            <el-input ref="name" name="name" type="text" v-model="form.name" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
             :label="trans('user.roleDescription')"
@@ -227,9 +227,18 @@
           this.$refs[formName].resetFields();
           this.$refs.form.resetFields();
         }            
-      },        
+      },
+      directives: {
+          focus: {
+              // directive definition
+              inserted: function (el) {
+              el.focus()
+              }
+          }
+      },       
       mounted() {
         this.loadUserPermission();
+        this.$refs.name.focus();
         Fire.$on('AfterCrud',() => {
           //this.resetForm('form');
         });

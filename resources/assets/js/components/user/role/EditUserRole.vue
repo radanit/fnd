@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @keydown.esc="backToUseRoleList">
     <div class="row justify-content-center mt-4">
       <div class="col-md-12">
         <div class="card">
@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  :model="form" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
+            <el-form  :model="form" @keyup.enter.native="updateUserRole" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.roleName')"
             prop="name"
@@ -16,7 +16,7 @@
               { required: true, message: trans('user.roleNameRequierdError')}
             ]"
             >
-            <el-input name="name" type="text" v-model.number="form.name" autocomplete="off"></el-input>
+            <el-input name="name" ref="name" type="text" :disabled="true" v-model.number="form.name" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
             :label="trans('user.roleDescription')"
@@ -25,7 +25,7 @@
               { required: true, message: trans('user.roleDescriptionRequierdError')}
             ]"
             >
-            <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
+            <el-input name="description" ref="description" type="text" v-model="form.description" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
               :label="trans('user.permission_lbl')"
@@ -47,7 +47,7 @@
             </el-form-item>
               <el-form-item>
                 <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                <el-button size="mini" type="info" @click="backToroleList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+                <el-button size="mini" type="info" @click="backToUseRoleList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
               </el-form-item>
           </el-form>
           </div>
@@ -124,7 +124,7 @@
         |
         */
         
-        backToroleList(){
+        backToUseRoleList(){
           this.$router.push({ name: 'user_roles'});
         },
         /*
@@ -187,10 +187,19 @@
             }
           });
         },
-    },        
+    },
+    directives: {
+      focus: {
+          // directive definition
+          inserted: function (el) {
+          el.focus()
+        }
+      }
+    },         
     mounted() {
         this.loadUserRole();
         this.loadUserPermission()
+         this.$refs.description.focus();
         Fire.$on('AfterCrud',() => {
             //this.loadUserRole();
         });

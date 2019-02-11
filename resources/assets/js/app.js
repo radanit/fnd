@@ -205,11 +205,6 @@ import InfiniteLoading from 'vue-infinite-loading';
 
 Vue.use(InfiniteLoading, { /* options */ });
 
-//key codes
-Vue.config.keyCodes = {
-  n:1397,
-}
-
 const app = new Vue({
     el: '#app',
     router

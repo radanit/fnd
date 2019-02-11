@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @keydown.esc="backToProfileList">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
+	              <el-form  :model="form" ref="form" @keyup.enter.native="updateprofileStructure" label-width="100px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('profileStructure.name')"
                 prop="name"
@@ -16,7 +16,7 @@
                   { required: true, message: trans('profileStructure.nameRequierdError')}
                 ]"
                 >
-                <el-input name="name" type="name" :disabled="true" v-model="form.name" autocomplete="off"></el-input>
+                <el-input name="name" ref="name" type="text" :disabled="true" v-model="form.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('profileStructure.description')"
@@ -25,7 +25,7 @@
                   { required: true, message: trans('profileStructure.desRequierdError')}
                 ]"
                 >
-                <el-input name="description" type="description" v-model="form.description" autocomplete="off"></el-input>
+                <el-input name="description" ref="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('profileStructure.structure')"
@@ -144,9 +144,18 @@
                 }
               });
            },
-        },        
+        },
+        directives: {
+              focus: {
+                  // directive definition
+                  inserted: function (el) {
+                  el.focus()
+                  }
+              }
+        },               
         mounted() {
             this.loadProfileStructure();
+            this.$refs.description.focus();
             Fire.$on('AfterCrud',() => {
                 this.loadProfileStructure();
             });
