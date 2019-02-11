@@ -9,7 +9,7 @@ namespace App\Radan\Traits;
  * @package Radan/Traits
  */
 
-trait RadanResponseCodeTraits
+trait RadanResponseCodeTrait
 {
     /**
      * HTTP Response codes

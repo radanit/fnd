@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\Role;
 use App\Radan\Resources\RoleResource;
 use App\Radan\Exceptions\ResourceProtected;
+use App\Radan\Exceptions\ResourceRestricted;
 
 class RoleController extends Controller
 {
@@ -22,7 +23,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {                
+    {
         // Get number of pagination count
         $count = Config::get('radan.pagination.count',15);   
 
@@ -74,8 +75,7 @@ class RoleController extends Controller
                 $this->httpCreated
             );
         } catch (Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
+            DB::rollBack();            
             return response()->json([
                 'message' => 'Error create permission',
                 'errors' => __('app.failedAlert')],
@@ -130,14 +130,13 @@ class RoleController extends Controller
             );
 
         } catch (Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
+            DB::rollBack();  
             return response()->json([
                 'message' => 'Error update role',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
-        }        
+        } 
     }
 
     /**
@@ -150,40 +149,26 @@ class RoleController extends Controller
     {
         // Find role by id        
         $role = Role::findOrFail($id);
-
-        try {        
-
-            // Get prevernts from config files
-            $prevents = Config::get('radan.auth.prevents.role');
-            
-            // Check prevents rule
-            if (!is_null($prevents)) {
-                foreach ($prevents as $key => $value) {
-                    if ($role->$key==$value) {
-                        throw new ResourceProtected;
-                    }
+        
+        // Get prevernts from config files
+        $prevents = Config::get('radan.auth.prevents.roles');
+        
+        // Check prevents rule
+        if (!is_null($prevents)) {
+            foreach ($prevents as $key => $value) {
+                if ($role->$key==$value) {                        
+                    throw new ResourceProtected;
                 }
             }
+        }
             
-            // deattach all permmisions
-            $role->syncPermissions([]);            
-
-            // delete user
-            $role->delete();        
+        // Delete role, deattache user and permissions            
+        $role->delete();
             
-            /// Return
-            return response()->json([
-                'message' => __('app.deleteAlert')],
-                $this->httpOk
-            );
-
-        } catch (Exception $e) {        
-            Log::error($e->getMessage());
-            return response()->json([
-                'message' => 'Error delete role',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }        
+        // Return
+        return response()->json([
+            'message' => __('app.deleteAlert')],
+            $this->httpOk
+        );
     }
 }

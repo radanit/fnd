@@ -34,5 +34,6 @@ return [
 	'baharRadiology' => 'Bahar radiology',
     'protectedResourceAlert' => 'This record is protected',
     'resourceNotFound' => 'Resource not found',
-    'routeNotFound' => 'Route not found'
+    'routeNotFound' => 'Route not found',
+    'resourceRestrictedAlert' => 'This Resource use in another,First deattached it.'
 ];

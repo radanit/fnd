@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\Profile;
 use App\Radan\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
+use App\Radan\Exceptions\ResourceRestricted;
 
 class ProfileController extends Controller
 {
@@ -154,7 +155,11 @@ class ProfileController extends Controller
                 $this->httpOk
             );
             
-        } catch (Exception $e) {        
+        } catch(ResourceProtected $e) {            
+            return $e->render();
+        } catch(ResourceRestricted $e) {
+            return $e->render();
+        } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json([
                 'message' => 'Error delete profile',

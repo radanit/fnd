@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Radan\Exceptions\ResourceProtected;
+use App\Radan\Exceptions\ResourceRestricted;
 
 class Handler extends ExceptionHandler
 {
@@ -51,19 +53,34 @@ class Handler extends ExceptionHandler
         /**
          * Check if Model not found, and request is api, 
          *   then return json response
-         */        
+         */
         if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {            
             return response()->json([
                 'message' => 'Resource not found',
                 'errors' => __('app.resourceNotFound')], 404);
         }
 
+        /**
+         * Check if route not found, and request is api, 
+         *   then return json response
+         */
         if ($exception instanceof NotFoundHttpException && $request->wantsJson()) {            
             return response()->json([
                 'message' => 'Route not found',
                 'errors' => __('app.routeNotFound')], 404);
         }
+
+        if (($exception instanceof ResourceProtected or
+            $exception instanceof ResourceRestricted) and
+            $request->wantsJson()
+        ) {
+            $exception->render($request);
+        }
         
+        /*return response()->json([
+                'message' => $exception->getMessage(),
+                'errors' => __('app.failedAlert')], 500);
+        */
         return parent::render($request, $exception);
     }
 }

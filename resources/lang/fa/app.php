@@ -53,5 +53,6 @@ return [
     'minPassLengthError' => 'طول کلمه عبور نبایستی کمتر از 6 کاراکتر باشد.',
     'activeBtnLbl' => 'فعالسازی',
     'resourceNotFound' => 'اطلاعات مورد نظر یافت نشد',
-    'routeNotFound' => 'مسیر مورد نظر یافت نشد'
+    'routeNotFound' => 'مسیر مورد نظر یافت نشد',
+    'resourceRestrictedAlert' => 'اطلاعات مورد نظر در حال استفاده در سیستم می باشد'
 ];

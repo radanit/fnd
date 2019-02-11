@@ -4,7 +4,7 @@ namespace App\Radan\Exceptions;
 
 use Exception;
 
-class ResourceProtected extends Exception
+class ResourceRestricted extends Exception
 { 
     /**
      * Render an exception into an HTTP response.
@@ -16,7 +16,7 @@ class ResourceProtected extends Exception
     {    
         return response()->json([
             'message' => __('app.failedAlert'),
-            'errors' => __('app.protectedResourceAlert'),
-        ], 403);        
+            'errors' => __('app.resourceRestrictedAlert'),
+        ], 403);
     }
 }
