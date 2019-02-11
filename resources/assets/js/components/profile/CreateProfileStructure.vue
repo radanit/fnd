@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" @submit.native.prevent @keyup.enter.native="createProfileStructure"  label-width="100px" class="demo-ruleForm mt-3" >
+	              <el-form  :model="form" ref="form" @submit.native.prevent @keyup.enter.native="createProfileStructure"  @keyup.alt.enter.native="createContinueProfileStructure" label-width="100px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('profileStructure.name')"
                 prop="name"
@@ -115,7 +115,7 @@
                 center: true,
                 type: 'success'
                 });
-                this.$router.push({ name: 'profile_structures'});				                    
+                  this.backToProfileList();
                 })
                 .catch((error) => {
                     this.$message({
@@ -156,7 +156,7 @@
             center: true,
             type: 'success'
             });
-            this.$refs['form'].resetFields();			                    
+            this.resetForm('form');
             })
             .catch((error) => {
                 this.$message({
@@ -167,11 +167,23 @@
                 });
             });
         }
-        else {
+        else 
+        {
           return false;
         }
       });
-    }       
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Form Method
+    |--------------------------------------------------------------------------
+    |
+    | This method Rest Form After Create User Role
+    |
+    */        
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }          
   },
   directives: {
     focus: {

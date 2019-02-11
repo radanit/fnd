@@ -109,122 +109,166 @@
 <script>
   export default {
     data(){
-        return{
-            schema:{},
-            model: {},
-            form: 
-            {
-              username: '',
-              email: '',
-              password: '',
-              confirmPassword: '',
-              roles:'',
-              role_options: [],
-              profile_id:1,
-              profile_data:'',
-              profile_options:[],
-              active:false
-            },
-            loadAlert : '',
-            insertAlert : trans('app.insertAlert'),
-            updateAlert : trans('app.updateAlert'),
-            deleteAlert : trans('app.deleteAlert'),
-            warningAlert : trans('app.warningAlert'),
-            failedAlert : trans('app.failedAlert'),
-            cancelAlert : trans('app.cancelAlert'),
-            noticTxt : trans('app.noticTxt'),
-            cancelButtonText : trans('app.cancelButtonText'),
-            confirmButtonText : trans('app.confirmButtonText'),                
-
-        }
-    },
-    methods :{
-        /*
-        |--------------------------------------------------------------------------
-        | Back to User List
-        |--------------------------------------------------------------------------
-        |
-        | This method go back to User list
-        |
-        */                      
-        backToUserList(){
-          this.$router.push({ name: 'users'});
-        },
-        /*
-        |--------------------------------------------------------------------------
-        | Load Profiles Method
-        | Added By e.bagherzadegan
-        |--------------------------------------------------------------------------
-        |
-        | This method Load Profiles Info
-        |
-        */
-        loadProfiles(){
-          axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
-                this.$message({
-                  title: '',
-                  message: error.response.data.errors,
-                  center: true,
-                  type: 'error'
-                });
-                this.$router.push({name: 'edit_users'});                 
-            });
-
-        },
-        loadProfileStructure(){
-          axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch((error)=>{
-                this.$message({
-                  title: '',
-                  message: error.response.data.errors,
-                  center: true,
-                  type: 'error'
-                });             
-            });
-
-        },
-        /*
-        |--------------------------------------------------------------------------
-        | Load Roles Method
-        | Added By e.bagherzadegan
-        |--------------------------------------------------------------------------
-        |
-        | This method Load Roles Info
-        |
-        */        
-        loadRoles(){
-          axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
-                this.$message({
-                  title: '',
-                  message:error.response.data.errors,
-                  center: true,
-                  type: 'error'
-                });
-                this.$router.push({name: 'edit_users'});                 
-            });
-        }, 
-        /*
-        |--------------------------------------------------------------------------
-        | Back to User List
-        |--------------------------------------------------------------------------
-        |
-        | This method go back to User list
-        |
-        */           
-        backToUserList(){
-          this.$router.push({ name: 'users'});
-        },
-        /*
-        |--------------------------------------------------------------------------
-        | Create User Method
-        |--------------------------------------------------------------------------
-        |
-        | This method Add User Info To Database
-        |
-        */
-        createUser() {
-          this.$refs['form'].validate((valid) => {
-          if (valid) 
+      return{
+          schema:{},
+          model: {},
+          form: 
           {
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            roles:'',
+            role_options: [],
+            profile_id:1,
+            profile_data:'',
+            profile_options:[],
+            active:false
+          },
+          loadAlert : '',
+          insertAlert : trans('app.insertAlert'),
+          updateAlert : trans('app.updateAlert'),
+          deleteAlert : trans('app.deleteAlert'),
+          warningAlert : trans('app.warningAlert'),
+          failedAlert : trans('app.failedAlert'),
+          cancelAlert : trans('app.cancelAlert'),
+          noticTxt : trans('app.noticTxt'),
+          cancelButtonText : trans('app.cancelButtonText'),
+          confirmButtonText : trans('app.confirmButtonText'),                
+
+      }
+  },
+  methods :{
+    /*
+    |--------------------------------------------------------------------------
+    | Back to User List
+    |--------------------------------------------------------------------------
+    |
+    | This method go back to User list
+    |
+    */                      
+    backToUserList(){
+      this.$router.push({ name: 'users'});
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Load Profiles Method
+    | Added By e.bagherzadegan
+    |--------------------------------------------------------------------------
+    |
+    | This method Load Profiles Info
+    |
+    */
+    loadProfiles(){
+      axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
+            this.$message({
+              title: '',
+              message: error.response.data.errors,
+              center: true,
+              type: 'error'
+            });
+            this.$router.push({name: 'edit_users'});                 
+        });
+
+    },
+    loadProfileStructure(){
+      axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch((error)=>{
+            this.$message({
+              title: '',
+              message: error.response.data.errors,
+              center: true,
+              type: 'error'
+            });             
+        });
+
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Load Roles Method
+    | Added By e.bagherzadegan
+    |--------------------------------------------------------------------------
+    |
+    | This method Load Roles Info
+    |
+    */        
+    loadRoles(){
+      axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
+            this.$message({
+              title: '',
+              message:error.response.data.errors,
+              center: true,
+              type: 'error'
+            });
+            this.$router.push({name: 'edit_users'});                 
+        });
+    }, 
+    /*
+    |--------------------------------------------------------------------------
+    | Back to User List
+    |--------------------------------------------------------------------------
+    |
+    | This method go back to User list
+    |
+    */           
+    backToUserList(){
+      this.$router.push({ name: 'users'});
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Create User Method
+    |--------------------------------------------------------------------------
+    |
+    | This method Add User Info To Database
+    |
+    */
+    createUser() {
+      this.$refs['form'].validate((valid) => {
+      if (valid) 
+      {
+      //define New User
+      let newUser ={            
+        username: this.form.username,
+        email: this.form.email,
+        password: this.form.password,
+        password_confirmation:  this.form.confirmPassword,
+        profile_id: this.form.profile_id,
+        roles:  this.form.roles,
+        active: this.form.active
+      }
+      axios.post('../api/profile/users',newUser).then((response) =>{
+      Fire.$emit('AfterCrud');
+      this.$message({
+            type: 'success',
+            center: true,
+            message:response.data.message
+          });
+          this.backToUserList();
+        })
+        .catch((error) => {
+          this.$message({
+            message: error.response.data.errors,
+            center: true,
+            type: 'error'
+          });
+        });     
+      }
+      else {
+              return false;
+            }
+      });
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Create User Method
+    |--------------------------------------------------------------------------
+    |
+    | This method Add User Info To Database
+    |
+    */
+    createContinueUser() {
+      this.$refs['form'].validate((valid) => {
+        if (valid) 
+        {
           //define New User
           let newUser ={            
             username: this.form.username,
@@ -242,7 +286,7 @@
                 center: true,
                 message:response.data.message
               });
-              this.backToUserList();
+              this.resetForm('form');
             })
             .catch((error) => {
               this.$message({
@@ -250,68 +294,24 @@
                 center: true,
                 type: 'error'
               });
-            });     
-          }
-          else {
-                  return false;
-               }
-          });
-        },
-        /*
-        |--------------------------------------------------------------------------
-        | Create User Method
-        |--------------------------------------------------------------------------
-        |
-        | This method Add User Info To Database
-        |
-        */
-        createContinueUser() {
-          this.$refs['form'].validate((valid) => {
-            if (valid) 
-            {
-              //define New User
-              let newUser ={            
-                username: this.form.username,
-                email: this.form.email,
-                password: this.form.password,
-                password_confirmation:  this.form.confirmPassword,
-                profile_id: this.form.profile_id,
-                roles:  this.form.roles,
-                active: this.form.active
-              }
-              axios.post('../api/profile/users',newUser).then((response) =>{
-              Fire.$emit('AfterCrud');
-              this.$message({
-                    type: 'success',
-                    center: true,
-                    message:response.data.message
-                  });
-                  this.resetForm('form');
-                })
-                .catch((error) => {
-                  this.$message({
-                    message: error.response.data.errors,
-                    center: true,
-                    type: 'error'
-                  });
-                });
-            }
-            else {
-              return false;
-            }
-          });
-        },        
-        /*
-        |--------------------------------------------------------------------------
-        | Reset Form Method
-        |--------------------------------------------------------------------------
-        |
-        | This method Rest Form After Create User Role
-        |
-        */        
-        resetForm(formName) {
-          this.$refs[formName].resetFields();
-        }            
+            });
+        }
+        else {
+          return false;
+        }
+      });
+    },        
+    /*
+    |--------------------------------------------------------------------------
+    | Reset Form Method
+    |--------------------------------------------------------------------------
+    |
+    | This method Rest Form After Create User Role
+    |
+    */        
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      }            
     },
     directives: {
       focus: {
