@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @keydown.alt.67="createUserRole">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -7,6 +7,7 @@
                 <h3 class="card-title">{{trans('user.roleCardTitle')}}</h3>
                 <div class="card-tools">
 				<el-button type="success"
+                  v-focus
 				  size="mini"
 				  @click="createUserRole">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>                  
@@ -222,7 +223,15 @@
                   });          
                 });
             },
-        },        
+        },
+        directives: {
+            focus: {
+                // directive definition
+                inserted: function (el) {
+                el.focus()
+                }
+            }
+        }, 
         mounted() {
             this.LoadUserRole();
             Fire.$on('AfterCrud',() => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @keydown.esc="backToPermissionList">
     <div class="row justify-content-center mt-4">
       <div class="col-md-12">
         <div class="card">
@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  :model="form" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
+            <el-form  :model="form" @keyup.enter.native="updateUserPermission" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.permissionName')"
             prop="name"
@@ -16,7 +16,7 @@
               { required: true, message: trans('user.permissionNameRequierdError')}
             ]"
             >
-            <el-input name="name" type="text" v-model.number="form.name" autocomplete="off"></el-input>
+            <el-input name="name" ref="name" type="text" :disabled="true" v-model.number="form.name" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
             :label="trans('user.permissionDescription')"
@@ -25,7 +25,7 @@
               { required: true, message: trans('user.permissionDescriptionRequierdError')}
             ]"
             >
-            <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
+            <el-input name="description" type="text" ref="description" v-model="form.description" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -135,9 +135,18 @@
             }
           });
         },
-    },        
+    },
+    directives: {
+          focus: {
+              // directive definition
+              inserted: function (el) {
+              el.focus()
+              }
+          }
+    },            
     mounted() {
         this.loadUserPermission();
+        this.$refs.description.focus();
         Fire.$on('AfterCrud',() => {
             this.loadUserPermission();
         });

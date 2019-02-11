@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @keydown.esc="backToPermissionList">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form @submit.native.prevent :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
+	              <el-form @submit.native.prevent @keyup.enter.native="createUserPermission" :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('user.permissionName')"
                 prop="name"
@@ -16,7 +16,7 @@
                   { required: true, message: trans('user.permissionNameRequierdError')}
                 ]"
                 >
-                <el-input name="name" type="text" v-model="form.name" autocomplete="off"></el-input>
+                <el-input ref="name" name="name" type="text" v-model="form.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('user.permissionDescription')"
@@ -25,12 +25,12 @@
                   { required: true, message: trans('user.permissionDescriptionRequierdError')}
                 ]"
                 >
-                <el-input @keyup.enter.native="submitByEnter()" name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
+                <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="createUserPermission()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button  size="mini" type="primary" @click="createContinueUserPermission()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
-                  <el-button size="mini" type="info" @click="backToProfileList" plain>{{trans('app.backBtnLbl')}} </el-button>   
+                  <el-button  size="mini" type="info" @click="backToPermissionList" plain>{{trans('app.backBtnLbl')}} </el-button>   
                 </el-form-item>
               </el-form>
               </div>
@@ -69,7 +69,7 @@
           | This method go back to Permission list
           |
           */           
-          backToProfileList(){
+          backToPermissionList(){
             this.$router.push({ name: 'user_permissions'});
           },
           /*
@@ -155,11 +155,17 @@
               }
             });            
           },
-          submitByEnter(){
-            this.createUserPermission();
-          }
-      },       
+      },
+      directives: {
+            focus: {
+                // directive definition
+                inserted: function (el) {
+                el.focus()
+                }
+            }
+      },      
       mounted() {
+        this.$refs.name.focus();
         Fire.$on('AfterCrud',() => {
           //this.resetForm('form');
         });    

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @keydown.esc="backToUserList">
     <div class="row justify-content-center mt-4">
       <div class="col-md-12">
         <div class="card">
@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.username')"
             prop="username"
@@ -16,7 +16,7 @@
               { required: true, message: trans('user.usernameRequierdError')}
             ]"
             >
-            <el-input name="username" type="username" v-model="form.username" :placeholder="trans('user.username')" autocomplete="off"></el-input>
+            <el-input name="username" ref="username" type="text" :disabled="true" v-model="form.username" :placeholder="trans('user.username')" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
             :label="trans('user.email')"
@@ -26,7 +26,7 @@
               { type: 'email', message: trans('app.emailFormatError'), trigger: ['blur'] }
             ]"
             >
-            <el-input name="email" type="email" 
+            <el-input name="email" type="email" ref="email"
             v-model="form.email" :placeholder="trans('user.email')" autocomplete="off">
             </el-input>
             </el-form-item>
@@ -255,11 +255,20 @@
           }
         });
       },
+    },
+    directives: {
+      focus: {
+          // directive definition
+          inserted: function (el) {
+          el.focus()
+        }
+      }
     },      
     mounted() {
       this.LoadUser();
       this.loadProfiles();
       this.loadRoles();
+      this.$refs.email.focus();
       Fire.$on('AfterCrud',() => {
         //this.LoadUser();
         //this.loadProfiles();

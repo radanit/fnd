@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" @keydown.alt.67="createUser">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -9,6 +9,7 @@
                     <div class="card-tools">
                         <el-button type="success"
                         size="mini"
+                        v-focus
                         @click="createUser">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                         <el-button type="primary"
                         size="mini"
@@ -315,9 +316,18 @@
                   });          
                 });
             },
-        },        
+        },
+        directives: {
+            focus: {
+                // directive definition
+                inserted: function (el) {
+                el.focus()
+                }
+            }
+        },       
         mounted() {
             this.loadUser();
+            this.$refs.username.focus();
             Fire.$on('AfterCrud',() => {
                 this.loadUser();
             });

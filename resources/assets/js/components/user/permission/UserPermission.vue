@@ -1,5 +1,5 @@
 <template>
-    <div class="container" >
+    <div class="container" @keydown.alt.67="createPermission">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -8,7 +8,7 @@
                 <div class="card-tools">
 				<el-button type="success"
 				  size="mini"
-                  
+                   v-focus
 				  @click="createPermission">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
                 </div>
               </div>
@@ -24,6 +24,7 @@
                     </el-table-column>
 					<el-table-column
 					  :label="trans('user.permissionName')"
+                      ref="name"
                       sortable
 					  prop="name">
 					</el-table-column>
@@ -35,9 +36,9 @@
 					<el-table-column class="float-left"
 					  align="right">
 					  <template slot="header" slot-scope="scope">
-						<el-input
+						<el-input                          
 						  v-model="search"
-						  :placeholder="trans('app.searchPlaceholder')"/>
+						  :placeholder="trans('app.searchPlaceholder')" />
                         <el-input name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
@@ -159,7 +160,7 @@
                       center: true,
                       type: 'error'
                     });         
-                });
+                });                
             },
             /*
             |--------------------------------------------------------------------------
@@ -224,9 +225,17 @@
                   });          
                 });
             },
-        },        
-        mounted() {
-            this.loadUserPermissions();
+        },
+        directives: {
+            focus: {
+                // directive definition
+                inserted: function (el) {
+                el.focus()
+                }
+            }
+        },
+        mounted() {            
+            this.loadUserPermissions();               
             Fire.$on('AfterCrud',() => {
                 this.loadUserPermissions();
             });

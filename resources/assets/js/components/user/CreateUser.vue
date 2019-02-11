@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @keydown.esc="backToUserList">
     <div class="row justify-content-center mt-4">
       <div class="col-md-12">
         <div class="card">
@@ -8,15 +8,16 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  @submit.native.prevent :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form  @submit.native.prevent  @keyup.enter.native="createUser" :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.username')"
+            
             prop="username"
             :rules="[
               { required: true, message: trans('user.usernameRequierdError')}
             ]"
             >
-            <el-input name="username" type="username" v-model="form.username" :placeholder="trans('user.username')" autocomplete="off"></el-input>
+            <el-input name="username"  ref="username"   type="text" v-model="form.username" :placeholder="trans('user.username')" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
             :label="trans('user.email')"
@@ -311,10 +312,19 @@
         resetForm(formName) {
           this.$refs[formName].resetFields();
         }            
-    },        
+    },
+    directives: {
+      focus: {
+          // directive definition
+          inserted: function (el) {
+          el.focus()
+        }
+      }
+    },    
     mounted() {
       this.loadProfiles();
       this.loadRoles();
+      this.$refs.username.focus();
       Fire.$on('AfterCrud',() => {
 
       });
