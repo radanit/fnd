@@ -55,7 +55,7 @@ trait RadanًRestrictedRelationTrait
                 }
             }
         }
-        //return parent::delete();
+        return parent::delete();
     }
 
 }

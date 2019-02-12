@@ -129,35 +129,25 @@ class PermissionController extends Controller
 		// destroy permission
 		$permission = Permission::findOrFail($id);		        
 
-        try {
-            // Get prevernts from config files
-            $prevents = Config::get('radan.auth.prevents.permission');
-            
-            // Check prevents rule
-            if (!is_null($prevents)) {
-                foreach ($prevents as $key => $value) {
-                    if ($permission->$key==$value) {
-                        throw new ResourceProtected;
-                    }
+        // Get prevernts from config files
+        $prevents = Config::get('radan.auth.prevents.permission');
+        
+        // Check prevents rule
+        if (!is_null($prevents)) {
+            foreach ($prevents as $key => $value) {
+                if ($permission->$key==$value) {
+                    throw new ResourceProtected;
                 }
             }
+        }
 
-            // Destory profile
-            $permission->delete();
-            
-            // Return
-            return response()->json([
-                'message' => __('app.deleteAlert')],
-                $this->httpOk
-            );
-
-        } catch (Exception $e) {        
-            Log::error($e->getMessage());
-            return response()->json([
-                'message' => 'Error delete permission',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }                 
+        // Destory profile
+        $permission->delete();
+        
+        // Return
+        return response()->json([
+            'message' => __('app.deleteAlert')],
+            $this->httpOk
+        );
     }
 }
