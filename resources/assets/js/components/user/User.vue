@@ -19,7 +19,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="tableData.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'username', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -128,7 +128,7 @@
                 },          
 				tableData:[],
                 search: '',
-                page: 1,
+                page:1,
                 list: [],
                 infiniteId: +new Date(),
                 multipleSelection:[],
@@ -300,7 +300,7 @@
                         type: 'success',
                         center: true,
                         message:response.data.message
-                      });
+                      });                
                 }).catch((error) => {
                      this.$message({
                         type: 'error',
@@ -325,10 +325,12 @@
                 }
             }
         },       
-        mounted() {
-            this.loadUser();
+        created() {
+            //this.loadUser();
+
             Fire.$on('AfterCrud',() => {
-                this.loadUser();
+                //this.loadUser();
+                this.infiniteHandler();
             });
         }
     }

@@ -321,13 +321,10 @@
         }
       }
     },    
-    mounted() {
+    created() {
       this.loadProfiles();
       this.loadRoles();
       this.$refs.username.focus();
-      Fire.$on('AfterCrud',() => {
-
-      });
     },
   }
 </script>

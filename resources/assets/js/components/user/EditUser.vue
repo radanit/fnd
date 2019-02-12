@@ -220,20 +220,19 @@
           active:this.form.active,
           roles:roles_id
       }
-      axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {
+      axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
         this.$message({
           type: 'success',
           center: true,
           message:response.data.message
-        });
-        Fire.$emit('AfterCrud');                  
+        });        
           }).catch((error) => {
             this.$message({
               type: 'error',
               center: true,
               message:error.response.data.errors              
             });
-        }); 
+        });        
       },
       /*
       |--------------------------------------------------------------------------
@@ -249,6 +248,8 @@
           if (valid) 
           {
             this.updateUser();
+            this.backToUserList();
+
           }
           else {
             return false;
@@ -264,15 +265,13 @@
         }
       }
     },      
-    mounted() {
+    created() {
       this.LoadUser();
       this.loadProfiles();
       this.loadRoles();
       this.$refs.email.focus();
       Fire.$on('AfterCrud',() => {
-        //this.LoadUser();
-        //this.loadProfiles();
-        //this.loadRoles();
+        //
       });
     }
   }
