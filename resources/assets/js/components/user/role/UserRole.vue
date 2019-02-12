@@ -153,7 +153,7 @@
             |
             */
             LoadUserRole(){
-                axios.get("../api/auth/roles").then(({data})=>(this.tableData = data.data)).catch(()=>{
+                axios.get("../api/auth/roles").then(({data})=>(this.tableData = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -198,7 +198,7 @@
                 cancelButtonText: this.cancelButtonText,
                 type: 'warning',
                 center: true
-                }).then(() => {
+                }).then((response) => {
                   axios.delete('../api/auth/roles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
@@ -207,7 +207,7 @@
                         center: true,
                         message:response.data.message
                       });                      
-                }).catch(() => {
+                }).catch((error) => {
                     this.$message({
                         title: error.response.data.message,
                         type: 'error',
