@@ -4,7 +4,6 @@ namespace App\Radan\Auth\Models;
 
 use Laratrust\Models\LaratrustPermission;
 use App\Radan\Traits\RadanًRestrictedRelationTrait;
-use App\Radan\Exceptions\ResourceRestricted;
 
 class Permission extends LaratrustPermission
 {
@@ -21,10 +20,12 @@ class Permission extends LaratrustPermission
 
     /**
      * The attributes that are use for deleteing restricted
-     *
+     * come with RadanًRestrictedRelationTrait.
+     * On deleting this mode instance , check restricted array
+     * to have relation with this model.
      * @var array
      */
     protected $restricteds = [
-        'users', 'roles',
+        'roles',
     ];
 }

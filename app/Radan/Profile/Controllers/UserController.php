@@ -69,7 +69,7 @@ class UserController extends Controller
             $user = User::create([
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => bcrypt($request->password),
+                'password' => $request->password,
                 'active' => $request->active,
             ]);
 
@@ -120,8 +120,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {        
-        // Read Profile table name form config
+    {                
+				// Read Profile table name form config
         $profileTable = Config::get('radan.profile.tables.profiles','profiles');        
         
         // Validation
@@ -134,17 +134,14 @@ class UserController extends Controller
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
+								
 		
 		// Begin Database transaction			
         DB::beginTransaction();
         try{
             // Find user
-            $user = User::findOrFail($id);
-			$updates = $request->only('email','active','password');
-            if ($request->has('password')) {
-                $updates['password'] = bcrypt($request->password);				;
-            }            
-			$user->update($updates);
+            $user = User::findOrFail($id);            
+			$user->update($request->only('email','active','password'));
 						
             // Set user profile data
 			if ($request->filled('profile_id')) {

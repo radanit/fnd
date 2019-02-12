@@ -20,11 +20,13 @@ class Role extends LaratrustRole
 
     /**
      * The attributes that are use for deleteing restricted
-     * come with RadanًRestrictedRelationTrait
+     * come with RadanًRestrictedRelationTrait.
+     * On deleting this mode instance , check restricted array
+     * to have relation with this model.
      * @var array
      */
     protected $restricteds = [
-        'users', 'permissions',
+        'users',
     ];
     
 }
