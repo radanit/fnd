@@ -327,7 +327,6 @@
         },       
         mounted() {
             this.loadUser();
-            this.$refs.username.focus();
             Fire.$on('AfterCrud',() => {
                 this.loadUser();
             });
