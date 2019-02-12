@@ -36,7 +36,7 @@
               { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
             ]"
             >
-            <el-input type="password" :placeholder="trans('user.password')" v-model="form.password">
+            <el-input type="password" name="password" :placeholder="trans('user.password')" v-model="form.password">
             </el-input>
             </el-form-item>
             <el-form-item :label="trans('user.confirmPassword')" prop="password_confirmation"
@@ -45,7 +45,7 @@
               { min: 6, message: trans('app.minPassLengthError'),trigger: ['blur'] }
             ]"
             >
-            <el-input type="password" :placeholder="trans('user.confirmPassword')" v-model="form.password_confirmation">
+            <el-input type="password" name="password_confirmation" :placeholder="trans('user.confirmPassword')" v-model="form.password_confirmation">
             </el-input>
             </el-form-item>                             
             <el-form-item
