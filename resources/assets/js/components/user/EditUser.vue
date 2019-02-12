@@ -213,8 +213,8 @@
         }
       });
       let userInfo={
-          name: this.form.name,
-          description: this.form.description,
+          password:this.form.password,
+          password_confirmation:this.form.password_confirmation,          
           data:this.profile_data,
           profile_id:this.form.profile_id,
           active:this.form.active,
