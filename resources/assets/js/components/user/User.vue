@@ -205,7 +205,7 @@
             |
             */    
             loadUser(){
-                axios.get("../api/profile/users").then(({data})=>(this.tableData = data.data)).catch((error)=>{
+                axios.get("../api/profile/users").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({                      
                       message:error.response.data.errors,
                       center: true,
@@ -295,7 +295,7 @@
                 }).then((response) => {
                   axios.delete('../api/profile/users/'+record.id)
                 .then(response => {
-                    Fire.$emit('AfterCrud');
+                    this.loadUser();
                      this.$message({
                         type: 'success',
                         center: true,
@@ -327,10 +327,8 @@
         },       
         created() {
             //this.loadUser();
-
             Fire.$on('AfterCrud',() => {
-                //this.loadUser();
-                this.infiniteHandler();
+
             });
         }
     }

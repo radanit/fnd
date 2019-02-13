@@ -15,7 +15,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -119,12 +119,12 @@
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (data.data.length) {
-                    this.page += 1;
-                    this.list.unshift(...data.data.reverse());
-                    $state.loaded();
+                    if (data.data.length>0) {
+                        this.page += 1;
+                        this.list.unshift(...data.data.reverse());
+                        $state.loaded();
                     } else {
-                    $state.complete();
+                        $state.complete();
                     }
                 });
             },
@@ -153,7 +153,7 @@
             |
             */
             LoadUserRole(){
-                axios.get("../api/auth/roles").then(({data})=>(this.tableData = data.data)).catch((error)=>{
+                axios.get("../api/auth/roles").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -206,7 +206,8 @@
                         type: 'success',
                         center: true,
                         message:response.data.message
-                      });                      
+                      });
+                this.LoadUserRole();                  
                 }).catch((error) => {
                     this.$message({
                         title: error.response.data.message,
@@ -232,10 +233,10 @@
                 }
             }
         }, 
-        mounted() {
-            this.LoadUserRole();
+        created() {
+            //this.LoadUserRole();
             Fire.$on('AfterCrud',() => {
-                this.LoadUserRole();
+                
             });
         }
     }

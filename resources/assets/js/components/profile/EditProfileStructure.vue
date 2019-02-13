@@ -114,8 +114,7 @@
                 type: 'success',
                 center: true,
                 message:response.data.message
-              });
-              Fire.$emit('AfterCrud');                  
+              });                
                 }).catch((error) => {
                   this.$message({
                     title: error.response.data.message,
@@ -138,6 +137,7 @@
                 if (valid) 
                 {
                   this.updateprofileStructure();
+                  this.backToProfileList();
                 }
                 else {
                   return false;
@@ -153,11 +153,11 @@
                   }
               }
         },               
-        mounted() {
+        created() {
             this.loadProfileStructure();
             this.$refs.description.focus();
             Fire.$on('AfterCrud',() => {
-                this.loadProfileStructure();
+                //this.loadProfileStructure();
             });
         }
     }

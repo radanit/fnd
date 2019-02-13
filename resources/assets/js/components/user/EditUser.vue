@@ -221,11 +221,11 @@
           roles:roles_id
       }
       axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
-        this.$message({
-          type: 'success',
-          center: true,
-          message:response.data.message
-        });        
+          this.$message({
+            type: 'success',
+            center: true,
+            message:response.data.message
+          });           
           }).catch((error) => {
             this.$message({
               type: 'error',

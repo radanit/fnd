@@ -225,7 +225,6 @@
         */          
         resetForm(formName) {
           this.$refs[formName].resetFields();
-          this.$refs.form.resetFields();
         }            
       },
       directives: {
@@ -236,7 +235,7 @@
               }
           }
       },       
-      mounted() {
+      created() {
         this.loadUserPermission();
         this.$refs.name.focus();
         Fire.$on('AfterCrud',() => {

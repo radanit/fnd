@@ -97,7 +97,7 @@
                     center: true,
                     type: 'success'
                   });
-                  this.$router.push({ name: 'user_permissions'});				                  
+                  this.backToPermissionList();			                  
                 })
                 .catch((error) => {
                     this.$message({
@@ -139,7 +139,7 @@
                     center: true,
                     type: 'success'
                   });
-                  this.$refs['form'].resetFields();	                  
+                  this.resetForm('form');
                 })
                 .catch((error) => {
                     this.$message({
@@ -155,6 +155,17 @@
               }
             });            
           },
+        /*
+        |--------------------------------------------------------------------------
+        | Reset Form Method
+        |--------------------------------------------------------------------------
+        |
+        | This method Rest Form After Create User Role
+        |
+        */          
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        },
       },
       directives: {
             focus: {

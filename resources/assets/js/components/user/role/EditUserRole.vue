@@ -156,8 +156,7 @@
             type: 'success',
             center: true,
             message:response.data.message
-          });
-          Fire.$emit('AfterCrud');                  
+          });                          
             }).catch((error) => {              
               this.$message({
                 title: error.response.data.message,
@@ -181,6 +180,7 @@
             if (valid) 
             {
               this.updateUserRole();
+              this.backToUseRoleList(); 
             }
             else {
               return false;
@@ -196,12 +196,12 @@
         }
       }
     },         
-    mounted() {
+    created() {
         this.loadUserRole();
         this.loadUserPermission()
          this.$refs.description.focus();
         Fire.$on('AfterCrud',() => {
-            //this.loadUserRole();
+            
         });
     }
   }

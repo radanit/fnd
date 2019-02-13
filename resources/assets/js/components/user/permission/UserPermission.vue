@@ -153,7 +153,7 @@
             |
             */
             loadUserPermissions(){
-                axios.get("../api/auth/permissions").then(({data})=>(this.tableData = data.data)).catch((error)=>{
+                axios.get("../api/auth/permissions").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -204,7 +204,7 @@
                 }).then((response) => {
                   axios.delete('../api/auth/permissions/'+record.id)
                 .then(response => {
-                    Fire.$emit('AfterCrud');
+                   this.loadUserPermissions();
                         this.$message({
                         type: 'success',
                         center: true,
@@ -235,9 +235,9 @@
             }
         },
         mounted() {            
-            this.loadUserPermissions();               
+            //this.loadUserPermissions();               
             Fire.$on('AfterCrud',() => {
-                this.loadUserPermissions();
+                //this.loadUserPermissions();
             });
         }
     }

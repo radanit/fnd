@@ -15,7 +15,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -50,11 +50,13 @@
 						  @click="deleteProfileStructure(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <!--<infinite-loading
+                    <infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
+                        <div slot="no-more"></div>
+                        <div slot="no-results"></div>
+                    </infinite-loading>
 				  </el-table>
                   <div class="block">
                         <el-pagination
@@ -151,8 +153,8 @@
             | This method Load Profile Info
             |
             */
-            loadProfileStructure(page){                
-                axios.get("../api/profile/profiles",{params:{page:page}}).then(({data})=>(this.tableData = data.data)).catch(()=>{
+            loadProfileStructure(){                
+                axios.get("../api/profile/profiles").then(({data})=>(this.list = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -160,19 +162,6 @@
                       type: 'error'
                     });               
                 });
-            },
-            /*
-            |--------------------------------------------------------------------------
-            | Load Page Method
-            | Added By e.bagherzadegan
-            |--------------------------------------------------------------------------
-            |
-            | This method Set Pagination
-            |
-            */            
-            loadPage(){
-                this.loadProfileStructure(this.page);
-                this.totalPage=Math.round(this.total/15);
             },
             /*
             |--------------------------------------------------------------------------
@@ -215,13 +204,13 @@
                   center: true
                 }).then((response) => {
                   axios.delete('../api/profile/profiles/'+record.id)
-                .then(response => {
-                    Fire.$emit('AfterCrud');
+                .then(response => {                     
                      this.$message({
                         type: 'success',
                         center: true,
                         message: response.data.message
                       });
+                this.loadProfileStructure();
                 }).catch((error) => {
                      this.$message({
                         title: error.response.data.message,
@@ -247,10 +236,8 @@
                 }
             }
         },           
-        mounted() {
-            this.loadProfileStructure();
+        created() {
             Fire.$on('AfterCrud',() => {
-                this.loadProfileStructure();
             });
         }
     }
