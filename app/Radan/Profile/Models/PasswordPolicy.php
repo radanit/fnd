@@ -16,7 +16,7 @@ class PasswordPolicy extends Model
      */
 
     protected $fillable = [
-        'name', 'description', '',
+        'name', 'description', 'min_length', 'max_length','upper_case','lower_case','digits','special_chars','does_not_contain'
     ];
 
     /**
