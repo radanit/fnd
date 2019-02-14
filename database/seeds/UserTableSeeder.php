@@ -17,11 +17,11 @@ class UserTableSeeder extends Seeder
         //
 		factory(App\Radan\Auth\Models\User::class)->create(
             [
-                'email' => 'm.riahimanesh@irisaco.com',
-                'username' => 'mehdi', 
-                'password'=>'123',
+                'email' => 'admin@radanit.ir',
+                'username' => 'admin', 
+                'password'=>'admin@123',
                 'active' => 1
             ]
-        );
+        )->attachRole(1);
     }
 }

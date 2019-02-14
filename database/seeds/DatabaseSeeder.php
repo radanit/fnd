@@ -15,9 +15,6 @@ class DatabaseSeeder extends Seeder
 	{
 		Model::unguard();
 
-		$this->call('UserTableSeeder');
-		$this->command->info('User table seeded!');
-
 		$this->call('ProfileTableSeeder');
 		$this->command->info('Profile table seeded!');
 
@@ -29,6 +26,15 @@ class DatabaseSeeder extends Seeder
 		
 		$this->call('PasswordPolicyTableSeeder');
 		$this->command->info('Radan Password Policy table seeded!');
+
+    $this->call('PermissionTableSeeder');
+    $this->command->info('Permission table seeded!');
+
+    $this->call('RoleTableSeeder');
+    $this->command->info('Role table seeded!');
+    
+    $this->call('UserTableSeeder');
+    $this->command->info('User table seeded!');
 		
 	}
 }
