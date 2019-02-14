@@ -164,7 +164,8 @@ return [
         'roles.*' => 'این نقش کاربری',
         'permissions' => 'سطح دسترسی',
         'permissions.*' => 'این سطح دسترسی',
-        'structure' => 'ساختار'
+        'structure' => 'ساختار',
+        'password_policy_id' => 'محدودیت رمز عبور',
     ],
 
 ];

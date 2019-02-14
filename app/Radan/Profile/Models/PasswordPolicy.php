@@ -3,7 +3,6 @@
 namespace App\Radan\Profile\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 
 class PasswordPolicy extends Model 
@@ -45,7 +44,7 @@ class PasswordPolicy extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = Config::get('radan.profile.tables.password_policy');
+        $this->table = Config::get('radan.profile.tables.password_policies');
     }
 
     /**
@@ -54,10 +53,10 @@ class PasswordPolicy extends Model
      * @var void
      */
     public function profiles()
-    {
+    {        
         return $this->hasMany(
             Config::get('radan.profile.models.profiles'),
-            Config::get('radan.profile.foreign_keys.password_policy')
+            Config::get('radan.profile.foreign_keys.password_policies')
         );
     }
 }

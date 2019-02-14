@@ -56,7 +56,7 @@ class ProfileUser extends Model
 
         return $this->belongsTo(
             Config::get('radan.profile.models.user'),
-            Config::get('radan.profile.foreign_keys.user')
+            Config::get('radan.profile.foreign_keys.users')
         );
     }
 

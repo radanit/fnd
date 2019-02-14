@@ -150,6 +150,11 @@ return [
       */
       'users' => 'App\Radan\Auth\Models\User',
 
+      /*
+       * PasswordPolicy model
+       */
+      'password_policies' => 'App\Radan\Profile\Models\PasswordPolicy',
+
       /**
       * number of record fetched in request
       */
@@ -180,7 +185,7 @@ return [
       /**
       * password policy table.
       */
-      'password_policy' => 'password_policies' 
+      'password_policies' => 'password_policies' 
     ],
 
     /*
@@ -205,6 +210,14 @@ return [
       */
       'profile_user' => [
       ],
+
+      /**
+      * password policy table prevents.
+      */
+      'password_policies' => [
+        'id' => 1,
+        'name' => 'deafult',
+      ],
     ],
 
     /*
@@ -216,10 +229,23 @@ return [
     |
     */
     'foreign_keys' => [
-
-      'user' => 'user_id',      
+      'users' => 'user_id',      
       'profiles' => 'profile_id',
-      'password_policy' => 'password_policy_id'
+      'password_policies' => 'password_policy_id'
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Radan Profile defaults value
+    |--------------------------------------------------------------------------
+    |
+    | These are the foreign keys used by Radan Profile in the intermediate tables.
+    |
+    */
+    'defaults' => [
+      'profile' => [ 'name' => 'default'],      
+      'password_policy' => [ 'name' => 'default'],
+    ],
+
   ],
 ];

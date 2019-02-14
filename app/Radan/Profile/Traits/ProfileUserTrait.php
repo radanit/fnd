@@ -43,7 +43,7 @@ trait ProfileUserTrait
     {
         $profileUser = $this->hasOne(
             Config::get('radan.profile.models.profile_user'),
-            Config::get('radan.profile.foreign_keys.user'),
+            Config::get('radan.profile.foreign_keys.users'),
             $this->primaryKey
         );
 

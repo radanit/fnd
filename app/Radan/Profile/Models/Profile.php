@@ -69,9 +69,9 @@ class Profile extends Model
      */
     public function passwordPolicy()
     {
-        return $this->hasOn(
-            Config::get('radan.profile.models.password_policy'),
-            Config::get('radan.profile.foreign_keys.password_policy')
-        );
+        return $this->belongsTo(
+            Config::get('radan.profile.models.password_policies'),
+            Config::get('radan.profile.foreign_keys.password_policies')
+        );        
     }
 }

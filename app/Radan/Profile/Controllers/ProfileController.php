@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Profile\Models\Profile;
+use App\Radan\Profile\Models\PasswordPolicy;
 use App\Radan\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
@@ -45,19 +46,29 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        // Read password policy table name form config
+        $passwordPolicyTable = Config::get('radan.profile.tables.password_policies','password_policies');        
+        
         // Validation rules
-        Validator::make($request->only('name','description','structure'), [
+        Validator::make($request->only('name','description','structure','password_policy_id'), [
             'name' => 'required|string|max:255|unique:profiles',
             'description' => 'required|string|max:255',
             'structure' => 'required|string|json',
+            'password_policy_id' => 'exists:'.$passwordPolicyTable.',id'
         ])->validate();
-
+        
         // Create Profile
-        try {
+        try {            
+            // get default password policy            
+            $defaultPasswordPolicyId = PasswordPolicy::where('name','default')->first()->id;        
+            $passwordPolicy = ($request->filled('password_policy_id')) ? 
+                                $request->password_policy_id:$defaultPasswordPolicyId;
+            
             $profile = Profile::create([
                 'name' => $request->name,        
                 'description' => $request->description,
                 'structure' => $request->structure,
+                'password_policy_id' => $passwordPolicy,
             ]);
 
             // Return
@@ -96,15 +107,19 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {    
+        // Read password policy table name form config
+        $passwordPolicyTable = Config::get('radan.profile.tables.password_policies','password_policies');        
+        
         // Validation rules   
-        Validator::make($request->only('description','structure'), [
+        Validator::make($request->only('description','structure','password_policy_id'), [
             'description' => 'required|string|max:255',
             'structure' => 'required|string|json',
+            'password_policy_id' => 'exists:'.$passwordPolicyTable.',id',
         ])->validate();
 
         try {
             $profile = Profile::findOrFail($id);
-            $profile->update($request->only(['description', 'structure']));
+            $profile->update($request->only(['description', 'structure','password_policy_id']));
             
             // Return
             return response()->json([
