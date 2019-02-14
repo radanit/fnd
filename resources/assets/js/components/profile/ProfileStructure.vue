@@ -15,8 +15,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
-                    :default-sort = "{prop: 'name', order: 'descending'}"
+					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+                    :default-sort = "{prop: 'name', order: 'ascending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
                         type="selection"
@@ -50,13 +50,11 @@
 						  @click="deleteProfileStructure(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <infinite-loading
+                    <!--<infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                        <div slot="no-more"></div>
-                        <div slot="no-results"></div>
-                    </infinite-loading>
+                    </infinite-loading>-->
 				  </el-table>
                   <div class="block">
                         <el-pagination
@@ -64,8 +62,8 @@
                             layout="prev, pager, next"
                             prev-text="<"
                             next-text=">"
-                            :page-size="1"
-                            :total="totalPage"
+                            :page-size="pagination.per_page"                         
+                            :total="pagination.total"
                             @current-change="loadPage"
                             :current-page.sync="page">
                         </el-pagination>             
@@ -101,8 +99,7 @@
 				},
 				tableData:[],
                 search: '',
-                page: 1,
-                totalPage:1,
+                pagination:{},
                 list: [],
                 infiniteId: +new Date(),
             }
@@ -153,8 +150,9 @@
             | This method Load Profile Info
             |
             */
-            loadProfileStructure(){                
-                axios.get("../api/profile/profiles").then(({data})=>(this.list = data.data)).catch(()=>{
+            loadProfileStructure(page){                
+                axios.get("../api/profile/profiles",{params:{page:page}}).then(({
+                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -162,6 +160,18 @@
                       type: 'error'
                     });               
                 });
+            },
+            /*
+            |--------------------------------------------------------------------------
+            | Load Page Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Set Pagination
+            |
+            */            
+            loadPage(){                
+                this.loadProfileStructure(this.page);
             },
             /*
             |--------------------------------------------------------------------------
@@ -204,13 +214,14 @@
                   center: true
                 }).then((response) => {
                   axios.delete('../api/profile/profiles/'+record.id)
-                .then(response => {                     
+                .then(response => {
+                    Fire.$emit('AfterCrud');
                      this.$message({
                         type: 'success',
                         center: true,
                         message: response.data.message
                       });
-                this.loadProfileStructure();
+                      this.loadPage();
                 }).catch((error) => {
                      this.$message({
                         title: error.response.data.message,
@@ -237,7 +248,9 @@
             }
         },           
         created() {
+            this.loadPage();
             Fire.$on('AfterCrud',() => {
+                //
             });
         }
     }
