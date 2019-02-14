@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 
-class Profile extends Model 
+class PasswordPolicy extends Model 
 {        
     // use SoftDeletes;
 
@@ -17,7 +17,7 @@ class Profile extends Model
      */
 
     protected $fillable = [
-        'name', 'description', 'structure',
+        'name', 'description', '',
     ];
 
     /**
@@ -33,8 +33,7 @@ class Profile extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'structure' => 'array',
+    protected $casts = [       
     ];
 
     /**
@@ -46,7 +45,7 @@ class Profile extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = Config::get('radan.profile.tables.profiles');
+        $this->table = Config::get('radan.profile.tables.password_policy');
     }
 
     /**
@@ -54,23 +53,10 @@ class Profile extends Model
      *
      * @var void
      */
-    public function profileUsers()
+    public function profiles()
     {
         return $this->hasMany(
-            Config::get('radan.profile.models.profile_user'),
-            Config::get('radan.profile.foreign_keys.profiles')
-        );
-    }
-
-     /**
-     * The method for relationships
-     *
-     * @var void
-     */
-    public function passwordPolicy()
-    {
-        return $this->hasOn(
-            Config::get('radan.profile.models.password_policy'),
+            Config::get('radan.profile.models.profiles'),
             Config::get('radan.profile.foreign_keys.password_policy')
         );
     }

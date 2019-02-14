@@ -176,6 +176,11 @@ return [
       * user profile table.
       */
       'profile_user' => 'profile_user',
+
+      /**
+      * password policy table.
+      */
+      'password_policy' => 'password_policies' 
     ],
 
     /*
@@ -211,15 +216,10 @@ return [
     |
     */
     'foreign_keys' => [
-      /**
-      * User foreign key on Laratrust's role_user and permission_user tables.
-      */
-      'user' => 'user_id',
 
-      /**
-      * Role foreign key on Laratrust's role_user and permission_role tables.
-      */
+      'user' => 'user_id',      
       'profiles' => 'profile_id',
+      'password_policy' => 'password_policy_id'
     ],
   ],
 ];

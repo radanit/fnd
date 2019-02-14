@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
             [
                 'email' => 'm.riahimanesh@irisaco.com',
                 'username' => 'mehdi', 
-                'password'=>bcrypt('123'),
+                'password'=>'123',
                 'active' => 1
             ]
         );

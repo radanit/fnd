@@ -29,13 +29,23 @@ class UserController extends Controller
             'radan.profile.models.pagination.count',
             Config::get('radan.pagination.count',15)
         );
+
+        
         
         // Return        
         if ($count) {
-            return UserResource::collection(User::paginate($count));
+            /* common */
+            //return UserResource::collection(User::paginate($count));
+            
+            /* eager loading */
+            return UserResource::collection(User::with(['profileUser','roles'])->paginate($count));
         }
         else {
-            return UserResource::collection(User::all());
+            /* common */
+            //return UserResource::collection(User::all());
+
+            /* eager loading */
+            return UserResource::collection(User::with(['profileUser','roles'])->get());
         }        
     }
 
