@@ -15,7 +15,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table 
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
@@ -112,22 +112,19 @@
             |
             | This method Is For Lazy Load Users Info
             |
-            */ 
-            onClick(){
-                alert(asas);
-            },       
+            */     
             infiniteHandler($state) {
-                axios.get("../api/auth/permissions", {
+                axios.get("../api/auth/roles", {
                     params: {
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (data.data.length) {
-                    this.page += 1;
-                    this.list.unshift(...data.data.reverse());
-                    $state.loaded();
+                    if (data.data.length>0) {
+                        this.page += 1;
+                        this.list.unshift(...data.data.reverse());
+                        $state.loaded();
                     } else {
-                    $state.complete();
+                        $state.complete();
                     }
                 });
             },
@@ -234,8 +231,7 @@
                 }
             }
         },
-        mounted() {            
-            //this.loadUserPermissions();               
+        created() {              
             Fire.$on('AfterCrud',() => {
                 //this.loadUserPermissions();
             });

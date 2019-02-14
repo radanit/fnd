@@ -30,7 +30,8 @@
               {{ __('menus.dashboard') }}
               </p>
             </router-link>
-          </li>         
+          </li>
+          @role('admin')      
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shield-alt yellow"></i>
@@ -72,6 +73,7 @@
               </li>
             </ul>
           </li>
+          @endrole
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-info lighGray"></i>
