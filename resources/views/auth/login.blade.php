@@ -39,7 +39,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label text-nowrap" for="remember">
                                         {{ __('auth.Remember Me') }}
                                     </label>
                                 </div>
@@ -71,16 +71,16 @@
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block w-100" src="{{URL::asset('/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
+						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
 					</div>					
 					<div class="carousel-item">
-						<img class="d-block w-100" src="{{URL::asset('/images/slideshows/2.jpg')}}" style="vertical-align:center;" alt="Second slide">
+						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/2.jpg')}}" style="vertical-align:center;" alt="Second slide">
 					</div>					
 					<div class="carousel-item">
-						<img class="d-block w-100" src="{{URL::asset('/images/slideshows/3.jpg')}}" style="vertical-align:center;" alt="Third slide">
+						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/3.jpg')}}" style="vertical-align:center;" alt="Third slide">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100" src="{{URL::asset('/images/slideshows/4.jpg')}}" style="vertical-align:center;" alt="Third slide">
+						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/4.jpg')}}" style="vertical-align:center;" alt="Third slide">
 					</div>
 				</div>
 				<a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
