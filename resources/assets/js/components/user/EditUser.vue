@@ -225,7 +225,8 @@
             type: 'success',
             center: true,
             message:response.data.message
-          });           
+          });
+          Fire.$emit('AfterCrud');        
           }).catch((error) => {
             this.$message({
               type: 'error',
@@ -248,6 +249,7 @@
           if (valid) 
           {
             this.updateUser();
+            Fire.$emit('AfterCrud');
             this.backToUserList();
 
           }
@@ -271,7 +273,7 @@
       this.loadRoles();
       this.$refs.email.focus();
       Fire.$on('AfterCrud',() => {
-        //
+        this.LoadUser();
       });
     }
   }

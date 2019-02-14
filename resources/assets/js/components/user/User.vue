@@ -327,8 +327,8 @@
         },       
         created() {
             //this.loadUser();
-            Fire.$on('AfterCrud',() => {
-
+            Fire.$on('AfterCrud',() => {               
+              //this.loadUser();  
             });
         }
     }

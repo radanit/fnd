@@ -114,7 +114,7 @@
             |
             */     
             infiniteHandler($state) {
-                axios.get("../api/auth/roles", {
+                axios.get("../api/auth/permissions", {
                     params: {
                     page: this.page,
                     },
