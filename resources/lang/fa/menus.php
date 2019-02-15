@@ -14,13 +14,7 @@ return [
 'profile' => 'پروفایل',
 'publicTable' => 'جداول عمومی',
 'speciality' => 'تخصص ها',
-'preventive_service_managment' => 'سرویسهای پیشگیرانه',
-'preventive_service' => 'مدیریت سرویس',
-'preventive_service_planning' =>'برنامه ریزی سرویس',
-'equipments_managment' => 'ماشین آلات و تجهیز',
-'location' => 'مدیریت موقعیت ها',
-'group_asset' => 'گروه تجهیزات',
-'asset' => 'تجهیزات',
-'assetـserial' => 'سریال تجهیزات',
-'profile_structure' => 'مدیریت پروفایل ها'
+'profile_structure' => 'مدیریت پروفایل ها',
+'reception_managment' =>'مدیریت پذیرش',
+'reception' => 'پذیرش'
 ];

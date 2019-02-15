@@ -247,6 +247,12 @@
 	text-align:left;
 	padding:0 0 0 10px;
 }
+  .el-form-item__label:lang(en){
+    float: left;
+    text-align: right;
+    padding: 0 10px 0 0;
+    white-space: nowrap;
+  }
 .el-form-item__content:lang(fa){
 	margin-right:100px;
 	margin-left:0px;

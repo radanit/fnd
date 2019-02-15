@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form @submit.native.prevent @keyup.enter.native="createUserPermission" :model="form" ref="form" label-width="160px" class="demo-ruleForm mt-3" >
+	              <el-form @submit.native.prevent @keyup.enter.native="createUserPermission" :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('user.permissionName')"
                 prop="name"
@@ -178,7 +178,7 @@
       mounted() {
         this.$refs.name.focus();
         Fire.$on('AfterCrud',() => {
-          //this.resetForm('form');
+          //
         });    
       }
     }
@@ -188,6 +188,13 @@
 	float:right;
 	text-align:left;
 	padding:0 0 0 10px;
+  white-space: nowrap !important;
+}
+.el-form-item__label:lang(en){
+  float: left;
+  text-align: right;
+  padding: 0 10px 0 0;
+  white-space: nowrap;
 }
 .el-form-item__content:lang(fa){
 	margin-right:160px !important;

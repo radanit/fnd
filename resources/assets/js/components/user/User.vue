@@ -60,7 +60,7 @@
                         <template slot-scope="scope">
                             <el-tag
                             :type="scope.row.active === true ? 'success' : 'danger'"
-                            disable-transitions><span v-if="scope.row.active==true">فعال</span><span v-else>غیرفعال</span></el-tag>
+                            disable-transitions><span v-if="scope.row.active==true">{{trans('user.active')}}</span><span v-else>{{trans('user.inActive')}}</span></el-tag>
                         </template>
                     </el-table-column>
 					<el-table-column class="float-left"
@@ -326,9 +326,8 @@
             }
         },       
         created() {
-            //this.loadUser();
             Fire.$on('AfterCrud',() => {               
-              //this.loadUser();  
+             //
             });
         }
     }
@@ -338,6 +337,12 @@
         float:right;
         text-align:left;
         padding:0 0 0 10px;
+    }
+    .el-form-item__label:lang(en){
+        float: left;
+        text-align: right;
+        padding: 0 10px 0 0;
+        white-space: nowrap;
     }
     .el-form-item__content:lang(fa){
         margin-right:100px;

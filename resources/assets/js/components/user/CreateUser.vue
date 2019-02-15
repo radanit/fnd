@@ -67,7 +67,7 @@
               </el-select>
             </el-form-item>
             <el-form-item
-            :label="trans('user.profile_lbl')"
+            :label="trans('user.doctor')"
             prop="profile_id">
               <el-select
                 v-model.number="form.profile_id"
@@ -324,8 +324,11 @@
     created() {
       this.loadProfiles();
       this.loadRoles();
-      this.$refs.username.focus();
+      
     },
+    mounted(){
+      this.$refs.username.focus();
+    }
   }
 </script>
 <style>
@@ -333,6 +336,12 @@
     float:right;
     text-align:left;
     padding:0 0 0 10px;
+  }
+  .el-form-item__label:lang(en){
+    float: left;
+    text-align: right;
+    padding: 0 10px 0 0;
+    white-space: nowrap;
   }
   .el-form-item__content:lang(fa){
     margin-right:100px;
