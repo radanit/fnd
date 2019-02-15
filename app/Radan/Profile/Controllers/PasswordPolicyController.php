@@ -53,7 +53,7 @@ class PasswordPolicyController extends Controller
             'name' => 'required|string|max:255|unique:'.$passwordPolicyTable,
             'description' => 'required|string|max:255',
             'min_length' => 'integer',
-            'max_length' => 'integer',
+            'max_length' => 'integer|gte:min_length',
             'upper_case' => 'integer',
             'lower_case' => 'integer',
             'digits' => 'integer',

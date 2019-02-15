@@ -16,9 +16,9 @@ class PasswordPolicyResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id' => $this->id,
-            'name' => $this->name,            
-            'description' => $this->description,
+            //'id' => $this->id,
+            //'name' => $this->name,            
+            //'description' => $this->description,
             'min_length' => $this->min_length,
             'max_length' => $this->max_length,
             'upper_case ' => $this->upper_case,

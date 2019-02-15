@@ -50,13 +50,15 @@ class ProfileController extends Controller
         $passwordPolicyTable = Config::get('radan.profile.tables.password_policies','password_policies');        
         
         // Validation rules
-        Validator::make($request->only('name','description','structure','password_policy_id'), [
+        Validator::make($request->only('name','description','structure','password_policy_id','password'), [
             'name' => 'required|string|max:255|unique:profiles',
             'description' => 'required|string|max:255',
             'structure' => 'required|string|json',
-            'password_policy_id' => 'exists:'.$passwordPolicyTable.',id'
+            'password_policy_id' => 'exists:'.$passwordPolicyTable.',id',
+            'password' => 'password',
         ])->validate();
-        
+        return 'wewe';
+
         // Create Profile
         try {            
             // get default password policy            

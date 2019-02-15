@@ -4,10 +4,12 @@ namespace App\Radan\Profile\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
+use App\Radan\Profile\Traits\PasswordPolicyTrait;
 
 class PasswordPolicy extends Model 
 {        
     // use SoftDeletes;
+    use PasswordPolicyTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +34,13 @@ class PasswordPolicy extends Model
      *
      * @var array
      */
-    protected $casts = [       
+    protected $casts = [
+        'min_length' => 'integer',
+        'max_length' => 'integer',
+        'upper_case' => 'integer',
+        'lower_case' => 'integer',
+        'digits' => 'integer',
+        'special_chars' => 'integer',
     ];
 
     /**
@@ -58,5 +66,15 @@ class PasswordPolicy extends Model
             Config::get('radan.profile.models.profiles'),
             Config::get('radan.profile.foreign_keys.password_policies')
         );
+    }
+
+    /**
+     * Get the max length attribute Accessore
+     *
+     * @return string
+     */
+    public function getMaxLengthAttribute($value)
+    {
+        return  ($value < $this->min_length) ? $this->min_length:$value;
     }
 }

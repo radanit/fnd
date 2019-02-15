@@ -160,8 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,        
         App\Providers\RouteServiceProvider::class,
         // Radan Providers
-        App\Radan\Providers\RadanServiceProvider::class,
-        
+        App\Radan\Providers\RadanServiceProvider::class,        
     ],
 
     /*

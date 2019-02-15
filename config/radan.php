@@ -26,6 +26,7 @@ return [
 
     // Radan Profile package service providers        
     App\Radan\Profile\Providers\RouteServiceProvider::class,
+    App\Radan\Profile\Providers\ServiceProvider::class,
   ],
   
   /*

@@ -13,8 +13,7 @@ class RadanServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        
+    {           
     }
 
     /**
