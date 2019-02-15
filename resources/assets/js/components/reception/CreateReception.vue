@@ -365,6 +365,12 @@
     text-align:left;
     padding:0 0 0 10px;
   }
+    .el-form-item__label:lang(en){
+      float: left;
+      text-align: right;
+      padding: 0 10px 0 0;
+      white-space: nowrap;
+    }
   .el-form-item__content:lang(fa){
     margin-right:130px!important;
     margin-left:0px;
@@ -377,6 +383,10 @@
   .el-form-item__error:lang(fa){
     right:0;
     left:auto;
+  }
+   .el-form-item__error:lang(en){
+    right:auto;
+    left:0;
   }
   .el-table .cell:lang(fa){
       float: right;
@@ -398,19 +408,30 @@
   {
       direction:rtl;
   }
-  .el-radio-button:last-child .el-radio-button__inner{
+   .el-message-box__header:lang(en)
+  {
+      direction:ltr;
+  }
+  .el-radio-button:last-child .el-radio-button__inner:lang(fa){
     border-radius: 4px 0px 0px 4px !important;
   }
-  .el-radio-button:first-child .el-radio-button__inner{
+  .el-radio-button:first-child .el-radio-button__inner:lang(fa){
      border-radius: 0px 4px 4px 0px !important;
   }
-  .el-radio-button:first-child .el-radio-button__inner{
-    border-right: 1px solid #dcdfe6 !important;
-  }
-  .el-radio-button:last-child .el-radio-button__inner{
+  .el-radio-button:first-child .el-radio-button__inner:lang(en){
     border-left: 1px solid #dcdfe6 !important;
   }
-  .el-button + .el-button{
+  .el-radio-button:last-child .el-radio-button__inner:lang(en){
+    border-right: 1px solid #dcdfe6 !important;
+  }
+  .el-button + .el-button:lang(fa){
     margin-left: 0px !important;
   }
+  .el-button + .el-button:lang(en){
+    margin-right: 0px !important;
+  }
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner:lang{
+    box-shadow:none !important;
+  }
+
 </style>

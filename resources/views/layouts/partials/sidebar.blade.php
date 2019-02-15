@@ -115,12 +115,6 @@
                       <p>{{ __('menus.reception') }}</p>
                     </router-link>
                   </li>
-                  <li class="nav-item">
-                    <router-link to="/userGroups" class="nav-link">
-                        <i class="fa fa-tasks  nav-icon teal"></i>
-                        <p>{{ __('menus.preventive_service_planning') }}</p>
-                    </router-link>
-                  </li>
                 </ul>
               </li>
               <!-- End equipment and machinery Services menu --->
