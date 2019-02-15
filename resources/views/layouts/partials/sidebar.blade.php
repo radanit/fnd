@@ -100,7 +100,7 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-toolbox green"></i>
                   <p>
-                  {{ __('menus.preventive_service_managment') }}
+                  {{ __('menus.reception_managment') }}
                     @if(App::isLocale('fa'))
                     <i class="right fa fa-angle-right"></i>
                     @elseif(App::isLocale('en'))
@@ -110,9 +110,9 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <router-link to="/preventiveService" class="nav-link">
+                    <router-link to="/receptions" class="nav-link">
                       <i class="fa fa-wrench nav-icon indigo"></i>
-                      <p>{{ __('menus.preventive_service') }}</p>
+                      <p>{{ __('menus.reception') }}</p>
                     </router-link>
                   </li>
                   <li class="nav-item">

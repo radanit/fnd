@@ -22,5 +22,7 @@ return [
 'group_asset' => 'گروه تجهیزات',
 'asset' => 'تجهیزات',
 'assetـserial' => 'سریال تجهیزات',
-'profile_structure' => 'مدیریت پروفایل ها'
+'profile_structure' => 'مدیریت پروفایل ها',
+'reception_managment' =>'مدیریت پذیرش',
+'reception' => 'پذیرش'
 ];

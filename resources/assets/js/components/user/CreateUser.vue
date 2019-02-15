@@ -67,7 +67,7 @@
               </el-select>
             </el-form-item>
             <el-form-item
-            :label="trans('user.profile_lbl')"
+            :label="trans('user.doctor')"
             prop="profile_id">
               <el-select
                 v-model.number="form.profile_id"

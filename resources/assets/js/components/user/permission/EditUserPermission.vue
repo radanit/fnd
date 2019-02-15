@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  :model="form" @keyup.enter.native="updateUserPermission" ref="form" label-width="140px" class="demo-ruleForm mt-3" >
+            <el-form  :model="form" @keyup.enter.native="updateUserPermission" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.permissionName')"
             prop="name"
@@ -158,6 +158,7 @@
 	float:right;
 	text-align:left;
 	padding:0 0 0 10px;
+  white-space: nowrap !important;
 }
 .el-form-item__content:lang(fa){
 	margin-right:160px !important;
