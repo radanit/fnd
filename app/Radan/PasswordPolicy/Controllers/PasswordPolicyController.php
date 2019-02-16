@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Profile\Controllers;
+namespace App\Radan\PasswordPolicy\Controllers;
 
 use Validator;
 use Exception;
@@ -25,7 +25,7 @@ class PasswordPolicyController extends Controller
     {
         // Return
         $count = Config::get(
-            'radan.profile.models.pagination.count', 
+            'readan.password_policy.models.pagination.count', 
             Config::get('radan.pagination.count',15)
         );
         
@@ -46,7 +46,7 @@ class PasswordPolicyController extends Controller
     public function store(Request $request)
     {
         // Read password policy table name form config
-        $passwordPolicyTable = Config::get('radan.profile.tables.password_policies','password_policies');        
+        $passwordPolicyTable = Config::get('readan.password_policy.tables.password_policies','password_policies');        
         
         // Validation rules
         Validator::make($request->all(), [
@@ -162,7 +162,7 @@ class PasswordPolicyController extends Controller
         $passwordPolicy = PasswordPolicy::findOrFail($id);
        
         // Get prevernts from config files
-        $prevents = Config::get('radan.profile.prevents.password_policies');
+        $prevents = Config::get('readan.password_policy.prevents.password_policies');
 
         // Check prevents rule
         if (!is_null($prevents)) {

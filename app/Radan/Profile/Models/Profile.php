@@ -5,10 +5,12 @@ namespace App\Radan\Profile\Models;
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
+use App\Radan\PasswordPolicy\Traits\PasswordPolicyProfileTrait;
 
 class Profile extends Model 
 {        
     // use SoftDeletes;
+    use PasswordPolicyProfileTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -60,18 +62,5 @@ class Profile extends Model
             Config::get('radan.profile.models.profile_user'),
             Config::get('radan.profile.foreign_keys.profiles')
         );
-    }
-
-     /**
-     * The method for relationships
-     *
-     * @var void
-     */
-    public function passwordPolicy()
-    {
-        return $this->belongsTo(
-            Config::get('radan.profile.models.password_policies'),
-            Config::get('radan.profile.foreign_keys.password_policies')
-        );        
-    }
+    }     
 }
