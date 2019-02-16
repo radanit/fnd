@@ -65,7 +65,7 @@
                             :page-size="pagination.per_page"                         
                             :total="pagination.total"
                             @current-change="loadPage"
-                            :current-page.sync="page">
+                            :current-page.sync="pagination.per_page">
                         </el-pagination>             
                   </div>
               </div>
