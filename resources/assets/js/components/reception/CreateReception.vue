@@ -18,7 +18,7 @@
                       { required: true, message: trans('reception.reception_date_required_error')}
                     ]"
                     >
-                    <date-picker v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
+                    <date-picker v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
                    </el-form-item>                    
                   </el-col>
                   <el-col :span="12">
@@ -26,10 +26,11 @@
                     :label="trans('reception.meli_code')"
                     prop="meli_code"
                     :rules="[
-                      { required: true, message: trans('reception.meli_code_required_error')}
+                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.meli_code_number_error')},
+                     
                     ]"
                     >
-                    <el-input :minlength="11" :maxlength="11" name="meli_code" ref="meli_code" type="number"  v-model="form.meli_code" autocomplete="off"></el-input>
+                    <el-input name="meli_code" ref="meli_code" type="number"  v-model.number="form.meli_code" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -74,7 +75,7 @@
                     :label="trans('reception.mobile_number')"
                     prop="mobile_number"
                     :rules="[
-                      { required: true, message: trans('reception.mobile_number_required_error')}
+                      { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
                     <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.mobile_number" autocomplete="off"></el-input>
@@ -162,7 +163,7 @@
     export default {
         data()
         {
-          return{            
+          return{      
             form: 
             {
               id: '',
@@ -349,10 +350,13 @@
       created() {
         this.loadDoctorList();
         this.loadRadioTypeList();
-        this.$refs.meli_code.focus();
+        
         Fire.$on('AfterCrud',() => {
-          //this.resetForm('form');
+          //
         });
+      },
+      mounted(){
+        this.$refs.meli_code.focus();
       }
     }
 </script>
@@ -365,6 +369,12 @@
     text-align:left;
     padding:0 0 0 10px;
   }
+    .el-form-item__label:lang(en){
+      float: left;
+      text-align: right;
+      padding: 0 10px 0 0;
+      white-space: nowrap;
+    }
   .el-form-item__content:lang(fa){
     margin-right:130px!important;
     margin-left:0px;
@@ -377,6 +387,10 @@
   .el-form-item__error:lang(fa){
     right:0;
     left:auto;
+  }
+   .el-form-item__error:lang(en){
+    right:auto;
+    left:0;
   }
   .el-table .cell:lang(fa){
       float: right;
@@ -398,19 +412,67 @@
   {
       direction:rtl;
   }
-  .el-radio-button:last-child .el-radio-button__inner{
+   .el-message-box__header:lang(en)
+  {
+      direction:ltr;
+  }
+  .el-radio-button:last-child .el-radio-button__inner:lang(fa){
     border-radius: 4px 0px 0px 4px !important;
   }
-  .el-radio-button:first-child .el-radio-button__inner{
+  .el-radio-button:first-child .el-radio-button__inner:lang(fa){
      border-radius: 0px 4px 4px 0px !important;
   }
-  .el-radio-button:first-child .el-radio-button__inner{
-    border-right: 1px solid #dcdfe6 !important;
-  }
-  .el-radio-button:last-child .el-radio-button__inner{
+  .el-radio-button:first-child .el-radio-button__inner:lang(en){
     border-left: 1px solid #dcdfe6 !important;
   }
-  .el-button + .el-button{
+  .el-radio-button:last-child .el-radio-button__inner:lang(en){
+    border-right: 1px solid #dcdfe6 !important;
+  }
+  .el-button + .el-button:lang(fa){
     margin-left: 0px !important;
   }
+  .el-button + .el-button:lang(en){
+    margin-right: 0px !important;
+  }
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner:lang{
+    box-shadow:none !important;
+  }
+.vpd-input-group input:lang(en) {
+    right: auto;
+    display: table-cell;
+    border: 1px solid #dadada;
+    border-left: none;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    line-height: 30px;
+    padding: 0 10px;
+}
+.vpd-input-group input:lang(en) {
+    display: table-cell;
+    border: 1px solid #dadada;
+    border-right: 1px solid #dadada;
+    border-top-right-radius: 3px !important;
+    border-bottom-right-radius: 3px !important;
+    line-height: 30px;
+    padding: 0 10px;
+}
+.vpd-input-group input:lang(fa) {
+    right: auto;
+    display: table-cell;
+    border: 1px solid #dadada;
+    border-left: 1px solid #dadada;
+    border-top-left-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+    line-height: 30px;
+    padding: 0 10px;
+}
+.vpd-input-group input:lang(fa) {
+    display: table-cell;
+    border: 1px solid #dadada;
+    border-right: none;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    line-height: 30px;
+    padding: 0 10px;
+}
 </style>

@@ -18,7 +18,7 @@
                       { required: true, message: trans('reception.reception_date_required_error')}
                     ]"
                     >
-                    <date-picker v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
+                    <date-picker :locale="trans('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
                    </el-form-item>                    
                   </el-col>
                   <el-col :span="12">
@@ -26,7 +26,7 @@
                     :label="trans('reception.meli_code')"
                     prop="meli_code"
                     :rules="[
-                      { required: true, message: trans('reception.meli_code_required_error')}
+                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.meli_code_number_error')},
                     ]"
                     >
                     <el-input :minlength="11" :maxlength="11" name="meli_code" ref="meli_code" type="number"  v-model="form.meli_code" autocomplete="off"></el-input>
@@ -74,7 +74,7 @@
                     :label="trans('reception.mobile_number')"
                     prop="mobile_number"
                     :rules="[
-                      { required: true, message: trans('reception.mobile_number_required_error')}
+                      { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
                     <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.mobile_number" autocomplete="off"></el-input>
@@ -264,12 +264,15 @@
           });
         },
     },        
-    mounted() {
+    created() {
         this.loadDoctorList();
         this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {
             
         });
+    },
+    mounted(){
+      this.$refs.meli_code.focus();
     }
 }
 </script>
@@ -281,6 +284,12 @@
     float:right;
     text-align:left;
     padding:0 0 0 10px;
+  }
+  .el-form-item__label:lang(en){
+    float: left;
+    text-align: right;
+    padding: 0 10px 0 0;
+    white-space: nowrap;
   }
   .el-form-item__content:lang(fa){
     margin-right:130px!important;
