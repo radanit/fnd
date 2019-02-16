@@ -270,11 +270,13 @@
     created() {
       this.LoadUser();
       this.loadProfiles();
-      this.loadRoles();
-      this.$refs.email.focus();
+      this.loadRoles();      
       Fire.$on('AfterCrud',() => {
         this.LoadUser();
       });
+    },
+    mounted(){
+      this.$refs.email.focus();
     }
   }
 </script>
@@ -283,6 +285,12 @@
     float:right;
     text-align:left;
     padding:0 0 0 10px;
+  }
+  .el-form-item__label:lang(en){
+    float: left;
+    text-align: right;
+    padding: 0 10px 0 0;
+    white-space: nowrap;
   }
   .el-form-item__content:lang(fa){
     margin-right:100px;

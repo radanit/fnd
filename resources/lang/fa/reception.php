@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Language Lines
+    | reception Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -26,8 +26,6 @@ return [
     'radio_type' => 'نوع تصویر',
     'action' => 'عملیات',
     'card_title' => 'لیست پذیرش ها',
-    'warning_alert' => 'آیا از انجام عملیات اطمینان دارید؟',
-    'failed_alert' => 'در هنگام انجام عملیات خطایی رخ داده است!',
     'add_card_title_lbl' => 'درج اطلاعات پذیرش',
     'update_card_title_lbl' => 'بروزرسانی اطلاعات پذیرش',
     'first_name_required_error' => 'نام اجباری است',

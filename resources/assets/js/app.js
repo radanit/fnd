@@ -89,11 +89,17 @@ import {Pagination,
   MessageBox,
   Message,
   Notification} from 'element-ui';
-import lang from 'element-ui/lib/locale/lang/fa'
+//import lang from 'element-ui/lib/locale/lang/fa'
+import faLocale from 'element-ui/lib/locale/lang/fa'
+import enLocale from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+import VueI18n from 'vue-i18n'
+Vue.use(VueI18n)
+//Vue.config.lang = 'fa'
+locale.use(faLocale)
 Vue.prototype.$notify = Notification;
 // configure language
-locale.use(lang);
+//locale.use(lang);
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Autocomplete);

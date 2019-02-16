@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Language Lines
+    | User Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -17,16 +17,9 @@ return [
     'username' => 'نام کاربری',
     'bio' => 'بیوگرافی',
     'createDate' => 'تاریخ ایجاد',
-    'userGroup' => 'گروه',
     'password' => 'کلمه عبور',
     'action' => 'عملیات',
     'cardTitle' => 'لیست کاربران',
-    'updateAlert' =>'اطلاعات کاربر با موفقیت بروزرسانی گردید.',
-    'insertAlert' => 'اطلاعات کاربر با موفقیت به ثبت رسید.',
-    'updateAlert' => 'اطلاعات کاربر با موفقیت بروزرسانی گردید.',
-    'deleteAlert' => 'اطلاعات کاربر با موفقیت حذف گردید.',
-    'warningAlert' => 'آیا از انجام عملیات اطمینان دارید؟',
-    'failedAlert' => 'در هنگام انجام عملیات خطایی رخ داده است!',
     'lblAddCardTitle' => 'درج اطلاعات کاربر',
     'lblUpdateCardTitle' => 'بروزرسانی اطلاعات کاربر',
     'usernameRequierdError' => 'نام کاربری اجباری است',
@@ -61,7 +54,6 @@ return [
     'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است',
     'permissionNameRequierdError' => 'فیلد عنوان سطح دسترسی اجباری است',
     'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است',
-    'status' => 'وضعیت',
     'active' => 'فعال',
     'inActive' => 'غیر فعال'
 

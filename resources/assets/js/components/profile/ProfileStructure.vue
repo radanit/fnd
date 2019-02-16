@@ -65,7 +65,7 @@
                             :page-size="pagination.per_page"                         
                             :total="pagination.total"
                             @current-change="loadPage"
-                            :current-page.sync="page">
+                            :current-page.sync="pagination.per_page">
                         </el-pagination>             
                   </div>
               </div>
@@ -260,6 +260,12 @@
         float:right;
         text-align:left;
         padding:0 0 0 10px;
+    }
+    .el-form-item__label:lang(en){
+        float: left;
+        text-align: right;
+        padding: 0 10px 0 0;
+        white-space: nowrap;
     }
     .el-form-item__content:lang(fa){
         margin-right:100px;
