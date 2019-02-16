@@ -17,6 +17,7 @@
 				<el-table 
 					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
+                    :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
                         type="selection"
