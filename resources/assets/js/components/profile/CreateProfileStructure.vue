@@ -8,7 +8,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	              <el-form  :model="form" ref="form" @submit.native.prevent @keyup.enter.native="createProfileStructure"  @keyup.alt.enter.native="createContinueProfileStructure" label-width="100px" class="demo-ruleForm mt-3" >
+	              <el-form  :model="form" ref="form" @submit.native.prevent @keyup.enter.native="createProfileStructure"  @keyup.alt.enter.native="createContinueProfileStructure" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('profileStructure.name')"
                 prop="name"
