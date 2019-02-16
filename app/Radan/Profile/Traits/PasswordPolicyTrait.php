@@ -89,7 +89,8 @@ trait PasswordPolicyTrait
 
     public function makeValidationRule($attribute, $value, $parameters)
     {                    
-        $this
+        // Create validation rule
+				$this
             ->minLenght($this->min_length)
             ->maxLenght($this->max_length)
             ->upperCase($this->upper_case)
