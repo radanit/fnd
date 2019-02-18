@@ -135,19 +135,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Policy default validation rule
+    | Password Policy driver
     |--------------------------------------------------------------------------
-    | Password validation if password policy feature is disable.
+    | Read Password Policy Driver (Drivers: database,localstore)
     */
-    'password_policy_default' => 'string|min:6|confirmed',
+    'driver' => 'database',
+
+    
 
     /*
     |--------------------------------------------------------------------------
-    | Password Policy laravel validation name
+    | Password Policy default validation rule for localstore driver
     |--------------------------------------------------------------------------
-    | Defines validation name use in Validatior::make().
+    | Password validation if password policy feature is disable.
     */
-    'password_policy_validation_name' => 'password',
+    'default_validation_rules' => 'string|min:6|confirmed',
+    'default_validation_name' => 'password',
+    'default_policy_name' => 'default',
 
     /*
     |--------------------------------------------------------------------------
