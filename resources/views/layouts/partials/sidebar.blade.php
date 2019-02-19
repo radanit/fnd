@@ -36,7 +36,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shield-alt yellow"></i>
               <p>
-              {{ __('menus.auth_managment') }}
+              {{ __('menus.auth_management') }}
                 @if(App::isLocale('fa'))
                 <i class="right fa fa-angle-right"></i>
                 @elseif(App::isLocale('en'))
@@ -74,6 +74,7 @@
             </ul>
           </li>
           @endrole
+          <!-- Begin Basic Info menu --->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-info lighGray"></i>
@@ -95,31 +96,49 @@
                   </p>
                 </router-link>
               </li>
-              <!-- Begin Radiology menu --->
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-toolbox green"></i>
+              <li class="nav-item">
+                <router-link to="/doctors" class="nav-link">
+                  <i class=" nav-icon fas fa-user-md teal"></i>
                   <p>
-                  {{ __('menus.reception_managment') }}
-                    @if(App::isLocale('fa'))
-                    <i class="right fa fa-angle-right"></i>
-                    @elseif(App::isLocale('en'))
-                    <i class="right fa fa-angle-left"></i>
-                    @endif
+                  {{ __('menus.doctor_management') }}
                   </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <router-link to="/receptions" class="nav-link">
-                      <i class="fa fa-wrench nav-icon indigo"></i>
-                      <p>{{ __('menus.reception') }}</p>
-                    </router-link>
-                  </li>
-                </ul>
+                </router-link>
               </li>
-              <!-- End equipment and machinery Services menu --->
+              <li class="nav-item">
+                <router-link to="/radio_types" class="nav-link">
+                  <i class="nav-icon fas fa-images pink"></i>
+                  <p>
+                  {{ __('menus.radio_type_management') }}
+                  </p>
+                </router-link>
+              </li>                              
             </ul>
           </li>
+          <!-- End Basic Info menu --->
+
+          <!-- Begin Radiology menu --->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-receipt green"></i>
+              <p>
+              {{ __('menus.reception_management') }}
+                @if(App::isLocale('fa'))
+                <i class="right fa fa-angle-right"></i>
+                @elseif(App::isLocale('en'))
+                <i class="right fa fa-angle-left"></i>
+                @endif
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/receptions" class="nav-link">
+                  <i class="fas fa-id-badge nav-icon indigo"></i>
+                  <p>{{ __('menus.reception') }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          <!-- End Radiology menu --->
           <li class="nav-item">
             <router-link to="/profiles" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>

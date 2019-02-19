@@ -4,7 +4,7 @@ return [
 
 
     'logout' => 'Logout',
-    'users' => 'User Managment',
+    'users' => 'User Management',
     'configuration' => 'configuration',
     'auth_managment' => 'Authantication',
     'dashboard' => 'Dashboard',
@@ -16,6 +16,8 @@ return [
     'publicTable' => 'Public Tables',
     'speciality' =>'Sepecialites',
     'profile_structure' => 'Profiles Management',
-    'reception_managment' =>'Reception Managment',
-    'reception' => 'Reception'
+    'reception_management' =>'Reception Management',
+    'reception' => 'Reception',
+    'doctor_management' => 'Doctor Management',
+    'radio_type_management' => 'RadioType Management',
 ];
