@@ -113,7 +113,8 @@ class RadioTypeController extends Controller
                 $this->httpOk
             );
 
-        } catch (Exception $e) {            
+        } catch (Exception $e) {     
+            dd($e)       ;
             return response()->json([
                 'message' => 'Error update radio type',
                 'errors' => __('app.failedAlert')],

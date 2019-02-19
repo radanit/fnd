@@ -19,8 +19,10 @@ class RadioTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,        
             'description' => $this->description,
-            'role_id' => $this->role->id,
-            'role_description' => $this->role->description,
+            'role_id' => $this->role_id,
+            'role_description' => $this->whenLoaded('role',function() {
+                return $this->role->description;
+            }),
         ];
     }
 }

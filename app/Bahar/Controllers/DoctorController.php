@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
-use App\Bahar\Models\RadioType;
-use App\Bahar\Resources\RadioTypeResource;
+use App\Bahar\Models\Doctor;
+use App\Bahar\Resources\DoctorResource;
 
-class RadioTypeController extends Controller
+class DoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,10 +28,10 @@ class RadioTypeController extends Controller
         $count = Config::get('radan.pagination.count',15);    
         
         if ($count) {
-            return RadioTypeResource::collection(RadioType::paginate($count));
+            return DoctorResource::collection(Doctor::paginate($count));
         }
         else {
-            return RadioTypeResource::collection(RadioType::all()); 
+            return DoctorResource::collection(Doctor::all()); 
         }
     }
 
@@ -45,18 +45,18 @@ class RadioTypeController extends Controller
     {
         // Validation rules
         Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:radio_types',
-            'description' => 'string|max:255',
-            'roles' => 'exists:roles,id',
+            'name' => 'required|string|max:255',
+			'family' => 'required|string|max:255',            
+            'specialities' => 'exists:specialities,id',
 
         ])->validate();
 
         try {
             // First create role in roles table     
-            $radioType = RadioType::create([
+            $doctor = Doctor::create([
                 'name' => $request->name,
-                'description' => $request->description,
-                'role_id' => $request->roles
+				'family' => $request->family,                
+                'speciality_id' => $request->specialities
             ]);
                 
             return response()->json([
@@ -66,7 +66,7 @@ class RadioTypeController extends Controller
 
         } catch (Exception $e) {                
             return response()->json([
-                'message' => 'Error create radio type',
+                'message' => 'Error create doctors',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
@@ -76,36 +76,38 @@ class RadioTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bahar\Models\RadioType  $radioType
+     * @param  \App\Bahar\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
-        return new RadioTypeResource(RadioType::findOrFail($id));
+        return new DoctorResource(Doctor::findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bahar\Models\RadioType  $radioType
+     * @param  \App\Bahar\Models\Doctor  $Doctor
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
         // Validation permission   
-        Validator::make($request->only('description','roles'), [
-            'description' => 'string|max:255',
-            'roles' => 'exists:roles,id'
+        Validator::make($request->only('name','family','specialities'), [
+            'name' => 'string|max:255',
+			'family' => 'string|max:255',
+            'specialities' => 'exists:specialities,id'
         ])->validate();
         
         try {
-            $radioType = RadioType::findOrFail($id);
-            $radioType->update([
-                'description' => $request->description,
-                'role_id' => $request->roles
+            $Doctor = Doctor::findOrFail($id);
+            $Doctor->update([
+                'name' => $request->name,
+				'family' => $request->family,
+                'speciality_id' => $request->specialities
             ]);
                         
             return response()->json([
@@ -113,9 +115,9 @@ class RadioTypeController extends Controller
                 $this->httpOk
             );
 
-        } catch (Exception $e) {            
+        } catch (Exception $e) {             
             return response()->json([
-                'message' => 'Error update radio type',
+                'message' => 'Error update doctors information',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
@@ -125,16 +127,16 @@ class RadioTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bahar\Models\RadioType  $radioType
+     * @param  \App\Bahar\Models\Doctor  $Doctor
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         // Find role by id        
-        $radioType = RadioType::findOrFail($id);                
+        $doctor = Doctor::findOrFail($id);                
             
         // Delete role, deattache user and permissions            
-        $radioType->delete();
+        $doctor->delete();
             
         // Return
         return response()->json([
