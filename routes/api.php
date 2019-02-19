@@ -12,4 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::middleware(['api','auth:api'])->prefix('bahar')->namespace('\App\Bahar\Controllers')
+        ->group(function() {
+    Route::apiResource('radiotypes', 'RadioTypeController');    
+    Route::apiResource('doctors', 'DoctorController');    
+    Route::apiResource('specialities', 'SpecialityController');    
+});

@@ -14,8 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResource('profiles', 'ProfileController');
-    Route::apiResource('users', 'UserController');
-    Route::apiResource('password_policies', 'PasswordPolicyController');
+    Route::apiResource('users', 'UserController');    
     Route::get('users/batch/active/{active}', 'BatchActiveUsersController@show');
     Route::post('users/batch/active', 'BatchActiveUsersController@update');
 });

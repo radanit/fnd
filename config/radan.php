@@ -10,8 +10,7 @@ return [
   | request to your application. Feel free to add your own services to
   | this array to grant expanded functionality to your applications.
   |
-  */
-
+  */  
   'providers' => [
     /*
     * Radan Foundation Service Providers...
@@ -26,6 +25,13 @@ return [
 
     // Radan Profile package service providers        
     App\Radan\Profile\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
+=======
+
+    // Radan Password Policy package service providers
+    App\Radan\PasswordPolicy\Providers\RouteServiceProvider::class,
+    App\Radan\PasswordPolicy\Providers\ServiceProvider::class,
+>>>>>>> dev
   ],
   
   /*
@@ -115,6 +121,110 @@ return [
     ],
   ],
   
+  /*
+  |--------------------------------------------------------------------------
+  | Password Policy Foundation Package configurations
+  |--------------------------------------------------------------------------    
+  |  Password Policy package manage password policy per user profiles  
+  */
+  'password_policy' => [
+    /*
+    |--------------------------------------------------------------------------
+    | Use Password Policy feature in the package
+    |--------------------------------------------------------------------------
+    | Defines if Radan Profile will use the Password Policy feature.
+    */
+    'use_password_policy' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Policy driver
+    |--------------------------------------------------------------------------
+    | Read Password Policy Driver (Drivers: database,localstore)
+    */
+    'driver' => 'database',
+
+    
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Policy default validation rule for localstore driver
+    |--------------------------------------------------------------------------
+    | Password validation if password policy feature is disable.
+    */
+    'default_validation_rules' => 'string|min:6|confirmed',
+    'default_validation_name' => 'password',
+    'default_policy_name' => 'default',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Radan Password Policy Models
+    |--------------------------------------------------------------------------    
+    | These are the models used by RadanPassword Policy to define the password 
+    | policy for each user profile . If you want the Radan Password Policy to be 
+    | in a different namespace or to have a different name, you can do it here.    
+    */
+    'models' => [
+      /**
+      * Profile model
+      */
+      'profiles' => 'App\Radan\Profile\Models\Profile',
+
+      /*
+       * PasswordPolicy model
+       */
+      'password_policies' => 'App\Radan\PasswordPolicy\Models\PasswordPolicy',
+
+      /**
+      * number of record fetched in request
+      */
+      'pagination' => [
+        'count' => 15, // if set to 0, return all records
+      ],
+    ],
+      /*
+    |--------------------------------------------------------------------------
+    | Radan Password Policy Tables
+    |--------------------------------------------------------------------------  
+    | These are the tables used by Password Policy to store all data.  
+    */
+    'tables' => [      
+      /**
+      * password policy table.
+      */
+      'password_policies' => 'password_policies' 
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Radan Password Policy Keys
+    |--------------------------------------------------------------------------
+    |
+    | These are the foreign keys used by Radan Profile in the intermediate tables.
+    |
+    */
+    'foreign_keys' => [
+      'profiles' => 'password_policy_id'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Radan Profile prevents rules
+    |--------------------------------------------------------------------------
+    |
+    | These are the prevents rules for delete record of profile tables.
+    |
+    */
+    'prevents' => [
+      /**
+      * password policy table prevents.
+      */
+      'password_policies' => [
+        'id' => 1,
+        'name' => 'deafult',
+      ],
+    ],
+  ],
   /*
   |--------------------------------------------------------------------------
   | Profile Foundation Package configurations
@@ -231,7 +341,6 @@ return [
     'foreign_keys' => [
       'users' => 'user_id',      
       'profiles' => 'profile_id',
-      'password_policies' => 'password_policy_id'
     ],
 
     /*
