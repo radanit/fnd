@@ -15,4 +15,6 @@ use Illuminate\Http\Request;
 Route::middleware(['api','auth:api'])->prefix('bahar')->namespace('\App\Bahar\Controllers')
         ->group(function() {
     Route::apiResource('radiotypes', 'RadioTypeController');    
+    Route::apiResource('doctors', 'DoctorController');    
+    Route::apiResource('specialities', 'SpecialityController');    
 });
