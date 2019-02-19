@@ -27,6 +27,23 @@
                 >
                 <el-input name="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
+                <el-form-item
+                  :label="trans('radioType.roles')"
+                  prop="roles"
+                  >
+                    <el-select
+                      v-model="form.role"
+                      filterable
+                      default-first-option
+                      :placeholder="trans('radioType.roles_choose_lbl')">
+                      <el-option
+                      v-for="item in form.role_options"
+                      :key="item.id"
+                      :label="item.description"
+                      :value="item.id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>                
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="createUserRadioType()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button  size="mini" type="primary" @click="createContinueUserRadioType()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
@@ -52,6 +69,8 @@
                 id: '',
                 name: '',
                 description: '',
+                roles:'',
+                role_options:[],
               },
           }
       },
@@ -83,7 +102,7 @@
                     name: this.form.name,
                     description: this.form.description
                   }
-                  axios.post('../api/radioTypes',newRadioType).then((response) =>{
+                  axios.post('../api/bahar/radioTypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
@@ -125,7 +144,7 @@
                 description: this.form.description,
                 display_name: this.form.description
               }
-                  axios.post('../api/radioTypes',newRadioType).then((response) =>{
+                  axios.post('../api/bahar/radioTypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
@@ -160,6 +179,25 @@
         resetForm(formName) {
           this.$refs[formName].resetFields();
         },
+        /*
+        |--------------------------------------------------------------------------
+        | Load Roles Method
+        | Added By e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method Load Roles Info
+        |
+        */        
+        loadRoles(){
+          axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
+                this.$message({
+                  title: '',
+                  message:error.response.data.errors,
+                  center: true,
+                  type: 'error'
+                });             
+            });
+        }, 
       },
       directives: {
             focus: {
@@ -168,7 +206,10 @@
                 el.focus()
                 }
             }
-      },      
+      },
+      created() {
+        this.loadRoles();        
+      },     
       mounted() {
         this.$refs.name.focus();
         Fire.$on('AfterCrud',() => {

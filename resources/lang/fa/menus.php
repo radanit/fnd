@@ -18,5 +18,5 @@ return [
 'reception_management' =>'مدیریت پذیرش',
 'reception' => 'پذیرش',
 'doctor_management' => 'مدیریت پزشکان',
-'radio_type_management' => 'مدیریت انواع تصویر',
+'radio_type_management' => 'مدیریت انواع عکسبرداری',
 ];

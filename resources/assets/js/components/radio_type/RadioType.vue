@@ -108,7 +108,7 @@
             |
             */     
             infiniteHandler($state) {
-                axios.get("../api/radioTypes", {
+                axios.get("../api/bahar/radiotypes", {
                     params: {
                     page: this.page,
                     },
@@ -143,8 +143,8 @@
             | This method Load RadioType Info
             |
             */
-            loadUserRadioTypes(){
-                axios.get("../api/radioTypes").then(({data})=>(this.list = data.data)).catch((error)=>{
+            loadRadioTypes(){
+                axios.get("../api/bahar/radiotypes").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -193,9 +193,9 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/radioTypes/'+record.id)
+                  axios.delete('../api/bahar/radiotypes/'+record.id)
                 .then(response => {
-                   this.loadUserRadioTypes();
+                   this.loadRadioTypes();
                         this.$message({
                         type: 'success',
                         center: true,
@@ -227,7 +227,7 @@
         },
         created() {              
             Fire.$on('AfterCrud',() => {
-                //this.loadUserRadioTypes();
+                //this.loadRadioTypes();
             });
         }
     }

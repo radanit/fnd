@@ -27,6 +27,23 @@
             >
             <el-input name="description" type="text" ref="description" v-model="form.description" autocomplete="off"></el-input>
             </el-form-item>
+            <el-form-item
+              :label="trans('radioType.roles')"
+              prop="roles"
+              >
+                <el-select
+                  v-model="form.role"
+                  filterable
+                  default-first-option
+                  :placeholder="trans('radioType.roles_choose_lbl')">
+                  <el-option
+                  v-for="item in form.role_options"
+                  :key="item.id"
+                  :label="item.description"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>  
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button size="mini" type="info" @click="backToRadioTypeList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -49,7 +66,9 @@
             {
               id: '',
               name: '',
-              description: '',          
+              description: '',
+              roles:'',
+              role_options:[],         
             },
         }
     },
@@ -65,14 +84,14 @@
         */
         loadUserRadioType(){
           this.form.id=this.$route.params.radioTypeId;
-          axios.get("../api/auth/radioTypes/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
+          axios.get("../api/bahar/radioTypes/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message:error.response.data.errors,
                 center: true,
                 type: 'error'
               });
-              this.$router.push({name: 'edit_radioTypes'});                 
+              this.$router.push({name: 'edit_radio_types'});                 
           });
         },
         /*
@@ -98,7 +117,7 @@
         |
         */          
         updateUserRadioType(){
-          axios.put('../api/auth/radioTypes/'+this.form.id,{name: this.form.name,
+          axios.put('../api/bahar/radioTypes/'+this.form.id,{name: this.form.name,
           description: this.form.description}).then(response => {
           this.$message({
             type: 'success',
@@ -135,6 +154,25 @@
             }
           });
         },
+        /*
+        |--------------------------------------------------------------------------
+        | Load Roles Method
+        | Added By e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method Load Roles Info
+        |
+        */        
+        loadRoles(){
+          axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
+                this.$message({
+                  title: '',
+                  message:error.response.data.errors,
+                  center: true,
+                  type: 'error'
+                });             
+            });
+        }, 
     },
     directives: {
           focus: {
@@ -145,7 +183,8 @@
           }
     },            
     created() {
-        this.loadUserRadioType();        
+        this.loadUserRadioType();
+        this.loadRoles();      
         Fire.$on('AfterCrud',() => {
             //
         });

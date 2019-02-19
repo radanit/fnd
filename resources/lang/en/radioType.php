@@ -23,4 +23,6 @@ return [
     'radioTypeDescriptionRequierdError' =>'Radio Type Description Is required!',
     'status' => 'Status',
     'radioType_lbl' => 'RadioType',
+    'roles' => 'Role',
+    'roles_choose_lbl' => 'Choose Role'
 ];
