@@ -25,13 +25,6 @@ return [
 
     // Radan Profile package service providers        
     App\Radan\Profile\Providers\RouteServiceProvider::class,
-<<<<<<< HEAD
-=======
-
-    // Radan Password Policy package service providers
-    App\Radan\PasswordPolicy\Providers\RouteServiceProvider::class,
-    App\Radan\PasswordPolicy\Providers\ServiceProvider::class,
->>>>>>> dev
   ],
   
   /*
