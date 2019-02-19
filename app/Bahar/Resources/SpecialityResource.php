@@ -4,7 +4,7 @@ namespace App\Bahar\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RadioTypeResource extends JsonResource
+class SpecialityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,7 @@ class RadioTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,        
-            'description' => $this->description,
-            'role_id' => $this->role->id,
-            'role_description' => $this->role->description,
+            'description' => $this->description,            
         ];
     }
 }
