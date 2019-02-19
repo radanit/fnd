@@ -102,7 +102,7 @@
                     name: this.form.name,
                     description: this.form.description
                   }
-                  axios.post('../api/bahar/radioTypes',newRadioType).then((response) =>{
+                  axios.post('../api/bahar/radiotypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
@@ -142,9 +142,9 @@
                 let newRadioType ={
                 name: this.form.name,
                 description: this.form.description,
-                display_name: this.form.description
+                roles:this.form.roles
               }
-                  axios.post('../api/bahar/radioTypes',newRadioType).then((response) =>{
+                  axios.post('../api/bahar/radiotypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
