@@ -6,7 +6,7 @@ npm<template>
 		<!-- Profile Image -->
 		<div class="card card-primary card-outline">
 		  <div class="card-body box-profile">
-			<div class="text-center">
+			<div class="text-center profile-image">
 			<el-upload
 			  class="avatar-uploader"
 			  action="https://jsonplaceholder.typicode.com/posts/"
@@ -14,7 +14,8 @@ npm<template>
 			  :on-success="handleAvatarSuccess"
 			  :before-upload="beforeAvatarUpload">
 			  <img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid img-circle el-icon-plus" alt="User profile picture">
-			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+			  <i v-else class="el-icon-plus avatar-uploader-icon"></i>		
+				<div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
 			</el-upload>
 			  <!--<img class="profile-user-img img-fluid img-circle" src="images/user4-128x128.jpg" alt="User profile picture">-->
 			</div>
@@ -564,5 +565,17 @@ small {
 }
 .btn-tool:lang(en){
 	float: right !important;
+}
+.profile-image:hover .edit {
+	display: block;
+}
+
+.edit {
+	padding-top: 60px;
+	padding-right: 105px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
 }
 </style>
