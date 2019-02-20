@@ -3,11 +3,11 @@
 namespace App\Bahar\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Traits\RadanًRestrictedRelationTrait;
+use App\Radan\Traits\RadanRestrictedRelationTrait;
 
 class Speciality extends Model
 {
-    use RadanًRestrictedRelationTrait;
+    use RadanRestrictedRelationTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,7 @@ class Speciality extends Model
 
     /**
      * The attributes that are use for deleteing restricted
-     * come with RadanًRestrictedRelationTrait.
+     * come with RadanRestrictedRelationTrait.
      * On deleting this mode instance , check restricted array
      * to have relation with this model.
      * @var array

@@ -3,11 +3,11 @@
 namespace App\Bahar\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Traits\RadanًRestrictedRelationTrait;
+use App\Radan\Traits\RadanRestrictedRelationTrait;
 
 class Doctor extends Model
 {
-    use RadanًRestrictedRelationTrait;
+    use RadanRestrictedRelationTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,7 @@ class Doctor extends Model
      * @var array
      */
     protected $fillable = [
-        'description','name','speciality_id'
+        'first_name','last_name','speciality_id'
     ];
 
     /**

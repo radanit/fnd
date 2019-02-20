@@ -17,12 +17,12 @@ class DoctorResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'name' => $this->name,        
-            'description' => $this->description,
-            'speciality_id' => $this->speciality_id, 
-            'speciality_description' => $this->whenLoaded('speciality', function() {
+            'first_name' => $this->first_name,        
+            'last_name' => $this->last_name,
+            'speciality_id' => $this->speciality_id,
+            'speciality_description' => $this->whenLoaded('speciality',function() {
 				return $this->speciality->description;
-			});
+			}),
         ];
     }
 }

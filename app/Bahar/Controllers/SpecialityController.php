@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
-use App\Bahar\Models\RadioType;
-use App\Bahar\Resources\RadioTypeResource;
+use App\Bahar\Models\Speciality;
+use App\Bahar\Resources\SpecialityResource;
 
-class RadioTypeController extends Controller
+class SpecialityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,16 +22,15 @@ class RadioTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-        // Return
+    {        
+        // Return JSON response
         $count = Config::get('radan.pagination.count',15);    
         
         if ($count) {
-            return RadioTypeResource::collection(RadioType::paginate($count));
+            return SpecialityResource::collection(Speciality::paginate($count));
         }
         else {
-            return RadioTypeResource::collection(RadioType::all()); 
+            return SpecialityResource::collection(Speciality::all()); 
         }
     }
 
@@ -43,101 +42,81 @@ class RadioTypeController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation rules
+        // Validation Request
         Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:radio_types',
-            'description' => 'string|max:255',
-            'roles' => 'exists:roles,id',
-
+            'name' => 'required|string|max:255|unique:specialities',
+            'description' => 'string|max:255',            
         ])->validate();
-
-        try {
-            // First create role in roles table     
-            $radioType = RadioType::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'role_id' => $request->roles
-            ]);
+        
+        // Create Resource     
+        $speciality = Speciality::create([
+            'name' => $request->name,
+            'description' => $request->description,               
+        ]);
                 
-            return response()->json([
-                'message' => __('app.insertAlert')],
-                $this->httpCreated
-            );
-
-        } catch (Exception $e) {                
-            return response()->json([
-                'message' => 'Error create radio type',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }
+        // Return JSON response
+        return response()->json([
+            'message' => __('app.insertAlert')],
+            $this->httpCreated
+        );        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bahar\Models\RadioType  $radioType
+     * @param  Integer  $id ,Speciality id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-        return new RadioTypeResource(RadioType::findOrFail($id));
+        // Return JSON response
+        return new SpecialityResource(Speciality::findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bahar\Models\RadioType  $radioType
+     * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-        // Validation permission   
-        Validator::make($request->only('description','roles'), [
-            'description' => 'string|max:255',
-            'roles' => 'exists:roles,id'
+    {        
+        // Validation Request  
+        Validator::make($request->only('description'), [
+            'description' => 'string|max:255',            
         ])->validate();
+                
+        // Find Resource and update, 
+        // ModelNotFoundException throw if Resource not found
+        $speciality = Speciality::findOrFail($id);
+        $speciality->update([
+            'description' => $request->description,                
+        ]);
         
-        try {
-            $radioType = RadioType::findOrFail($id);
-            $radioType->update([
-                'description' => $request->description,
-                'role_id' => $request->roles
-            ]);
-                        
-            return response()->json([
-                'message' => __('app.updateAlert')],
-                $this->httpOk
-            );
-
-        } catch (Exception $e) {     
-            dd($e)       ;
-            return response()->json([
-                'message' => 'Error update radio type',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        } 
+        // Return JSON response            
+        return response()->json([
+            'message' => __('app.updateAlert')],
+            $this->httpOk
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bahar\Models\RadioType  $radioType
+     * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // Find role by id        
-        $radioType = RadioType::findOrFail($id);                
+        // Find Resource by id
+        // ModelNotFoundException throw if Resource not found        
+        $speciality = Speciality::findOrFail($id);                
             
-        // Delete role, deattache user and permissions            
-        $radioType->delete();
+        // Delete Resource            
+        $speciality->delete();
             
-        // Return
+        // Return JSON response
         return response()->json([
             'message' => __('app.deleteAlert')],
             $this->httpOk
