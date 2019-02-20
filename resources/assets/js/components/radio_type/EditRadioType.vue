@@ -8,42 +8,41 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  :model="form" @keyup.enter.native="updateUserRadioType" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form  :model="form" @keyup.enter.native="updateRadioType" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
-            :label="trans('radioTyperadioTypeName')"
+            :label="trans('radioType.name')"
             prop="name"
             :rules="[
-              { required: true, message: trans('radioTyperadioTypeNameRequierdError')}
+              { required: true, message: trans('radioType.radioTypeNameRequierdError')}
             ]"
             >
             <el-input name="name" ref="name" type="text" :disabled="true" v-model.number="form.name" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
-            :label="trans('radioTyperadioTypeDescription')"
+            :label="trans('radioType.description')"
             prop="description"
             :rules="[
-              { required: true, message: trans('radioTyperadioTypeDescriptionRequierdError')}
+              { required: true, message: trans('radioType.radioTypeDescriptionRequierdError')}
             ]"
             >
             <el-input name="description" type="text" ref="description" v-model="form.description" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item
-              :label="trans('radioType.roles')"
-              prop="roles"
-              >
-                <el-select
-                  v-model="form.role"
-                  filterable
-                  default-first-option
-                  :placeholder="trans('radioType.roles_choose_lbl')">
-                  <el-option
-                  v-for="item in form.role_options"
+              :label="trans('radioType.roles_lbl')"
+              prop="roles">
+              <el-select
+                v-model="form.role_id"
+                filterable
+                default-first-option
+                :placeholder="trans('radioType.role_choose_lbl')">
+                <el-option
+                  v-for="item in role_options"
                   :key="item.id"
                   :label="item.description"
                   :value="item.id">
                 </el-option>
               </el-select>
-            </el-form-item>  
+            </el-form-item>
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button size="mini" type="info" @click="backToRadioTypeList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -67,9 +66,9 @@
               id: '',
               name: '',
               description: '',
-              roles:'',
-              role_options:[],         
+              role_id:'',                 
             },
+            role_options:[],
         }
     },
     methods :{
@@ -84,7 +83,7 @@
         */
         loadUserRadioType(){
           this.form.id=this.$route.params.radioTypeId;
-          axios.get("../api/bahar/radioTypes/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
+          axios.get("../api/bahar/radiotypes/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message:error.response.data.errors,
@@ -116,9 +115,12 @@
         | This method Update RadioType Info To Database
         |
         */          
-        updateUserRadioType(){
-          axios.put('../api/bahar/radioTypes/'+this.form.id,{name: this.form.name,
-          description: this.form.description}).then(response => {
+        updateRadioType(){
+          let radioTypeInfo={
+            description:this.form.description,          
+            roles:this.form.role_id
+          }
+          axios.put('../api/bahar/radiotypes/'+this.form.id,radioTypeInfo).then(response => {
           this.$message({
             type: 'success',
             center: true,
@@ -146,7 +148,7 @@
           this.$refs[formName].validate((valid) => {
             if (valid) 
             {
-              this.updateUserRadioType();
+              this.updateRadioType();
               this.backToRadioTypeList();
             }
             else {
@@ -164,7 +166,7 @@
         |
         */        
         loadRoles(){
-          axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
+          axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch((error)=>{
                 this.$message({
                   title: '',
                   message:error.response.data.errors,

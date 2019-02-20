@@ -32,7 +32,7 @@
                   prop="roles"
                   >
                     <el-select
-                      v-model="form.role"
+                      v-model.number="form.roles"
                       filterable
                       default-first-option
                       :placeholder="trans('radioType.roles_choose_lbl')">

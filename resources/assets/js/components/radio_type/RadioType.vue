@@ -83,6 +83,11 @@
     export default {
         data(){
             return{
+                warningAlert : trans('app.warningAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText'),
                 radioTypes :{},
                 form: 
                 {
@@ -212,7 +217,7 @@
                   this.$message({
                     type: 'info',
                     center: true,
-                    message: this.form.cancelAlert
+                    message: this.cancelAlert
                   });          
                 });
             },
