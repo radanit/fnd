@@ -117,7 +117,7 @@
             |
             */     
             infiniteHandler($state) {
-                axios.get("../api/doctors", {
+                axios.get("../api/bahar/doctors", {
                     params: {
                     page: this.page,
                     },
@@ -153,7 +153,7 @@
             |
             */
             loadUserDoctors(){
-                axios.get("../api/doctors").then(({data})=>(this.list = data.data)).catch((error)=>{
+                axios.get("../api/bahar/doctors").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -202,7 +202,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/doctors/'+record.id)
+                  axios.delete('../api/bahar/doctors/'+record.id)
                 .then(response => {
                    this.loadUserDoctors();
                         this.$message({

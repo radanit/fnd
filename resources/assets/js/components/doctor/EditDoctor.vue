@@ -87,7 +87,7 @@
         */
         loadUserDoctor(){
           this.form.id=this.$route.params.doctorId;
-          axios.get("../api/doctors/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
+          axios.get("../api/bahar/doctors/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message:error.response.data.errors,
@@ -120,7 +120,7 @@
         |
         */          
         updateDoctor(){
-          axios.put('../api/doctors/'+this.form.id,{name: this.form.name,
+          axios.put('../api/bahar/doctors/'+this.form.id,{name: this.form.name,
           description: this.form.description}).then(response => {
           this.$message({
             type: 'success',

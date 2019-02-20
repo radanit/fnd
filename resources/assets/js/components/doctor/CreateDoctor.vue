@@ -109,7 +109,7 @@
                     description: this.form.description,
                     display_name: this.form.description
                   }
-                  axios.post('../api/doctors',newDoctor).then((response) =>{
+                  axios.post('../api/bahar/doctors',newDoctor).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
@@ -151,7 +151,7 @@
                 description: this.form.description,
                 display_name: this.form.description
               }
-                  axios.post('../api/doctors',newDoctor).then((response) =>{
+                  axios.post('../api/bahar/doctors',newDoctor).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
