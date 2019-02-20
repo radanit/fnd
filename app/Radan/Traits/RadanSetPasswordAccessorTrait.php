@@ -9,7 +9,7 @@ namespace App\Radan\Traits;
  * @package Radan/Traits
  */
 
-trait RadanًSetPasswordAccessorTrait
+trait RadanSetPasswordAccessorTrait
 {
     /**
      * Get the user's full name.

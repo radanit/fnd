@@ -3,11 +3,11 @@
 namespace App\Radan\Auth\Models;
 
 use Laratrust\Models\LaratrustPermission;
-use App\Radan\Traits\RadanًRestrictedRelationTrait;
+use App\Radan\Traits\RadanRestrictedRelationTrait;
 
 class Permission extends LaratrustPermission
 {
-    use RadanًRestrictedRelationTrait;
+    use RadanRestrictedRelationTrait;
 
     /**
      * The attributes that are mass assignable.
