@@ -11,7 +11,7 @@ namespace App\Radan\Traits;
 
 use App\Radan\Exceptions\ResourceRestricted;
 
-trait RadanًRestrictedRelationTrait
+trait RadanRestrictedRelationTrait
 {
     /*
     |--------------------------------------------------------------------------
