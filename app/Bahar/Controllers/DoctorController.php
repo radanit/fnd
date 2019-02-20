@@ -22,17 +22,17 @@ class DoctorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-        // Return
+    {        
+        // Return JSON response
         $count = Config::get('radan.pagination.count',15);    
         
-        if ($count) {
-            return DoctorResource::collection(Doctor::paginate($count));
+        if ($count) {            
+            $doctors = Doctor::with('speciality')->paginate($count);
         }
         else {
-            return DoctorResource::collection(Doctor::all()); 
+            $doctors = Doctor::with('speciality')->get();
         }
+        return DoctorResource::collection($doctors);
     }
 
     /**
@@ -43,102 +43,88 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation rules
+        // Validation Request
         Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-			'family' => 'required|string|max:255',            
-            'specialities' => 'exists:specialities,id',
-
+            'first_name' => 'required|string|max:255',
+			'last_name' => 'required|string|max:255',            
+            'specialities' => 'required|exists:specialities,id',
         ])->validate();
 
-        try {
-            // First create role in roles table     
-            $doctor = Doctor::create([
-                'name' => $request->name,
-				'family' => $request->family,                
-                'speciality_id' => $request->specialities
-            ]);
+        // Create Resource
+        $doctor = Doctor::create([
+            'first_name' => $request->first_name,
+			'last_name' => $request->last_name,                
+            'speciality_id' => $request->specialities
+        ]);
                 
-            return response()->json([
-                'message' => __('app.insertAlert')],
-                $this->httpCreated
-            );
-
-        } catch (Exception $e) {                
-            return response()->json([
-                'message' => 'Error create doctors',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }
+        // Return JSON response
+        return response()->json([
+            'message' => __('app.insertAlert')],
+            $this->httpCreated
+        );       
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bahar\Models\Doctor  $doctor
+     * @param  Integer    $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-        return new DoctorResource(Doctor::findOrFail($id));
+        // Return JSON response
+        return new DoctorResource(Doctor::with('speciality')->findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bahar\Models\Doctor  $Doctor
+     * @param  Integer                   $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        // Validation permission   
-        Validator::make($request->only('name','family','specialities'), [
-            'name' => 'string|max:255',
-			'family' => 'string|max:255',
+        // Validation Request   
+        Validator::make($request->only('first_name','last_name','specialities'), [
+            'first_name' => 'string|max:255',
+			'last_name' => 'string|max:255',
             'specialities' => 'exists:specialities,id'
         ])->validate();
         
-        try {
-            $Doctor = Doctor::findOrFail($id);
-            $Doctor->update([
-                'name' => $request->name,
-				'family' => $request->family,
-                'speciality_id' => $request->specialities
-            ]);
-                        
-            return response()->json([
-                'message' => __('app.updateAlert')],
-                $this->httpOk
-            );
-
-        } catch (Exception $e) {             
-            return response()->json([
-                'message' => 'Error update doctors information',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        } 
+        // Find Resource and update, 
+        // ModelNotFoundException throw if Resource not found
+        $Doctor = Doctor::findOrFail($id);
+        $Doctor->update([
+            'first_name' => $request->first_name,
+			'last_name' => $request->last_name,
+            'speciality_id' => $request->specialities
+        ]);
+          
+        // Return JSON response              
+        return response()->json([
+            'message' => __('app.updateAlert')],
+            $this->httpOk
+        );        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bahar\Models\Doctor  $Doctor
+     * @param  Integer $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // Find role by id        
+        // Find Resource by id
+        // ModelNotFoundException throw if Resource not found
         $doctor = Doctor::findOrFail($id);                
             
-        // Delete role, deattache user and permissions            
+        // Delete Resource
         $doctor->delete();
             
-        // Return
+        // Return JSON response
         return response()->json([
             'message' => __('app.deleteAlert')],
             $this->httpOk

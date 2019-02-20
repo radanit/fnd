@@ -166,6 +166,7 @@ return [
         'permissions.*' => 'این سطح دسترسی',
         'structure' => 'ساختار',
         'password_policy_id' => 'محدودیت رمز عبور',
+        'specialities' => 'تخصص پزشک'
     ],
 
 ];

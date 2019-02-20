@@ -3,11 +3,11 @@
 namespace App\Bahar\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Traits\RadanًRestrictedRelationTrait;
+use App\Radan\Traits\RadanRestrictedRelationTrait;
 
 class RadioType extends Model
 {
-    use RadanًRestrictedRelationTrait;
+    use RadanRestrictedRelationTrait;
 
     /**
      * The attributes that are mass assignable.
