@@ -217,7 +217,7 @@
                   this.$message({
                     type: 'info',
                     center: true,
-                    message: this.form.cancelAlert
+                    message: this.cancelAlert
                   });          
                 });
             },

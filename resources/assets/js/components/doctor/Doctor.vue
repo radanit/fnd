@@ -34,7 +34,7 @@
                       sortable
 					  prop="last_name">
 					</el-table-column>
-                    <el-table-column prop="specialites[0].description" :label="trans('doctor.speciality')" sortable>                        
+                    <el-table-column prop="speciality_description" :label="trans('doctor.speciality')" sortable>                        
                     </el-table-column>
 					<el-table-column class="float-left"
 					  align="right">

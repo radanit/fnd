@@ -17,6 +17,6 @@ return [
 'profile_structure' => 'مدیریت پروفایل ها',
 'reception_management' =>'مدیریت پذیرش',
 'reception' => 'پذیرش',
-'doctor_management' => 'مدیریت پزشکان',
-'radio_type_management' => 'مدیریت انواع عکسبرداری',
+'doctor_management' => 'پزشکان',
+'radio_type_management' => 'انواع عکسبرداری',
 ];

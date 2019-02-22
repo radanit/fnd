@@ -66,7 +66,7 @@
                             :page-size="pagination.per_page"                         
                             :total="pagination.total"
                             @current-change="loadPage"
-                            :current-page.sync="pagination.per_page">
+                            :current-page.sync="pagination.current_page">
                         </el-pagination>             
                   </div>
               </div>
@@ -173,6 +173,7 @@
             */            
             loadPage(){                
                 this.loadProfileStructure(this.page);
+                console.log(this.pagination);
             },
             /*
             |--------------------------------------------------------------------------

@@ -29,18 +29,18 @@
             </el-form-item>
             <el-form-item
             :label="trans('doctor.speciality')"
-            prop="speciality"
+            prop="speciality_id"
             :rules="[
               { required: true, message: trans('doctor.doctorSpecialityRequierdError')}
             ]"
             >
               <el-select
-                v-model="form.specialities"
+                v-model="form.speciality_id"
                 filterable
                 default-first-option
                 :placeholder="trans('doctor.speciality_choose_lbl')">
                 <el-option
-                v-for="item in form.speciality_options"
+                v-for="item in speciality_options"
                 :key="item.id"
                 :label="item.description"
                 :value="item.id">
@@ -48,9 +48,8 @@
             </el-select>
             </el-form-item>
               <el-form-item>
-                <el-button  size="mini" type="success" @click="createDoctor()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                <el-button  size="mini" type="primary" @click="createContinueDoctor()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
-                <el-button  size="mini" type="info" @click="backToDoctorList" plain>{{trans('app.backBtnLbl')}} </el-button>   
+              <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+              <el-button size="mini" type="info" @click="backToDoctorList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button> 
               </el-form-item>
             </el-form>
           </div>
@@ -70,9 +69,9 @@
           {
             first_name: '',
             last_name: '',
-            specialities: '',
-            speciality_options:[],
+            speciality_id: '',            
           },
+          speciality_options:[],
         }
     },
     methods :{
@@ -85,7 +84,7 @@
         | This method load Doctor info for edit
         |
         */
-        loadUserDoctor(){
+        loadDoctor(){
           this.form.id=this.$route.params.doctorId;
           axios.get("../api/bahar/doctors/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
@@ -97,6 +96,25 @@
               this.$router.push({name: 'edit_doctors'});                 
           });
         },
+        /*
+        |--------------------------------------------------------------------------
+        | Load specialities
+        | Added by e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method specialities list
+        |
+        */    
+        loadSpeciality(){
+          axios.get("../api/bahar/specialities").then(({data})=>(this.speciality_options = data.data)).catch((error)=>{
+            this.$message({
+              title: '',
+              message: error.respons.data.errors,
+              center: true,
+              type: 'error'
+            });                
+          });
+        },           
         /*
         |--------------------------------------------------------------------------
         | Back to Doctor List
@@ -120,8 +138,12 @@
         |
         */          
         updateDoctor(){
-          axios.put('../api/bahar/doctors/'+this.form.id,{name: this.form.name,
-          description: this.form.description}).then(response => {
+          let doctorInfo ={
+            first_name: this.form.first_name,
+            last_name: this.form.last_name,
+            speciality_id: this.form.speciality_id
+          }
+          axios.put('../api/bahar/doctors/'+this.form.id,doctorInfo).then(response => {
           this.$message({
             type: 'success',
             center: true,
@@ -167,7 +189,8 @@
           }
     },            
     created() {
-        this.loadUserDoctor();        
+        this.loadDoctor();
+        this.loadSpeciality();
         Fire.$on('AfterCrud',() => {
             //
         });
