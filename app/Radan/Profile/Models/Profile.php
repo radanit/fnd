@@ -3,13 +3,11 @@
 namespace App\Radan\Profile\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
-use App\Radan\PasswordPolicy\Traits\PasswordPolicyProfileTrait;
+use App\Radan\Policy\Traits\PasswordPolicyProfileTrait;
 
 class Profile extends Model 
-{        
-    // use SoftDeletes;
+{            
     use PasswordPolicyProfileTrait;
 
     /**

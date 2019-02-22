@@ -18,10 +18,8 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('description');
-            $table->json('structure');
-            $table->unsignedInteger('password_policy_id')->default(1);            
-            $table->timestamps();
-            //$table->softDeletes();
+            $table->json('structure');          
+            $table->timestamps();            
         });
     }
 

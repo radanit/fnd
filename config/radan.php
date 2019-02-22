@@ -27,8 +27,8 @@ return [
     App\Radan\Profile\Providers\RouteServiceProvider::class,
 
     // Radan Password Policy package service providers
-    App\Radan\PasswordPolicy\Providers\RouteServiceProvider::class,
-    App\Radan\PasswordPolicy\Providers\ServiceProvider::class,
+    App\Radan\Policy\Providers\RouteServiceProvider::class,    
+    App\Radan\Policy\Providers\PasswordPolicyServiceProvider::class,    
   ],
   
   /*
@@ -124,35 +124,42 @@ return [
   |--------------------------------------------------------------------------    
   |  Password Policy package manage password policy per user profiles  
   */
-  'password_policy' => [
+  'password_policy' => [    
     /*
     |--------------------------------------------------------------------------
-    | Use Password Policy feature in the package
+    | Password Policy validation name
     |--------------------------------------------------------------------------
-    | Defines if Radan Profile will use the Password Policy feature.
+    | This name use in laravel validation list
     */
-    'use_password_policy' => true,
+    'validation_name' => 'password',
 
     /*
     |--------------------------------------------------------------------------
     | Password Policy driver
     |--------------------------------------------------------------------------
-    | Read Password Policy Driver (Drivers: database,localstore)
+    | Read Password Policy Driver (Drivers: database,local)
     */
     'driver' => 'database',
-
-    
-
+  
     /*
     |--------------------------------------------------------------------------
-    | Password Policy default validation rule for localstore driver
+    | Password Policy validation rule for local driver
     |--------------------------------------------------------------------------
-    | Password validation if password policy feature is disable.
+    | If Password Polict driver set to local, then below parameters use for 
+    | password policy validation and policies
     */
-    'default_validation_rules' => 'string|min:6|confirmed',
-    'default_validation_name' => 'password',
-    'default_policy_name' => 'default',
-
+    'local' => [
+      'default' => [
+        'rules' => [
+          'min_length' => 6,
+        ],
+      ],
+      'user' => [
+        'rules' => [
+          'min_length' => 6,
+        ],
+      ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Radan Password Policy Models

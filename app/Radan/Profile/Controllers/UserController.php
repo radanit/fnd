@@ -16,24 +16,8 @@ use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Resources\UserResource;
 
 class UserController extends Controller
-{
-    
-    /*
-     * Password Validation rule name
-     */
-    protected $passwordValidationRule = '';
-
-    /**
-     * Creates a new instance of the model.
-     *
-     * @param  array  $attributes
-     * @return void
-     */
-    public function __construct()
-    {                
-        $this->passwordValidationRule = Config::get('radan.password_policy.password_policy_default','confirmed|string|min:6');
-    }
-    
+{        
+ 
     /**
      * Display a listing of the resource.
      *
@@ -81,7 +65,7 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',                        
-            'password' => 'required|'.$this->passwordValidationRule,
+            'password' => 'required|confirmed|min:6',
             'active' => 'boolean',
             'profile_id' => 'required|exists:'.$profileTable.',id',
             'profile_data' => 'json',
@@ -154,7 +138,7 @@ class UserController extends Controller
         // Validation
 		$request->validate([         
             'email' => 'string|email|max:255|unique:users',                        
-            'password' => $this->passwordValidationName,
+            'password' => 'confirmed|min:6',
             'active' => 'boolean',
             'profile_id' => 'exists:'.$profileTable.',id',
             'profile_data' => 'json',

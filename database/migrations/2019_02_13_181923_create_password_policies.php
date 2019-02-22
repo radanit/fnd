@@ -26,6 +26,17 @@ class CreatePasswordPolicies extends Migration
             $table->string('does_not_contain')->nullable()->default(NULL);
             $table->timestamps();
         });
+
+        // Add field for relation
+        Schema::table('profiles', function($table) {
+             $table                
+                ->unsignedInteger('password_policy_id')
+                ->after('structure')
+                ->comment('Add by Radan PasswordPolicy package')                
+                ->default(1);
+        });
+
+         
     }
 
     /**
@@ -36,5 +47,10 @@ class CreatePasswordPolicies extends Migration
     public function down()
     {
         Schema::dropIfExists('password_policies');
+
+        // Drop field for relation
+        Schema::table('profiles', function($table) {
+            $table->dropColumn('password_policy_id');
+        });
     }
 }

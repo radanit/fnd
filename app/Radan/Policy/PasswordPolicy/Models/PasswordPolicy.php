@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Radan\PasswordPolicy;
+namespace App\Radan\Policy\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Config\Repository as Config;
 
 class PasswordPolicy extends Model 
 {        
-    // use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,15 @@ class PasswordPolicy extends Model
      */
 
     protected $fillable = [
-        'name', 'description', 'min_length', 'max_length','upper_case','lower_case','digits','special_chars','does_not_contain'
+        'name',
+        'description',
+        'min_length',
+        'max_length',
+        'upper_case',
+        'lower_case',
+        'digits',
+        'special_chars',
+        'does_not_contain'
     ];
 
     /**
@@ -38,19 +46,18 @@ class PasswordPolicy extends Model
         'lower_case' => 'integer',
         'digits' => 'integer',
         'special_chars' => 'integer',
-    ];
+    ];    
 
     /**
-     * Creates a new instance of the model.
+     * The method for relationships
      *
-     * @param  array  $attributes
-     * @return void
-     */
-    public function __construct(array $attributes = [])
+     * @var void
+     */    
+    public function profiles()
     {
-        parent::__construct($attributes);
-        $this->table = Config::get('radan.password_policy.tables.password_policies','password_policies');
+        return $this->belongsTo('App\Radan\Profile\Models\Profile', 'id', 'password_policy_id');
     }
+
 
     /**
      * Get the max length attribute Accessore

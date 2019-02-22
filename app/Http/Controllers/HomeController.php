@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Config\Repository;
-use App\Radan\Config\Config;
 
 class HomeController extends Controller
 {
@@ -18,15 +16,14 @@ class HomeController extends Controller
         $this->middleware('auth');
         
     }
-
-    protected $model;
+    
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Repository $config)
-    {                
+    public function index()
+    {
         return view('home');        
     }
 

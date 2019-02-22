@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\PasswordPolicy\Providers;
+namespace App\Radan\Policy\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Providers\RouteServiceProvider as BaseRouteServiceProvider;
