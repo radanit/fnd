@@ -13,7 +13,6 @@
             <!-- container-fluid -->
             <div class="container-fluid">
                 <router-view></router-view>
-                <Reception :currentuser={{$currentuser}}></Reception>
             </div>
             <!-- /.container-fluid -->
             </div>

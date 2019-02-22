@@ -83,7 +83,7 @@
                     name: this.form.name,
                     description: this.form.description
                   }
-                  axios.post('../api/specialities',newSpeciality).then((response) =>{
+                  axios.post('../api/bahar/specialities',newSpeciality).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',
@@ -125,7 +125,7 @@
                 description: this.form.description,
                 display_name: this.form.description
               }
-                  axios.post('../api/specialities',newSpeciality).then((response) =>{
+                  axios.post('../api/bahar/specialities',newSpeciality).then((response) =>{
                   Fire.$emit('AfterCrud');
                   this.$message({
                     title: '',

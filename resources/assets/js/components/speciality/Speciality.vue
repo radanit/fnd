@@ -83,6 +83,11 @@
     export default {
         data(){
             return{
+                warningAlert : trans('app.warningAlert'),
+                cancelAlert : trans('app.cancelAlert'),
+                noticTxt : trans('app.noticTxt'),
+                cancelButtonText : trans('app.cancelButtonText'),
+                confirmButtonText : trans('app.confirmButtonText'),
                 specialities :{},
                 form: 
                 {

@@ -65,7 +65,7 @@
         */
         loadSpeciality(){
           this.form.id=this.$route.params.radioTypeId;
-          axios.get("../api/auth/specialities/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
+          axios.get("../api/bahar/specialities/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message:error.response.data.errors,
@@ -98,7 +98,7 @@
         |
         */          
         updateSpeciality(){
-          axios.put('../api/auth/specialities/'+this.form.id,{name: this.form.name,
+          axios.put('../api/bahar/specialities/'+this.form.id,{name: this.form.name,
           description: this.form.description}).then(response => {
           this.$message({
             type: 'success',

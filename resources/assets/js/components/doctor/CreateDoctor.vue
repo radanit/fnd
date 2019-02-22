@@ -94,6 +94,25 @@
           },
           /*
           |--------------------------------------------------------------------------
+          | Load Specialities
+          | Added by e.bagherzadegan
+          |--------------------------------------------------------------------------
+          |
+          | This method Load specialities list
+          |
+          */    
+          loadSpeciality(){
+            axios.get("../api/bahar/specialities").then(({data})=>(this.form.speciality_options = data.data)).catch((error)=>{
+              this.$message({
+                title: '',
+                message: error.response.data.errors,
+                center: true,
+                type: 'error'
+              });                
+            });
+          },           
+          /*
+          |--------------------------------------------------------------------------
           | Create Doctor Method
           |--------------------------------------------------------------------------
           |
@@ -194,12 +213,15 @@
                 el.focus()
                 }
             }
-      },      
-      mounted() {
-        this.$refs.name.focus();
+      },
+      created() {
+        this.loadSpeciality();        
         Fire.$on('AfterCrud',() => {
           //
-        });    
+        });
+      },     
+      mounted() {
+        this.$refs.name.focus();  
       }
     }
 </script>
