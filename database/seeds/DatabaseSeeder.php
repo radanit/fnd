@@ -27,14 +27,26 @@ class DatabaseSeeder extends Seeder
 		$this->call('PasswordPolicyTableSeeder');
 		$this->command->info('Radan Password Policy table seeded!');
 
-    $this->call('PermissionTableSeeder');
-    $this->command->info('Permission table seeded!');
+        $this->call('PermissionTableSeeder');
+        $this->command->info('Permission table seeded!');
 
-    $this->call('RoleTableSeeder');
-    $this->command->info('Role table seeded!');
-    
-    $this->call('UserTableSeeder');
-    $this->command->info('User table seeded!');
+        $this->call('RoleTableSeeder');
+        $this->command->info('Role table seeded!');
+        
+        $this->call('UserTableSeeder');
+        $this->command->info('User table seeded!');
+        
+        // Add for bahar seeding
+        $this->baharDatabaseSeeder();
 		
-	}
+    }
+    
+    protected function baharDatabaseSeeder()
+    {
+        $this->call('BaharProfileTableSeeder');
+        $this->command->info('BaharProfile seeded!');
+
+        $this->call('BaharRoleTableSeeder');
+        $this->command->info('BaharRole seeded!');
+    }
 }
