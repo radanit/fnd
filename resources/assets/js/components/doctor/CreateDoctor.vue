@@ -31,7 +31,7 @@
                 :label="trans('doctor.speciality')"
                 prop="speciality"
                 :rules="[
-                  { required: true, message: trans('doctor.doctorSpecialityRequierdError')}
+                  { required: false, message: trans('doctor.doctorSpecialityRequierdError')}
                 ]"
                 >
                   <el-select
@@ -105,9 +105,9 @@
                 if (valid) 
                   {
                     let newDoctor ={
-                    name: this.form.name,
-                    description: this.form.description,
-                    display_name: this.form.description
+                    first_name: this.form.first_name,
+                    last_name: this.form.last_name,
+                    specialities: this.form.specialities
                   }
                   axios.post('../api/bahar/doctors',newDoctor).then((response) =>{
                   Fire.$emit('AfterCrud');

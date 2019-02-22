@@ -25,14 +25,14 @@
                     </el-table-column>
 					<el-table-column
 					  :label="trans('doctor.first_name')"
-                      ref="name"
+                      ref="first_name"
                       sortable
-					  prop="name">
+					  prop="first_name">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('doctor.last_name')"
                       sortable
-					  prop="description">
+					  prop="last_name">
 					</el-table-column>
                     <el-table-column prop="specialites[0].description" :label="trans('doctor.speciality')" sortable>                        
                     </el-table-column>
@@ -83,6 +83,7 @@
 </template>
 <script>
     export default {
+        props: ['test'],
         data(){
             return{
                 warningAlert : trans('app.warningAlert'),
@@ -90,14 +91,12 @@
                 noticTxt : trans('app.noticTxt'),
                 cancelButtonText : trans('app.cancelButtonText'),
                 confirmButtonText : trans('app.confirmButtonText'),
-                users :{},
-                userGroups:{},
                 form: 
                 {
                     id: '',
                     active:'',
-                    name: '',
-                    description: '',
+                    first_name: '',
+                    last_name: '',
 				},
 				tableData:[],
                 search: '',
@@ -152,7 +151,7 @@
             | This method Load Doctor Info
             |
             */
-            loadUserDoctors(){
+            loadDoctors(){
                 axios.get("../api/bahar/doctors").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
@@ -184,7 +183,7 @@
             |
             */      
             editUsers(record){
-              this.$router.push({ name: 'edit_doctors', params: { DoctorId: record.id } });
+              this.$router.push({ name: 'edit_doctors', params: { doctorId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
@@ -204,7 +203,7 @@
                 }).then((response) => {
                   axios.delete('../api/bahar/doctors/'+record.id)
                 .then(response => {
-                   this.loadUserDoctors();
+                   this.loadDoctors();
                         this.$message({
                         type: 'success',
                         center: true,
@@ -236,8 +235,11 @@
         },
         created() {              
             Fire.$on('AfterCrud',() => {
-                //this.loadUserDoctors();
+                //this.loadDoctors();
             });
+        },
+        mounted(){
+            console.log(this.test);
         }
     }
 </script>

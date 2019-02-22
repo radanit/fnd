@@ -108,7 +108,7 @@
             |
             */     
             infiniteHandler($state) {
-                axios.get("../api/specialities", {
+                axios.get("../api/bahar/specialities", {
                     params: {
                     page: this.page,
                     },
@@ -144,7 +144,7 @@
             |
             */
             loadSpeciality(){
-                axios.get("../api/specialities").then(({data})=>(this.list = data.data)).catch((error)=>{
+                axios.get("../api/bahar/specialities").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -193,7 +193,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/specialities/'+record.id)
+                  axios.delete('../api/bahar/specialities/'+record.id)
                 .then(response => {
                    this.loadSpeciality();
                         this.$message({

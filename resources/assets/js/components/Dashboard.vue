@@ -81,7 +81,7 @@
 				<div class="row">
 					<!-- right col (We are only adding the ID to make the widgets sortable)-->
 					<section class="col-lg-7 connectedSortable ui-sortable">
-						<Reception></Reception>
+						<Reception :currentuser="'{!! json_encode(Auth::user()->name) !!}'"></Reception>
 					</section>
 					<!-- right col -->
 					<!-- Left col -->
@@ -99,8 +99,9 @@
     import Reception from './reception/Reception.vue';
     import DirectChat from './DirectChat.vue';
     export default {
-        created() {
-            console.log('Component mounted.')
+		props: ['currentuser'],		
+        mounted() {
+            console.log(this.currentuser);
         },
         components: {
             'Reception' : Reception,

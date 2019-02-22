@@ -91,6 +91,7 @@
 <script>
     export default 
     {
+      props: ['currentuser'],
         data()
         {
             return{
