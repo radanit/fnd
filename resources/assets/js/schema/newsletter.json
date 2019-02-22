@@ -1,38 +1,33 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "title": "",
-  "description": "",
   "properties": {
-    "name": {
+    "first_name": {
       "type": "string",
       "minLength": 8,
       "maxLength": 80,
-      "title": "Full Name",
+      "title": "نام",
       "attrs": {
-        "placeholder": "Your Full Name",
-        "title": "Please enter your full name"
+        "placeholder": "نام",
+        "title": "trans('user.username')"
       }
     },
-    "email": {
+    "last_name": {
       "type": "string",
       "maxLength": 120,
-      "title": "Email",
+      "title": "نام خانوادگی",
       "attrs": {
-        "type": "email",
-        "placeholder": "Your Email",
-        "title": "Please enter your email"
+        "placeholder": "نام خانوادگی",
+        "title": "trans('user.username')"
       }
     },
-
-    "source": {
+    "speciality_id": {
       "type": "string",
-      "maxLength": 120,
-      "title": "Source",
-      "description": "Ex. Using the NPM Search Engine",
+      "title": "تخصص",
+      "enum": ["دندانپزشک", "ارتوپد"],
       "attrs": {
-        "type": "textarea",
-        "placeholder": "How did you hear about us?"
+        "placeholder": "انتخاب تخصص",
+        "title": "فیلد تخصص اجباری است"
       }
     },
     "agree": {
@@ -45,5 +40,6 @@
       }
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false,
+  "required": ["first_name", "last_name", "speciality_id"]
 }

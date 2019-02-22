@@ -327,12 +327,7 @@ npm<template>
 			  <!-- /.tab-pane -->
 
 			  <div class="tab-pane" id="settings">
-				  <el-form>
-						<form-schema ref="formSchema" :schema="schema" v-model="model">
-							<el-button type="primary" @click="submit">Subscribe</el-button>
-							<el-button type="reset">Reset</el-button>
-						</form-schema>
-					</el-form>
+				 <doctor-profile></doctor-profile>
 			  </div>
 			  <!-- /.tab-pane -->
 			</div>
@@ -348,61 +343,7 @@ npm<template>
 </template>
 
 <script>
-	import FormSchema from 'vue-json-schema'
-	FormSchema.setComponent('form', 'el-form', ({ vm }) => {
-	// vm is the FormSchema VM
-
-	const labelWidth = '120px'
-	const model = vm.data
-	const rules = {}
-
-	vm.fields.forEach((field) => {
-		const type = field.schemaType === 'array' && field.type === 'radio'
-			? 'string'
-			: field.schemaType
-		const required = field.required
-		const message = field.title
-		const trigger = ['radio', 'checkbox', 'select'].includes(field.type)
-			? 'change' : 'blur'
-
-		// http://element.eleme.io/#/en-US/component/form#validation
-		rules[field.name] = { type, required, message, trigger }
-	})
-
-	// returning the form props
-	return { labelWidth, rules, model }
-	})
-
-	// http://element.eleme.io/#/en-US/component/form#validation
-	FormSchema.setComponent('label', 'el-form-item', ({ field }) => ({
-	prop: field.name
-	}))
-
-	FormSchema.setComponent('email', 'el-input')
-	FormSchema.setComponent('text', 'el-input')
-	FormSchema.setComponent('textarea', 'el-input')
-	FormSchema.setComponent('checkbox', 'el-checkbox')
-	FormSchema.setComponent('switch', 'el-switch')
-	FormSchema.setComponent('radio', 'el-radio')
-	FormSchema.setComponent('select', 'el-select')
-
-	// You can also use the component object
-	FormSchema.setComponent('option', 'el-option')
-
-	// By default `<h1/>` is used to render the form title.
-	// To override this, use the `title` type:
-	FormSchema.setComponent('title', 'h2')
-
-	// By default `<p/>` is used to render the form title.
-	// To override this, use the `description` type:
-	FormSchema.setComponent('description', 'small')
-
-	// By default `<div/>` is used to render the message error.
-	// To override this, use the `error` type:
-	FormSchema.setComponent('error', 'el-alert', ({ vm }) => ({
-	type: 'error',
-	title: vm.error
-	}))
+import DoctorProfile from './DoctorProfile.vue';
   export default {
 	data(){
             return{
@@ -410,8 +351,6 @@ npm<template>
 									editMod :false,
 									specialitys :{},
 									specialityGroups:{},
-									schema: require('../../schema/newsletter'),
-									model: {},
 									form: {
 											name: '',
 											email: '',
@@ -433,7 +372,7 @@ npm<template>
 									},
             }
         },
-        methods: {
+			methods: {
 	      handleAvatarSuccess(res, file) {
 	        this.imageUrl = URL.createObjectURL(file.raw);
 	      },
@@ -448,23 +387,9 @@ npm<template>
 	          this.$message.error('Avatar picture size can not exceed 2MB!');
 	        }
 	        return isJPG && isLt2M;
-				},
-				submit (e) {
-					// this.$refs.formSchema.form() returns the ElementUI's form instance
-					this.$refs.formSchema.form().validate((valid) => {
-						if (valid) {
-							// this.model contains the valid data according your JSON Schema.
-							// You can submit your model to the server here
-							console.log(JSON.stringify(this.model))
-							this.$refs.formSchema.clearErrorMessage()
-						} else {
-							this.$refs.formSchema.setErrorMessage('Please fill out the required fields')
-							return false
-						}
-					})
 				}
 			},
-			components: { FormSchema },
+			components: { 'doctor-profile' : DoctorProfile },
 			mounted() {
 					console.log('Component mounted.')
 			}

@@ -1,0 +1,65 @@
+{
+	"model": {
+	"first_name": "",
+	"last_name": "",
+	"speciality_id" : "",
+	"avatar" : ""
+},
+  "schema": {
+	"fields": [
+	  {
+		"type": "input",
+		"inputType": "text",
+		"label": "نام",
+		"placeholder": "نام",
+		"model": "first_name",
+		"featured": "true",
+		"required": "true"
+	  },
+	  {
+		"type": "input",
+		"inputType": "text",
+		"label": "نام خانوادگی",
+		"model": "last_name",
+		"placeholder": "نام خانوادگی",
+		"featured": "true",
+		"required": "true"
+	  },
+	  {
+		"type": "select",
+		"label": "تخصص",
+		"model": "speciality_id",
+		"inputName": "speciality_id",
+		"required": "true",
+		"featured": "true",
+		"values": [
+			"دندانپزشک",
+			"اورتوپد",
+			"اورولوژیست",
+			"مغز واعصاب"
+		],
+		"validator": "VueFormGenerator.validators.string"
+	  },
+	  {
+		"type": "upload",
+		"label": "تصویر",
+		"placeholder": "تصویر",
+		"featured": "true",		
+		"model": "photo",
+		"inputName": "photo"
+	  },
+	  {
+		"type": "submit",
+		"label": "",
+		"buttonText": "ثبت",
+		"validateBeforeSubmit": "true",
+		"onSubmit" : "this.submit()"
+	  }
+	]
+  },
+  "formOptions": {
+	"validateAfterLoad": true,
+	"validateAfterChanged": true,
+	"validateAsync": true
+  }
+}
