@@ -1,7 +1,9 @@
-<?php namespace PasswordPolicy\Providers\Laravel;
+<?php 
+
+namespace App\Radan\Policy\PasswordPolicy;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
-use PasswordPolicy\PolicyManager;
+use App\Radan\Policy\PasswordPolicy\PolicyManager;
 
 /**
  * Class Facade

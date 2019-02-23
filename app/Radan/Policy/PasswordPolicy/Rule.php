@@ -2,6 +2,7 @@
 
 namespace App\Radan\Policy\PasswordPolicy;
 
+
 interface Rule
 {
     /**

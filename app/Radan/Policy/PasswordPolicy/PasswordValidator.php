@@ -1,6 +1,6 @@
-<?php namespace PasswordPolicy\Providers\Laravel;
+<?php 
 
-use PasswordPolicy\PolicyManager;
+namespace App\Radan\Policy\PasswordPolicy;
 
 /**
  * Class PasswordValidator

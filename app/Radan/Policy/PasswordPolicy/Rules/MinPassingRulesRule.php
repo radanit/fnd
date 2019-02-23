@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Policy\PasswordPolicy;
+namespace App\Radan\Policy\PasswordPolicy\Rules;
 
 use Closure;
 use App\Radan\Policy\PasswordPolicy\Policy;

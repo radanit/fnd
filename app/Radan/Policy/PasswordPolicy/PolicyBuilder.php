@@ -3,12 +3,12 @@
 namespace App\Radan\Policy\PasswordPolicy;
 
 use Closure;
-use PasswordPolicy\Rules\CaseRule;
-use PasswordPolicy\Rules\ContainRule;
-use PasswordPolicy\Rules\DigitRule;
-use PasswordPolicy\Rules\LengthRule;
-use PasswordPolicy\Rules\MinPassingRulesRule;
-use PasswordPolicy\Rules\SpecialCharacterRule;
+use App\Radan\Policy\PasswordPolicy\Rules\CaseRule;
+use App\Radan\Policy\PasswordPolicy\Rules\ContainRule;
+use App\Radan\Policy\PasswordPolicy\Rules\DigitRule;
+use App\Radan\Policy\PasswordPolicy\Rules\LengthRule;
+use App\Radan\Policy\PasswordPolicy\Rules\MinPassingRulesRule;
+use App\Radan\Policy\PasswordPolicy\Rules\SpecialCharacterRule;
 
 /**
  * Class PolicyBuilder

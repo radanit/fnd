@@ -18,6 +18,6 @@ trait PasswordPolicyProfileTrait
      */    
     public function passwordPolicy()
     {
-        return $this->hasOne('App\Radan\Policy\Models\PasswordPolicy', 'id', 'password_policy_id');
+        return $this->hasOne('App\Radan\Policy\PasswordPolicy\PasswordPolicy', 'id', 'password_policy_id');
     }
 }

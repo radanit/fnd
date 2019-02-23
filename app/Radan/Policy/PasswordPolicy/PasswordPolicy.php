@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Radan\Policy\Models;
+namespace App\Radan\Policy\PasswordPolicy;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Config\Repository as Config;
 
 class PasswordPolicy extends Model 
 {        
-
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */    
+    protected $table = 'password_policies';
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-
-    protected $fillable = [
-        'name',
-        'description',
-        'min_length',
-        'max_length',
-        'upper_case',
-        'lower_case',
-        'digits',
-        'special_chars',
-        'does_not_contain'
+    protected $fillable = ['name', 'description', 'min_length', 'max_length',
+        'upper_case', 'lower_case', 'digits', 'special_chars', 'does_not_contain'
     ];
 
     /**
