@@ -29,7 +29,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     public function register()
     {        
-        $this->registerManager();        
+        //$this->registerManager();        
         // $this->registerBuilder();
         // $this->registerFacade();
         // $this->defineDefaultPolicy();        
@@ -42,11 +42,11 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     public function boot(Config $config,Request $request)
     {    
-        $this->config = $config;
-        dd($request);
-        $this->configureValidationRule();
-        $this->defineDefaultPasswordPolicy();
-        $this->defineUserPasswordPolicy();
+        //$this->config = $config;
+        //dd($request);
+       // $this->configureValidationRule();
+       // $this->defineDefaultPasswordPolicy();
+       // $this->defineUserPasswordPolicy();
     }
 
     /**
