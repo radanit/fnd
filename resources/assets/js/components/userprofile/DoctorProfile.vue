@@ -2,7 +2,7 @@
   <div class="panel-body">
     <el-form  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
       <el-form-item v-for="(item, key, index) in this.structure" :key="item.key">
-        <el-input type="text" :placeholder="item"></el-input>
+        <el-input type="text" :placeholder="item.name"></el-input>
       </el-form-item>
     </el-form>
   </div>
