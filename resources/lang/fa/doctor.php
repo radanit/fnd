@@ -19,11 +19,13 @@ return [
     'doctorCardTitle' => 'لیست پزشکان',
     'lblAddCardTitle' => 'درج اطلاعات پزشک',
     'lblUpdateCardTitle' => 'ویرایش اطلاعات پزشک',
-    'doctorFirtsNameRequierdError' => 'نام پزشک اجباری است!',
-    'doctorLastNameRequierdError' => 'نام خانوادگی پزشک اجباری است!',
-    'doctorSpecialityRequierdError' => 'تخصص پزشک اجباری است!',
+    'first_nameError' => 'نام پزشک اجباری است!',
+    'last_nameError' => 'نام خانوادگی پزشک اجباری است!',
+    'specialityError' => 'تخصص پزشک اجباری است!',
+    'avatarError' => 'فرمت تصویر انتخابی مجاز نمی باشد!',
     'status' => 'وضعیت',
     'speciality_choose_lbl' => 'انتخاب تخصص',
     'doctor_lbl' => 'پزشکان',
     'speciality' => 'تخصص',
+    'avatar' => 'تصویر'
 ];
