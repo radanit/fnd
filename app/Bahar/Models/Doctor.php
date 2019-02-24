@@ -7,6 +7,9 @@ use App\Radan\Traits\RadanRestrictedRelationTrait;
 
 class Doctor extends Model
 {
+    
+    
+    
     use RadanRestrictedRelationTrait;
 
     /**
