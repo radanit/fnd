@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Models\Role;
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Resources\UserResource;
+use App\Radan\Resources\AuthUserResource;
 
 class UserController extends Controller
 {
@@ -21,7 +23,7 @@ class UserController extends Controller
     /*
      * Password Validation rule name
      */
-    protected $passwordValidationRule = '';
+    protected $passwordValidationRule = 'min:6|confirmed';
 
     /**
      * Creates a new instance of the model.
@@ -31,7 +33,19 @@ class UserController extends Controller
      */
     public function __construct()
     {                
-        $this->passwordValidationRule = Config::get('radan.password_policy.password_policy_default','confirmed|string|min:6');
+        //$this->passwordValidationRule = Config::get('radan.password_policy.password_policy_default','confirmed|string|min:6');
+    }
+
+    /**
+     * Display Authenticated user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function user(Request $request)
+    {
+        $user = Auth::user();
+
+        return new AuthUserResource($user);
     }
     
     /**
@@ -154,7 +168,7 @@ class UserController extends Controller
         // Validation
 		$request->validate([         
             'email' => 'string|email|max:255|unique:users',                        
-            'password' => $this->passwordValidationName,
+            'password' => $this->passwordValidationRule,
             'active' => 'boolean',
             'profile_id' => 'exists:'.$profileTable.',id',
             'profile_data' => 'json',
