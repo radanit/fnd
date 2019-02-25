@@ -30,9 +30,8 @@ class BaharProfileTableSeeder extends Seeder
 			'structure' => '[
                 {"id":"1","item":"el-input","type":"string","required":"true","label":"doctor.first_name","errorMsg":"doctor.first_nameError","name":"first_name","rules":"required|string|max:191"},
                 {"id":"2","item":"el-input","type":"string","required":"true","label":"doctor.last_name","errorMsg":"doctor.last_nameError","name":"last_name","rules":"required|string|max:191"},
-                {"id":"3","item":"el-select","type":"number","required":"true","label":"doctor.speciality","errorMsg":"doctor.specialityError","name":"speciality_id","rules":"required|exists:specialities,id"},
-                {"id":"4","item":"el-upload","min":"3","max": "5","label":"doctor.avatar","errorMsg":"doctor.avatarError","name":"avatar","rules":"dimensions:min_width=100,min_height=100"},
-                {"id":"5","item":"el-button","label":"doctor.submit","name":"submit"}
+                {"id":"3","item":"el-select","apiUrl":"../api/bahar/specialities","type":"number","required":"true","label":"doctor.speciality","errorMsg":"doctor.specialityError","name":"speciality_id","rules":"required|exists:specialities,id"},	
+                {"id":"4","item":"el-button","label":"doctor.submit","name":"submit"}
             ]'
         ));
         

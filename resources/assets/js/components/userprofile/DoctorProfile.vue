@@ -8,7 +8,14 @@
               { type:item.type,required:item.required, message: trans(item.errorMsg)}
             ]">
         <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
-        <el-select v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" ></el-select>
+        <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
+          <el-option
+            v-for="option in lists"
+            :key="option.id"
+            :label="option.description"
+            :value="option.id">
+          </el-option>
+        </el-select>
         <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>
         <el-button v-if="item.item=='el-button' "  size="mini" type="success" @click="submit('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
       </el-form-item>
@@ -23,9 +30,11 @@ export default {
   data () {
     return {
       structure:{},
+      lists:[],
       form:{
 
-      }
+      },
+      
     }
   },
   methods: {
@@ -37,8 +46,27 @@ export default {
                     type: 'error'
                   }); 
               });
-              console.log(this.structure);
+              //console.log(this.structure);
       },
+      /*
+      |--------------------------------------------------------------------------
+      | Load RadioType Method
+      | Added By e.bagherzadegan
+      |--------------------------------------------------------------------------
+      |
+      | This method Load RadioType Info
+      |
+      */
+      loadList(apiUrl){
+          axios.get(apiUrl).then(({data})=>(this.lists = data.data)).catch((error)=>{
+              this.$message({
+                title: '',
+                message: error.response.data.errors,
+                center: true,
+                type: 'error'
+              });         
+          });
+      },     
       onValidated(isValid, errors) {
         console.log("Validation result: ", isValid, ", Errors:", errors);
       },
