@@ -1,6 +1,6 @@
 <template>
   <div class="panel-body">
-    <el-form  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
+    <el-form  :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
       <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
       :label="trans(item.label)"
             :prop="item.name"

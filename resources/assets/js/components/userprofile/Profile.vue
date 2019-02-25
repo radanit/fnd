@@ -67,9 +67,9 @@ npm<template>
 		<div class="card">
 		  <div class="card-header p-2">
 			<ul class="nav nav-pills">
-			  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">{{trans('userProfile.activity')}}</a></li>
-			  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">{{trans('userProfile.doctors')}}</a></li>
-			  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">{{trans('userProfile.setting')}}</a></li>
+			  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">{{trans('profile.activities')}}</a></li>
+			  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">{{trans('profile.doctors')}}</a></li>
+			  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">{{trans('profile.setting')}}</a></li>
 			</ul>
 		  </div><!-- /.card-header -->
 		  <div class="card-body">

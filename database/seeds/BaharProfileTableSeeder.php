@@ -15,13 +15,12 @@ class BaharProfileTableSeeder extends Seeder
         Profile::create(array(
 			'name' => 'patient',
 			'description'=> 'بیمار', 
-            'structure' => '{
-                "first_name":"required|string|max:191",
-                "last_name":"required|string|max:191",
-                "national_code":"required|digit:10",
-                "gender": "required|in:male,female",
-                "avatar":"dimensions:min_width=100,min_height=100"
-            }'
+            'structure' => '[
+                {"id":"1","item":"el-input","type":"string","required":"true","label":"patient.first_name","errorMsg":"patient.first_nameError","name":"first_name"},
+                {"id":"2","item":"el-input","type":"string","required":"true","label":"patient.last_name","errorMsg":"patient.last_nameError","name":"last_name"},
+                {"id":"3","item":"el-input","type":"string","required":"true","label":"patient.national_code","errorMsg":"patient.national_codeError","name":"national_code"},
+                {"id":"4","item":"el-button","label":"patient.submit","name":"submit"}
+            ]'
         ));	
         
         Profile::create(array(
@@ -38,11 +37,11 @@ class BaharProfileTableSeeder extends Seeder
         Profile::create(array(
 			'name' => 'radiology_users',
 			'description'=> 'کاربران رادیولوژی', 
-			'structure' => '{
-                "first_name":"required|string|max:191",
-                "last_name":"required|string|max:191",
-                "avatar":"dimensions:min_width=100,min_height=100"
-            }'
+			'structure' => '[
+                {"id":"1","item":"el-input","type":"string","required":"true","label":"patient.first_name","errorMsg":"patient.first_nameError","name":"first_name"},
+                {"id":"2","item":"el-input","type":"string","required":"true","label":"patient.last_name","errorMsg":"patient.last_nameError","name":"last_name"},                
+                {"id":"4","item":"el-button","label":"patient.submit","name":"submit"}
+            ]'
         ));
     }
 }
