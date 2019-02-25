@@ -29,10 +29,8 @@
         "element-ui": "^2.5.1",
         "jalali-moment": "^3.3.0",
         "moment": "^2.24.0",
-        "vue-form-generator": "^2.3.4",
         "vue-i18n": "^8.8.2",
         "vue-infinite-loading": "^2.4.3",
-        "vue-json-schema": "^1.1.1",
         "vue-persian-datetime-picker": "^1.1.7",
         "vue-router": "^3.0.2"
     }

@@ -13,15 +13,11 @@ return [
     |
     */
 
-    'settingTabTitle' => 'Settings',
-    'activityTabTitle' => 'Activity',
-    'email' => 'Email Address',
-    'userName' => 'UserName',
-    'fullName' => 'Full Name',
+    'setting' => 'Configuration',
+	'doctors' => 'Doctors',
+    'activities' => 'Activities',
+    'email' => 'E-mail',
+    'fullName' => 'FullName',
     'bio' => 'Biography',
-    'createDate' => 'Create Date',
-    'userGroup' => 'Group',
-    'password' => 'Password',
-    'confirmPass' => 'Confirm Password',
-    'btnSubmitLbl' => 'Submit',
+
 ];

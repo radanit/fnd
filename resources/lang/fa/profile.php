@@ -13,15 +13,11 @@ return [
     |
     */
 
-    'settingTabTitle' => 'تنظیمات',
-    'activityTabTitle' => 'فعالیتها',
+    'setting' => 'تنظیمات',
+	'doctors' => 'پزشکان مجموعه',
+    'activities' => 'فعالیتها',
     'email' => 'آدرس پست الکترونیک',
-    'userName' => 'نام کاربری',
     'fullName' => 'نام و نام خانوادگی',
     'bio' => 'بیوگرافی',
-    'userGroup' => 'گروه',
-    'password' => 'کلمه عبور',
-    'confirmPass' => 'تکرار کلمه عبور',
-    'btnSubmitLbl' => 'ثبت ',
 
 ];

@@ -6,7 +6,7 @@ return [
     'logout' => 'Logout',
     'users' => 'User Management',
     'configuration' => 'configuration',
-    'auth_managment' => 'Authantication',
+    'auth_management' => 'Security managment',
     'dashboard' => 'Dashboard',
     'admin_area' => 'Admin Area',
     'user_roles' => 'User Roles',
