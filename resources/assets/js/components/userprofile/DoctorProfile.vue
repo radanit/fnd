@@ -3,13 +3,13 @@
     <el-form  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
       <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
       :label="trans(item.label)"
-            prop="name"
+            :prop="item.name"
             :rules="[
               { type:item.type,required:item.required, message: trans(item.errorMsg)}
             ]">
-        <el-input v-if="item.item=='el-input' " type="text" :placeholder="item.name"></el-input>
-        <el-select v-if="item.item=='el-select' "  :placeholder="item.name" ></el-select>
-        <el-upload action="" v-if="item.item=='el-upload' " type="text" :placeholder="item.name" ><i class="el-icon-plus"></i></el-upload>
+        <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+        <el-select v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" ></el-select>
+        <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>
         <el-button v-if="item.item=='el-button' "  size="mini" type="success" @click="submit('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
       </el-form-item>
     </el-form>
@@ -23,7 +23,9 @@ export default {
   data () {
     return {
       structure:{},
-      form:{}
+      form:{
+
+      }
     }
   },
   methods: {
