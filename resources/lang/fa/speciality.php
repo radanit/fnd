@@ -13,14 +13,14 @@ return [
     |
     */
     'specialityId' =>'شناسه',
-	'name' => 'عنوان',
-	'description' => 'شرح',
+	'name' => 'عنوان لاتین',
+	'description' => 'عنوان فارسی',
     'action' => 'عملیات',
     'specialityCardTitle' => 'لیست انواع تخصص ها',
     'lblAddCardTitle' => 'درج اطلاعات نوع تخصص',
     'lblUpdateCardTitle' => 'بروزرسانی اطلاعات نوع تخصص',
-    'specialityNameRequierdError' => 'عنوان نوع تخصص اجباری است!',
-    'specialityDescriptionRequierdError' => 'شرح نوع تخصص اجباری است!',
+    'specialityNameRequierdError' => 'عنوان لاتین تخصص اجباری است!',
+    'specialityDescriptionRequierdError' => 'عنوان فارسی تخصص اجباری است!',
     'status' => 'وضعیت',
     'speciality_lbl' => 'نوع تخصص',
 ];

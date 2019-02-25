@@ -13,7 +13,7 @@
                 :label="trans('speciality.name')"
                 prop="name"
                 :rules="[
-                  { required: true, message: trans('speciality.specialityNameRequierdError')}
+                  { required: true,pattern:/^([a-zA-Z])/, message: trans('speciality.specialityNameRequierdError')}
                 ]"
                 >
                 <el-input ref="name" name="name" type="text" v-model="form.name" autocomplete="off"></el-input>

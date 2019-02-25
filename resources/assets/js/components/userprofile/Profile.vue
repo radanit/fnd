@@ -1,4 +1,4 @@
-npm<template>
+<template>
    <div class="container-fluid mt-3">
 	<div class="row">
 	  <div class="col-md-3">
@@ -327,7 +327,7 @@ npm<template>
 			  <!-- /.tab-pane -->
 
 			  <div class="tab-pane" id="settings">
-				 <doctor-profile></doctor-profile>
+				 <user-profile></user-profile>
 			  </div>
 			  <!-- /.tab-pane -->
 			</div>
@@ -343,7 +343,7 @@ npm<template>
 </template>
 
 <script>
-import DoctorProfile from './DoctorProfile.vue';
+import UserProfile from './UserProfile.vue';
   export default {
 	data(){
             return{
@@ -389,7 +389,7 @@ import DoctorProfile from './DoctorProfile.vue';
 	        return isJPG && isLt2M;
 				}
 			},
-			components: { 'doctor-profile' : DoctorProfile },
+			components: { 'user-profile' : UserProfile },
 			mounted() {
 					console.log('Component mounted.')
 			}
@@ -496,8 +496,8 @@ small {
 }
 
 .edit {
-	padding-top: 60px;
-	padding-right: 105px;
+	padding-top: 20%;
+  padding-right: 46%;
 	position: absolute;
 	right: 0;
 	top: 0;
