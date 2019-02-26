@@ -54,25 +54,6 @@ trait ProfileUserTrait
     }
 
     /**
-     * 
-     * Add profile data as attribute accessor by
-     * override __set() magic methos of elequent model.
-     * 
-     * @return mixed
-     */
-    public function __set($key,$value)    
-    {
-        if (!property_exists($this, $key) and !method_exists($this, $key))
-        {
-            $this->profile->data[$key] = $value;
-        }
-        else {
-           parent::__set($key,$value);
-        }
-
-    }
-
-    /**
      * Get the user's full name.
      *
      * @return string

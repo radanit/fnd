@@ -18,7 +18,10 @@ class ProfileTableSeeder extends Seeder
 		Profile::create(array(
 			'name' => 'default',
 			'description' => 'پیش فرض',
-			'structure' => '{"name":"string","family":"string"}'
+			'structure' => [
+				"name" => "string",
+				"family" => "string"
+			]
 		));	
 	}
 }

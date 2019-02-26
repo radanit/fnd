@@ -60,7 +60,7 @@ class ProfileUser extends Model
         );
     }
 
-    public function profile()
+    public function type()
     {
        // return $this->belongsTo('App\Radan\Profile\Models\Profile');  
         return $this->belongsTo(
