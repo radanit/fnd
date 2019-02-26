@@ -15,7 +15,63 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 
 trait ProfileUserTrait
-{    
+{
+    /**
+     * One-to-One relations with Role.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\OneToOne
+     */
+    public function profile()
+    {
+        $profile = $this->hasOne(
+            Config::get('radan.profile.models.profile_user'),
+            Config::get('radan.profile.foreign_keys.users'),
+            $this->primaryKey
+        );
+
+        return $profile;
+    }
+
+    
+    /**
+     * 
+     * Add profile data as attribute accessor by
+     * override __get() magic methos of elequent model.
+     * 
+     * @return mixed
+     */
+    public function __get($key)    
+    {
+        if (!property_exists($this, $key) and !method_exists($this, $key))
+        {
+            $profileData = $this->profile->data;
+            if (is_array($profileData) and array_key_exists($key,$profileData)) {
+                return $profileData[$key];                
+            }            
+        }        
+                
+        return parent::__get($key);        
+    }
+
+    /**
+     * 
+     * Add profile data as attribute accessor by
+     * override __set() magic methos of elequent model.
+     * 
+     * @return mixed
+     */
+    public function __set($key,$value)    
+    {
+        if (!property_exists($this, $key) and !method_exists($this, $key))
+        {
+            $this->profile->data[$key] = $value;
+        }
+        else {
+           parent::__set($key,$value);
+        }
+
+    }
+
     /**
      * Get the user's full name.
      *
@@ -23,30 +79,14 @@ trait ProfileUserTrait
      */
     public function getFullNameAttribute()
     {
-        $profileUserData = $this->profileUser->data;
-        if (is_array($profileUserData)) {
-            $name = (array_key_exists('name',$profileUserData)) ? $profileUserData['name'] : '';
-            $family = (array_key_exists('family',$profileUserData)) ? $profileUserData['family'] : '';
-            return trim("{$name} {$family}");
+        $profileData = $this->profile->data;
+        if (is_array($profileData)) {
+            $first_name = (array_key_exists('first_name',$profileData)) ? $profileData['first_name'] : '';
+            $last_name = (array_key_exists('last_name',$profileData)) ? $profileData['last_name'] : '';
+            return trim("{$first_name} {$last_name}");
         }
         else {
             return null;
         }
-    }
-
-    /**
-     * One-to-One relations with Role.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\OneToOne
-     */
-    public function profileUser()
-    {
-        $profileUser = $this->hasOne(
-            Config::get('radan.profile.models.profile_user'),
-            Config::get('radan.profile.foreign_keys.users'),
-            $this->primaryKey
-        );
-
-        return $profileUser;
     }
 }
