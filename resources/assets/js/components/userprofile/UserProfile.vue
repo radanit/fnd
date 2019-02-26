@@ -18,42 +18,29 @@
         </el-select>
         <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>
         <el-button v-if="item.item=='el-button' "  size="mini" type="success" @click="submit('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+        
       </el-form-item>
-    </el-form>
+    </el-form>    
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      structure:{},
-      lists:[],
-      user:{},
-      form:{},
-      
-    }
+  props: ['userInfo'],
+  inherit: true,
+  data: function(){
+    return { profile_id: this.userInfo }
   },
   methods: {
-    getUserInfo(){
-      axios.get("../api/profile/user").then(({data})=>(this.user =data.data)).catch((error)=>{
-          this.$message({                      
-            message:error.response.data.errors,
-            center: true,
-            type: 'error'
-          }); 
-      });
-      console.log(this.user.data.profile_id);
-    },
     loadProfileSructure(){
-        axios.get("../api/profile/profiles/"+this.user).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+        axios.get("../api/profile/profiles/"+profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
             this.$message({                      
               message:error.response.data.errors,
               center: true,
               type: 'error'
             }); 
         });
-      },      
+      },
       /*
       |--------------------------------------------------------------------------
       | Load RadioType Method
@@ -88,7 +75,7 @@ export default {
       }
   },
   mounted(){
-    this.getUserInfo();
+    console.log(this.$props);
     this.loadProfileSructure();
   },
 }

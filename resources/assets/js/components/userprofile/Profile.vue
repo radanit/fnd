@@ -19,9 +19,9 @@
 			</el-upload>
 			  <!--<img class="profile-user-img img-fluid img-circle" src="images/user4-128x128.jpg" alt="User profile picture">-->
 			</div>
-			<h3 class="profile-username text-center">Nina Mcintire</h3>
+			<h3 class="profile-username text-center">{{user.fullname}}</h3>
 
-			<p class="text-right text-center">Software Engineer</p>
+			<p class="text-right text-center">{{user.roles}}</p>
 	
 		  </div>
 		  <!-- /.card-body -->
@@ -327,7 +327,7 @@
 			  <!-- /.tab-pane -->
 
 			  <div class="tab-pane" id="settings">
-				 <user-profile></user-profile>
+				 <user-profile :userInfo="user.profile_id"></user-profile>
 			  </div>
 			  <!-- /.tab-pane -->
 			</div>
@@ -346,33 +346,29 @@
 import UserProfile from './UserProfile.vue';
   export default {
 	data(){
-            return{
-									imageUrl:'images/user4-128x128.jpg',
-									editMod :false,
-									specialitys :{},
-									specialityGroups:{},
-									form: {
-											name: '',
-											email: '',
-											tel: '',
-											username: '',
-											password: '',
-											confirmPassword: '',
-											condition: '',
-											address: '',
-											loadAlert : '',
-											insertAlert : '',
-											updateAlert : '',
-											deleteAlert : '',
-											warningAlert : '',
-											failedAlert : '',
-											noticTxt : '',
-											cancelButtonText : '',
-											confirmButtonText : ''
-									},
-            }
+					return{
+								imageUrl:'images/user4-128x128.jpg',
+								form: {
+
+								},
+								user:{},
+								profile_id:''
+					}
         },
 			methods: {
+				/**
+				 * Load User Info
+				 */
+				loadUserInfo(){					
+					axios.get("../api/profile/user").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+							this.$message({                      
+								message:error.response.data.errors,
+								center: true,
+								type: 'error'
+							});
+
+					});
+				},
 	      handleAvatarSuccess(res, file) {
 	        this.imageUrl = URL.createObjectURL(file.raw);
 	      },
@@ -391,7 +387,7 @@ import UserProfile from './UserProfile.vue';
 			},
 			components: { 'user-profile' : UserProfile },
 			mounted() {
-					console.log('Component mounted.')
+				this.loadUserInfo();			
 			}
     }
 </script>
@@ -496,8 +492,8 @@ small {
 }
 
 .edit {
-	padding-top: 20%;
-  padding-right: 46%;
+	padding-top: 25%;
+  padding-right: 45%;
 	position: absolute;
 	right: 0;
 	top: 0;
