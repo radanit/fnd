@@ -327,7 +327,10 @@
 			  <!-- /.tab-pane -->
 
 			  <div class="tab-pane" id="settings">
-				 <user-profile :userInfo="user.profile_id"></user-profile>
+				 <doctor-profile v-if="(user.profile_name==='پزشک')"></doctor-profile>
+				 <patient-profile v-else-if="(user.profile_name==='بیمار')"></patient-profile>
+				 <technician-profile v-else-if="(user.profile_name==='تکنیسین')"></technician-profile>
+				 <default-profile v-else></default-profile>
 			  </div>
 			  <!-- /.tab-pane -->
 			</div>
@@ -343,7 +346,10 @@
 </template>
 
 <script>
-import UserProfile from './UserProfile.vue';
+import DoctorProfile from './DoctorProfile.vue';
+import PatientProfile from './PatientProfile.vue';
+import TechnicianProfile from './TechnicianProfile.vue';
+import DefaultProfile from './DefaultProfile.vue';
   export default {
 	data(){
 					return{
@@ -351,8 +357,7 @@ import UserProfile from './UserProfile.vue';
 								form: {
 
 								},
-								user:{},
-								profile_id:''
+								user:{}
 					}
         },
 			methods: {
@@ -385,7 +390,12 @@ import UserProfile from './UserProfile.vue';
 	        return isJPG && isLt2M;
 				}
 			},
-			components: { 'user-profile' : UserProfile },
+			components:{ 
+					'doctor-profile' : DoctorProfile,
+					'patient-profile' :PatientProfile,
+					'technician-profile' :TechnicianProfile,
+				 	'default-profile' :DefaultProfile
+				 },
 			mounted() {
 				this.loadUserInfo();			
 			}

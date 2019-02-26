@@ -13,7 +13,6 @@ const routes = [
 	/*End Profile Routes*/
 	
 	/*Begin User Profile Routes*/
-	{ path: '/user_profiles',name:'user_profiles', component: require('../components/userprofile/UserProfile.vue').default },
 	{ path: '/create_user_profiles',name:'create_user_profiles', component: require('../components/userprofile/CreateUserProfile.vue').default },
 	{ path: '/edit_user_Profiles',name:'edit_user_Profiles', component: require('../components/userprofile/EditUserProfile.vue').default },
 	/*End User Profile Routes*/
