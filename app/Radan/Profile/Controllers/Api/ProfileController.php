@@ -120,7 +120,7 @@ class ProfileController extends Controller
 
             $data = $request->only(['description', 'structure','password_policy_id']);
             if (array_key_exists('structure',$data)) {
-                $data['structure'] = json_decode($request->structure);
+                $data['structure'] = ($request->structure);
             }
 
             $profile->update($data);

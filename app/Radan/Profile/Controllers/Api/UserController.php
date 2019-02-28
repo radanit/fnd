@@ -115,7 +115,7 @@ class UserController extends Controller
             // Create profile info base on profile type 
             $user->profile()->create([           
                 'profile_id' => $request->profile_id,
-                'data' => $request->profile_date,
+                'data' => $request->profile_data
             ]);        
 
             // Find role and assigned to user

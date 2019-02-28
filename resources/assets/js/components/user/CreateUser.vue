@@ -150,20 +150,7 @@
             profile_id:1,            
             profile_options:[],
             active:false
-          },
-          profile_data:{
-            data:[]
-          },
-          loadAlert : '',
-          insertAlert : trans('app.insertAlert'),
-          updateAlert : trans('app.updateAlert'),
-          deleteAlert : trans('app.deleteAlert'),
-          warningAlert : trans('app.warningAlert'),
-          failedAlert : trans('app.failedAlert'),
-          cancelAlert : trans('app.cancelAlert'),
-          noticTxt : trans('app.noticTxt'),
-          cancelButtonText : trans('app.cancelButtonText'),
-          confirmButtonText : trans('app.confirmButtonText'),                
+          },            
 
       }
   },
@@ -207,7 +194,7 @@
               type: 'error'
             }); 
         });
-        this.profile_data=this.structure.name;
+         console.log(this.structure);
       },
     /*
     |--------------------------------------------------------------------------
@@ -252,12 +239,6 @@
       this.$refs['form'].validate((valid) => {
       if (valid) 
       {
-      //define New User
-      /*for (var i=0 ;i<=this.structure.length;i++){
-        var obj={};
-        obj+="'"+this.structure[i].name+"'="this.form[this.structure[i].name];
-        console.log(obj);
-      }*/
        var jsonData = {};
         for (var i=0 ;i<this.structure.length;i++)
         {
@@ -272,7 +253,7 @@
         profile_id: this.form.profile_id,
         roles:  this.form.roles,
         active: this.form.active,
-        profile_dat :jsonData
+        profile_data :JSON.stringify(jsonData)
       }
       axios.post('../api/profile/users',newUser).then((response) =>{
       Fire.$emit('AfterCrud');
@@ -385,7 +366,7 @@
       
     },
     mounted(){
-      this.loadProfileSructure()
+      this.loadProfileSructure();
       this.$refs.username.focus();
     }
   }

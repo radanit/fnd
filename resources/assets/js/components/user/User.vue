@@ -32,23 +32,11 @@
                       sortable
 					  prop="username">
 					</el-table-column>
-					<!--<el-table-column
-					  :label="trans('user.email')"
-                      sortable
-					  prop="email">
-					</el-table-column>-->
                     <el-table-column
 					  :label="trans('user.profileName')"
                       sortable
 					  prop="profile_name">
 					</el-table-column>
-                    <!--<el-table-column value-key="id" :label="trans('user.roles')" sortable >
-                        <el-table-column v-for="(item,index) in list.roles" 
-                            :key="item[index].id"
-                            :prop="item"
-                            :value="item[index].description"  >
-                        </el-table-column>
-                    </el-table-column>-->
                     <el-table-column prop="roles[0].description" :label="trans('user.roles')" sortable>                        
                     </el-table-column>
                     <el-table-column
@@ -276,7 +264,7 @@
             |
             */      
             editUser(record){
-              this.$router.push({ name: 'edit_users', params: { userId: record.id } });
+              this.$router.push({ name: 'edit_users', params: { userId: record.id,profileId:record.profile_id } });
             },
             /*
             |--------------------------------------------------------------------------

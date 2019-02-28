@@ -64,7 +64,7 @@
               id: '',
               name: '',
               description: '',
-              structure:'',        
+              structure:[],        
             },
           }
         },
