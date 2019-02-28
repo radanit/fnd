@@ -88,36 +88,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/specialities" class="nav-link">
+                <router-link to="/#" class="nav-link">
                   <i class="nav-icon fas fa-table cyan"></i>
                   <p>
-                  {{ __('menus.speciality') }}
+                  {{ __('menus.item') }}
                   </p>
                 </router-link>
               </li>
-              <!-- Begin Radiology menu --->
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-toolbox green"></i>
-                  <p>
-                  {{ __('menus.reception_managment') }}
-                    @if(App::isLocale('fa'))
-                    <i class="right fa fa-angle-right"></i>
-                    @elseif(App::isLocale('en'))
-                    <i class="right fa fa-angle-left"></i>
-                    @endif
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <router-link to="/receptions" class="nav-link">
-                      <i class="fa fa-wrench nav-icon indigo"></i>
-                      <p>{{ __('menus.reception') }}</p>
-                    </router-link>
-                  </li>
-                </ul>
-              </li>
-              <!-- End equipment and machinery Services menu --->
             </ul>
           </li>
           <li class="nav-item">

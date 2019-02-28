@@ -17,6 +17,7 @@
 				<el-table
 					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'ascending'}"
+                    :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
                         type="selection"
@@ -65,7 +66,7 @@
                             :page-size="pagination.per_page"                         
                             :total="pagination.total"
                             @current-change="loadPage"
-                            :current-page.sync="page">
+                            :current-page.sync="pagination.current_page">
                         </el-pagination>             
                   </div>
               </div>
@@ -172,6 +173,7 @@
             */            
             loadPage(){                
                 this.loadProfileStructure(this.page);
+                console.log(this.pagination);
             },
             /*
             |--------------------------------------------------------------------------

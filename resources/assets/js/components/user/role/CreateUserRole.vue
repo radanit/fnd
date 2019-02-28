@@ -251,6 +251,7 @@
 	float:right;
 	text-align:left;
 	padding:0 0 0 10px;
+  white-space: nowrap;
 }
 .el-form-item__label:lang(en){
   float: left;

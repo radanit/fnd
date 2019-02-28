@@ -21,6 +21,7 @@
 				<el-table
 					:data="list.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.email.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'username', order: 'descending'}"
+                    :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
                     <el-table-column
                         type="selection"
@@ -233,7 +234,7 @@
                         }
                     });
                 let userIds={ids:user_ids}
-                axios.post('../api/profile/users/batch/active',userIds).then(response => {
+                axios.post('../api/auth/users/batch/active',userIds).then(response => {
                     this.$message({
                     type: 'success',
                     center: true,
@@ -325,9 +326,9 @@
                 }
             }
         },       
-        created() {
+        mounted() {
             Fire.$on('AfterCrud',() => {               
-             //
+             this.LoadUser();
             });
         }
     }

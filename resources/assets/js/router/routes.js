@@ -13,12 +13,7 @@ const routes = [
 	{ path: '/create_profile_structures',name:'create_profile_structures', component: require('../components/profile/CreateProfileStructure.vue').default },
 	{ path: '/edit_profile_structures',name:'edit_profile_structures', component: require('../components/profile/EditProfileStructure.vue').default },
 	/*End Profile Routes*/
-	
-	/*Begin User Profile Routes*/
-	{ path: '/user_profiles',name:'user_profiles', component: require('../components/userprofile/UserProfile.vue').default },
-	{ path: '/create_user_profiles',name:'create_user_profiles', component: require('../components/userprofile/CreateUserProfile.vue').default },
-	{ path: '/edit_user_Profiles',name:'edit_user_Profiles', component: require('../components/userprofile/EditUserProfile.vue').default },
-	/*End User Profile Routes*/
+
 	
 	/*Begin User Routes*/
 	{ path: '/users',name:'users', component: require('../components/user/User.vue').default },
@@ -35,15 +30,8 @@ const routes = [
 	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/user/permission/CreateUserPermission.vue').default },
 	{ path: '/edit_user_permissions',name:'edit_user_permissions', component: require('../components/user/permission/EditUserPermission.vue').default },
 	/*End Permission Routes*/
-	/*Begin User Routes*/
-	{ path: '/receptions',name:'receptions', component: require('../components/reception/Reception.vue').default },
-	{ path: '/create_receptions',name:'create_receptions', component: require('../components/reception/CreateReception.vue').default },
-	{ path: '/edit_receptions',name:'edit_receptions', component: require('../components/reception/EditReception.vue').default },
-	/*End User Routes*/
 
-
-
-    { path: '/profiles',name:'Profiles', component: require('../components/userprofile/Profile.vue').default },
+    { path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
 ];
 
 export default routes;

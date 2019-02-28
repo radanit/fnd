@@ -67,9 +67,10 @@
               </el-select>
             </el-form-item>
             <el-form-item
-            :label="trans('user.doctor')"
+            :label="trans('user.profile_lbl')"
             prop="profile_id">
               <el-select
+                @change="loadProfileSructure()"
                 v-model.number="form.profile_id"
                 filterable
                 default-first-option
@@ -91,7 +92,31 @@
               inactive-value='0'
               >
             </el-switch>
-            </el-form-item>                                     
+            </el-form-item>
+            <el-card class="box-card col-9" style="margin-right:14%">
+              <div slot="header" class="clearfix">
+                <span>{{trans('user.profile_data_lbl')}}</span>               
+              </div>
+              <div class="text item">
+                <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
+                :label="trans(item.label)"
+                      :prop="item.name"
+                      :rules="[
+                        { type:item.type,required:item.required, message: trans(item.errorMsg)}
+                      ]">
+                  <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+                  <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
+                    <el-option
+                      v-for="option in lists"
+                      :key="option.id"
+                      :label="option.description"
+                      :value="option.id">
+                    </el-option>
+                  </el-select>
+                  <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
+                </el-form-item>  
+              </div>
+            </el-card>                                            
             <el-form-item>
               <el-button  size="mini" type="success" @click="createUser()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button  size="mini" type="primary" @click="createContinueUser()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>              
@@ -104,14 +129,16 @@
         <!-- /.card -->
       </div>
     </div>
+    <!-- modal -->
   </div>
 </template>
 <script>
   export default {
     data(){
       return{
-          schema:{},
+          structure:{},
           model: {},
+          lists:{},
           form: 
           {
             username: '',
@@ -120,10 +147,12 @@
             confirmPassword: '',
             roles:'',
             role_options: [],
-            profile_id:1,
-            profile_data:'',
+            profile_id:1,            
             profile_options:[],
             active:false
+          },
+          profile_data:{
+            data:[]
           },
           loadAlert : '',
           insertAlert : trans('app.insertAlert'),
@@ -159,29 +188,27 @@
     | This method Load Profiles Info
     |
     */
-    loadProfiles(){
+    loadProfiles(){      
       axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
               center: true,
               type: 'error'
-            });
-            this.$router.push({name: 'edit_users'});                 
+            });              
         });
 
     },
-    loadProfileStructure(){
-      axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch((error)=>{
-            this.$message({
-              title: '',
-              message: error.response.data.errors,
+    loadProfileSructure(){
+        axios.get("../api/profile/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+            this.$message({                      
+              message:error.response.data.errors,
               center: true,
               type: 'error'
-            });             
+            }); 
         });
-
-    },
+        this.profile_data=this.structure.name;
+      },
     /*
     |--------------------------------------------------------------------------
     | Load Roles Method
@@ -226,6 +253,17 @@
       if (valid) 
       {
       //define New User
+      /*for (var i=0 ;i<=this.structure.length;i++){
+        var obj={};
+        obj+="'"+this.structure[i].name+"'="this.form[this.structure[i].name];
+        console.log(obj);
+      }*/
+       var jsonData = {};
+        for (var i=0 ;i<this.structure.length;i++)
+        {
+            var columnName = this.structure[i].name;
+            jsonData[columnName] = this.form[this.structure[i].name];
+        };
       let newUser ={            
         username: this.form.username,
         email: this.form.email,
@@ -233,7 +271,8 @@
         password_confirmation:  this.form.confirmPassword,
         profile_id: this.form.profile_id,
         roles:  this.form.roles,
-        active: this.form.active
+        active: this.form.active,
+        profile_dat :jsonData
       }
       axios.post('../api/profile/users',newUser).then((response) =>{
       Fire.$emit('AfterCrud');
@@ -257,6 +296,25 @@
             }
       });
     },
+    /*
+    |--------------------------------------------------------------------------
+    | Load RadioType Method
+    | Added By e.bagherzadegan
+    |--------------------------------------------------------------------------
+    |
+    | This method Load RadioType Info
+    |
+    */
+    loadList(apiUrl){
+        axios.get(apiUrl).then(({data})=>(this.lists = data.data)).catch((error)=>{
+            this.$message({
+              title: '',
+              message: error.response.data.errors,
+              center: true,
+              type: 'error'
+            });         
+        });
+    },     
     /*
     |--------------------------------------------------------------------------
     | Create User Method
@@ -320,13 +378,14 @@
           el.focus()
         }
       }
-    },    
+    },
     created() {
       this.loadProfiles();
       this.loadRoles();
       
     },
     mounted(){
+      this.loadProfileSructure()
       this.$refs.username.focus();
     }
   }

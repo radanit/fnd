@@ -13,15 +13,19 @@ return [
     |
     */
 
-    'settingTabTitle' => 'تنظیمات',
-    'activityTabTitle' => 'فعالیتها',
+    'setting' => 'تنظیمات',
+	'doctors' => 'پزشکان مجموعه',
+    'activities' => 'فعالیتها',
     'email' => 'آدرس پست الکترونیک',
-    'userName' => 'نام کاربری',
     'fullName' => 'نام و نام خانوادگی',
     'bio' => 'بیوگرافی',
-    'userGroup' => 'گروه',
-    'password' => 'کلمه عبور',
-    'confirmPass' => 'تکرار کلمه عبور',
-    'btnSubmitLbl' => 'ثبت ',
+    'first_name' => 'نام',
+    'last_name' => 'نام خانوادگی',
+    'speciality' => 'تخصص',
+    'first_nameError' => 'نام اجباری است!',
+    'last_nameError' => 'نام خانوادگی اجباری است!',
+    'specialityError' => 'تخصص اجباری است!', 
+    'national_code' => 'کد ملی',
+    'national_codeError' => 'کد ملی اجباری است!'
 
 ];
