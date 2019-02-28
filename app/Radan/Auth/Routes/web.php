@@ -31,5 +31,5 @@ Route::post('password/reset', ['uses' => 'ResetPasswordController@reset','as' =>
 */
 // Email Verification Routes...
 if ($options['verify'] ?? false) {
-    Auth::emailVerification();
+   //Auth::emailVerification();
 }

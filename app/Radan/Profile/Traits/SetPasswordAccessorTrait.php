@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Traits;
+namespace App\Radan\Profile\Traits;
 
 /**
  * This file is part of Radan, 
@@ -9,7 +9,7 @@ namespace App\Radan\Traits;
  * @package Radan/Traits
  */
 
-trait RadanSetPasswordAccessorTrait
+trait SetPasswordAccessorTrait
 {
     /**
      * Get the user's full name.

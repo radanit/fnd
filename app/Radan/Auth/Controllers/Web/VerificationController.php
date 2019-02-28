@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Auth\Controllers;
+namespace App\Radan\Auth\Controllers\Web;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

@@ -27,7 +27,7 @@ class RouteServiceProvider extends BaseRouteServiceProvider
     {
         Route::middleware('api')
             ->prefix('api/profile')
-            ->namespace($this->namespace)
+            ->namespace($this->namespace.'\Api')
             ->group(__DIR__ . '/../Routes/api.php');
     }
 
@@ -35,7 +35,7 @@ class RouteServiceProvider extends BaseRouteServiceProvider
     {
         Route::middleware('web')
             ->prefix('')
-            ->namespace($this->namespace)
+            ->namespace($this->namespace.'\Web')
             ->group(__DIR__ . '/../Routes/web.php');
     }
 }

@@ -158,7 +158,8 @@ return [
         'permissions' => 'Role Permission',
         'permissions.*' => 'one of role permission',
         'structure' => 'structure',
-        'password_policy_id' => 'password policy'
+        'password_policy_id' => 'password policy',
+        'new_password' => 'new password'
     ],
 
 ];

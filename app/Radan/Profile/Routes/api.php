@@ -16,6 +16,4 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResource('profiles', 'ProfileController');
     Route::apiResource('users', 'UserController');    
     Route::get('user', 'UserController@user');    
-    Route::get('users/batch/active/{active}', 'BatchActiveUsersController@show');
-    Route::post('users/batch/active', 'BatchActiveUsersController@update');
 });

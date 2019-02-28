@@ -54,7 +54,7 @@ class Profile extends Model
      *
      * @var void
      */
-    public function profileUsers()
+    public function users()
     {
         return $this->hasMany(
             Config::get('radan.profile.models.profile_user'),

@@ -13,11 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('authenticate', 'LoginController@authenticate');
-Route::post('login', 'LoginController@login');
-Route::post('signup', 'RegisterController@signup');
+Route::post('login', 'LoginController@authenticate');
+//Route::post('login', 'LoginController@login');
+//Route::post('signup', 'RegisterController@signup');
 Route::group(['middleware' => 'auth:api'], function() {
-    Route::get('logout', 'LoginController@logout');
+    Route::get('logout', 'LoginController@revoke');
     Route::apiResource('roles', 'RoleController');
     Route::apiResource('permissions', 'PermissionController');
+    Route::put('change_password', 'ChangePasswordController@update');
+    Route::get('users/batch/active/{active}', 'BatchActiveUsersController@show');
+    Route::post('users/batch/active', 'BatchActiveUsersController@update');
 });

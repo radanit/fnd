@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Auth\Controllers;
+namespace App\Radan\Auth\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

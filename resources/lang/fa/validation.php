@@ -34,6 +34,7 @@ return [
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
+    'different'            => 'فیلد :attribute و :other باید متفاوت باشند',
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
@@ -166,6 +167,7 @@ return [
         'permissions.*' => 'این سطح دسترسی',
         'structure' => 'ساختار',
         'password_policy_id' => 'محدودیت رمز عبور',
+        'new_password' => 'پسورد جدید'
     ],
 
 ];

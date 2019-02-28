@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Auth\Controllers;
+namespace App\Radan\Auth\Controllers\Web;
 
 use App\Radan\Auth\Models\User;
 use App\Http\Controllers\Controller;

@@ -1,27 +1,34 @@
 <?php
 
-namespace App\Radan\Profile\Controllers;
+namespace App\Radan\Profile\Controllers\Api;
 
+// Laravel classis
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Auth;
+
+// Base Application classes
 use App\Http\Controllers\Controller;
-use App\Radan\Auth\Models\User;
+
+// Radan modules classes
 use App\Radan\Auth\Models\Role;
-use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Resources\UserResource;
 use App\Radan\Resources\AuthUserResource;
+
+// This Module classes
+use App\Radan\Profile\Models\ProfileUser;
+use App\Radan\Profile\Models\User;
 
 class UserController extends Controller
 {
     
-    /*
+    /**
      * Password Validation rule name
+     * 
      */
     protected $passwordValidationRule = 'min:6|confirmed';
 
@@ -32,8 +39,7 @@ class UserController extends Controller
      * @return void
      */
     public function __construct()
-    {                
-        //$this->passwordValidationRule = Config::get('radan.password_policy.password_policy_default','confirmed|string|min:6');
+    {
     }
 
     /**
@@ -60,23 +66,15 @@ class UserController extends Controller
             'radan.profile.models.pagination.count',
             Config::get('radan.pagination.count',15)
         );
-
-        
-        
+            
         // Return        
         if ($count) {
-            /* common */
-            //return UserResource::collection(User::paginate($count));
-            
             /* eager loading */
-            return UserResource::collection(User::with(['profileUser','roles'])->paginate($count));
+            return UserResource::collection(User::with(['profile','roles'])->paginate($count));
         }
         else {
-            /* common */
-            //return UserResource::collection(User::all());
-
             /* eager loading */
-            return UserResource::collection(User::with(['profileUser','roles'])->get());
+            return UserResource::collection(User::with(['profile','roles'])->get());
         }        
     }
 
@@ -91,7 +89,7 @@ class UserController extends Controller
         // Read Profile table name form config
         $profileTable = Config::get('radan.profile.tables.profiles','profiles');
                
-        // Validation
+        // Validation rules
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',                        
@@ -115,9 +113,9 @@ class UserController extends Controller
             ]);
 
             // Create profile info base on profile type 
-            $user->profileUser()->create([           
-                    'profile_id' => $request->profile_id,
-                    'data' => $request->profile_date,
+            $user->profile()->create([           
+                'profile_id' => $request->profile_id,
+                'data' => $request->profile_date,
             ]);        
 
             // Find role and assigned to user
@@ -132,7 +130,6 @@ class UserController extends Controller
             );
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error($e->getMessage());
             return response()->json([
                 'message' => 'Error create user',
                 'errors' => __('app.failedAlert')],
@@ -161,7 +158,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {                
+    {
 				// Read Profile table name form config
         $profileTable = Config::get('radan.profile.tables.profiles','profiles');        
         
@@ -186,10 +183,10 @@ class UserController extends Controller
 						
             // Set user profile data
 			if ($request->filled('profile_id')) {
-				$profileUser = $user->profileUser()->first();
+				$profileUser = $user->profile()->first();
 				$profileUser->profile_id = $request->profile_id;
 				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
-				$user->profileUser()->save($profileUser);
+				$user->profile()->save($profileUser);
 			}
                            
             // Set user roles and update
@@ -205,10 +202,9 @@ class UserController extends Controller
             );
 
         } catch (Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
+          DB::rollBack();            
             return response()->json([
-                'message' => 'Error update user',
+               'message' => 'Error update user',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
@@ -228,7 +224,7 @@ class UserController extends Controller
 
         try {
             // Find user_profile record by user_id relation
-            $user->profileUser()->delete();
+            $user->profile()->delete();
 
             // deattach all roles and permmisions
             $user->syncRoles([]);

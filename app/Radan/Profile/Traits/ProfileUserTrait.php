@@ -30,8 +30,7 @@ trait ProfileUserTrait
         );
 
         return $profile;
-    }
-
+    }    
     
     /**
      * 
@@ -69,5 +68,20 @@ trait ProfileUserTrait
         else {
             return null;
         }
+    }
+
+    public function getTypeAttribute()
+    {
+        return $this->profile->type->name;
+    }
+
+    public function getTypeIdAttribute()
+    {
+        return $this->profile->type->id;
+    }
+
+    public function getTypeDescriptionAttribute()
+    {
+        return $this->profile->type->description;
     }
 }

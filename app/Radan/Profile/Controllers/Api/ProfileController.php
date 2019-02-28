@@ -1,19 +1,25 @@
 <?php
 
-namespace App\Radan\Profile\Controllers;
+namespace App\Radan\Profile\Controllers\Api;
 
+// Laravel classis
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+// Base Application classes
 use App\Http\Controllers\Controller;
-use App\Radan\Profile\Models\Profile;
-use App\Radan\PasswordPolicy\Models\PasswordPolicy;
+
+// Radan modules classes
+use App\Radan\Policy\PasswordPolicy\PasswordPolicy;
 use App\Radan\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
+
+// This Module classes
+use App\Radan\Profile\Models\Profile;
 
 class ProfileController extends Controller
 {
@@ -63,7 +69,7 @@ class ProfileController extends Controller
             $profile = Profile::create([
                 'name' => $request->name,        
                 'description' => $request->description,
-                'structure' => $request->structure,
+                'structure' => json_decode($request->structure),
                 'password_policy_id' => $passwordPolicy,
             ]);
 
@@ -111,7 +117,13 @@ class ProfileController extends Controller
 
         try {
             $profile = Profile::findOrFail($id);
-            $profile->update($request->only(['description', 'structure','password_policy_id']));
+
+            $data = $request->only(['description', 'structure','password_policy_id']);
+            if (array_key_exists('structure',$data)) {
+                $data['structure'] = json_decode($request->structure);
+            }
+
+            $profile->update($data);
             
             // Return
             return response()->json([
@@ -139,39 +151,25 @@ class ProfileController extends Controller
         // destroy profile
         $profile = Profile::findOrFail($id);
 
-        try {
-            // Get prevernts from config files
-            $prevents = Config::get('radan.profile.prevents.profiles');
+        // Get prevernts from config files
+        $prevents = Config::get('radan.profile.prevents.profiles');
 
-            // Check prevents rule
-            if (!is_null($prevents)) {
-                foreach ($prevents as $key => $value) {
-                    if ($profile->$key==$value) {
-                        throw new ResourceProtected;
-                    }
+        // Check prevents rule
+        if (!is_null($prevents)) {
+            foreach ($prevents as $key => $value) {
+                if ($profile->$key==$value) {
+                    throw new ResourceProtected;
                 }
             }
+        }
 
-            // Destory profile
-            $profile->delete();
+        // Destory profile
+        $profile->delete();
             
-            // Return
-            return response()->json([
-                'message' => __('app.deleteAlert')],
-                $this->httpOk
-            );
-            
-        } catch(ResourceProtected $e) {            
-            return $e->render();
-        } catch(ResourceRestricted $e) {
-            return $e->render();
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json([
-                'message' => 'Error delete profile',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }                    
+        // Return
+        return response()->json([
+            'message' => __('app.deleteAlert')],
+            $this->httpOk
+        );                            
     }
 }

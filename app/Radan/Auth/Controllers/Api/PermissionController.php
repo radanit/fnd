@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Auth\Controllers;
+namespace App\Radan\Auth\Controllers\Api;
 
 use Validator;
 use Exception;

@@ -8,14 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
-use App\Radan\Profile\Traits\ProfileUserTrait;
-use App\Radan\Traits\RadanSetPasswordAccessorTrait;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
-    use ProfileUserTrait,RadanSetPasswordAccessorTrait;
     use HasApiTokens, Notifiable, SoftDeletes;
+    use LaratrustUserTrait;
 
     /**
      * The attributes that are mass assignable.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Auth\Controllers;
+namespace App\Radan\Auth\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -62,7 +62,7 @@ class LoginController extends Controller
      * @param  mixed  $user
      * @return mixed
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request,User $user)
     {
         // Check if user activity loged enabled
         if ($this->config->get('radan.auth.userActivityLog',0)) {
@@ -160,19 +160,7 @@ class LoginController extends Controller
             }                
             return $response;
         }
-    }  
-    
-    /**
-     * Logout user (Revoke the session)
-     *  Customize logut redirect
-     * 
-     * @return [string] message
-     */
-    public function logout(Request $request)
-    {        
-        $this->performLogout($request);
-        return redirect()->route($this->redirectAfterLogout);
-    }
+    }      
 
     /**
      * Logout user (Revoke the token)

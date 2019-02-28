@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
             [
                 'email' => 'admin@radanit.ir',
                 'username' => 'admin', 
-                'password'=>'admin@123',
+                'password'=>bcrypt('admin@123'),
                 'active' => 1
             ]
         )->attachRole(1);

@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Radan\Profile\Controllers;
+namespace App\Radan\Auth\Controllers\Api;
 
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\User;
-use App\Radan\Auth\Models\Role;
-use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Resources\UserResource;
 
 class BatchActiveUsersController extends Controller
@@ -27,10 +23,7 @@ class BatchActiveUsersController extends Controller
     {        
         // Return
         // Get number of pagination count
-        $count = Config::get(
-            'radan.profile.models.pagination.count',
-            Config::get('radan.pagination.count',15)
-        );
+        $count = Config::get('radan.pagination.count',15);    
         
         // Return        
         if ($count) {
@@ -65,9 +58,7 @@ class BatchActiveUsersController extends Controller
                 $this->httpOk
             );
 
-        } catch (Exception $e) {
-            dd($e->getMessage());
-            Log::error($e->getMessage());
+        } catch (Exception $e) {            
             return response()->json([
                 'message' => 'Error update user',
                 'errors' => __('app.failedAlert')],
