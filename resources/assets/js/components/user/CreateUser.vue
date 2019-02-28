@@ -67,7 +67,7 @@
               </el-select>
             </el-form-item>
             <el-form-item
-            :label="trans('user.doctor')"
+            :label="trans('user.profile_lbl')"
             prop="profile_id">
               <el-select
                 v-model.number="form.profile_id"
@@ -81,6 +81,7 @@
                   :value="p_item.id">
                 </el-option>
               </el-select>
+              <el-button v-show="1==1"  size="mini" type="success" @click="addProfileData()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
             </el-form-item>
             <el-form-item :label="trans('user.status')" prop="status">
             <el-switch
@@ -110,7 +111,7 @@
   export default {
     data(){
       return{
-          schema:{},
+          structure:{},
           model: {},
           form: 
           {
@@ -141,6 +142,18 @@
   methods :{
     /*
     |--------------------------------------------------------------------------
+    | Go To Edit User Page
+    | Added By e.bagherzadegan            
+    |--------------------------------------------------------------------------
+    |
+    | This method Load Edit User Component
+    |
+    */      
+    addProfileData(){
+      this.$router.push({ name: 'user_profiles', params: { profileId: this.form.profile_id } });
+    },
+    /*
+    |--------------------------------------------------------------------------
     | Back to User List
     |--------------------------------------------------------------------------
     |
@@ -159,20 +172,19 @@
     | This method Load Profiles Info
     |
     */
-    loadProfiles(){
+    loadProfiles(){      
       axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
               center: true,
               type: 'error'
-            });
-            this.$router.push({name: 'edit_users'});                 
+            });              
         });
 
     },
     loadProfileStructure(){
-      axios.get("../api/profile/profiles/1").then(({data})=>(this.schema =data.data.structure)).catch((error)=>{
+      axios.get("../api/profile/profiles/3").then(({data})=>(this.schema =data.data.structure)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
@@ -320,13 +332,16 @@
           el.focus()
         }
       }
-    },    
+    },
     created() {
       this.loadProfiles();
       this.loadRoles();
       
     },
     mounted(){
+      if(this.$route.params.profileData){
+        this.loadPrev
+      }
       this.$refs.username.focus();
     }
   }

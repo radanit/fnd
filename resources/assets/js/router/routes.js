@@ -12,15 +12,11 @@ const routes = [
 	{ path: '/edit_profile_structures',name:'edit_profile_structures', component: require('../components/profile/EditProfileStructure.vue').default },
 	/*End Profile Routes*/
 	
-	/*Begin User Profile Routes*/
-	{ path: '/create_user_profiles',name:'create_user_profiles', component: require('../components/userprofile/CreateUserProfile.vue').default },
-	{ path: '/edit_user_Profiles',name:'edit_user_Profiles', component: require('../components/userprofile/EditUserProfile.vue').default },
-	/*End User Profile Routes*/
-	
 	/*Begin User Routes*/
 	{ path: '/users',name:'users', component: require('../components/user/User.vue').default },
 	{ path: '/create_users',name:'create_users', component: require('../components/user/CreateUser.vue').default },
 	{ path: '/edit_users',name:'edit_users', component: require('../components/user/EditUser.vue').default },
+	{ path: '/user_profiles',name:'user_profiles', component: require('../components/user_profile/UserProfile.vue').default },
 	/*End User Routes*/
 
 	/*Begin Role Routes*/
@@ -59,7 +55,8 @@ const routes = [
 	{ path: '/edit_specialities',name:'edit_specialities', component: require('../components/speciality/EditSpeciality.vue').default },
 	/*End Speciality Routes*/
 
-    { path: '/profiles',name:'Profiles', component: require('../components/userprofile/Profile.vue').default },
+	{ path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
+	{ path: '/add_profile_data',name:'add_profile_data', component: require('../components/user_profile/UserProfile.vue').default },
 ];
 
 export default routes;

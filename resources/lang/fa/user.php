@@ -55,6 +55,7 @@ return [
     'permissionNameRequierdError' => 'فیلد عنوان سطح دسترسی اجباری است',
     'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است',
     'active' => 'فعال',
-    'inActive' => 'غیر فعال'
+    'inActive' => 'غیر فعال',
+    'addProfileDataBtnLbl' => 'ثبت اطلاعات پروفایل'
 
 ];
