@@ -275,7 +275,8 @@
       fillProfile(){
         for (var i=0 ;i<this.structure.length;i++)
         {
-          document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
+          if (this.form.data[this.structure[i].name]!==null)
+            document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
         };
       },
       /*
@@ -314,12 +315,12 @@
       this.LoadUser();
       this.loadProfiles();
       this.loadRoles();
-      this.loadProfileSructure();
+      this.loadProfileSructure();      
     },
     updated(){
        this.fillProfile();
     },
-    mounted(){     
+    mounted(){    
       this.$refs.email.focus();
     }
   }
