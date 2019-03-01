@@ -115,7 +115,7 @@ class UserController extends Controller
             // Create profile info base on profile type 
             $user->profile()->create([           
                 'profile_id' => $request->profile_id,
-                'data' => $request->profile_data
+                'data' => [json_decode($request->profile_data)]
             ]);        
 
             // Find role and assigned to user
@@ -186,7 +186,8 @@ class UserController extends Controller
 				$profileUser = $user->profile()->first();
 				$profileUser->profile_id = $request->profile_id;
 				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
-				$user->profile()->save($profileUser);
+                $profileUser->data = [jsone_decode($profileUser->data)];
+                $user->profile()->save($profileUser);
 			}
                            
             // Set user roles and update
@@ -239,8 +240,7 @@ class UserController extends Controller
                 $this->httpOk
             );
 
-        } catch (Exception $e) {        
-            Log::error($e->getMessage());
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error delete user',
                 'errors' => __('app.failedAlert')],
