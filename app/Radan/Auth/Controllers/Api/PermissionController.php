@@ -6,7 +6,6 @@ use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\Permission;
@@ -62,8 +61,7 @@ class PermissionController extends Controller
                 $this->httpCreated
             );
 		}
-		catch (Exceptions $e) {
-			Log::error($e->getMessage());
+		catch (Exceptions $e) {			
             return response()->json([
                 'message' => 'Error create profile',
                 'errors' => __('app.failedAlert')],
@@ -108,8 +106,7 @@ class PermissionController extends Controller
                 'message' => __('app.updateAlert')],
                 $this->httpOk
             );
-		} catch (Exception $e) {						
-			Log::error($e->getMessage());
+		} catch (Exception $e) {
             return response()->json([
                 'message' => 'Error update profile',
                 'errors' => __('app.failedAlert')],
