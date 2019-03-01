@@ -186,7 +186,7 @@ class UserController extends Controller
 				$profileUser = $user->profile()->first();
 				$profileUser->profile_id = $request->profile_id;
 				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
-                $profileUser->data = [jsone_decode($profileUser->data)];
+                $profileUser->data = json_decode($profileUser->data);
                 $user->profile()->save($profileUser);
 			}
                            
@@ -203,9 +203,9 @@ class UserController extends Controller
             );
 
         } catch (Exception $e) {
-          DB::rollBack();            
+            DB::rollBack();            
             return response()->json([
-               'message' => 'Error update user',
+                'message' => 'Error update user',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
