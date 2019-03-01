@@ -90,30 +90,23 @@
               >
             </el-switch>
             </el-form-item>
-            <el-card class="box-card col-9" style="margin-right:14%">
-              <div slot="header" class="clearfix">
-                <span>{{trans('user.profile_data_lbl')}}</span>               
-              </div>
-              <div class="text item">
-                <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
-                :label="trans(item.label)"
-                      :prop="item.name"
-                      :rules="[
-                        { type:item.type,required:item.required, message: trans(item.errorMsg)}
-                      ]">
-                  <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
-                  <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
-                    <el-option
-                      v-for="option in lists"
-                      :key="option.id"
-                      :label="option.description"
-                      :value="option.id">
-                    </el-option>
-                  </el-select>
-                  <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
-                </el-form-item>  
-              </div>
-            </el-card>                     
+            <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
+            :label="trans(item.label)"
+                  :prop="item.name"
+                  :rules="[
+                    { type:item.type,required:item.required, message: trans(item.errorMsg)}
+                  ]">
+              <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+              <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
+                <el-option
+                  v-for="option in lists"
+                  :key="option.id"
+                  :label="option.description"
+                  :value="option.id">
+                </el-option>
+              </el-select>
+              <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
+            </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
