@@ -19,9 +19,26 @@ class ProfileTableSeeder extends Seeder
 			'name' => 'default',
 			'description' => 'پیش فرض',
 			'structure' => [
-				{"id":"1","item":"el-input","type":"string","required":"true","label":"profile.first_name","errorMsg":"profile.first_nameError","name":"first_name"},
-				{"id":"2","item":"el-input","type":"string","required":"true","label":"profile.last_name","errorMsg":"profile.last_nameError","name":"last_name"}
-			]
+				[
+					"id" => "1",
+					"name" => "first_name",
+					"item" => "el-input",
+					"type" => "string",
+					"required" => "true",
+					"label" => "profile.first_name",
+					"errorMsg" => "profile.first_nameError",
+					
+				],
+				[
+					"id" => "2",
+					"name" => "last_name",
+					"item" => "el-input",
+					"type" => "string",
+					"required" => "true",
+					"label" => "profile.last_name",
+					"errorMsg" => "profile.last_nameError",
+				]
+			]												
 		));	
 	}
 }
