@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Policy\PasswordPolicy;
+namespace App\Radan\Policy\Password\Models\PasswordPolicy;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Config\Repository as Config;

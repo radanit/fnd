@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Radan\Policy\PasswordPolicy;
+namespace App\Radan\Policy\Password;
 
 class Validator
 {

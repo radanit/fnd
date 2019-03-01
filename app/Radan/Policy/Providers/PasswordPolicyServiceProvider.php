@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Radan\Policy\PasswordPolicy;
+namespace App\Radan\Policy\Providers;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
@@ -8,10 +8,14 @@ use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+use App\Radan\Policy\Password\PolicyManager;
+use App\Radan\Policy\Password\PolicyBuilder;
+use App\Radan\Policy\Password\PasswordPolicyFacade;
+
 /**
  * Class PasswordPolicyServiceProvider
  *
- * @package PasswordPolicy\Providers\Laravel
+ * @package App\Radan\Policy\Password
  */
 class PasswordPolicyServiceProvider extends ServiceProvider
 {
@@ -29,9 +33,9 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     public function register()
     {        
-        //$this->registerManager();        
-        // $this->registerBuilder();
-        // $this->registerFacade();
+        $this->registerManager();        
+        $this->registerBuilder();
+        $this->registerFacade();
         // $this->defineDefaultPolicy();        
     }    
 
@@ -72,6 +76,17 @@ class PasswordPolicyServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register password policy facade
+     *
+     * @return void
+     */
+    protected function registerFacade()
+    {
+        $loader = AliasLoader::getInstance();
+        $loader->alias('PasswordPolicy', PasswordPolicyFacade::class);
+    }
+
+    /**
      * Configure custom Laravel validation rule
      *
      * @return void
@@ -81,16 +96,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
         $this->app['validator']->extend('password', PasswordValidator::class . '@validate');
     }
 
-    /**
-     * Register password policy facade
-     *
-     * @return void
-     */
-    protected function registerFacade()
-    {
-        $loader = AliasLoader::getInstance();
-        $loader->alias('PasswordPolicy', Facade::class);
-    }
+    
 
     /**
      * Define the default password policy

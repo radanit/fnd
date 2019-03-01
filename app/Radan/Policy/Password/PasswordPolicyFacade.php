@@ -1,16 +1,16 @@
 <?php 
 
-namespace App\Radan\Policy\PasswordPolicy;
+namespace App\Radan\Policy\Password;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
-use App\Radan\Policy\PasswordPolicy\PolicyManager;
+use App\Radan\Policy\Password\PolicyManager;
 
 /**
  * Class Facade
  *
- * @package PasswordPolicy\Providers\Laravel
+ * @package App\Radan\Policy\Password
  */
-class Facade extends LaravelFacade
+class PasswordPolicyFacade extends LaravelFacade
 {
     /**
      * Get the registered name of the component.
@@ -19,6 +19,6 @@ class Facade extends LaravelFacade
      */
     protected static function getFacadeAccessor()
     {
-        return app(PolicyManager::class);
+        return 'PolicyManager';
     }
 }

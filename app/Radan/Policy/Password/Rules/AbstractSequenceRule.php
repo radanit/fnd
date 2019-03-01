@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Radan\Policy\PasswordPolicy\Rules;
+namespace App\Radan\Policy\Password\Rules;
 
-use App\Radan\Policy\PasswordPolicy\Rule;
+use App\Radan\Policy\Password\Rule;
 
 /**
  * Class AbstractSequenceRule

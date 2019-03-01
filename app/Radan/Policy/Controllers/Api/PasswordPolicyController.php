@@ -18,7 +18,7 @@ use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 
 // This Module classes
-use App\Radan\Policy\Password\PasswordPolicy;
+use App\Radan\Policy\Password\Models\PasswordPolicy;
 
 class PasswordPolicyController extends Controller
 {

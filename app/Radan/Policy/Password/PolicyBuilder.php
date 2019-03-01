@@ -1,14 +1,14 @@
 <?php 
 
-namespace App\Radan\Policy\PasswordPolicy;
+namespace App\Radan\Policy\Password;
 
 use Closure;
-use App\Radan\Policy\PasswordPolicy\Rules\CaseRule;
-use App\Radan\Policy\PasswordPolicy\Rules\ContainRule;
-use App\Radan\Policy\PasswordPolicy\Rules\DigitRule;
-use App\Radan\Policy\PasswordPolicy\Rules\LengthRule;
-use App\Radan\Policy\PasswordPolicy\Rules\MinPassingRulesRule;
-use App\Radan\Policy\PasswordPolicy\Rules\SpecialCharacterRule;
+use App\Radan\Policy\Password\Rules\CaseRule;
+use App\Radan\Policy\Password\Rules\ContainRule;
+use App\Radan\Policy\Password\Rules\DigitRule;
+use App\Radan\Policy\Password\Rules\LengthRule;
+use App\Radan\Policy\Password\Rules\MinPassingRulesRule;
+use App\Radan\Policy\Password\Rules\SpecialCharacterRule;
 
 /**
  * Class PolicyBuilder

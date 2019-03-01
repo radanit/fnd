@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Policy\PasswordPolicy\Traits;
+namespace App\Radan\Policy\Password\Traits;
 
 /**
  * This file is part of Radan PasswordPolicy
