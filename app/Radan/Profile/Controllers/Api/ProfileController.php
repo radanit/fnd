@@ -69,7 +69,7 @@ class ProfileController extends Controller
             $profile = Profile::create([
                 'name' => $request->name,        
                 'description' => $request->description,
-                'structure' => [json_decode($request->structure)],
+                'structure' => json_decode($request->structure),
                 'password_policy_id' => $passwordPolicy,
             ]);
 
@@ -120,7 +120,7 @@ class ProfileController extends Controller
 
             $data = $request->only(['description', 'structure','password_policy_id']);
             if (array_key_exists('structure',$data)) {
-                $data['structure'] = [json_decode($request->structure)];
+                $data['structure'] = json_decode($request->structure);
             }
 
             $profile->update($data);
