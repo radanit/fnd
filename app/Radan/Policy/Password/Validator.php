@@ -33,7 +33,7 @@ class Validator
 
     public function attempt($subject)
     {
-        /** @var Rule $rule */
+        /** @var Rule $rule */            
         foreach ($this->policy->rules() as $rule) {
             if (!$rule->test($subject)) {
                 return false;

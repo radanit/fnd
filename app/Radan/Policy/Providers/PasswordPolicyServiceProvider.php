@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use App\Radan\Policy\Password\PolicyManager;
 use App\Radan\Policy\Password\PolicyBuilder;
 use App\Radan\Policy\Password\PasswordPolicyFacade;
+use App\Radan\Policy\Password\PasswordValidator;
+use App\Radan\Policy\Password\PasswordPolicyFacade as PasswordPolicy;
+use Validator;
 
 /**
  * Class PasswordPolicyServiceProvider
@@ -20,24 +23,19 @@ use App\Radan\Policy\Password\PasswordPolicyFacade;
 class PasswordPolicyServiceProvider extends ServiceProvider
 {
     /**
-     * Private provider attribute for handeling IOC configuration object.
-     * 
-     */ 
-    protected $config;
-    
-    
-    /**
      * Register the service provider.
      *
      * @return void
      */
     public function register()
     {        
-        $this->registerManager();        
+        $this->mergeConfigFrom(
+            __DIR__.'/../Password/config/password_policy.php', 'password_policy');
+        $this->registerManager();
         $this->registerBuilder();
         $this->registerFacade();
         // $this->defineDefaultPolicy();        
-    }    
+    }
 
     /**
      * Boot the service provider
@@ -45,10 +43,9 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot(Config $config,Request $request)
-    {    
-        //$this->config = $config;
-        //dd($request);
-       // $this->configureValidationRule();
+    {
+        $this->extendValidator();
+
        // $this->defineDefaultPasswordPolicy();
        // $this->defineUserPasswordPolicy();
     }
@@ -60,8 +57,9 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     protected function registerManager()
     {
-        $this->app->instance(PolicyManager::class,function ($app) {
-            return new PolicyManager();
+        $this->app->bind(PolicyManager::class,function ($app) {
+            $p = new PolicyManager();            
+            return $p;
         });
     }
 
@@ -71,8 +69,10 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      * @return void
      */
     protected function registerBuilder()
-    {
-        $this->app->bind(PolicyBuilder::class);
+    {        
+        $this->app->bind(
+            PolicyBuilder::class
+        );
     }
 
     /**
@@ -87,17 +87,18 @@ class PasswordPolicyServiceProvider extends ServiceProvider
     }
 
     /**
-     * Configure custom Laravel validation rule
+     * Using Extensions Laravel validation rule
      *
      * @return void
      */
-    protected function configureValidationRule()
-    {
-        $this->app['validator']->extend('password', PasswordValidator::class . '@validate');
+    protected function extendValidator()
+    {        
+        $this->app['validator']->extend(
+            $this->app['config']->get('password_policy.validation_name'),
+            PasswordValidator::class . '@validate'
+        );        
     }
-
     
-
     /**
      * Define the default password policy
      *
