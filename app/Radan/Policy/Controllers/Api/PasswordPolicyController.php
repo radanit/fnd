@@ -51,41 +51,31 @@ class PasswordPolicyController extends Controller
     {    
         // Validation rules
         Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:'.PasswordPolicy::getTable(),
-            'description' => 'string|max:255',
-            'display_name' => 'string|max:255',
-            'min_length' => 'number',
-            'max_length.*' => 'number,gth:min_length',            
+            'name' => 'required|string|max:191|unique:'.PasswordPolicy::getTable(),
+            'description' => 'required|string|max:191',            
+            'min_length' => 'required|integer|min:6',
+            'max_length' => 'integer|gte:min_length',
+            'upper_case' => 'integer|lt:max_length',
+            'lower_case' => 'integer|lt:max_length',
+            'special_chars' =>  'integer|lt:max_length',
+            'does_not_contain' => 'alpha_dash'
         ])->validate();
-    
-        // Begin Database transaction			
-        DB::beginTransaction();
-        try {
-            // First create role in roles table     
-            $role = Role::create([
-                'name' => $request->name,        
-                'display_name' => $request->display_name,
-                'description' => $request->description,
-            ]);
-
-            // Find permission and assigned to role
-            $permissions = is_array($request->permissions) ? $request->permissions: explode(',',$request->permissions);
-            $role->attachPermissions($permissions);
+                
+        // Create Resource
+        $password = PasswordPolicy::create(
+            $request->only(
+                'name',
+                'description',
+                'min_length','max_length',
+                'upper_case','lower_case',
+                'special_chars',
+                'does_not_contain')
+            );
             
-            // Return
-            DB::commit();
-            return response()->json([
-                'message' => __('app.insertAlert')],
-                $this->httpCreated
-            );
-        } catch (Exception $e) {
-            DB::rollBack();            
-            return response()->json([
-                'message' => 'Error create permission',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }
+        return response()->json([
+            'message' => __('app.insertAlert')],
+            $this->httpCreated
+        );
     }
 
     /**
@@ -97,7 +87,7 @@ class PasswordPolicyController extends Controller
     public function show($id)
     {
         //
-        return new RoleResource(Role::findOrFail($id));
+        return new PasswordPolicyResource(PasswordPolicy::findOrFail($id));
     }
 
     /**
@@ -109,38 +99,32 @@ class PasswordPolicyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validation permission   
-        Validator::make($request->only('display_name','description','permissions'), [
-            'description' => 'string|max:255',
-            'display_name' => 'string|max:255',
-            'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id'
+        // Validation rules
+        Validator::make($request->all(), [            
+            'description' => 'required|string|max:191',            
+            'min_length' => 'integer|min:6',
+            'max_length' => 'integer|gte:min_length',
+            'upper_case' => 'integer|lt:max_length',
+            'lower_case' => 'integer|lt:max_length',
+            'special_chars' =>  'integer|lt:max_length',
+            'does_not_contain' => 'alpha_dash'
         ])->validate();
+                
+        $password = PasswordPolicy::findOrFail($id);
+        $password->update($request->only(
+            'name',
+            'description',
+            'min_length','max_length',
+            'upper_case','lower_case',
+            'special_chars',
+            'does_not_contain'
+        ));
+                    
+        return response()->json([
+            'message' => __('app.updateAlert')],
+            $this->httpOk
+        );
         
-        try {
-            $role = Role::findOrFail($id);
-            $role->update($request->only('description', 'display_name'));
-            
-            // Set role permissions and update
-            if ($request->filled('permissions')) {
-				$role->syncPermissions($request->permissions);
-            }
-
-            // Return 
-            DB::commit();
-            return response()->json([
-                'message' => __('app.updateAlert')],
-                $this->httpOk
-            );
-
-        } catch (Exception $e) {
-            DB::rollBack();  
-            return response()->json([
-                'message' => 'Error update role',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        } 
     }
 
     /**
@@ -151,25 +135,25 @@ class PasswordPolicyController extends Controller
      */
     public function destroy($id)
     {
-        // Find role by id        
-        $role = Role::findOrFail($id);
+        // Find Resource
+        $password = PasswordPolicy::findOrFail($id);
         
         // Get prevernts from config files
-        $prevents = Config::get('radan.auth.prevents.roles');
+        $prevents = Config::get('radan.policy.prevents.password');
         
         // Check prevents rule
         if (!is_null($prevents)) {
             foreach ($prevents as $key => $value) {
-                if ($role->$key==$value) {                        
+                if ($password->$key==$value) {                        
                     throw new ResourceProtected;
                 }
             }
         }
             
-        // Delete role, deattache user and permissions            
-        $role->delete();
+        // Delete Resource
+        $password->delete();
             
-        // Return
+        // Return Response
         return response()->json([
             'message' => __('app.deleteAlert')],
             $this->httpOk

@@ -13,5 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['middleware' => 'auth:api'], function() {
-   //Route::apiResource('password', 'PasswordPolicyController');
+   Route::apiResource('password', 'PasswordPolicyController');
 });
