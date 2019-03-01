@@ -20,7 +20,7 @@ class ProfileResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,            
             'description' => $this->description,
-            'structure' => $this->structure,
+            'structure' => json_encode($this->structure),
             'password_policy' => new PasswordPolicyResource($this->passwordPolicy),
         ];
     }
