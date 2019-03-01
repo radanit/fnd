@@ -93,11 +93,6 @@
               >
             </el-switch>
             </el-form-item>
-            <el-card class="box-card col-9" style="margin-right:14%">
-              <div slot="header" class="clearfix">
-                <span>{{trans('user.profile_data_lbl')}}</span>               
-              </div>
-              <div class="text item">
                 <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
                 :label="trans(item.label)"
                       :prop="item.name"
@@ -114,9 +109,7 @@
                     </el-option>
                   </el-select>
                   <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
-                </el-form-item>  
-              </div>
-            </el-card>                                            
+            </el-form-item>                                           
             <el-form-item>
               <el-button  size="mini" type="success" @click="createUser()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button  size="mini" type="primary" @click="createContinueUser()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>              
