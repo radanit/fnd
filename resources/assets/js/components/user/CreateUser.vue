@@ -232,12 +232,12 @@
       this.$refs['form'].validate((valid) => {
       if (valid) 
       {
-       var jsonData = {};
-        for (var i=0 ;i<this.structure.length;i++)
-        {
-            var columnName = this.structure[i].name;
-            jsonData[columnName] = this.form[this.structure[i].name];
-        };
+      var jsonData = {};
+      for (var i=0 ;i<this.structure.length;i++)
+      {
+          var columnName = this.structure[i].name;
+          jsonData[columnName] = this.form[this.structure[i].name];
+      };
       let newUser ={            
         username: this.form.username,
         email: this.form.email,

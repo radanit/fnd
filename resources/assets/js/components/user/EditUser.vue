@@ -242,13 +242,20 @@
         });
         }
       });
+      var jsonData = {};
+      for (var i=0 ;i<this.structure.length;i++)
+      {
+          var columnName = this.structure[i].name;
+          jsonData[columnName] = this.form[this.structure[i].name];
+      };      
       let userInfo={
           password:this.form.password,
           password_confirmation:this.form.password_confirmation,          
           data:this.profile_data,
           profile_id:this.form.profile_id,
           active:this.form.active,
-          roles:roles_id
+          roles:roles_id,
+          profile_data :JSON.stringify(jsonData)
       }
       axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
           this.$message({
@@ -266,13 +273,9 @@
         });        
       },
       fillProfile(){
-        var jsonData={};
-         jsonData=JSON.parse(this.form.data);
-        console.log(jsonData);
         for (var i=0 ;i<this.structure.length;i++)
         {
-            var columnName = this.structure[i].name;
-            this.form[columnName] = jsonData[columnName];
+          document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
         };
       },
       /*
