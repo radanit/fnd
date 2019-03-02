@@ -54,17 +54,25 @@ class PolicyManager
     /**
      * Define a new policy by name
      *
-     * @param $name string
-     * @param $policy Policy|PolicyBuilder|Closure
+     * @param $policies string|Array
+     * @param $policyRules Policy|PolicyBuilder|Closure
      *
      * @return $this
      */
-    public function define($name, $policy)
+    public function define($policies, $policyRules=null)
     {
-        $this->policies[$name] = $this->parsePolicy($policy);
+        if (is_array($policies) and is_null($policyRules)) {
+            foreach ($policies as $policy)
+            {
+                $this->policies[$policy['name']] = $this->parsePolicy($policy);
+            }
+        }
+        else {
+            $this->policies[$name] = $this->parsePolicy($policy);
+        }
 
         return $this;
-    }
+    }    
 
     /**
      * Parse policy

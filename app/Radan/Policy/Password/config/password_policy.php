@@ -15,32 +15,19 @@ return [
   | This name use in laravel validation list
   */
   'validation_name' => 'password',
-
-  /*
-  |--------------------------------------------------------------------------
-  | Password Policy driver
-  |--------------------------------------------------------------------------
-  | Read Password Policy Driver (Drivers: database,local)
-  */
-  'driver' => 'database',
   
   /*
   |--------------------------------------------------------------------------
-  | Password Policy validation rule for local driver
+  | Password Policy validation rule
   |--------------------------------------------------------------------------
-  | If Password Polict driver set to local, then below parameters use for 
+  | If Password Policty is empty ,then below parameters use for 
   | password policy validation and policies
-  */
-  'local' => [
-    'default' => [
-      'rules' => [
-        'min_length' => 6,
-      ],
-    ],
-    'user' => [
-      'rules' => [
-        'min_length' => 6,
-      ],
+  */  
+  'local_policies' => [
+    [
+      'name' => 'default',
+      'description' => 'default',
+      'min_length' => 6,
     ],
   ],
   
@@ -61,7 +48,7 @@ return [
     /*
      * PasswordPolicy model
      */
-    'password_policies' => 'App\Radan\PasswordPolicy\Models\PasswordPolicy',
+    'password_policies' => 'App\Radan\Policy\Password\Models\PasswordPolicy',
 
     /*
      * number of record fetched in request
@@ -80,6 +67,7 @@ return [
   'tables' => [
     
     'password_policies' => 'password_policies',
+    'profiles' => 'profiles',
 
   ],
 
@@ -106,11 +94,9 @@ return [
   |
   */
   'prevents' => [
-
     'password_policies' => [
       'id' => 1,
       'name' => 'default',
     ],
-
   ],  
 ];

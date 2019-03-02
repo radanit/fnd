@@ -19,6 +19,6 @@ class PasswordPolicyFacade extends LaravelFacade
      */
     protected static function getFacadeAccessor()
     {
-        return app(PolicyManager::class);
+        return 'policy.manager';
     }
 }

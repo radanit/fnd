@@ -12,7 +12,6 @@ use App\Radan\Policy\Password\PolicyManager;
 use App\Radan\Policy\Password\PolicyBuilder;
 use App\Radan\Policy\Password\PasswordPolicyFacade;
 use App\Radan\Policy\Password\PasswordValidator;
-use App\Radan\Policy\Password\PasswordPolicyFacade as PasswordPolicy;
 use Validator;
 
 /**
@@ -33,8 +32,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
             __DIR__.'/../Password/config/password_policy.php', 'password_policy');
         $this->registerManager();
         $this->registerBuilder();
-        $this->registerFacade();
-        // $this->defineDefaultPolicy();        
+        $this->registerFacade();        
     }
 
     /**
@@ -45,9 +43,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
     public function boot(Config $config,Request $request)
     {
         $this->extendValidator();
-
-       // $this->defineDefaultPasswordPolicy();
-       // $this->defineUserPasswordPolicy();
+        $this->definePolicies();
     }
 
     /**
@@ -57,9 +53,9 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     protected function registerManager()
     {
-        $this->app->bind(PolicyManager::class,function ($app) {
-            $p = new PolicyManager();            
-            return $p;
+        $this->app->singleton('policy.manager', function ($app) {
+            $policyManager = new PolicyManager();            
+            return $policyManager;
         });
     }
 
@@ -70,9 +66,9 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     protected function registerBuilder()
     {        
-        $this->app->bind(
-            PolicyBuilder::class
-        );
+        $this->app->bind(PolicyBuilder::class, function ($app) {
+            return new PolicyBuilder();
+        });
     }
 
     /**
@@ -99,6 +95,31 @@ class PasswordPolicyServiceProvider extends ServiceProvider
         );        
     }
     
+    /**
+     * Using Extensions Laravel validation rule
+     *
+     * @return void
+     */
+    protected function definePolicies()
+    {        
+        $policyDataModel = $this->app['config']->get('password_policy.models.password_policies');        
+        if ($policyData = new $policyDataModel()) {
+            $policies = $policyData::all()->toArray();            
+        }
+        elseif ($policyData = $this->app['config']->get('password_policy.local_policies')) {
+            $policies = $policyData;
+        }
+
+        PasswordPolicy::define($policies);
+    }
+
+
+
+
+
+
+
+
     /**
      * Define the default password policy
      *
