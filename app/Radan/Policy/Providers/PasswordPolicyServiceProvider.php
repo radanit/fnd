@@ -110,7 +110,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
             $policies = $policyData;
         }
 
-        PasswordPolicy::define($policies);
+        //PasswordPolicy::define($policies);
     }
 
 

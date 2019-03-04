@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Radan\Policy\PasswordPolicy\PasswordPolicy;
+use App\Radan\Policy\Password\Models\PasswordPolicy;
 
 class PasswordPolicyTableSeeder extends Seeder 
 {
