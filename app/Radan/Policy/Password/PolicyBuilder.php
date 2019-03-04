@@ -3,6 +3,7 @@
 namespace App\Radan\Policy\Password;
 
 use Closure;
+use App\Radan\Policy\Password\Policy;
 use App\Radan\Policy\Password\Rules\CaseRule;
 use App\Radan\Policy\Password\Rules\ContainRule;
 use App\Radan\Policy\Password\Rules\DigitRule;
@@ -30,9 +31,9 @@ class PolicyBuilder
      *
      * @param Policy $policy
      */
-    public function __construct(Policy $policy)
+    public function __construct(Policy $policy=null)
     {
-        $this->policy = $policy;
+        $this->policy = is_null($policy) ? new Policy(): $policy;
     }
 
     /**
@@ -192,5 +193,39 @@ class PolicyBuilder
     public function getPolicy()
     {
         return $this->policy;
+    }
+
+    /**
+     * Create Policy Builder by validaton rules
+     *
+     * @param Array $rules Contain password validation rules
+     * 
+     * @return Policy
+     */
+    public function createPolicy($rules)
+    {        
+        if (is_array($rules)) {
+            foreach ($rules as $key => $value) {
+                switch ($key) {
+                    case 'min_length':
+                        $this->minLength($value); break;
+                    case 'max_length':
+                        $this->maxLength($value); break;
+                    case 'upper_case':
+                        $this->upperCase($value); break;
+                    case 'lower_case':
+                        $this->lowerCase($value); break;
+                    case 'digits':
+                        $this->digits($value); break;
+                    case 'special_chars':
+                        $this->specialCharacters($value); break;
+                    case 'does_not_contain':
+                        $this->doesNotContain($value); break;
+                    default:                    
+                        break;
+                }              
+            }
+        }
+        return $this->policy;;
     }
 }

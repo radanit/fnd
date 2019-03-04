@@ -3,6 +3,9 @@
 namespace App\Radan\Policy\Password;
 
 use Closure;
+use App\Radan\Policy\Password\Policy;
+use App\Radan\Policy\Password\PolicyBuilder;
+use App\Radan\Policy\Password\PasswordValidator;
 use InvalidArgumentException;
 
 /**
@@ -54,25 +57,16 @@ class PolicyManager
     /**
      * Define a new policy by name
      *
-     * @param $policies string|Array
-     * @param $policyRules Policy|PolicyBuilder|Closure
+     * @param $name string
+     * @param $policy Policy|PolicyBuilder|Closure
      *
      * @return $this
      */
-    public function define($policies, $policyRules=null)
+    public function define($name, $policy)
     {
-        if (is_array($policies) and is_null($policyRules)) {
-            foreach ($policies as $policy)
-            {
-                $this->policies[$policy['name']] = $this->parsePolicy($policy);
-            }
-        }
-        else {
-            $this->policies[$name] = $this->parsePolicy($policy);
-        }
-
+        $this->policies[$name] = $this->parsePolicy($policy);
         return $this;
-    }    
+    }
 
     /**
      * Parse policy

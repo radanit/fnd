@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 
 // Radan modules classes
-//use App\Radan\Policy\PasswordPolicy\PasswordPolicy;
 use App\Radan\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
@@ -53,24 +52,18 @@ class ProfileController extends Controller
     public function store(Request $request)
     {                
         // Validation rules
-        Validator::make($request->only('name','description','structure','password_policy_id','password'), [
+        Validator::make($request->only('name','description','structure'), [
             'name' => 'required|string|max:255|unique:profiles',
             'description' => 'required|string|max:255',
-            'structure' => 'required|string|json',
-            'password_policy_id' => 'exists:password_policies,id',
+            'structure' => 'required|string|json',           
         ])->validate();
 
         // Create Profile
         try {            
-            // get default password policy            
-            //$defaultPasswordPolicyId = PasswordPolicy::where('name','default')->first()->id;
-            //$passwordPolicy = ($request->filled('password_policy_id')) ? $request->password_policy_id:$defaultPasswordPolicyId;
-            
             $profile = Profile::create([
                 'name' => $request->name,        
                 'description' => $request->description,
-                'structure' => json_decode($request->structure),
-               // 'password_policy_id' => $passwordPolicy,
+                'structure' => json_decode($request->structure),              
             ]);
 
             // Return
@@ -109,16 +102,15 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         // Validation rules   
-        Validator::make($request->only('description','structure','password_policy_id'), [
+        Validator::make($request->only('description','structure'), [
             'description' => 'required|string|max:255',
-            'structure' => 'required|string|json',
-            'password_policy_id' => 'exists:password_policies,id',
+            'structure' => 'required|string|json',            
         ])->validate();
 
         try {
             $profile = Profile::findOrFail($id);
 
-            $data = $request->only(['description', 'structure','password_policy_id']);
+            $data = $request->only('description', 'structure');
             if (array_key_exists('structure',$data)) {
                 $data['structure'] = json_decode($request->structure);
             }

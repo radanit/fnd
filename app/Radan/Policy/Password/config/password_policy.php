@@ -15,6 +15,7 @@ return [
   | This name use in laravel validation list
   */
   'validation_name' => 'password',
+  'default_name' => 'default',
   
   /*
   |--------------------------------------------------------------------------
@@ -90,7 +91,7 @@ return [
   | Radan Profile prevents rules
   |--------------------------------------------------------------------------
   |
-  | These are the prevents rules for delete record of profile tables.
+  | These are the prevents rules for delete record of tables.
   |
   */
   'prevents' => [

@@ -51,7 +51,7 @@ class PasswordPolicy extends Model
      */    
     public function profiles()
     {
-        return $this->belongsTo('App\Radan\Profile\Models\Profile', 'id', 'password_policy_id');
+        return $this->hasOne('App\Radan\Profile\Models\Profile', 'id', 'password_policy_id');
     }
 
 

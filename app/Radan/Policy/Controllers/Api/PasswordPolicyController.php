@@ -111,8 +111,7 @@ class PasswordPolicyController extends Controller
         ])->validate();
                 
         $password = PasswordPolicy::findOrFail($id);
-        $password->update($request->only(
-            'name',
+        $password->update($request->only(       
             'description',
             'min_length','max_length',
             'upper_case','lower_case',
@@ -138,8 +137,8 @@ class PasswordPolicyController extends Controller
         // Find Resource
         $password = PasswordPolicy::findOrFail($id);
         
-        // Get prevernts from config files
-        $prevents = Config::get('radan.policy.prevents.password');
+        // Get prevernts from config files        
+        $prevents = Config::get('password_policy.prevents.password_policies');
         
         // Check prevents rule
         if (!is_null($prevents)) {
@@ -148,7 +147,7 @@ class PasswordPolicyController extends Controller
                     throw new ResourceProtected;
                 }
             }
-        }
+        }        
             
         // Delete Resource
         $password->delete();

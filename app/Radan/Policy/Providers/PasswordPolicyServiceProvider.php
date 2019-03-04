@@ -8,11 +8,12 @@ use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+use App\Radan\Policy\Password\Policy;
 use App\Radan\Policy\Password\PolicyManager;
 use App\Radan\Policy\Password\PolicyBuilder;
 use App\Radan\Policy\Password\PasswordPolicyFacade;
 use App\Radan\Policy\Password\PasswordValidator;
-use Validator;
+//use Validator;
 
 /**
  * Class PasswordPolicyServiceProvider
@@ -53,8 +54,15 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      */
     protected function registerManager()
     {
+        // Create singleton password policy manager instance
         $this->app->singleton('policy.manager', function ($app) {
-            $policyManager = new PolicyManager();            
+            $policyManager = new PolicyManager();
+            
+            // get defaut policy name from config
+            $defaultName = $this->app['config']->get('password_policy.default_name');
+            
+            // set PasswordManager default policy name
+            $policyManager->setDefaultName($defaultName);
             return $policyManager;
         });
     }
@@ -96,197 +104,28 @@ class PasswordPolicyServiceProvider extends ServiceProvider
     }
     
     /**
-     * Using Extensions Laravel validation rule
+     * Using define password policy
      *
      * @return void
      */
     protected function definePolicies()
     {        
+        // First try read password policy rules from database
+        // get password policy elequent model name form config
         $policyDataModel = $this->app['config']->get('password_policy.models.password_policies');        
-        if ($policyData = new $policyDataModel()) {
-            $policies = $policyData::all()->toArray();            
+        
+        // Check policy elequent model is exists
+        if (class_exists($policyDataModel)) {
+            $policies = $policyDataModel::all()->toArray();            
         }
         elseif ($policyData = $this->app['config']->get('password_policy.local_policies')) {
             $policies = $policyData;
         }
-
-        //PasswordPolicy::define($policies);
-    }
-
-
-
-
-
-
-
-
-    /**
-     * Define the default password policy
-     *
-     * @return void
-     */
-    protected function defineDefaultPolicy()
-    {
-        $defaultPolicy = $this->defaultPolicy($this->app->make(PolicyBuilder::class));
-
-        if ($defaultPolicy instanceof PolicyBuilder) {
-            $defaultPolicy = $defaultPolicy->getPolicy();
-        }
-
-        $this->app->make(PolicyManager::class)->define('default', $defaultPolicy);
-    }
-
-    /**
-     * Build the default policy instance
-     *
-     * @param PolicyBuilder $builder
-     *
-     * @return \PasswordPolicy\Policy
-     */
-    protected function defaultPolicy(PolicyBuilder $builder)
-    {
-        return $builder->getPolicy();
-    }
-
-    /**
-     * Extend laravel Validation by default Password Policy.
-     *
-     * @return void
-     */
-    protected function defineDefaultPasswordPolicy()
-    {
-        $method = 'get'. $this->getPolicyDriver() . 'DefaultRules';     
-        $builder = $this->createPolicyBuilder($this->$method());
-        $manager = new PolicyManager();
-        $manager->define('default', $builder);
-    }
-
-    /**
-     * Extend laravel Validation by user Password Policy.
-     *
-     * @return void
-     */
-    protected function defineUserPasswordPolicy()
-    {
-        $method = 'get'. $this->getPolicyDriver() . 'UserRules';
-        $builder = $this->createPolicyBuilder($this->$method());
-        $manager = new PolicyManager();
-        $manager->define('user', $builder);
-    }
-
-    /**
-     * Get current Password Policy Driver form configuration
-     * 
-     * @return stirng
-     */
-    protected function getPolicyDriver()
-    {
-        return ucfirst($this->config->get('radan.password_policy.driver')).'Driver';
-    }
-
-    /**
-     * Create Policy Builder by validaton rules
-     *
-     * @param Array $rules Contain password validation rules
-     * 
-     * @return PolicyBuilder
-     */
-    protected function createPolicyBuilder($rules)
-    {
-        $builder = new PolicyBuilder(new Policy);
-        if (is_array($rules)) {
-            foreach ($rules as $key => $value) {
-                switch ($key) {
-                    case 'min_length':
-                        $builder->minLength($value); break;
-                    case 'max_length':
-                        $builder->maxLength($value); break;
-                    case 'upper_case':
-                        $builder->upperCase($value); break;
-                    case 'lower_case':
-                        $builder->lowerCase($value); break;
-                    case 'digits':
-                        $builder->digits($value); break;
-                    case 'special_chars':
-                        $builder->specialCharacters($value); break;
-                    case 'does_not_contain':
-                        $builder->doesNotContain($value); break;
-                    default:                    
-                        break;
-                }              
-            }
-        }
-        return $builder;
-    }        
-
-    /**
-     * Read Password Policy user rules form local driver
-     * 
-     * @return array
-     */
-    protected function getLocalDriverUserRules()
-    {
-        $rules = $this->config->get('radan.password_policy.local.user.rules');
-        return $rules;
-    }
-
-    /**
-     * Read Password Policy default rules form local driver
-     * 
-     * @return array
-     */
-    protected function getLocalDriverDefaultRules() 
-    {
-        $rules = $this->config->get('radan.password_policy.local.default.rules');
-        $builder = $this->createPolicyBuilder($rules);        
+            
+        foreach ($policies as $rules)  {
+            $builder = new PolicyBuilder();
+            $policy = $builder->createPolicy($rules);
+            $this->app['policy.manager']->define($rules['name'],$policy);
+        }        
     }    
-
-    /**
-     * Read Password Policy default rules form database driver
-     * 
-     * @return array
-     */
-    protected function getDatabaseDriverDefaultRules() 
-    {
-       $rules = [];
-       $policy = PasswordPolicy::where('name','default')->first();
-       if ($policy) {
-            $rules = [];
-            $rules['min_length'] = $policy->min_length;
-            $rules['max_length'] = $policy->max_length;
-            $rules['upper_case'] = $policy->upper_case;
-            $rules['lower_case'] = $policy->lower_case;
-            $rules['digits'] = $policy->digits;
-            $rules['special_chars'] = $policy->special_chars;
-            $rules['does_not_contain'] = $policy->does_not_contain;
-       }
-       return $rules;
-    }
-
-    /**
-     * Read Password Policy user rules form database driver
-     * 
-     * @return array
-     */
-    protected function getDatabaseDriverUserRules()
-    {
-        $rules = [];
-        dd(auth()->guard('api')->user());
-        if (Auth::guard('api')->check()) {
-            $user = Auth::guard('api')->user();
-            dd($user);
-            $policy = $user->profileUser->profile->passwordPolicy;
-            if ($policy) {
-                $rules = [];
-                $rules['min_length'] = $policy->min_length;
-                $rules['max_length'] = $policy->max_length;
-                $rules['upper_case'] = $policy->upper_case;
-                $rules['lower_case'] = $policy->lower_case;
-                $rules['digits'] = $policy->digits;
-                $rules['special_chars'] = $policy->special_chars;
-                $rules['does_not_contain'] = $policy->does_not_contain;                
-            }
-        }
-        //dd ($rules);
-    }
 }
