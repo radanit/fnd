@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 
 // Radan modules classes
-use App\Radan\Policy\PasswordPolicy\PasswordPolicy;
+//use App\Radan\Policy\PasswordPolicy\PasswordPolicy;
 use App\Radan\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
@@ -63,14 +63,14 @@ class ProfileController extends Controller
         // Create Profile
         try {            
             // get default password policy            
-            $defaultPasswordPolicyId = PasswordPolicy::where('name','default')->first()->id;
-            $passwordPolicy = ($request->filled('password_policy_id')) ? $request->password_policy_id:$defaultPasswordPolicyId;
+            //$defaultPasswordPolicyId = PasswordPolicy::where('name','default')->first()->id;
+            //$passwordPolicy = ($request->filled('password_policy_id')) ? $request->password_policy_id:$defaultPasswordPolicyId;
             
             $profile = Profile::create([
                 'name' => $request->name,        
                 'description' => $request->description,
                 'structure' => json_decode($request->structure),
-                'password_policy_id' => $passwordPolicy,
+               // 'password_policy_id' => $passwordPolicy,
             ]);
 
             // Return
