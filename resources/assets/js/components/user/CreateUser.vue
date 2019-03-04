@@ -299,38 +299,44 @@
     */
     createContinueUser() {
       this.$refs['form'].validate((valid) => {
-        if (valid) 
-        {
-          //define New User
-          let newUser ={            
-            username: this.form.username,
-            email: this.form.email,
-            password: this.form.password,
-            password_confirmation:  this.form.confirmPassword,
-            profile_id: this.form.profile_id,
-            roles:  this.form.roles,
-            active: this.form.active
-          }
-          axios.post('../api/profile/users',newUser).then((response) =>{
-          Fire.$emit('AfterCrud');
+      if (valid) 
+      {
+      var jsonData = {};
+      for (var i=0 ;i<this.structure.length;i++)
+      {
+          var columnName = this.structure[i].name;
+          jsonData[columnName] = this.form[this.structure[i].name];
+      };
+      let newUser ={            
+        username: this.form.username,
+        email: this.form.email,
+        password: this.form.password,
+        password_confirmation:  this.form.confirmPassword,
+        profile_id: this.form.profile_id,
+        roles:  this.form.roles,
+        active: this.form.active,
+        profile_data :JSON.stringify(jsonData)
+      }
+      axios.post('../api/profile/users',newUser).then((response) =>{
+      Fire.$emit('AfterCrud');
+      this.$message({
+            type: 'success',
+            center: true,
+            message:response.data.message
+          });
+          this.resetForm('form');
+        })
+        .catch((error) => {
           this.$message({
-                type: 'success',
-                center: true,
-                message:response.data.message
-              });
-              this.resetForm('form');
-            })
-            .catch((error) => {
-              this.$message({
-                message: error.response.data.errors,
-                center: true,
-                type: 'error'
-              });
-            });
-        }
-        else {
-          return false;
-        }
+            message: error.response.data.errors,
+            center: true,
+            type: 'error'
+          });
+        });     
+      }
+      else {
+              return false;
+            }
       });
     },        
     /*

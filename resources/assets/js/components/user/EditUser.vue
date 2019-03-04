@@ -273,10 +273,10 @@
         });        
       },
       fillProfile(){
+
         for (var i=0 ;i<this.structure.length;i++)
         {
-          if (this.form.data[this.structure[i].name]!==null)
-            document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
+            document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[0][this.structure[i].name];
         };
       },
       /*

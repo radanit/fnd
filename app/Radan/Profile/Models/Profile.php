@@ -8,7 +8,7 @@ use App\Radan\Policy\Password\Traits\PasswordPolicyProfileTrait;
 
 class Profile extends Model 
 {            
-    use PasswordPolicyProfileTrait;
+    //use PasswordPolicyProfileTrait;
 
     /**
      * The attributes that are mass assignable.
