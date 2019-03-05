@@ -49,16 +49,18 @@ class PasswordPolicyController extends Controller
      */
     public function store(Request $request)
     {    
+        $passwordPolicy = new PasswordPolicy();
         // Validation rules
         Validator::make($request->all(), [
-            'name' => 'required|string|max:191|unique:'.PasswordPolicy::getTable(),
+            'name' => 'required|string|max:191|unique:'.$passwordPolicy->getTable(),
             'description' => 'required|string|max:191',            
-            'min_length' => 'required|integer|min:6',
-            'max_length' => 'integer|gte:min_length',
-            'upper_case' => 'integer|lt:max_length',
-            'lower_case' => 'integer|lt:max_length',
-            'special_chars' =>  'integer|lt:max_length',
-            'does_not_contain' => 'alpha_dash'
+            'min_length' => 'bail|integer|min:6',
+            'max_length' => 'bail|integer|gte:min_length',
+            'upper_case' => 'bail|integer|lt:max_length',
+            'lower_case' => 'bail|integer|lt:max_length',
+            'digits' => 'bail|integer|lt:max_length',
+            'special_chars' =>  'bail|integer|lt:max_length',
+            'does_not_contain' => 'bail|alpha_dash'
         ])->validate();
                 
         // Create Resource
@@ -66,8 +68,8 @@ class PasswordPolicyController extends Controller
             $request->only(
                 'name',
                 'description',
-                'min_length','max_length',
-                'upper_case','lower_case',
+                'min_length','max_length','digits',
+                'upper_case','lower_case',                
                 'special_chars',
                 'does_not_contain')
             );
@@ -100,15 +102,16 @@ class PasswordPolicyController extends Controller
     public function update(Request $request, $id)
     {
         // Validation rules
-        Validator::make($request->all(), [            
-            'description' => 'required|string|max:191',            
-            'min_length' => 'integer|min:6',
-            'max_length' => 'integer|gte:min_length',
-            'upper_case' => 'integer|lt:max_length',
-            'lower_case' => 'integer|lt:max_length',
-            'special_chars' =>  'integer|lt:max_length',
-            'does_not_contain' => 'alpha_dash'
-        ])->validate();
+        Validator::make($request->all(), [
+            'description' => 'required|string|max:191',
+            'min_length' => 'bail|integer|min:6',
+            'max_length' => 'bail|integer|gte:min_length',
+            'upper_case' => 'bail|integer|lt:max_length',
+            'lower_case' => 'bail|integer|lt:max_length',
+            'digits' => 'bail|integer|lt:max_length',
+            'special_chars' =>  'bail|integer|lt:max_length',
+            'does_not_contain' => 'bail|alpha_dash'
+        ])->validate();            
                 
         $password = PasswordPolicy::findOrFail($id);
         $password->update($request->only(       

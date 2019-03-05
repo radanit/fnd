@@ -28,13 +28,14 @@ class CreatePasswordPolicies extends Migration
         });
 
         // Add field for relation
+        /*
         Schema::table('profiles', function($table) {
              $table                
                 ->unsignedInteger('password_policy_id')
                 ->after('structure')
                 ->comment('Add by Radan PasswordPolicy package')                
                 ->default(1);
-        });
+        });*/
 
          
     }
