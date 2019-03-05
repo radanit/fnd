@@ -14,6 +14,11 @@ const routes = [
 	{ path: '/edit_profile_structures',name:'edit_profile_structures', component: require('../components/profile/EditProfileStructure.vue').default },
 	/*End Profile Routes*/
 
+	/*Begin PasswordPolicy Routes*/
+	{ path: '/password_policies',name:'password_policies', component: require('../components/password_policy/PasswordPolicy.vue').default },
+	{ path: '/create_password_policies',name:'create_password_policies', component: require('../components/password_policy/CreatePasswordPolicy.vue').default },
+	{ path: '/edit_password_policies',name:'edit_password_policies', component: require('../components/password_policy/EditPasswordPolicy.vue').default },
+	/*End PasswordPolicy Routes*/
 	
 	/*Begin User Routes*/
 	{ path: '/users',name:'users', component: require('../components/user/User.vue').default },

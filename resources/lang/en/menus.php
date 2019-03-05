@@ -17,5 +17,6 @@ return [
     'speciality' =>'Sepecialites',
     'profile_structure' => 'Profiles Management',
     'reception_managment' =>'Reception Managment',
-    'reception' => 'Reception'
+    'reception' => 'Reception',
+    'password_policy' => 'Password Policies'
 ];
