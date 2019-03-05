@@ -16,5 +16,6 @@ return [
 'speciality' => 'تخصص ها',
 'profile_structure' => 'مدیریت پروفایل ها',
 'reception_managment' =>'مدیریت پذیرش',
-'reception' => 'پذیرش'
+'reception' => 'پذیرش',
+'password_policy' => 'سیاست های رمز عبور'
 ];

@@ -71,6 +71,14 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/password_policies" class="nav-link">
+                  <i class="nav-icon  fas fa-lock purple"></i>
+                  <p>
+                  {{ __('menus.password_policy') }}
+                  </p>
+                </router-link>
+              </li>              
             </ul>
           </li>
           @endrole
