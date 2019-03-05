@@ -50,8 +50,9 @@ class PasswordPolicyController extends Controller
     public function store(Request $request)
     {    
         $passwordPolicy = new PasswordPolicy();
+
         // Validation rules
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191|unique:'.$passwordPolicy->getTable(),
             'description' => 'required|string|max:191',            
             'min_length' => 'bail|integer|min:6',
@@ -61,7 +62,15 @@ class PasswordPolicyController extends Controller
             'digits' => 'bail|integer|lt:max_length',
             'special_chars' =>  'bail|integer|lt:max_length',
             'does_not_contain' => 'bail|alpha_dash'
-        ])->validate();
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'The given data was invalid',
+                'errors' => $validator->errors()->first()],
+                $this->httpUnprocessableEntity
+            );
+        }
                 
         // Create Resource
         $password = PasswordPolicy::create(
@@ -111,7 +120,15 @@ class PasswordPolicyController extends Controller
             'digits' => 'bail|integer|lt:max_length',
             'special_chars' =>  'bail|integer|lt:max_length',
             'does_not_contain' => 'bail|alpha_dash'
-        ])->validate();            
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'The given data was invalid',
+                'errors' => $validator->errors()->first()],
+                $this->httpUnprocessableEntity
+            );
+        }
                 
         $password = PasswordPolicy::findOrFail($id);
         $password->update($request->only(       
@@ -126,7 +143,6 @@ class PasswordPolicyController extends Controller
             'message' => __('app.updateAlert')],
             $this->httpOk
         );
-        
     }
 
     /**

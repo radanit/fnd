@@ -89,6 +89,12 @@ trait RadanResponseCodeTrait
     protected $httpNotAcceptable = 406;
 
     /*
+     * The requested resource is capable of generating only content 
+     * not acceptable according to the Accept headers sent in the request
+     */
+    protected $httpUnprocessableEntity = 422;
+
+    /*
      * A generic error message, given when an unexpected condition 
      * was encountered and no more specific message is suitable
      */

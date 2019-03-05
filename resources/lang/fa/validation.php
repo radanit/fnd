@@ -50,15 +50,15 @@ return [
         'array'   => 'The :attribute must have more than :value items.',
     ],
     'gte'                  => [
-        'numeric' => 'The :attribute must be greater than or equal :value.',
-        'file'    => 'The :attribute must be greater than or equal :value kilobytes.',
-        'string'  => 'The :attribute must be greater than or equal :value characters.',
-        'array'   => 'The :attribute must have :value items or more.',
+        'numeric' => 'فیلد :attribute باید بزرگتر یا مساوی :value باشد',
+        'file'    => 'فیلد :attribute باید بزرگتر یا مساوی :value کیلوبایت باشد',
+        'string'  => 'فیلد :attribute باید بزرگتر یا مساوی :value کارکتر باشد',
+        'array'   => 'فیلد :attribute باید :value مورد یا بیشتر داشته باشد',
     ],
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
-    'integer'              => 'The :attribute must be an integer.',
+    'integer'              => 'فیلد :attribute باید از نوع عددی باشد', 
     'ip'                   => 'The :attribute must be a valid IP address.',
     'ipv4'                 => 'The :attribute must be a valid IPv4 address.',
     'ipv6'                 => 'The :attribute must be a valid IPv6 address.',
@@ -167,7 +167,14 @@ return [
         'permissions.*' => 'این سطح دسترسی',
         'structure' => 'ساختار',
         'password_policy_id' => 'محدودیت رمز عبور',
-        'new_password' => 'پسورد جدید'
+        'new_password' => 'پسورد جدید',
+        'min_length' => 'حداقل طول',
+        'max_length' => 'حداکثر طول',
+        'upper_case' => 'تعداد حروف بزرگ',
+        'lower_case' => 'تعداد حروف کوچک',
+        'digits' => 'تعداد عدد',
+        'special_chars' =>  'تعداد کارکترهای خاص',
+        'does_not_contain' => 'رشته غیر مجاز'
     ],
 
 ];
