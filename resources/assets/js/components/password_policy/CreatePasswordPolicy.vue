@@ -79,7 +79,7 @@
                   { required: false, message: trans('passwordPolicy.specialCharRequierdError')}
                 ]"
                 >
-                <el-input name="special_chars" type="special_chars" v-model="form.special_chars" autocomplete="off"></el-input>
+                <el-input name="special_chars" type="special_chars" v-model.number="form.special_chars" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item
                 :label="trans('passwordPolicy.does_not_contain')"
