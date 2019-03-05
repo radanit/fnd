@@ -7,7 +7,7 @@
                 <h3 class="card-title">{{trans('passwordPolicy.lblUpdateModal')}}</h3>
               </div>
               <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0">
+              <div class="card-body table-responsive p-0">
 	              <el-form  :model="form" ref="form" @submit.native.prevent @keyup.enter.native="createPasswordPolicy"  @keyup.alt.enter.native="createContinuePasswordPolicyStructure" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 :label="trans('passwordPolicy.name')"
@@ -114,12 +114,12 @@
               id:'',
               name: '',
               description: '',
-              min_length:'',
-              max_length:'',
-              upper_case:'',
-              lower_case:'',
-              digits:'',
-              special_chars:'',
+              min_length:0,
+              max_length:0,
+              upper_case:0,
+              lower_case:0,
+              digits:0,
+              special_chars:0,
               does_not_contain:'',  
             },
           }
