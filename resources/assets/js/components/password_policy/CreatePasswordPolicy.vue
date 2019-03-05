@@ -160,7 +160,7 @@
                 special_chars:this.form.special_chars,
                 does_not_contain:this.form.does_not_contain
               }
-              axios.post('../api/policy/passwords',newPasswordPolicy).then((response) =>{
+              axios.post('../api/policies/password',newPasswordPolicy).then((response) =>{
               Fire.$emit('AfterCrud');
               this.$message({
                 title:'',
@@ -208,7 +208,7 @@
             special_chars:this.form.special_chars,
             does_not_contain:this.form.does_not_contain
           }
-          axios.post('../api/policy/password',newPasswordPolicy).then((response) =>{
+          axios.post('../api/policies/password',newPasswordPolicy).then((response) =>{
           this.$message({
             title:'',
             message:response.data.message,

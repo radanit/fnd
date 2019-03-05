@@ -116,7 +116,7 @@
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/policy/password", {
+                axios.get("../api/policies/password", {
                     params: {
                     page: this.page,
                     },
@@ -152,7 +152,7 @@
             |
             */
             loadPasswordPolicy(page){                
-                axios.get("../api/policy/password",{params:{page:page}}).then(({
+                axios.get("../api/policies/password",{params:{page:page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     this.$message({
                       title: '',
@@ -197,7 +197,8 @@
             |
             */      
             editPasswordPolicy(record){
-              this.$router.push({ name: 'edit_password_policies', params: { profileId: record.id } });
+              console.log(record);
+              this.$router.push({ name: 'edit_password_policies', params: { passPolicyId: record.id } });
             },
             /*
             |--------------------------------------------------------------------------
@@ -215,7 +216,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/policy/password/'+record.id)
+                  axios.delete('../api/policies/password/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({
