@@ -138,7 +138,7 @@ class PasswordPolicyController extends Controller
         $password = PasswordPolicy::findOrFail($id);
         
         // Get prevernts from config files        
-        $prevents = Config::get('password_policy.prevents.password_policies');
+        $prevents = Config::get('password_policy.prevents');
         
         // Check prevents rule
         if (!is_null($prevents)) {

@@ -44,12 +44,12 @@ return [
     /*
      * Profile model
      */
-    'profiles' => 'App\Radan\Profile\Models\Profile',
+    'profile' => 'App\Radan\Profile\Models\Profile',
 
     /*
      * PasswordPolicy model
      */
-    'password_policies' => 'App\Radan\Policy\Password\Models\PasswordPolicy',
+    'password_policy' => 'App\Radan\Policy\Password\Models\PasswordPolicy',
 
     /*
      * number of record fetched in request
@@ -67,9 +67,7 @@ return [
   */
   'tables' => [
     
-    'password_policies' => 'password_policies',
-    'profiles' => 'profiles',
-
+    'password_policy' => 'password_policies',
   ],
 
   /*
@@ -81,9 +79,8 @@ return [
   |
   */
   'foreign_keys' => [
-
-    'profiles' => 'password_policy_id',
-
+    'password_policy' => 'name',
+    'profile' => 'name',
   ],
 
   /*
@@ -94,10 +91,8 @@ return [
   | These are the prevents rules for delete record of tables.
   |
   */
-  'prevents' => [
-    'password_policies' => [
+  'prevents' => [    
       'id' => 1,
-      'name' => 'default',
-    ],
+      'name' => 'default',    
   ],  
 ];

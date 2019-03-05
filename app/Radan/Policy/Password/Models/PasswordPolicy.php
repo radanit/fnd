@@ -3,15 +3,28 @@
 namespace App\Radan\Policy\Password\Models;       
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class PasswordPolicy extends Model 
-{        
+{
     /**
-     * The table associated with the model.
+     * The database table used by the model.
      *
      * @var string
-     */    
-    protected $table = 'password_policies';
+     */
+    protected $table;
+
+    /**
+     * Creates a new instance of the model.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = Config::get('password_policy.tables.password_policy');
+    }
     
     /**
      * The attributes that are mass assignable.
@@ -51,7 +64,11 @@ class PasswordPolicy extends Model
      */    
     public function profiles()
     {
-        return $this->hasOne('App\Radan\Profile\Models\Profile', 'id', 'password_policy_id');
+        return $this->hasMany(
+            Config::get('password_policy.models.profile'),
+            Config::get('password_policy.foreign_keys.profile'),
+            Config::get('password_policy.foreign_keys.password_policy')
+        );
     }
 
 

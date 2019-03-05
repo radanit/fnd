@@ -9,6 +9,8 @@ namespace App\Radan\Policy\Password\Traits;
  * @package Radan/PasswordPolicy
  */
 
+use Illuminate\Support\Facades\Config;
+
 trait PasswordPolicyProfileTrait
 {    
     /**
@@ -18,6 +20,10 @@ trait PasswordPolicyProfileTrait
      */    
     public function passwordPolicy()
     {
-        return $this->belongsTo('App\Radan\Policy\Password\Models\PasswordPolicy', 'id', 'password_policy_id');
+        return $this->belongsTo(
+            Config::get('password_policy.models.password_policy'),
+            Config::get('password_policy.foreign_keys.password_policy'),
+            Config::get('password_policy.foreign_keys.profile')
+        );            
     }
 }
