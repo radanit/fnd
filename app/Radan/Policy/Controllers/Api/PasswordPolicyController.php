@@ -111,7 +111,7 @@ class PasswordPolicyController extends Controller
     public function update(Request $request, $id)
     {
         // Validation rules
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'description' => 'required|string|max:191',
             'min_length' => 'bail|integer|min:6',
             'max_length' => 'bail|integer|gte:min_length',
