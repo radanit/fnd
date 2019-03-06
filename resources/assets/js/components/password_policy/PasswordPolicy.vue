@@ -15,7 +15,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'ascending'}"
                     :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
@@ -51,13 +51,15 @@
 						  @click="deletePasswordPolicy(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <!--<infinite-loading
+                    <infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
+                      <div slot="no-more"></div>
+                      <div slot="no-results"></div>
+                    </infinite-loading>
 				  </el-table>
-                  <div class="block">
+                 <!--<div class="block">
                         <el-pagination
                             background
                             layout="prev, pager, next"
@@ -68,7 +70,7 @@
                             @current-change="loadPage"
                             :current-page.sync="pagination.current_page">
                         </el-pagination>             
-                  </div>
+                  </div>-->
               </div>
               <!-- /.card-body -->
             </div>
@@ -100,6 +102,7 @@
 				},
 				tableData:[],
                 search: '',
+                page: 1,
                 pagination:{},
                 list: [],
                 infiniteId: +new Date(),
@@ -121,7 +124,7 @@
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (data.data.length) {
+                    if (data.data.length>0) {
                     this.page += 1;
                     this.list.unshift(...data.data.reverse());
                     $state.loaded();
@@ -151,29 +154,15 @@
             | This method Load PasswordPolicy Info
             |
             */
-            loadPasswordPolicy(page){                
-                axios.get("../api/policies/password",{params:{page:page}}).then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+            LoadPasswordPolicy(){
+                axios.get("../api/policies/password").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
                       center: true,
                       type: 'error'
-                    });               
+                    });          
                 });
-            },
-            /*
-            |--------------------------------------------------------------------------
-            | Load Page Method
-            | Added By e.bagherzadegan
-            |--------------------------------------------------------------------------
-            |
-            | This method Set Pagination
-            |
-            */            
-            loadPage(){                
-                this.loadPasswordPolicy(this.page);
-                console.log(this.pagination);
             },
             /*
             |--------------------------------------------------------------------------
@@ -224,7 +213,7 @@
                         center: true,
                         message: response.data.message
                       });
-                      this.loadPage();
+                      this.LoadPasswordPolicy();
                 }).catch((error) => {
                      this.$message({
                         title: error.response.data.message,
@@ -251,7 +240,7 @@
             }
         },           
         created() {
-            this.loadPage();
+            //this.loadPage();
             Fire.$on('AfterCrud',() => {
                 //
             });

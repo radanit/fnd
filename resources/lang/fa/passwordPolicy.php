@@ -29,15 +29,5 @@ return [
     'showList' => 'مشاهده مقادیر',
 	'nameRequierdError' => ' عنوان سیاست کلمه عبور اجباری است!',
 	'desRequierdError' => ' شرح سیاست کلمه عبور اجباری است!',
-    'structure' => 'ساختار',
-    'structureName' => 'عنوان',
-    'structureType' => 'نوع',
-    'addStructureBtnLbl' => 'افزودن ساختار',
-    'delStructureBtnLbl' =>'حذف ساختار',
-    'field' => 'فیلد',
-    'stringType' =>'رشته ای',
-    'numberType' =>'عددی',
-    'json' => 'فرمت json',
-    'structureRequierdError' => 'فیلد ساختار اجباری است',
 
 ];

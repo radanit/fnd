@@ -54,5 +54,6 @@ return [
     'activeBtnLbl' => 'فعالسازی',
     'resourceNotFound' => 'اطلاعات مورد نظر یافت نشد',
     'routeNotFound' => 'مسیر مورد نظر یافت نشد',
-    'resourceRestrictedAlert' => 'اطلاعات مورد نظر در حال استفاده در سیستم می باشد'
+    'resourceRestrictedAlert' => 'اطلاعات مورد نظر در حال استفاده در سیستم می باشد',
+    'no_data_found' => 'اطلاعاتی یافت نشد!'
 ];

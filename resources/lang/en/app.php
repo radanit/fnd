@@ -54,5 +54,6 @@ return [
     'activeBtnLbl' => 'Activation',
     'resourceNotFound' => 'Resource not found',
     'routeNotFound' => 'Route not found',
-    'resourceRestrictedAlert' => 'This Resource use in another,First deattached it.'
+    'resourceRestrictedAlert' => 'This Resource use in another,First deattached it.',
+    'no_data_found' => 'No Data Found!'
 ];
