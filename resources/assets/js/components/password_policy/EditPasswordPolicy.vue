@@ -179,7 +179,8 @@
                 type: 'success',
                 center: true,
                 message:response.data.message
-              });                
+              });
+              this.backToPasswordPolicyList();                
                 }).catch((error) => {
                   this.$message({
                     title: error.response.data.message,
@@ -201,8 +202,7 @@
               this.$refs[formName].validate((valid) => {
                 if (valid) 
                 {
-                  this.updatePasswordPolicy();
-                  this.backToPasswordPolicyList();
+                  this.updatePasswordPolicy();              
                 }
                 else {
                   return false;
