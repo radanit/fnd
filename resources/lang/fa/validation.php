@@ -113,6 +113,7 @@ return [
     'unique'               => 'این :attribute قبلا ثبت شده است.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    'password'             => 'فیلد :attribute مطابق با سیاست های رمز عبور نمی باشد',
 
     /*
     |--------------------------------------------------------------------------
