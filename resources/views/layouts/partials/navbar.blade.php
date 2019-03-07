@@ -1,5 +1,5 @@
 @if(Config::get('app.locale') == 'en')
-<nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+<nav class="main-header navbar fixed-top navbar-expand bg-white navbar-light border-bottom">
     <!-- Left navbar links -->
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -123,7 +123,7 @@
     
   </nav>
 @else
-  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+  <nav class="main-header navbar fixed-top navbar-expand bg-white navbar-light border-bottom">
     <!-- Right navbar links -->
     <ul class="navbar-nav mr-auto">
       <!-- Messages Dropdown Menu -->

@@ -1,23 +1,15 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
+    <!-- Brand Logo 
     <a href="/home#/dashboard" class="brand-link">
       <img src="../images/logo.png" alt="MAI Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">{{ __('menus.admin_area') }}</span>
-    </a>
+    </a>-->
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../images/profile.png" class="img-circle elevation-2" alt="User Image">
-		  <span class="brand-text font-weight-light" style="color:#fff">{{ __('app.baharRadiology') }}</span>
-        </div>
-        <div class="info">
-          <a href="#" class="d-block"> {{ Auth::user()->name }}</a>
-        </div>
-      </div>
+      <user-box></user-box>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

@@ -178,14 +178,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 //begin  moment & moment jallali config
 import moment from 'moment';
-import jalali from 'moment-jalaali';
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 Vue.component('date-picker', VuePersianDatetimePicker);
-
-Vue.filter('jalaliDate',function(created){
-  //var m = moment('1360/5/26', 'jYYYY/jM/jD'); // Parse a Jalaali date.
-  return jalali(created, 'YYYY/MM/DD').locale('fa').format('jYYYY/jMM/jDD');
-});
+Vue.use(require('vue-moment-jalaali'));
 //end  moment & moment jallali config
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -210,7 +205,10 @@ Vue.component(
 import InfiniteLoading from 'vue-infinite-loading';
 
 Vue.use(InfiniteLoading, { /* options */ });
-
+Vue.component(
+  'user-box',
+  require('./components/user_profile/UserBox.vue').default
+);
 const app = new Vue({
     el: '#app',
     router

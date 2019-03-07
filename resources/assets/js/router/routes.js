@@ -5,7 +5,7 @@ const routes = [
         redirect: '/dashboard'
     },
     { path: '/dashboard',name:'dashboard', component: require('../components/Dashboard.vue').default },
-    //{ path: '/user_groups',name:'user_groups', component: require('../components/UserGroups.vue').default },
+    { path: '/landing',name:'landing', component: require('../components/Landing.vue').default },
     //{ path: '/specialities',name:'doctor.specialities', component: require('../components/Specialities.vue').default },
 	
 	/*Begin Profile Routes*/
