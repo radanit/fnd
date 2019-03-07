@@ -60,9 +60,11 @@ class PasswordPolicyServiceProvider extends ServiceProvider
             
             // get defaut policy name from config
             $defaultName = $this->app['config']->get('password_policy.default_name');
+            $validationName = $this->app['config']->get('password_policy.validation_name');
             
-            // set PasswordManager default policy name
+            // set PasswordManager default policy and validation name
             $policyManager->setDefaultName($defaultName);
+            $policyManager->setValidationName($validationName);
             return $policyManager;
         });
     }
@@ -100,7 +102,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
         $this->app['validator']->extend(
             $this->app['config']->get('password_policy.validation_name'),
             PasswordValidator::class . '@validate'
-        );        
+        );               
     }
     
     /**
@@ -112,7 +114,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
     {        
         // First try read password policy rules from database
         // get password policy elequent model name form config
-        $policyDataModel = $this->app['config']->get('password_policy.models.password_policies');        
+        $policyDataModel = $this->app['config']->get('password_policy.models.password_policy');
         
         // Check policy elequent model is exists
         if (class_exists($policyDataModel)) {
@@ -121,10 +123,10 @@ class PasswordPolicyServiceProvider extends ServiceProvider
         elseif ($policyData = $this->app['config']->get('password_policy.local_policies')) {
             $policies = $policyData;
         }
-            
+           
         foreach ($policies as $rules)  {
             $builder = new PolicyBuilder();
-            $policy = $builder->createPolicy($rules);
+            $policy = $builder->createPolicy($rules);           
             $this->app['policy.manager']->define($rules['name'],$policy);
         }        
     }    

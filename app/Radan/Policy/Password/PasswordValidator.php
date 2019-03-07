@@ -7,6 +7,8 @@ namespace App\Radan\Policy\Password;
  *
  * @package PasswordPolicy\Providers\Laravel
  */
+
+use PasswordPolicy;
 class PasswordValidator
 {
     /**
@@ -14,18 +16,6 @@ class PasswordValidator
      *
      * @var PolicyManager
      */
-    private $manager;
-
-
-    /**
-     * PasswordValidator constructor.
-     *
-     * @param PolicyManager $manager
-     */
-    public function __construct(PolicyManager $manager)
-    {
-        $this->manager = $manager;
-    }
 
     /**
      * Validate the given value
@@ -40,10 +30,9 @@ class PasswordValidator
     public function validate($attribute, $value, $parameters, $validator)
     {
         // Use the default policy if the user has not specified one.
-        $policy = isset($parameters[0]) ? $parameters[0] : $this->manager->getDefaultName();
-
-        return $this->manager
-            ->validator($policy)
+        $policy = isset($parameters[0]) ? $parameters[0] : PasswordPolicy::getDefaultName();        
+        return PasswordPolicy::
+            validator($policy)
             ->attempt($value);
     }
 }

@@ -21,7 +21,7 @@ class PasswordPolicyResource extends JsonResource
             'description' => $this->description,
             'min_length' => $this->min_length,
             'max_length' => $this->max_length,
-            'upper_case ' => $this->upper_case,
+            'upper_case' => $this->upper_case,
             'lower_case' => $this->lower_case,
             'digits' => $this->digits,
             'special_chars' => $this->special_chars,

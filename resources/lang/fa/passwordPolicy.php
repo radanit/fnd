@@ -11,7 +11,7 @@ return [
     | messages that we need to display to the user. You are free to modify
     | these language lines according to your application's requirements.
     |
-    */
+    */    
     'id' =>'شناسه',
     'name' => 'عنوان سیاست کلمه عبور',
     'description' => 'شرح سیاست کلمه عبور',

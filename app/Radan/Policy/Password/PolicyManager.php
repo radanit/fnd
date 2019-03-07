@@ -22,6 +22,14 @@ class PolicyManager
      */
     protected $policies = [];
 
+    
+    /**
+     * Default policy name
+     *
+     * @var string
+     */
+    protected $validationName = 'password';
+    
     /**
      * Default policy name
      *
@@ -42,6 +50,36 @@ class PolicyManager
         $this->defaultPolicy = $name;
 
         return $this;
+    }
+
+    /**
+     * Set the name of the default policy
+     *
+     * @param $name string
+     *
+     * @return $this
+     */
+    public function setValidationName($name)
+    {
+        $this->validationName = $name;
+
+        return $this;
+    }
+
+    /**
+     * Set the name of the default policy
+     *
+     * @param $name string
+     *
+     * @return $this
+     */
+    public function getValidation($name=null)
+    {
+        if (empty($name)) $name = $this->getDefaultName();        
+        if ($this->policyExists($name)) {
+            return $this->validationName.':'.$name;
+        }
+        return $this->validationName;
     }
 
     /**

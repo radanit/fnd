@@ -19,6 +19,7 @@ use App\Radan\Exceptions\ResourceRestricted;
 
 // This Module classes
 use App\Radan\Policy\Password\Models\PasswordPolicy;
+use PasswordPolicy as Password;
 
 class PasswordPolicyController extends Controller
 {
@@ -28,7 +29,7 @@ class PasswordPolicyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {                
         // Get number of pagination count
         $count = Config::get('radan.pagination.count',15);   
 
@@ -50,7 +51,7 @@ class PasswordPolicyController extends Controller
     public function store(Request $request)
     {    
         $passwordPolicy = new PasswordPolicy();
-
+        
         // Validation rules
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:191|unique:'.$passwordPolicy->getTable(),
@@ -61,7 +62,7 @@ class PasswordPolicyController extends Controller
             'lower_case' => 'bail|integer|lt:max_length',
             'digits' => 'bail|integer|lt:max_length',
             'special_chars' =>  'bail|integer|lt:max_length',
-            'does_not_contain' => 'bail|alpha_dash'
+            'does_not_contain' => 'nullable|alpha_dash'
         ]);
 
         if ($validator->fails()) {
@@ -73,15 +74,16 @@ class PasswordPolicyController extends Controller
         }
                 
         // Create Resource
-        $password = PasswordPolicy::create(
+        $password = $passwordPolicy->create(
             $request->only(
                 'name',
                 'description',
                 'min_length','max_length','digits',
                 'upper_case','lower_case',                
                 'special_chars',
-                'does_not_contain')
-            );
+                'does_not_contain'
+            )
+        );
             
         return response()->json([
             'message' => __('app.insertAlert')],
@@ -109,7 +111,7 @@ class PasswordPolicyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {        
         // Validation rules
         $validator = Validator::make($request->all(), [
             'description' => 'required|string|max:191',
@@ -119,7 +121,7 @@ class PasswordPolicyController extends Controller
             'lower_case' => 'bail|integer|lt:max_length',
             'digits' => 'bail|integer|lt:max_length',
             'special_chars' =>  'bail|integer|lt:max_length',
-            'does_not_contain' => 'bail|alpha_dash'
+            'does_not_contain' => 'nullable|alpha_dash'
         ]);
 
         if ($validator->fails()) {

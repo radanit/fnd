@@ -217,9 +217,10 @@ class PolicyBuilder
                         $this->lowerCase($value); break;
                     case 'digits':
                         $this->digits($value); break;
-                    case 'special_chars':
+                    case 'special_chars':                    
                         $this->specialCharacters($value); break;
                     case 'does_not_contain':
+                        if (!is_array($value)) $value = explode(',',$value);
                         $this->doesNotContain($value); break;
                     default:                    
                         break;
