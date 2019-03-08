@@ -14,6 +14,7 @@
 Route::get('/login', ['uses' => 'LoginController@showLoginForm','as' => 'login']);
 Route::post('/login', ['uses' => 'LoginController@login']);
 Route::post('/logout', ['uses' => 'LoginController@logout','as' => 'logout']);
+Route::get('/logout', ['uses' => 'LoginController@logout','as' => 'logout']);
 
 // Registration Routes...
 /*
