@@ -28,5 +28,7 @@ return [
 	'manager' => 'مدیریت',
 	'technicalAssistant' => 'مسئول فنی',
 	'services' => 'خدمات ',
-	'aboutUs' => 'درباره ما'
+    'aboutUs' => 'درباره ما',
+    'fullname' => 'نام و نام خانوادگی',
+    'roles' => 'نقش های کاربری'
 ];

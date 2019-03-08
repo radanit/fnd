@@ -55,5 +55,8 @@ return [
     'resourceNotFound' => 'اطلاعات مورد نظر یافت نشد',
     'routeNotFound' => 'مسیر مورد نظر یافت نشد',
     'resourceRestrictedAlert' => 'اطلاعات مورد نظر در حال استفاده در سیستم می باشد',
-    'no_data_found' => 'اطلاعاتی یافت نشد!'
+    'no_data_found' => 'اطلاعاتی یافت نشد!',
+    'current_date' => 'تاریخ امروز',
+    'last_login' => 'آخرین ورود',
+    'welcome_message' => 'خوش آمدید'
 ];

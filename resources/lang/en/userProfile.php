@@ -34,4 +34,6 @@ return [
     'btnUpdate' => 'Update',
     'lblAddModal' => 'Insert User Info',
     'lblUpdateModal' => 'Update User Info',
+    'fullname' => 'Full Name',
+    'roles' => 'User Roles'
 ];

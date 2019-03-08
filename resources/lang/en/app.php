@@ -55,5 +55,8 @@ return [
     'resourceNotFound' => 'Resource not found',
     'routeNotFound' => 'Route not found',
     'resourceRestrictedAlert' => 'This Resource use in another,First deattached it.',
-    'no_data_found' => 'No Data Found!'
+    'no_data_found' => 'No Data Found!',
+    'current_date' => 'Today',
+    'last_login' => 'Last Login',
+    'welcome_message' => 'Welcome'
 ];

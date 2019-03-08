@@ -20,6 +20,7 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $lighGray:#fafafa;
+$darkOrange:#fd7800;
 .blue {
     color:$blue;
 }
@@ -37,6 +38,9 @@ $lighGray:#fafafa;
 }
 .orange {
     color:$orange;
+}
+.darkOrange{
+    color: $darkOrange;
 }
 .yellow {
     color:$yellow;

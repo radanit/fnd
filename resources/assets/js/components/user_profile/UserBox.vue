@@ -1,31 +1,127 @@
 <template>
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="card card-primary card-outline w-100">
-            <div class="card-body box-profile">
-            <div class="text-center profile-image">
-            <el-upload>
-            <img  src="images/user4-128x128.jpg" class="profile-user-img img-fluid img-circle el-icon-plus w-50 h-50" alt="User profile picture">
-            </el-upload>
-            </div>
-            <h3 class="profile-username "></h3>
-            <el-row :gutter="12" class="text-center nav-item" style="font-size:12px;">
-                <el-col :span="8">تاریخ امروز<br/>{{ new Date() | moment("jYYYY/jM/jD") }}</el-col>
-                <el-col :span="8"><i class="nav-icon fas fa-power-off red"></i><br/>خروج</el-col>            
-                <el-col :span="8">آخرین ورود<br/></el-col>
-            </el-row>
-            </div>
-        </div>
-    </div>
+    <el-row style="font-size:12px;color:#fff;text-align:center;white-space:nowarp;">
+        <el-row :gutter="10" class="userbox-msg">
+            <el-col :span="3" class="mt-2">
+                <a href="#/profiles" id="profile-link">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </a>
+            </el-col>
+            <el-col :span="7" class="mt-4 brand-text font-weight-light">{{trans('app.welcome_message')}}</el-col>
+            <el-col :span="7" class="mt-1 profile-image">
+                <el-upload
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid img-circle el-icon-plus" alt="User profile picture">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
+                </el-upload>
+            </el-col>
+            <el-col :span="7" class="mt-4 brand-text font-weight-light">{{user.username}}</el-col>
+        </el-row>
+        <el-row :gutter="10" class="userbox-date">
+            <el-col :span="8" class="brand-text font-weight-light">{{trans('app.current_date')}}<br/><span class="darkOrange">{{ new Date() | moment("jYYYY/jM/jD") }}</span></el-col>
+            <el-col :span="8" class="brand-text font-weight-light"><a href="/logout" @click="logout()" id="user-logout"><i class="nav-icon fas fa-power-off darkOrange"></i><br/>{{trans('menus.logout')}}</a></el-col>            
+            <el-col :span="8" class="brand-text font-weight-light">{{trans('app.last_login')}}<br/><span class="darkOrange">{{user.username}}</span></el-col>
+        </el-row>
+    </el-row>
 </template>
 <style>
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .profile-link:active{
+      background-color: #3490dc !important;
+  }
+  .el-row{
+    margin:0 !important;
+    padding-bottom: 5px;
+    top: 1%;
+  }
+  #user-logout{
+      color: darkOrange;
+  }
+  .profile-image:hover .edit {
+	display: block;
+}
 
+.edit {
+    padding-top: 13%;
+    padding-right: 47%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
+.userbox-date{
+    background: #ffffff;
+    color: #000000;
+    font-style: bold;
+    padding-top: 10px;
+}
+.userbox-msg{
+    background: #3490dc;
+    height: 75px;
+}
 </style>
 <script>
 export default {
-    data() {
-    return {
-      cuurentDate: new Date()
-    };
-  }
+	data(){
+        return{
+            imageUrl:'images/user4-128x128.jpg',
+            form: {},
+            user:{}
+        }
+    },
+  methods:{
+    /**
+     * Load User Info
+    */
+    loadUserInfo(){					
+        axios.get("../api/profile/user").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+                this.$message({                      
+                    message:error.response.data.errors,
+                    center: true,
+                    type: 'error'
+                });
+
+        });
+    },
+    handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+     if (!isJPG) {
+            this.$message.error('Avatar picture must be JPG format!');
+        }
+        if (!isLt2M) {
+            this.$message.error('Avatar picture size can not exceed 2MB!');
+        }
+        return isJPG && isLt2M;
+    }
+  },
+    created() 
+    {
+        this.loadUserInfo();			
+    }
 }
 </script>
+
