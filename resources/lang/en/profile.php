@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'settingTabTitle' => 'Settings',
-    'activityTabTitle' => 'Activity',
+    'setting' => 'Settings',
+    'activities' => 'Activity',
     'email' => 'Email Address',
     'userName' => 'UserName',
     'fullName' => 'Full Name',

@@ -1,8 +1,8 @@
 <template>
-	<div dir="rtl">
+	<div :dir="trans('app.dir')">
 		<el-row :gutter="20">
 			<el-col :span="24">
-				<el-row :gutter="20">
+				<el-row v-if="trans('app.dir')==='rtl'" :gutter="20">
 						<el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
 						<el-col :span="10" class="text-right mt-4">
 								<el-row :gutter="20">
@@ -27,6 +27,32 @@
 						</el-upload>
 					</el-col>
 				</el-row>
+				<!-- EN -->
+				<el-row v-if="trans('app.dir')==='ltr'" :gutter="20">
+						<el-col :span="4" class="text-left">
+							<el-upload
+							class="avatar-uploader"
+							action="https://jsonplaceholder.typicode.com/posts/"
+							:show-file-list="false"
+							:on-success="handleAvatarSuccess"
+							:before-upload="beforeAvatarUpload">
+							<img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid  el-icon-plus" alt="User profile picture">
+							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+						</el-upload>
+					</el-col>
+					<el-col :span="10" class="text-left mt-4">
+							<el-row :gutter="20">
+								<el-col :span="24">{{trans('userProfile.fullname')}} : {{user.fullname}}</el-col>
+							</el-row>
+							<el-row :gutter="20">
+								<el-col :span="24">{{trans('userProfile.email')}} : {{user.email}}</el-col>
+							</el-row>
+							<el-row :gutter="20">
+								<el-col :span="24">{{trans('userProfile.roles')}} : {{user.roles}}</el-col>
+							</el-row>																
+					</el-col>
+					<el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
+				</el-row>
 			</el-col>
 		</el-row>
 		<el-row :gutter="20">
@@ -34,7 +60,6 @@
 				<template>
 					<el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
 						<el-tab-pane :label="trans('profile.activities')" name="first">User</el-tab-pane>
-						<el-tab-pane :label="trans('profile.doctors')" name="second">Config</el-tab-pane>
 						<el-tab-pane :label="trans('profile.setting')" name="third">Role</el-tab-pane>
 					</el-tabs>
 				</template>
@@ -81,7 +106,7 @@
 		float: left;
 	}
 	.el-tabs__content:lang(en){
-				text-align: justify;
+		text-align: justify;
 		direction: ltr;
 	}
 	.el-tabs__content:lang(fa){
