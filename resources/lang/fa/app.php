@@ -55,6 +55,7 @@ return [
     'resourceNotFound' => 'اطلاعات مورد نظر یافت نشد',
     'routeNotFound' => 'مسیر مورد نظر یافت نشد',
     'resourceRestrictedAlert' => 'اطلاعات مورد نظر در حال استفاده در سیستم می باشد',
+    'postTooLarg' => 'حجم فایل آپلود شده بزرگتر از اندازه مجاز است',
     'no_data_found' => 'اطلاعاتی یافت نشد!',
     'current_date' => 'تاریخ امروز',
     'last_login' => 'آخرین ورود',

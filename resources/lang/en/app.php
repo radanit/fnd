@@ -55,6 +55,7 @@ return [
     'resourceNotFound' => 'Resource not found',
     'routeNotFound' => 'Route not found',
     'resourceRestrictedAlert' => 'This Resource use in another,First deattached it.',
+    'postTooLarg' => 'File is too large size',
     'no_data_found' => 'No Data Found!',
     'current_date' => 'Today',
     'last_login' => 'Last Login',

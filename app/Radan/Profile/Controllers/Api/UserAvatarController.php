@@ -18,6 +18,7 @@ use App\Radan\Exceptions\ResourceRestricted;
 
 // This Module classes
 use App\Radan\Profile\Models\Profile;
+use App\Radan\Profile\Models\User;
 
 class UserAvatarController extends Controller
 {
@@ -40,10 +41,15 @@ class UserAvatarController extends Controller
      */
     public function store(Request $request)
     {                
-        // Validation rules   
+        // Validation rules
         Validator::make($request->only('avatar'), [
-            'avatar' => 'required|mimes:jpeg,jpg,png,gif|max:100000',
+            'avatar' => 'bail|required|image|mimes:jpeg,jpg,png,gif|max:2048',
         ])->validate();
+
+        $userId  = \Auth::user()->id;
+        $profile = User::findOrfail($userId)->profile;
+        
+        dd($profile->family);
     }    
 
     /**

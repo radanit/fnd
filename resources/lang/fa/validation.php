@@ -81,8 +81,8 @@ return [
         'string'  => 'مقدار فیلد :attribute می تواند حداکثر :min کارکتر باشد',
         'array'   => 'فیلد :attribute می تواند حداکثر شامل :min آیتم باشد',
     ],
-    'mimes'                => ':attribute باید یک فایل از نوع :type باشد',
-    'mimetypes'            => ':attribute باید یک فایل از نوع :type باشد',
+    'mimes'                => 'فیلد :attributes باید یک فایل از نوع :values باشد',
+    'mimetypes'            => 'فیلد :attributes باید یک فایل از نوع :values باشد',
     'min'                  => [
         'numeric' => 'مقدار فیلد :attribute باید حداقل :min رقم باشد',
         'file'    => 'مقدار فیلد :attribute باید حداقل :min کیلوبایت باشد',
