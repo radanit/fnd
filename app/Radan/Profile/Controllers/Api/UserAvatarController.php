@@ -28,15 +28,15 @@ class UserAvatarController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-
-    public function __construct()
-    {      
+    
+    protected function user()
+    {
+        return User::findOrFail(Auth::id());
     }
 
-    public function index(User $user)
-    {        
-        dd($user->id);
-        return asset($this->user->avatar);
+    public function index()
+    {
+        return Storage::url($this->user()->avatar);
     }
 
     /**
@@ -46,34 +46,34 @@ class UserAvatarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                
+    {
         // Validation rules
         Validator::make($request->only('avatar'), [
             'avatar' => 'bail|required|image|mimes:jpeg,jpg,png,gif|max:2048',
         ])->validate();
 
         // Save uploaded file
-        $path = $request->file('avatar')->store('avatars');
+        $avatarPath = $request->file('avatar')->store('avatars');
 
-        // Get user instance and profile user
-        $user = User::findOrFail(\Auth::id());
-        $profile = $user->profile()->first();
+        // Get profile user instance and save old user avatar temporary
+        $profile = $this->user()->profile()->first();
+        $oldUserAvatar = $profile->data['avatar'];
         
         // Save changes
-        $profileData = $profile->data;
-        $preUserAvatar = $profileData['avatar'];
-        
-        $profileData['avatar'] = $path;
+        $profileData = $profile->data;            
+        $profileData['avatar'] = $avatarPath;
         $profile->data = $profileData;
-        $user->profile()->save($profile);
+        $this->user()->profile()->save($profile);
 
-        Storage::delete($preUserAvatar);
+        // Delete old user avatar
+        Storage::delete($oldUserAvatar);
 
         // Return
         return response()->json([
-            'message' => __('app.updateAlert')],
+            'message' => __('app.updateAlert'),
+            'url' =>  Storage::url($avatarPath)],
             $this->httpOk
-        );        
+        );
     }
 
     /**
@@ -84,28 +84,23 @@ class UserAvatarController extends Controller
      */
     public function destroy()
     {
-        // destroy profile
-        $profile = Profile::findOrFail($id);
+        // Get profile user instance and save old user avatar temporary
+        $profile = $this->user()->profile()->first();
+        $oldUserAvatar = $profile->data['avatar'];
+        
+        // Save changes
+        $profileData = $profile->data;            
+        $profileData['avatar'] = '';
+        $profile->data = $profileData;
+        $this->user()->profile()->save($profile);
 
-        // Get prevernts from config files
-        $prevents = Config::get('radan.profile.prevents.profiles');
+        // Delete old user avatar
+        Storage::delete($oldUserAvatar);
 
-        // Check prevents rule
-        if (!is_null($prevents)) {
-            foreach ($prevents as $key => $value) {
-                if ($profile->$key==$value) {
-                    throw new ResourceProtected;
-                }
-            }
-        }
-
-        // Destory profile
-        $profile->delete();
-            
         // Return
         return response()->json([
             'message' => __('app.deleteAlert')],
             $this->httpOk
-        );                            
+        );
     }
 }

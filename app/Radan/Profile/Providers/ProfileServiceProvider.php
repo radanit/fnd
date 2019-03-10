@@ -13,10 +13,7 @@ class ProfileServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        $this->app->bind('App\Radan\Profile\Models\Users', function ($app) {
-            return \App\Radan\Profile\Models\Users::findOrFail(Auth::id());
-        });
+        //        
     }
 
     /**
