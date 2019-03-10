@@ -6,7 +6,8 @@ namespace App\Radan\Profile\Controllers\Api;
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 // Base Application classes
@@ -21,16 +22,21 @@ use App\Radan\Profile\Models\Profile;
 use App\Radan\Profile\Models\User;
 
 class UserAvatarController extends Controller
-{
+{        
     /**
     * Display a listing of the resource.
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
-    {
-        $user  = \Auth::user();
-        if ($user->id) return $user->avatar;
+
+    public function __construct()
+    {      
+    }
+
+    public function index(User $user)
+    {        
+        dd($user->id);
+        return asset($this->user->avatar);
     }
 
     /**
@@ -46,50 +52,28 @@ class UserAvatarController extends Controller
             'avatar' => 'bail|required|image|mimes:jpeg,jpg,png,gif|max:2048',
         ])->validate();
 
-        $userId  = \Auth::user()->id;
-        $profile = User::findOrfail($userId)->profile;
+        // Save uploaded file
+        $path = $request->file('avatar')->store('avatars');
+
+        // Get user instance and profile user
+        $user = User::findOrFail(\Auth::id());
+        $profile = $user->profile()->first();
         
-        dd($profile->family);
-    }    
+        // Save changes
+        $profileData = $profile->data;
+        $preUserAvatar = $profileData['avatar'];
+        
+        $profileData['avatar'] = $path;
+        $profile->data = $profileData;
+        $user->profile()->save($profile);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        // Validation rules   
-        Validator::make($request->only('description','structure'), [
-            'description' => 'required|string|max:255',
-            'structure' => 'required|string|json',            
-        ])->validate();
+        Storage::delete($preUserAvatar);
 
-        try {
-            $profile = Profile::findOrFail($id);
-
-            $data = $request->only('description', 'structure');
-            if (array_key_exists('structure',$data)) {
-                $data['structure'] = json_decode($request->structure);
-            }
-
-            $profile->update($data);
-            
-            // Return
-            return response()->json([
-                'message' => __('app.updateAlert')],
-                $this->httpOk
-            );
-
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Error update profile',
-                'errors' => __('app.failedAlert')],
-                $this->httpInternalServerError
-            );
-        }
+        // Return
+        return response()->json([
+            'message' => __('app.updateAlert')],
+            $this->httpOk
+        );        
     }
 
     /**

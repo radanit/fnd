@@ -42,12 +42,12 @@ trait ProfileUserTrait
     public function __get($key)    
     {
         if (!property_exists($this, $key) and !method_exists($this, $key))
-        {
-            $profileData = $this->profile->data;
-            if (is_array($profileData) and array_key_exists($key,$profileData)) {
-                return $profileData[$key];                
-            }            
-        }        
+        {            
+            $profileData = (is_array($this->profile->data)) ? $this->profile->data : json_decode($this->profile->data);
+            if (array_key_exists($key,$profileData)) {
+                return $profileData[$key];
+            }
+        }
                 
         return parent::__get($key);        
     }
