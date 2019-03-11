@@ -103,7 +103,10 @@ class ContainRule implements Rule
      * @return bool
      */
     private function containsPhrase($subject, $phrase)
-    {
-        return strpos($subject, $phrase) !== false;
+    {        
+        $result = false;
+        if (!empty($phrase) and !empty($subject))
+            $result = strpos($subject, $phrase) !== false;
+        return $result;
     }
 }
