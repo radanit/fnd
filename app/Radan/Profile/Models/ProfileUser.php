@@ -42,7 +42,7 @@ class ProfileUser extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = Config::get('radan.profile.tables.profile_user');
+        $this->table = Config::get('profile.tables.profile_user');
     }
 
     /**
@@ -55,8 +55,8 @@ class ProfileUser extends Model
         // return $this->belongsTo('App\Radan\Auth\Models\User');
 
         return $this->belongsTo(
-            Config::get('radan.profile.models.user'),
-            Config::get('radan.profile.foreign_keys.users')
+            Config::get('profile.models.user'),
+            Config::get('profile.foreign_keys.user')
         );
     }
 
@@ -64,8 +64,8 @@ class ProfileUser extends Model
     {
        // return $this->belongsTo('App\Radan\Profile\Models\Profile');  
         return $this->belongsTo(
-            Config::get('radan.profile.models.profiles'),
-            Config::get('radan.profile.foreign_keys.profiles')
+            Config::get('profile.models.profile'),
+            Config::get('profile.foreign_keys.profile')
         );  
     }
 

@@ -46,7 +46,7 @@ class Profile extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = Config::get('radan.profile.tables.profiles');
+        $this->table = Config::get('profile.tables.profile');
     }
 
     /**
@@ -57,8 +57,8 @@ class Profile extends Model
     public function users()
     {
         return $this->hasMany(
-            Config::get('radan.profile.models.profile_user'),
-            Config::get('radan.profile.foreign_keys.profiles')
+            Config::get('profile.models.profile_user'),
+            Config::get('profile.foreign_keys.profile')
         );
     }     
 }

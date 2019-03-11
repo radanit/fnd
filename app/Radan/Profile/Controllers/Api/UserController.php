@@ -78,7 +78,7 @@ class UserController extends Controller
     public function store(Request $request)
     {        
         // Read Profile table name form config
-        $profileTable = Config::get('radan.profile.tables.profiles','profiles');
+        $profileTable = Config::get('profile.tables.profile','profiles');
                
         // Validation rules
         $request->validate([
@@ -151,7 +151,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 				// Read Profile table name form config
-        $profileTable = Config::get('radan.profile.tables.profiles','profiles');        
+        $profileTable = Config::get('profile.tables.profile','profiles');        
         
         // Validation
 		$request->validate([         

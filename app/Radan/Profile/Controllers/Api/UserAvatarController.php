@@ -53,14 +53,20 @@ class UserAvatarController extends Controller
         ])->validate();
 
         // Save uploaded file
-        $avatarPath = $request->file('avatar')->store('avatars');
+        //$avatarPath = $request->file('avatar')->store('avatars','public');
+        $avatarPath = Storage::disk('profile_avatar')->putFile('',$request->file('avatar'));
+        
+        dd(Storage::disk('profile_avatar'));
+        /*$avatarPath = $request->file('avatar')->store(
+            '', 'profile_avatar'
+        );*/
 
         // Get profile user instance and save old user avatar temporary
         $profile = $this->user()->profile()->first();
-        $oldUserAvatar = $profile->data['avatar'];
+        $oldUserAvatar = key_exists('avatar',$profile->data) ? $profile->data['avatar']:'';        
         
         // Save changes
-        $profileData = $profile->data;            
+        $profileData = $profile->data;
         $profileData['avatar'] = $avatarPath;
         $profile->data = $profileData;
         $this->user()->profile()->save($profile);

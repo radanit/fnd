@@ -13,7 +13,9 @@ class ProfileServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //        
+        //
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/profile.php', 'profile');
     }
 
     /**
@@ -23,6 +25,7 @@ class ProfileServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Register user avatar storage disk
+        $this->app['config']["filesystems.disks.profile_avatar"] = $this->app['config']['profile.profile_avatar.disk'];
     }
 }

@@ -144,7 +144,7 @@ class ProfileController extends Controller
         $profile = Profile::findOrFail($id);
 
         // Get prevernts from config files
-        $prevents = Config::get('radan.profile.prevents.profiles');
+        $prevents = Config::get('profile.prevents');
 
         // Check prevents rule
         if (!is_null($prevents)) {

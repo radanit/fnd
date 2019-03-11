@@ -9,7 +9,6 @@ namespace App\Radan\Profile\Traits;
  * @package Radan/Profile
  */
 
-use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -24,8 +23,8 @@ trait ProfileUserTrait
     public function profile()
     {
         $profile = $this->hasOne(
-            Config::get('radan.profile.models.profile_user'),
-            Config::get('radan.profile.foreign_keys.users'),
+            Config::get('profile.models.profile_user'),
+            Config::get('profile.foreign_keys.user'),
             $this->primaryKey
         );
 
