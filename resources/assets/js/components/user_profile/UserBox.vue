@@ -2,7 +2,7 @@
     <el-row style="font-size:12px;color:#fff;text-align:center;white-space:nowarp;">
         <el-row :gutter="10" class="userbox-msg">
             <el-col :span="3" class="mt-2">
-                <a href="#/profiles" id="profile-link">
+                <a href="#" @click="editProfile()" id="profile-link">
                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </a>
             </el-col>
@@ -89,35 +89,37 @@ export default {
         }
     },
   methods:{
-    /**
-     * Load User Info
-    */
-    loadUserInfo(){					
-        axios.get("../api/profile/user").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+        /**
+         * Load User Info
+        */
+        loadUserInfo(){					
+            axios.get("../api/profile/user").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
                 this.$message({                      
                     message:error.response.data.errors,
                     center: true,
                     type: 'error'
                 });
+            });
+        },
+        handleAvatarSuccess(res, file) {
+            this.imageUrl = URL.createObjectURL(file.raw);
+        },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
 
-        });
-    },
-    handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-     if (!isJPG) {
-            this.$message.error('Avatar picture must be JPG format!');
+        if (!isJPG) {
+                this.$message.error('Avatar picture must be JPG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Avatar picture size can not exceed 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        editProfile(){
+             this.$router.push({ name: 'profiles', params: { userId: this.user.id,profileId:this.user.profile_id,roles:this.user.roles,fullName:this.user.fullname,userName:this.user.username,email:this.user.email } });
         }
-        if (!isLt2M) {
-            this.$message.error('Avatar picture size can not exceed 2MB!');
-        }
-        return isJPG && isLt2M;
-    }
-  },
+    },
     created() 
     {
         this.loadUserInfo();			

@@ -60,7 +60,27 @@
 				<template>
 					<el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
 						<el-tab-pane :label="trans('profile.activities')" name="first">User</el-tab-pane>
-						<el-tab-pane :label="trans('profile.setting')" name="third">Role</el-tab-pane>
+						<el-tab-pane :label="trans('profile.setting')" name="third">
+							 <el-form  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+								<el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
+									:label="trans(item.label)"
+												:prop="item.name"
+												:rules="[
+													{ type:item.type,required:item.required, message: trans(item.errorMsg)}
+												]">
+										<el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+										<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
+											<el-option
+												v-for="option in lists"
+												:key="option.id"
+												:label="option.description"
+												:value="option.id">
+											</el-option>
+										</el-select>
+										<el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
+									</el-form-item>  
+							 </el-form>
+						</el-tab-pane>
 					</el-tabs>
 				</template>
 			</el-col>
@@ -125,6 +145,7 @@ import DefaultProfile from './DefaultProfile.vue';
 								imageUrl:'images/user4-128x128.jpg',
 								form: {},
 								user:{},
+								structure:{},
 								activeName: 'first'
 					}
         },
@@ -132,16 +153,22 @@ import DefaultProfile from './DefaultProfile.vue';
 				/**
 				 * Load User Info
 				 */
-				loadUserInfo(){					
-					axios.get("../api/profile/user").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+				loadUserInfo(){
+					this.user.fullname = this.$route.params.fullName;
+					this.user.roles = this.$route.params.roles;
+					this.user.username = this.$route.params.userName;
+					this.user.email = this.$route.params.email;
+					this.user.profile_id = this.$route.params.profileId;
+				},
+				loadProfileSructure(){
+					axios.get("../api/profile/profiles/"+this.user.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
 							this.$message({                      
 								message:error.response.data.errors,
 								center: true,
 								type: 'error'
-							});
-
+							}); 
 					});
-				},
+				},				
 	      handleAvatarSuccess(res, file) {
 	        this.imageUrl = URL.createObjectURL(file.raw);
 	      },
@@ -167,8 +194,9 @@ import DefaultProfile from './DefaultProfile.vue';
 					'technician-profile' :TechnicianProfile,
 					'default-profile' :DefaultProfile
 				 },
-			mounted() {
-				this.loadUserInfo();			
+			created() {
+				this.loadUserInfo();
+				this.loadProfileSructure();
 			}
     }
 </script>
