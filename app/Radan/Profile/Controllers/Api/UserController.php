@@ -40,8 +40,7 @@ class UserController extends Controller
      */
     public function user(Request $request)
     {
-        $user = Auth::user();
-
+        $user = User::findOrFail(Auth::id());
         return new AuthUserResource($user);
     }
     
