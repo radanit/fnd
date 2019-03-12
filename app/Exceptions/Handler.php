@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\PostTooLargeException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 
@@ -68,6 +69,12 @@ class Handler extends ExceptionHandler
         if ($exception instanceof NotFoundHttpException && $request->wantsJson()) {            
             return response()->json([
                 'message' => 'Route not found',
+                'errors' => __('app.routeNotFound')], 404);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException && $request->wantsJson()) {            
+            return response()->json([
+                'message' => 'Route parameter not valid',
                 'errors' => __('app.routeNotFound')], 404);
         }
 

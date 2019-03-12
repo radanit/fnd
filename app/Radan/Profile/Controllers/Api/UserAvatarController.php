@@ -6,7 +6,8 @@ namespace App\Radan\Profile\Controllers\Api;
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Filesystem\Filesystem;
+//use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -28,15 +29,21 @@ class UserAvatarController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    
+    protected $disk;
+
     protected function user()
     {
         return Auth::user();
     }
 
+    public function __construct(FileSystem $disk)
+    {
+        $this->disk = $disk;
+    }
+
     public function index()
     {
-        return Storage::url($this->user()->avatar);
+        return  $this->user()->avatar;
     }
 
     /**
@@ -54,7 +61,7 @@ class UserAvatarController extends Controller
 
         // Save uploaded file
         //$avatarPath = $request->file('avatar')->store('avatars','public');
-        $avatarPath = Storage::disk('profile_avatar')->putFile('',$request->file('avatar'));        
+        $avatarPath = $this->disk->putFile('',$request->file('avatar'));        
 
         // Get profile user instance and save old user avatar temporary
         $profile = $this->user()->profile()->first();
@@ -62,12 +69,12 @@ class UserAvatarController extends Controller
         
         // Save changes
         $profileData = $profile->data;
-        $profileData['avatar'] = Storage::disk('profile_avatar')->url($avatarPath);
+        $profileData['avatar'] = $this->disk->url($avatarPath);
         $profile->data = $profileData;
         $this->user()->profile()->save($profile);
 
         // Delete old user avatar
-        Storage::delete($oldUserAvatar);
+        $this->disk->delete(basename($oldUserAvatar));
 
         // Return
         return response()->json([
@@ -87,8 +94,8 @@ class UserAvatarController extends Controller
     {
         // Get profile user instance and save old user avatar temporary
         $profile = $this->user()->profile()->first();
-        $oldUserAvatar = $profile->data['avatar'];
-        
+        $oldUserAvatar = $profile->data['avatar'];        
+                
         // Save changes
         $profileData = $profile->data;            
         $profileData['avatar'] = '';
@@ -96,7 +103,7 @@ class UserAvatarController extends Controller
         $this->user()->profile()->save($profile);
 
         // Delete old user avatar
-        Storage::delete($oldUserAvatar);
+        $this->disk->delete(basename($oldUserAvatar));
 
         // Return
         return response()->json([
