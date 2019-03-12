@@ -68,7 +68,7 @@
 												:rules="[
 													{ type:item.type,required:item.required, message: trans(item.errorMsg)}
 												]">
-										<el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+										<el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" type="text"></el-input>
 										<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
 											<el-option
 												v-for="option in lists"
@@ -78,7 +78,7 @@
 											</el-option>
 										</el-select>
 										<el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
-									</el-form-item>  
+									</el-form-item>
 							 </el-form>
 						</el-tab-pane>
 					</el-tabs>
@@ -154,11 +154,7 @@ import DefaultProfile from './DefaultProfile.vue';
 				 * Load User Info
 				 */
 				loadUserInfo(){
-					this.user.fullname = this.$route.params.fullName;
-					this.user.roles = this.$route.params.roles;
-					this.user.username = this.$route.params.userName;
-					this.user.email = this.$route.params.email;
-					this.user.profile_id = this.$route.params.profileId;
+					this.user = this.$route.params.user;
 				},
 				loadProfileSructure(){
 					axios.get("../api/profile/profiles/"+this.user.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{

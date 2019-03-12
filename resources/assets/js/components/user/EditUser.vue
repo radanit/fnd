@@ -140,7 +140,7 @@
             active:''            
           },
           profile_options:[],
-          role_options: [],                   
+          role_options: [],                  
       }
     },
     methods :{
@@ -276,7 +276,8 @@
 
         for (var i=0 ;i<this.structure.length;i++)
         {
-            document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[0][this.structure[i].name];
+            if(!document.querySelector("input[name="+this.structure[i].name+"]").value)
+            document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
         };
       },
       /*
@@ -315,10 +316,11 @@
       this.LoadUser();
       this.loadProfiles();
       this.loadRoles();
-      this.loadProfileSructure();      
+      this.loadProfileSructure();
+            
     },
     updated(){
-       this.fillProfile();
+        this.fillProfile();
     },
     mounted(){    
       this.$refs.email.focus();

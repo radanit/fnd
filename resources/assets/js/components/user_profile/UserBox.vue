@@ -19,7 +19,7 @@
                     <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
                 </el-upload>
             </el-col>
-            <el-col :span="7" class="mt-4 brand-text font-weight-light">{{user.username}}</el-col>
+            <el-col :span="7" class="mt-4 brand-text font-weight-light">{{user.fullname}}</el-col>
         </el-row>
         <el-row :gutter="10" class="userbox-date">
             <el-col :span="8" class="brand-text font-weight-light">{{trans('app.current_date')}}<br/><span class="darkOrange">{{ new Date() | moment("jYYYY/jM/jD") }}</span></el-col>
@@ -117,7 +117,7 @@ export default {
             return isJPG && isLt2M;
         },
         editProfile(){
-             this.$router.push({ name: 'profiles', params: { userId: this.user.id,profileId:this.user.profile_id,roles:this.user.roles,fullName:this.user.fullname,userName:this.user.username,email:this.user.email } });
+             this.$router.push({ name: 'profiles', params: { user: this.user} });
         }
     },
     created() 
