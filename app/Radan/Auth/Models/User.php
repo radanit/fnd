@@ -2,17 +2,23 @@
 
 namespace App\Radan\Auth\Models;
 
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use Laravel\Passport\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
+
+use App\Radan\Profile\Traits\SetPasswordAccessorTrait;
+use App\Radan\Profile\Traits\ProfileUserTrait;
 
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, SoftDeletes;
     use LaratrustUserTrait;
+    use SetPasswordAccessorTrait; 
+    use ProfileUserTrait;
 
     /**
      * The attributes that are mass assignable.

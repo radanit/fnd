@@ -22,7 +22,7 @@ use PasswordPolicy;
 
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
-use App\Radan\Profile\Models\User;
+use App\Radan\Auth\Models\User as AuthUser;
 
 class UserController extends Controller
 {
@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function user(Request $request)
     {
-        $user = User::findOrFail(Auth::id());
+        $user = Auth::user();
         return new AuthUserResource($user);
     }
     
@@ -60,11 +60,11 @@ class UserController extends Controller
         // Return        
         if ($count) {
             /* eager loading */
-            return UserResource::collection(User::with(['profile','roles'])->paginate($count));
+            return UserResource::collection(AuthUser::with(['profile','roles'])->paginate($count));
         }
         else {
             /* eager loading */
-            return UserResource::collection(User::with(['profile','roles'])->get());
+            return UserResource::collection(AuthUser::with(['profile','roles'])->get());
         }        
     }
 
@@ -95,7 +95,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             // First create user in users table     
-            $user = User::create([
+            $user = AuthUser::create([
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => $request->password,
@@ -137,7 +137,7 @@ class UserController extends Controller
     public function show($id)
     {
         // Return
-        return new UserResource(User::findOrFail($id));        
+        return new UserResource(AuthUser::findOrFail($id));        
     }
 
     /**
@@ -168,7 +168,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try{
             // Find user
-            $user = User::findOrFail($id);            
+            $user = AuthUser::findOrFail($id);            
 			$user->update($request->only('email','active','password'));
 						
             // Set user profile data
@@ -211,7 +211,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Find user by id        
-        $user = User::findOrFail($id);
+        $user = AuthUser::findOrFail($id);
 
         try {
             // Find user_profile record by user_id relation

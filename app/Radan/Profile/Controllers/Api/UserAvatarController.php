@@ -19,7 +19,7 @@ use App\Radan\Exceptions\ResourceRestricted;
 
 // This Module classes
 use App\Radan\Profile\Models\Profile;
-use App\Radan\Profile\Models\User;
+use App\Radan\Auth\Models\User;
 
 class UserAvatarController extends Controller
 {        
@@ -31,7 +31,7 @@ class UserAvatarController extends Controller
     
     protected function user()
     {
-        return User::findOrFail(Auth::id());
+        return Auth::user();
     }
 
     public function index()
