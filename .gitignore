@@ -9,6 +9,7 @@ app/storage/
 # Laravel 5 & Lumen specific
 !public/fonts/vendor
 public/storage
+public/images/avatars
 public/hot
 storage/*.key
 .env.*.php
