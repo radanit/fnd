@@ -17,7 +17,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt blue"></i>
+              <i class="nav-icon fas fa-tachometer-alt lighGray"></i>
               <p>
               {{ __('menus.dashboard') }}
               </p>
@@ -39,25 +39,25 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link">
-                  <i class="fas fa-users-cog nav-icon indigo"></i>
+                  <i class="fas fa-users-cog nav-icon lighGray"></i>
                   <p>{{ __('menus.users') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
               <router-link to="/user_roles" class="nav-link">
-                  <i class="fas fa-users nav-icon teal"></i>
+                  <i class="fas fa-users nav-icon lighGray"></i>
                   <p>{{ __('menus.user_roles') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
               <router-link to="/user_permissions" class="nav-link">
-                  <i class="fas fa-user-lock  nav-icon red"></i>
+                  <i class="fas fa-user-lock  nav-icon lighGray"></i>
                   <p>{{ __('menus.user_permissions') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/profile_structures" class="nav-link">
-                  <i class="nav-icon fas fa-table cyan"></i>
+                  <i class="nav-icon fas fa-table lighGray"></i>
                   <p>
                   {{ __('menus.profile_structure') }}
                   </p>
@@ -65,7 +65,7 @@
               </li>
               <li class="nav-item">
                 <router-link to="/password_policies" class="nav-link">
-                  <i class="nav-icon  fas fa-lock purple"></i>
+                  <i class="nav-icon  fas fa-lock lighGray"></i>
                   <p>
                   {{ __('menus.password_policy') }}
                   </p>
@@ -89,7 +89,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/#" class="nav-link">
-                  <i class="nav-icon fas fa-table cyan"></i>
+                  <i class="nav-icon fas fa-table lighGray"></i>
                   <p>
                   {{ __('menus.item') }}
                   </p>
