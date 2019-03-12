@@ -18,6 +18,12 @@ use App\Radan\Profile\Models\ProfileUser;
 trait ProfileTrait
 {
     protected function profileValidate($profileId,ProfileUser $profile) {
+
+        $profile = Profile::findOrFail($profileId);
+        $structure = (is_array($profile->structure)) ? $profile->structure:json_decode($profile->structure);
+        foreach ($structure as $field) {
+            
+        }
         
 
     }

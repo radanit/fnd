@@ -16,5 +16,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResource('profiles', 'ProfileController');
     Route::apiResource('users', 'UserController');    
     Route::get('user', 'UserController@user');
-    Route::apiResource('user/avatar', 'UserAvatarController')->except(['update','show']);
+    Route::apiResource('user/avatar', 'UserAvatarController')->except(['update','show','destroy']);
+    Route::delete('user/avatar', 'UserAvatarController@destroy');
 });

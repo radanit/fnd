@@ -3,6 +3,8 @@
 namespace App\Radan\Profile\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use App\Radan\Profile\Controllers\Api\UserAvatarController;
 
 class ProfileServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,12 @@ class ProfileServiceProvider extends ServiceProvider
         //
         $this->mergeConfigFrom(
             __DIR__.'/../config/profile.php', 'profile');
+
+        $this->app->when(UserAvatarController::class)
+            ->needs(Filesystem::class)
+            ->give(function () {
+                return \Storage::disk('profile_avatar');
+        });       
     }
 
     /**
