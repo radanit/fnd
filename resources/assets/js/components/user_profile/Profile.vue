@@ -30,15 +30,19 @@
 				<!-- EN -->
 				<el-row v-if="trans('app.dir')==='ltr'" :gutter="20">
 						<el-col :span="4" class="text-left">
-							<el-upload
-							class="avatar-uploader"
-							action="https://jsonplaceholder.typicode.com/posts/"
-							:show-file-list="false"
-							:on-success="handleAvatarSuccess"
-							:before-upload="beforeAvatarUpload">
-							<img v-if="imageUrl" :src="imageUrl" class="profile-user-img img-fluid  el-icon-plus" alt="User profile picture">
-							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-						</el-upload>
+              <el-upload
+                    v-if="item.item=='el-upload'"
+                    class="avatar-uploader"
+                    action="../api/profile/user/avatar"
+                    :headers="headerInfo"
+                    :show-file-list="false"
+                    name="avatar"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
+              </el-upload>
 					</el-col>
 					<el-col :span="10" class="text-left mt-4">
 							<el-row :gutter="20">
@@ -77,7 +81,7 @@
 												:value="option.id">
 											</el-option>
 										</el-select>
-										<el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
+										              
 									</el-form-item>
 							 </el-form>
 						</el-tab-pane>
@@ -145,6 +149,10 @@ import DefaultProfile from './DefaultProfile.vue';
 								imageUrl:'images/user4-128x128.jpg',
 								form: {},
 								user:{},
+								avatar:'',
+								headerInfo: {
+										'Accept': 'application/json'
+								},
 								structure:{},
 								activeName: 'first'
 					}
@@ -165,23 +173,41 @@ import DefaultProfile from './DefaultProfile.vue';
 							}); 
 					});
 				},				
-	      handleAvatarSuccess(res, file) {
-	        this.imageUrl = URL.createObjectURL(file.raw);
-	      },
-	      beforeAvatarUpload(file) {
-	        const isJPG = file.type === 'image/jpeg';
-	        const isLt2M = file.size / 1024 / 1024 < 2;
-
-	        if (!isJPG) {
-	          this.$message.error('Avatar picture must be JPG format!');
-	        }
-	        if (!isLt2M) {
-	          this.$message.error('Avatar picture size can not exceed 2MB!');
-	        }
-	        return isJPG && isLt2M;
+				handleAvatarSuccess(res, file) {
+          //this.user.avatar = URL.createObjectURL(file.raw);
 				},
-					handleClick(tab, event) {
-					console.log(tab, event);
+				beforeAvatarUpload(file) {
+					const isJPG = file.type === 'image/jpeg';
+					const isLt2M = file.size / 1024 / 1024 < 2;
+					if (!isJPG) {
+							this.$message.error('Avatar picture must be JPG format!');
+					}
+					if (!isLt2M) {
+							this.$message.error('Avatar picture size can not exceed 2MB!');
+					}           
+					let param = new FormData()  
+							param.append('avatar', file, file.name) 
+					let config = {
+							headers: {'Content-Type': 'multipart/form-data'}
+					}
+					if(isJPG & isLt2M)
+					{
+							axios.post('../api/profile/user/avatar', param, config).then((response) =>{
+							this.user.avatar = response.data.url;
+							this.$message({
+											type: 'success',
+											center: true,
+											message:response.data.message
+									});
+							})
+							.catch((error) => {
+									this.$message({
+											message: error.response.data.errors,
+											center: true,
+											type: 'error'
+									});
+							});
+					}
 				}
 			},
 			components:{ 

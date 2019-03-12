@@ -105,7 +105,19 @@
                   :value="option.id">
                 </el-option>
               </el-select>
-              <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
+              <el-upload
+                    v-if="item.item=='el-upload'"
+                    class="avatar-uploader"
+                    action="../api/profile/user/avatar"
+                    :headers="headerInfo"
+                    :show-file-list="false"
+                    name="avatar"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
+              </el-upload>              
             </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -139,7 +151,12 @@
             data:'',
             active:''            
           },
-          profile_options:[],
+          user:{},
+          avatar:'',
+          headerInfo: {
+              'Accept': 'application/json'
+          },
+        profile_options:[],
           role_options: [],                  
       }
     },
@@ -155,7 +172,7 @@
       */
       LoadUser(){
           this.form.id=this.$route.params.userId;
-          axios.get("../api/profile/users/"+this.form.id).then(({data})=>(this.form = data)).catch((error)=>{
+          axios.get("../api/profile/users/"+this.form.id).then(({data})=>{(this.form = data),(this.user=data.data)}).catch((error)=>{
               this.$message({
                 title: '',
                 message: error.response.data.errors,
@@ -272,12 +289,57 @@
             });
         });        
       },
+      handleAvatarSuccess(res, file) {
+          //this.user.avatar = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+          const isJPG = file.type === 'image/jpeg';
+          const isLt2M = file.size / 1024 / 1024 < 2;
+          if (!isJPG) {
+              this.$message.error('Avatar picture must be JPG format!');
+          }
+          if (!isLt2M) {
+              this.$message.error('Avatar picture size can not exceed 2MB!');
+          }           
+          let param = new FormData()  
+              param.append('avatar', file, file.name) 
+          let config = {
+              headers: {'Content-Type': 'multipart/form-data'}
+          }
+          if(isJPG & isLt2M)
+          {
+              axios.post('../api/profile/user/avatar', param, config).then((response) =>{
+              this.user.avatar = response.data.url;
+              this.$message({
+                      type: 'success',
+                      center: true,
+                      message:response.data.message
+                  });
+              })
+              .catch((error) => {
+                  this.$message({
+                      message: error.response.data.errors,
+                      center: true,
+                      type: 'error'
+                  });
+              });
+          }
+      },
       fillProfile(){
-
         for (var i=0 ;i<this.structure.length;i++)
         {
             if(!document.querySelector("input[name="+this.structure[i].name+"]").value)
-            document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
+            {
+              if(document.querySelector("input[name="+this.structure[i].name+"]").type!='file')
+              {
+                document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
+              }
+              else
+              {
+
+              }
+            }
+              
         };
       },
       /*
