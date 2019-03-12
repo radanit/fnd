@@ -23,9 +23,12 @@ use PasswordPolicy;
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
+use App\Radan\Profile\Traits\ProfileTrait;
 
 class UserController extends Controller
 {
+
+    use ProfileTrait;
 
     protected $passwordValidation = '';
     public function __construct()
@@ -150,7 +153,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
 				// Read Profile table name form config
-        $profileTable = Config::get('profile.tables.profile','profiles');        
+        $profileTable = Config::get('profile.tables.profile','profiles');               
         
         // Validation
 		$request->validate([         
@@ -173,7 +176,10 @@ class UserController extends Controller
 						
             // Set user profile data
 			if ($request->filled('profile_id')) {
-				$profileUser = $user->profile()->first();
+                $profileUser = $user->profile()->first();
+
+                //$this->profileValidate($profileUser->type,$request);
+
 				$profileUser->profile_id = $request->profile_id;
 				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
                 $profileUser->data = json_decode($profileUser->data);

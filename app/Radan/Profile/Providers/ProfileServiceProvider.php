@@ -15,15 +15,14 @@ class ProfileServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/profile.php', 'profile');
+        // merge package configuration
+        $this->mergeConfigFrom(__DIR__.'/../config/profile.php', 'profile');
 
         $this->app->when(UserAvatarController::class)
             ->needs(Filesystem::class)
             ->give(function () {
                 return \Storage::disk('profile_avatar');
-        });       
+            });       
     }
 
     /**

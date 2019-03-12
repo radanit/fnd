@@ -27,6 +27,7 @@ class ProfileTableSeeder extends Seeder
 					"required" => "true",
 					"label" => "profile.first_name",
 					"errorMsg" => "profile.first_nameError",
+					"rules" => "required|string|max:191",
 					
 				],
 				[
@@ -37,7 +38,19 @@ class ProfileTableSeeder extends Seeder
 					"required" => "true",
 					"label" => "profile.last_name",
 					"errorMsg" => "profile.last_nameError",
-				]
+					"rules" => "required|string|max:191",
+				],
+				[
+					"id" => "3",
+					"name" => "avatar",
+					"item" => "el-upload",
+					"type" => "file",
+					"required" => "false",
+					"label" => "profile.avatar",
+					"errorMsg" => "profile.avatarError",
+					"rules" => "bail|image|mimes:jpeg,jpg,png,gif|max:2048",
+					
+				],
 			]												
 		));	
 	}
