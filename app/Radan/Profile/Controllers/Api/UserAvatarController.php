@@ -54,12 +54,7 @@ class UserAvatarController extends Controller
 
         // Save uploaded file
         //$avatarPath = $request->file('avatar')->store('avatars','public');
-        $avatarPath = Storage::disk('profile_avatar')->putFile('',$request->file('avatar'));
-        
-        dd(Storage::disk('profile_avatar'));
-        /*$avatarPath = $request->file('avatar')->store(
-            '', 'profile_avatar'
-        );*/
+        $avatarPath = Storage::disk('profile_avatar')->putFile('',$request->file('avatar'));        
 
         // Get profile user instance and save old user avatar temporary
         $profile = $this->user()->profile()->first();
@@ -67,7 +62,7 @@ class UserAvatarController extends Controller
         
         // Save changes
         $profileData = $profile->data;
-        $profileData['avatar'] = $avatarPath;
+        $profileData['avatar'] = Storage::disk('profile_avatar')->url($avatarPath);
         $profile->data = $profileData;
         $this->user()->profile()->save($profile);
 
@@ -77,7 +72,7 @@ class UserAvatarController extends Controller
         // Return
         return response()->json([
             'message' => __('app.updateAlert'),
-            'url' =>  Storage::url($avatarPath)],
+            'url' =>  $profileData['avatar']],
             $this->httpOk
         );
     }

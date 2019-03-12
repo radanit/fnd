@@ -116,7 +116,7 @@ return [
     'disk' => [
       'driver' => 'local',
       'root' => public_path('images/avatars'),
-      'url' => env('APP_URL').'/images/avatars',
+      'url' => '/images/avatars',
       'visibility' => 'public',
     ],
   ]
