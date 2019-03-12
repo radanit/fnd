@@ -20,11 +20,14 @@ class AuthUserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             // Accessor attribute define if Profile\Traits\ProfileUserTrait
-            'fullname' => $this->fullname, 
+            'fullname' => $this->fullname,
+            'avatar' => $this->avatar,
             // Cast to boolean in Auth\Models\User
             'active' => $this->active,
             'profile_id' => $this->type_id,
             'profile_name' => $this->type,
+            'last_login' => $this->last_login,
+            
             // Cast to array in Auth\Models\Role
             'roles' => $this->when(true, function() {
                 $return = '';
