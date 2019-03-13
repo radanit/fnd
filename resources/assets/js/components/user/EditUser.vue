@@ -94,9 +94,9 @@
             :label="trans(item.label)"
                   :prop="item.name"
                   :rules="[
-                    { type:item.type,required:item.required, message: trans(item.errorMsg)}
+                    {message: trans(item.errorMsg)}
                   ]">
-              <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+              <el-input v-if="item.item=='el-input' " v-model="form.data[item.name]" :name="item.name" type="text"></el-input>
               <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
                 <el-option
                   v-for="option in lists"
@@ -105,19 +105,31 @@
                   :value="option.id">
                 </el-option>
               </el-select>
-              <el-upload
+              <!--<el-upload
                     v-if="item.item=='el-upload'"
                     class="avatar-uploader"
-                    action="../api/profile/user/avatar"
+                    action=""
                     :headers="headerInfo"
                     :show-file-list="false"
-                    name="avatar"
-                    :on-success="handleAvatarSuccess"
+                    v-model="form[item.name]" 
+                    :name="item.name"
                     :before-upload="beforeAvatarUpload">
                     <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
-              </el-upload>              
+              </el-upload>-->
+              <el-upload
+                v-if="item.item=='el-upload'"
+                class="avatar-uploader"
+                :headers="headerInfo"
+                ref="upload"
+                action="/"
+                v-model="form.data[item.name]" 
+                :name="item.name"
+                :auto-upload="false">
+                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button>            
+                <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
+              </el-upload>                            
             </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -152,7 +164,6 @@
             active:''            
           },
           user:{},
-          avatar:'',
           headerInfo: {
               'Accept': 'application/json'
           },
@@ -263,12 +274,12 @@
       for (var i=0 ;i<this.structure.length;i++)
       {
           var columnName = this.structure[i].name;
-          jsonData[columnName] = this.form[this.structure[i].name];
+          jsonData[columnName] = this.form.data[this.structure[i].name];
       };      
       let userInfo={
           password:this.form.password,
           password_confirmation:this.form.password_confirmation,          
-          data:this.profile_data,
+          //data:this.profile_data,
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
@@ -280,7 +291,7 @@
             center: true,
             message:response.data.message
           });
-          Fire.$emit('AfterCrud');        
+          this.$refs.upload.submit();       
           }).catch((error) => {
             this.$message({
               type: 'error',
@@ -306,24 +317,7 @@
           let config = {
               headers: {'Content-Type': 'multipart/form-data'}
           }
-          if(isJPG & isLt2M)
-          {
-              axios.post('../api/profile/user/avatar', param, config).then((response) =>{
-              this.user.avatar = response.data.url;
-              this.$message({
-                      type: 'success',
-                      center: true,
-                      message:response.data.message
-                  });
-              })
-              .catch((error) => {
-                  this.$message({
-                      message: error.response.data.errors,
-                      center: true,
-                      type: 'error'
-                  });
-              });
-          }
+          return isJPG & isLt2M
       },
       fillProfile(){
         for (var i=0 ;i<this.structure.length;i++)
