@@ -59,5 +59,6 @@ return [
     'no_data_found' => 'No Data Found!',
     'current_date' => 'Today',
     'last_login' => 'Last Login',
-    'welcome_message' => 'Welcome'
+    'welcome_message' => 'Welcome',
+    'selectImage' => 'Select Image'
 ];
