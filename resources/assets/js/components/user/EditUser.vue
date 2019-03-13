@@ -94,9 +94,9 @@
             :label="trans(item.label)"
                   :prop="item.name"
                   :rules="[
-                    { type:item.type,required:item.required, message: trans(item.errorMsg)}
+                    {message: trans(item.errorMsg)}
                   ]">
-              <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
+              <el-input v-if="item.item=='el-input' " v-model="form.data[item.name]" :name="item.name" type="text"></el-input>
               <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
                 <el-option
                   v-for="option in lists"
@@ -105,7 +105,7 @@
                   :value="option.id">
                 </el-option>
               </el-select>
-              <el-upload
+              <!--<el-upload
                     v-if="item.item=='el-upload'"
                     class="avatar-uploader"
                     action="../api/profile/user/avatar"
@@ -117,7 +117,15 @@
                     <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
-              </el-upload>              
+              </el-upload>-->
+              <el-upload
+                v-if="item.item=='el-upload'"
+                class="avatar-uploader"
+                ref="upload"
+                :name="item.name"
+                :auto-upload="false">
+                <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
+              </el-upload>                          
             </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -156,7 +164,7 @@
           headerInfo: {
               'Accept': 'application/json'
           },
-        profile_options:[],
+          profile_options:[],
           role_options: [],                  
       }
     },
@@ -263,24 +271,37 @@
       for (var i=0 ;i<this.structure.length;i++)
       {
           var columnName = this.structure[i].name;
-          jsonData[columnName] = this.form[this.structure[i].name];
+          if(columnName!='avatar')
+          {
+            jsonData[columnName] = this.form.data[this.structure[i].name];
+          }
+          else
+          {
+            let param = new FormData()  
+              param.append('avatar', file, file.name) 
+            let config = {
+                headers: {'Content-Type': 'multipart/form-data'}
+            }
+          }
+          
+
       };      
       let userInfo={
           password:this.form.password,
-          password_confirmation:this.form.password_confirmation,          
-          data:this.profile_data,
+          password_confirmation:this.form.password_confirmation,
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
-          profile_data :JSON.stringify(jsonData)
+          profile_data :jsonData
       }
-      axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
+      axios.put('../api/profile/users/'+this.form.id,userInfo, param, config).then(response => {      
           this.$message({
             type: 'success',
             center: true,
             message:response.data.message
           });
-          Fire.$emit('AfterCrud');        
+          this.$refs.upload.submit();
+          this.backToUserList();        
           }).catch((error) => {
             this.$message({
               type: 'error',
@@ -356,9 +377,6 @@
           if (valid) 
           {
             this.updateUser();
-            Fire.$emit('AfterCrud');
-            this.backToUserList();
-
           }
           else {
             return false;
@@ -382,7 +400,7 @@
             
     },
     updated(){
-        this.fillProfile();
+        //this.fillProfile();
     },
     mounted(){    
       this.$refs.email.focus();
