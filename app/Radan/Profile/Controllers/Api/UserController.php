@@ -160,8 +160,7 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users',                        
             'password' => $this->passwordValidation,
             'active' => 'boolean',
-            'profile_id' => 'exists:'.$profileTable.',id',
-            'profile_data' => 'json',
+            'profile_id' => 'exists:'.$profileTable.',id',            
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
@@ -169,7 +168,7 @@ class UserController extends Controller
 		
 		// Begin Database transaction			
         DB::beginTransaction();
-        try{
+        //try{
             // Find user
             $user = AuthUser::findOrFail($id);            
 			$user->update($request->only('email','active','password'));
@@ -178,7 +177,7 @@ class UserController extends Controller
 			if ($request->filled('profile_id')) {
                 $profileUser = $user->profile()->first();
 
-                //$this->profileValidate($profileUser->type,$request);
+                $this->saveProfile($user,$request);
 
 				$profileUser->profile_id = $request->profile_id;
 				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
@@ -198,14 +197,14 @@ class UserController extends Controller
                 $this->httpOk
             );
 
-        } catch (Exception $e) {
+       /* } catch (Exception $e) {
             DB::rollBack();            
             return response()->json([
                 'message' => 'Error update user',
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
-        }
+        }*/
     }
 
     /**

@@ -10,32 +10,56 @@ namespace App\Radan\Profile\Traits;
  */
 
 use Illuminate\Http\Request;
+use Validator;
 
 trait ProfileTrait
 {
-    protected function profileValidate($profile,$request) 
-    {                
-        // Get profile structure, 
-        // Check if Model casting JSON to Array does not work, JSON to Array manualy
-        $structure = (is_array($profile->structure)) ? $profile->structure:json_decode($profile->structure);
+    protected function castJsonToCollect($structure)
+    {
+        $structure = (is_array($structure)) ? $structure : json_decode($structure);
+        $collection =  collect($structure)->map(function($row) {
+            return collect($row);
+        });
+        return $collection;
+    }    
 
-        // Define validation eules Array
-        $rules = [];
-        
+    protected function getProfileFields($structure,$key='',$value='')
+    {
+        $fields = [];
+        $structure = $this->castJsonToCollect($structure);
         // Check profile structure items
-        foreach ($structure as $item) 
-        {
-            if (is_array($item)) {
-                $rule = array_key_exists('rules',$item) ? $item['rules'] : '';
-                if (array_key_exists('name',$item)) {
-                    $rules[$item['name']] = $rule;
-                }
-
-            }                        
+        foreach($structure as $item) {            
+            $fields[$item->get($key)] = $item->get($value);            
         }
-        
-        
 
-        dd($rules);
+        return $fields;
+    }
+    
+    protected function profileValidate($profile,$request) 
+    {
+        // Define validation eules Array
+        $rules = $this->getProfileFields($profile->structure,'name','rules');
+        $fields = array_keys($rules);
+
+        // run validation
+        Validator::make($request->only($fields),$rules)->validate();
+        return true;
+    }
+
+    protected function saveProfile($profile,$request)
+    {
+        $fieldTypes = $this->getProfileFields($profile->structure,'name','type');
+        $fields = array_keys($fieldTypes);        
+        $profileData = $request->only($fields);
+        dd($profileData);
+
+        foreach ($request->only($fields) as $key => $value)
+        {
+            if ($fieldTypes[$key] == 'file') {
+
+            }            
+        }
+
+       
     }
 }
