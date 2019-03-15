@@ -29,9 +29,8 @@ class ProfileServiceProvider extends ServiceProvider
         });
         
         // Create singleton profile instance
-        $this->app->singleton('profile.manager', function ($app) {
-            $request = app(\Illuminate\Http\Request::class);          
-            $profile = new Profile(\Storage::disk('profile_disk'),$request);
+        $this->app->singleton('profile.manager', function ($app) {            
+            $profile = new Profile(\Storage::disk('profile_disk'));
             return $profile;
         });
 

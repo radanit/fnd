@@ -25,30 +25,14 @@ class Profile
      *
      * @var Storage
      */
-    protected $disk;
-
-    /**
-     * The Illuminate\Http\Request         
-     *
-     * @var Request
-     */
-    protected $request;
+    protected $disk;    
 
     /**
      * The storage define in service provider          
      *
      * @var ProfileModel
      */
-    protected $profile;
-
-    /**
-     * For support profile data bag,
-     * Name of profile data field          
-     *
-     * @var string
-     */
-    protected $isDataBag = false;
-    protected $dataBagFieldName = 'profile_data';    
+    protected $profile;    
 
     /**
      * Class constructor
@@ -56,14 +40,12 @@ class Profile
      * @param  FileSystem  $disk Laravel FileSystem disk
      * @return Profile
      */
-    public function __construct(FileSystem $disk,Request $request,$isDataBag = false)
+    public function __construct(FileSystem $disk)
     {
         if (is_null($disk)) {
             $disk = \Storage::disk('profile_disk');
         }
-        $this->disk = $disk;
-        $this->request = $request;
-        $this->isDataBag = $isDataBag;
+        $this->disk = $disk;        
         return $this;
     }
 
@@ -94,13 +76,12 @@ class Profile
      * @param  mixed  $key  profile id or name
      * @return Profile
      */
-    public function make($key,$isDataBag = false)
+    public function make($key)
     {
         $this->profile = ProfileModel::find($key);     
         if (is_null($this->profile)) {
             $this->profile = ProfileModel::where('name',$key)->first();        
-        }
-        $this->isDataBag = $isDataBag;
+        }        
         return $this;
     }
     
@@ -142,26 +123,7 @@ class Profile
 
         if (is_null($value)) return array_keys($fields);
             else return $fields;
-    }
-    
-    /**
-     * Retrive profile data from http request
-     *    
-     * @param Illuminate\Http\Request $request http request bag     
-     * @return array return array of profile data
-     */
-    protected function getProfileUserData($data) 
-    {        
-        $requestData = 
-            ($this->isDataBag) ? 
-            json_decode($this->request->input($this->dataBagFieldName),true):
-            $this->request->only($this->getFields());
-
-        $data = is_null($data) ? $requestData : $data;        
-        if (is_null($data)) $data = [];
-                
-        return $data;
-    }
+    }   
     
     /**
      * Validate profile data by rule field in profile structure
@@ -169,14 +131,13 @@ class Profile
      * @param Illuminate\Http\Request $request http request bag     
      * @return mixed return true on validate or raise exception on fail
      */
-    public function validate($data=null)
+    public function validate($data)
     {
         // Define validation eules Array
-        $rules = $this->getFields('name','rules');
-        $requestData = $this->getProfileUserData($data);
+        $rules = $this->getFields('name','rules');        
 
         // run validation
-        Validator::make($requestData ,$rules)->validate();
+        Validator::make($data ,$rules)->validate();
         return $this;
     }
     
@@ -186,33 +147,35 @@ class Profile
      * @param Illuminate\Http\Request $request http request bag
      * @return ProfileUser return ProfileUser model instance saved or failed
      */
-    public function save($user,$data=null)
+    public function save($user,$data)
     {
         // Get profile fields and filed types
         $fields = $this->getFields();
         $fieldTypes = $this->getFields('name','type');
-        $profileData = $this->getProfileUserData($data);       
-              
-        foreach ($fields as $key)
+        $profileData = json_decode($user->profile->data,true);
+
+        foreach ($data as $key)
         {
-            if ($fieldTypes[$key] == 'file') {
-                if ($this->request->hasFile($key)) {
-                    // Upload file
-                    $filePath = $this->disk->putFile('',$this->request->file($key));                                    
-                    
-                    // Delete old user avatar
-                    $oldFilePath = key_exists($key,$profileData) ? $profileData[$key]:'';        
-                    $this->disk->delete(basename($oldFilePath));
-                    
-                    // Save changes                   
-                    $profileData[$key] = $this->disk->url($filePath);
-                }               
-            }        
+            if ($fieldTypes[$key] == 'file') {                
+                // Upload file
+                $filePath = $this->disk->putFile('',$data[$key]);
+                
+                // save for Delete old user files
+                $oldFilePath[] = key_exists($key,$profileData) ? $profileData[$key]:'';                
+                
+                // Save changes                   
+                $data[$key] = $this->disk->url($filePath);
+            }
         }
         
         $profileUser = $user->profile()->first();               
-        $profileUser->data = $profileData;
         $profileUser->profile_id = $this->profile->id;
-        $user->profile()->save($profileUser);       
+        $profileUser->data = $data;
+        $user->profile()->save($profileUser);
+
+        // delete
+        foreach($oldFilePath as $file)
+            $this->disk->delete(basename($file));
+                
     }
 }

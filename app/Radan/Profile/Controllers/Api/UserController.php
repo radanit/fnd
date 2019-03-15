@@ -101,6 +101,11 @@ class UserController extends Controller
                 'active' => $request->active,
             ]);
 
+            $data = json_decode($request->profile_data);
+            $data['avatar'] = $request->file('avatar');
+            \Profile::make($request->profile_id)->validate($data);
+
+
             // Create profile info base on profile type 
             $user->profile()->create([           
                 'profile_id' => $request->profile_id,
