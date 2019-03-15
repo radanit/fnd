@@ -105,27 +105,17 @@
                   :value="option.id">
                 </el-option>
               </el-select>
-              <!--<el-upload
-                    v-if="item.item=='el-upload'"
+                <el-upload
+                    v-if="item.item=='el-upload' "
                     class="avatar-uploader"
-                    action="../api/profile/user/avatar"
+                    action=""
+                    ref="file"
                     :headers="headerInfo"
-                    :show-file-list="false"
+                    :auto-upload="false"
                     name="avatar"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
-              </el-upload>-->
-              <el-upload
-                v-if="item.item=='el-upload'"
-                class="avatar-uploader"
-                ref="upload"
-                :name="item.name"
-                :auto-upload="false">
-                <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
-              </el-upload>                          
+                    :on-change="onChangeFileUpload">
+                    <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
+                </el-upload>                 
             </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -157,8 +147,9 @@
             roles:[],                  
             profile_id:'',
             data:'',
-            active:''            
+            active:''           
           },
+          file: '',
           user:{},
           avatar:'',
           headerInfo: {
@@ -249,6 +240,9 @@
       backToUserList(){
         this.$router.push({ name: 'users'});
       },
+      onChangeFileUpload(file){
+        this.avatar = file;
+      },
         /*
         |--------------------------------------------------------------------------
         | Update User Method
@@ -275,32 +269,24 @@
           {
             jsonData[columnName] = this.form.data[this.structure[i].name];
           }
-          else
-          {
-            let param = new FormData()  
-              param.append('avatar', file, file.name) 
-            let config = {
-                headers: {'Content-Type': 'multipart/form-data'}
-            }
-          }
-          
-
-      };      
+      };
+      let  avatar= new FormData();
+      avatar.append('file', this.file);   
       let userInfo={
           password:this.form.password,
           password_confirmation:this.form.password_confirmation,
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
-          profile_data :jsonData
+          avatar:this.avatar,
+          profile_data :JSON.stringify(jsonData)
       }
-      axios.put('../api/profile/users/'+this.form.id,userInfo, param, config).then(response => {      
+      axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
           this.$message({
             type: 'success',
             center: true,
             message:response.data.message
           });
-          this.$refs.upload.submit();
           this.backToUserList();        
           }).catch((error) => {
             this.$message({
@@ -309,42 +295,6 @@
               message:error.response.data.errors              
             });
         });        
-      },
-      handleAvatarSuccess(res, file) {
-          //this.user.avatar = URL.createObjectURL(file.raw);
-      },
-      beforeAvatarUpload(file) {
-          const isJPG = file.type === 'image/jpeg';
-          const isLt2M = file.size / 1024 / 1024 < 2;
-          if (!isJPG) {
-              this.$message.error('Avatar picture must be JPG format!');
-          }
-          if (!isLt2M) {
-              this.$message.error('Avatar picture size can not exceed 2MB!');
-          }           
-          let param = new FormData()  
-              param.append('avatar', file, file.name) 
-          let config = {
-              headers: {'Content-Type': 'multipart/form-data'}
-          }
-          if(isJPG & isLt2M)
-          {
-              axios.post('../api/profile/user/avatar', param, config).then((response) =>{
-              this.user.avatar = response.data.url;
-              this.$message({
-                      type: 'success',
-                      center: true,
-                      message:response.data.message
-                  });
-              })
-              .catch((error) => {
-                  this.$message({
-                      message: error.response.data.errors,
-                      center: true,
-                      type: 'error'
-                  });
-              });
-          }
       },
       fillProfile(){
         for (var i=0 ;i<this.structure.length;i++)
