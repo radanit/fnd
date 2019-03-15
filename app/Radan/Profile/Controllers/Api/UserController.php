@@ -172,7 +172,7 @@ class UserController extends Controller
             // Set user profile data
 			if ($request->filled('profile_id')) {
                 $profile = \Profile::make($request->profile_id,true)->validate();
-                $profile->save($user);               
+                $profile->save($user,$request->only('profile_data','avatar'));               
 			}
                            
             // Set user roles and update
