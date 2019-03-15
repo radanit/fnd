@@ -191,12 +191,12 @@ class Profile
         // Get profile fields and filed types
         $fields = $this->getFields();
         $fieldTypes = $this->getFields('name','type');
-        $profileData = $this->getProfileUserData($data);
-       
-        foreach ($profileData as $key => $value)
+        $profileData = $this->getProfileUserData($data);       
+              
+        foreach ($fields as $key)
         {
             if ($fieldTypes[$key] == 'file') {
-                if ($this->request->file($key)->isValid()) {
+                if ($this->request->hasFile($key)) {
                     // Upload file
                     $filePath = $this->disk->putFile('',$this->request->file($key));                                    
                     
@@ -209,6 +209,7 @@ class Profile
                 }               
             }        
         }
+        
         $profileUser = $user->profile()->first();               
         $profileUser->data = $profileData;
         $profileUser->profile_id = $this->profile->id;
