@@ -23,13 +23,9 @@ use PasswordPolicy;
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
-use App\Radan\Profile\Traits\ProfileTrait;
 
 class UserController extends Controller
 {
-
-    use ProfileTrait;
-
     protected $passwordValidation = '';
     public function __construct()
     {
@@ -171,18 +167,12 @@ class UserController extends Controller
         //try{
             // Find user
             $user = AuthUser::findOrFail($id);            
-			$user->update($request->only('email','active','password'));
-						
+			$user->update($request->only('email','active','password'));						
+            
             // Set user profile data
 			if ($request->filled('profile_id')) {
-                $profileUser = $user->profile()->first();
-
-                $this->saveProfile($user,$request);
-
-				$profileUser->profile_id = $request->profile_id;
-				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
-                $profileUser->data = json_decode($profileUser->data);
-                $user->profile()->save($profileUser);
+                $profile = \Profile::make($request->profile_id,true)->validate();
+                $profile->save($user);               
 			}
                            
             // Set user roles and update
