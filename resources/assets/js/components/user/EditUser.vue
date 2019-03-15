@@ -105,17 +105,25 @@
                   :value="option.id">
                 </el-option>
               </el-select>
-                <el-upload
-                    v-if="item.item=='el-upload' "
-                    class="avatar-uploader"
-                    action=""
-                    ref="file"
-                    :headers="headerInfo"
-                    :auto-upload="false"
-                    name="avatar"
-                    :on-change="onChangeFileUpload">
-                    <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
-                </el-upload>                 
+              <!--<el-upload
+                  v-if="item.item=='el-upload' "
+                  class="avatar-uploader"
+                  action=""
+                  ref="file"
+                  :headers="headerInfo"
+                  :auto-upload="false"
+                  :before-upload="beforeAvatarUpload">
+                  <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
+              </el-upload>-->
+            <el-upload
+              v-if="item.item=='el-upload' "
+              class="avatar-uploader"
+              ref="upload"
+              action=""
+              :on-change="onChangeFileUpload"
+              :auto-upload="false">
+              <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
+            </el-upload>
             </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -137,6 +145,7 @@
           structure:{},
           model: {},
           lists:{},
+          fileList:[],
           form: 
           {
             id:'',
@@ -240,8 +249,11 @@
       backToUserList(){
         this.$router.push({ name: 'users'});
       },
-      onChangeFileUpload(file){
-        this.avatar = file;
+      onChangeFileUpload(file,fileList){
+        var fileObj = file.file;
+        this.file = new FormData();
+       this.file.append("avatar", fileObj);
+        console.log(typeof this.file)
       },
         /*
         |--------------------------------------------------------------------------
@@ -270,17 +282,16 @@
             jsonData[columnName] = this.form.data[this.structure[i].name];
           }
       };
-      let  avatar= new FormData();
-      avatar.append('file', this.file);   
       let userInfo={
           password:this.form.password,
           password_confirmation:this.form.password_confirmation,
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
-          avatar:this.avatar,
+          avatar:this.file,          
           profile_data :JSON.stringify(jsonData)
       }
+      console.log(typeof this.avatar.raw);
       axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
           this.$message({
             type: 'success',
@@ -312,6 +323,26 @@
             }
               
         };
+      },
+      handleAvatarSuccess(res, file) {
+          this.user.avatar = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG) {
+            this.$message.error('Avatar picture must be JPG format!');
+        }
+        if (!isLt2M) {
+            this.$message.error('Avatar picture size can not exceed 2MB!');
+        }           
+        this.file = new FormData()  
+            this.file.append('avatar', file, file.name) 
+            alert(this.file);
+        var config = {
+            headers: {'Content-Type': 'multipart/form-data'}
+        }
+        return (isJPG & isLt2M)
       },
       /*
       |--------------------------------------------------------------------------
