@@ -24,13 +24,9 @@ use Profile;
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
-use App\Radan\Profile\Traits\ProfileTrait;
 
 class UserController extends Controller
 {
-
-    use ProfileTrait;
-
     protected $passwordValidation = '';
     public function __construct()
     {
