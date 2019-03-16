@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form id="my-form-id"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.username')"
             prop="username"
@@ -105,19 +105,6 @@
                   :value="option.id">
                 </el-option>
               </el-select>
-              <!--<el-upload
-                    v-if="item.item=='el-upload'"
-                    class="avatar-uploader"
-                    action=""
-                    :headers="headerInfo"
-                    :show-file-list="false"
-                    v-model="form[item.name]" 
-                    :name="item.name"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
-              </el-upload>-->
               <el-upload
                 v-if="item.item=='el-upload'"
                 class="avatar-uploader"
@@ -127,6 +114,8 @@
                 name="avatar"
                 :on-success="handleAvatarSuccess"
                 :on-change="onAvatarChange"
+                :before-upload="onBeforeUpload"
+                :file-list="fileList"
                 :auto-upload="false">
                 <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button>                
               </el-upload>                            
@@ -151,6 +140,7 @@
           structure:{},
           model: {},
           lists:{},
+          fileList:[],
           form: 
           {
             id:'',
@@ -174,14 +164,18 @@
       }
     },
     methods :{
-      onAvatarChange(file){
-        this.file = new FormData()  
-        this.file.append('avatar', file, file.name); 
-        //this.file = param;        
+      onAvatarChange(file,fileList){
+        console.log(file);console.log(fileList);
+        this.file = new FormData( document.getElementById("my-form-id") );
+        return ;
+        this.file.set('avatar',file,file.name);      
         let config = {
                 headers: {'Content-Type': 'multipart/form-data'}
           }
         this.config = config;
+        console.log(this.file.get('avatar'));
+        console.log(this.file.getAll('avatar'));
+        //this.file = fileList[0];
       },
       /*
       |--------------------------------------------------------------------------
@@ -273,6 +267,7 @@
         |
         */          
       updateUser(){
+        console.log("UPDATE");
       var roles_id=[];
       this.form.roles.forEach((role, index) => {
         if (role){
@@ -297,13 +292,15 @@
           avatar:this.file,
           profile_data :JSON.stringify(jsonData)
       }
-      console.log(userInfo);
-      axios.put('../api/profile/users/'+this.form.id,userInfo,this.config).then(response => {      
+            console.log(this.file.get('avatar'));
+        console.log(this.file.getAll('avatar'));
+      axios.put('../api/profile/users/'+this.form.id,this.file,this.config).then(response => {      
           this.$message({
             type: 'success',
             center: true,
             message:response.data.message
-          });      
+          });
+          this.backToUserList();   
           }).catch((error) => {
             this.$message({
               type: 'error',
@@ -315,7 +312,8 @@
               handleAvatarSuccess(res, file) {
             //this.user.avatar = URL.createObjectURL(file.raw);
         },
-        beforeAvatarUpload(file) {
+        onBeforeUpload(file) {
+          console.log("BVFORE");
           alert(file.type);
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
@@ -332,6 +330,7 @@
             }
             if(isJPG & isLt2M)
             {
+              alert(222);
               this.file = param;
               this.config =config;
             }
@@ -367,9 +366,7 @@
           if (valid) 
           {
             this.updateUser();
-            Fire.$emit('AfterCrud');
-            this.backToUserList();
-
+            Fire.$emit('AfterCrud');            
           }
           else {
             return false;
