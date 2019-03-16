@@ -154,24 +154,25 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {       
+        // Find user
+        $user = AuthUser::findOrFail($id);
+        $userId = isset($user) ? $user->id : null;
+        
         // Read Profile table name form config
         $profileTable = Config::get('profile.tables.profile','profiles');               
         
         // Validation
-		$request->validate([         
-            'email' => 'string|email|max:255|unique:users',                        
-            'password' => $this->passwordValidation,
+		$request->validate([
+            'email' => 'email|max:255|unique:users,email,'.$userId.',id',                       
+            'password' => 'nullable|'.$this->passwordValidation,
             'active' => 'boolean',
             'profile_id' => 'exists:'.$profileTable.',id',
             'profile_data' => 'json',
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
-
-        // Find user
-        $user = AuthUser::findOrFail($id);
-        
+                
         if (isset($request->profile_id)) {
             $profileId = $request->profile_id;
         } else {
@@ -190,8 +191,8 @@ class UserController extends Controller
 		// Begin Database transaction			
         DB::beginTransaction();
         try {
-            
-			$user->update($request->only('email','active','password'));
+            $userData = array_filter($request->only('email','active','password'));
+			$user->update($userData);
 						
             // Set user profile data
 			if (isset($profileId)) {
