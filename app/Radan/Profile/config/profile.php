@@ -111,12 +111,13 @@ return [
   | These are the configuration for avatar disk storage and filed name.
   |
   */
-  'disks' => [
-    'profile_disk' => [
+  'profile_avatar' => [
+    'field_name' => 'avatar',
+    'disk' => [
       'driver' => 'local',
       'root' => public_path('media/profile'),
       'url' => '/media/profile',
       'visibility' => 'public',
     ],
-  ],
+  ]
 ];

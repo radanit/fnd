@@ -3,7 +3,7 @@
 		<el-row :gutter="20">
 			<el-col :span="24">
 				<el-row v-if="trans('app.dir')==='rtl'" :gutter="20">
-						<el-col :span="10"><div class="grid-content"></div></el-col>
+						<el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
 						<el-col :span="10" class="text-right mt-4">
 								<el-row :gutter="20">
 									<el-col :span="24">{{trans('userProfile.fullname')}} : {{user.fullname}}</el-col>

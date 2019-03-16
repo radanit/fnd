@@ -24,9 +24,13 @@ use Profile;
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
+use App\Radan\Profile\Traits\ProfileTrait;
 
 class UserController extends Controller
 {
+
+    use ProfileTrait;
+
     protected $passwordValidation = '';
     public function __construct()
     {
@@ -163,7 +167,8 @@ class UserController extends Controller
             'email' => 'string|email|max:255|unique:users',                        
             'password' => $this->passwordValidation,
             'active' => 'boolean',
-            'profile_id' => 'exists:'.$profileTable.',id',            
+            'profile_id' => 'exists:'.$profileTable.',id',
+            'profile_data' => 'json',
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
@@ -182,8 +187,8 @@ class UserController extends Controller
         try {
             // Find user
             $user = AuthUser::findOrFail($id);            
-			$user->update($request->only('email','active','password'));						
-            
+			$user->update($request->only('email','active','password'));
+						
             // Set user profile data
 			if ($request->filled('profile_id')) {
                $profile->update($user,$profileData);

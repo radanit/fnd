@@ -106,24 +106,30 @@
                 </el-option>
               </el-select>
               <!--<el-upload
-                  v-if="item.item=='el-upload' "
-                  class="avatar-uploader"
-                  action=""
-                  ref="file"
-                  :headers="headerInfo"
-                  :auto-upload="false"
-                  :before-upload="beforeAvatarUpload">
-                  <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
+                    v-if="item.item=='el-upload'"
+                    class="avatar-uploader"
+                    action=""
+                    :headers="headerInfo"
+                    :show-file-list="false"
+                    v-model="form[item.name]" 
+                    :name="item.name"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
               </el-upload>-->
-            <el-upload
-              v-if="item.item=='el-upload' "
-              class="avatar-uploader"
-              ref="upload"
-              action=""
-              :on-change="onChangeFileUpload"
-              :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">{{trans('app.selectImage')}}</el-button>
-            </el-upload>
+              <el-upload
+                v-if="item.item=='el-upload'"
+                class="avatar-uploader"
+                :headers="headerInfo"
+                ref="upload"
+                action="/"
+                v-model="form.data[item.name]" 
+                :name="item.name"
+                :auto-upload="false">
+                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button>            
+                <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
+              </el-upload>                            
             </el-form-item>                   
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -145,7 +151,6 @@
           structure:{},
           model: {},
           lists:{},
-          fileList:[],
           form: 
           {
             id:'',
@@ -156,15 +161,13 @@
             roles:[],                  
             profile_id:'',
             data:'',
-            active:''           
+            active:''            
           },
-          file: '',
           user:{},
-          avatar:'',
           headerInfo: {
               'Accept': 'application/json'
           },
-          profile_options:[],
+        profile_options:[],
           role_options: [],                  
       }
     },
@@ -249,12 +252,6 @@
       backToUserList(){
         this.$router.push({ name: 'users'});
       },
-      onChangeFileUpload(file,fileList){
-        var fileObj = file.file;
-        this.file = new FormData();
-       this.file.append("avatar", fileObj);
-        console.log(typeof this.file)
-      },
         /*
         |--------------------------------------------------------------------------
         | Update User Method
@@ -277,28 +274,24 @@
       for (var i=0 ;i<this.structure.length;i++)
       {
           var columnName = this.structure[i].name;
-          if(columnName!='avatar')
-          {
-            jsonData[columnName] = this.form.data[this.structure[i].name];
-          }
-      };
+          jsonData[columnName] = this.form.data[this.structure[i].name];
+      };      
       let userInfo={
           password:this.form.password,
-          password_confirmation:this.form.password_confirmation,
+          password_confirmation:this.form.password_confirmation,          
+          //data:this.profile_data,
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
-          avatar:this.file,          
           profile_data :JSON.stringify(jsonData)
       }
-      console.log(typeof this.avatar.raw);
       axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
           this.$message({
             type: 'success',
             center: true,
             message:response.data.message
           });
-          this.backToUserList();        
+          this.$refs.upload.submit();       
           }).catch((error) => {
             this.$message({
               type: 'error',
@@ -306,6 +299,25 @@
               message:error.response.data.errors              
             });
         });        
+      },
+      handleAvatarSuccess(res, file) {
+          //this.user.avatar = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+          const isJPG = file.type === 'image/jpeg';
+          const isLt2M = file.size / 1024 / 1024 < 2;
+          if (!isJPG) {
+              this.$message.error('Avatar picture must be JPG format!');
+          }
+          if (!isLt2M) {
+              this.$message.error('Avatar picture size can not exceed 2MB!');
+          }           
+          let param = new FormData()  
+              param.append('avatar', file, file.name) 
+          let config = {
+              headers: {'Content-Type': 'multipart/form-data'}
+          }
+          return isJPG & isLt2M
       },
       fillProfile(){
         for (var i=0 ;i<this.structure.length;i++)
@@ -324,26 +336,6 @@
               
         };
       },
-      handleAvatarSuccess(res, file) {
-          this.user.avatar = URL.createObjectURL(file.raw);
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isJPG) {
-            this.$message.error('Avatar picture must be JPG format!');
-        }
-        if (!isLt2M) {
-            this.$message.error('Avatar picture size can not exceed 2MB!');
-        }           
-        this.file = new FormData()  
-            this.file.append('avatar', file, file.name) 
-            alert(this.file);
-        var config = {
-            headers: {'Content-Type': 'multipart/form-data'}
-        }
-        return (isJPG & isLt2M)
-      },
       /*
       |--------------------------------------------------------------------------
       | Submit Form Method
@@ -358,6 +350,9 @@
           if (valid) 
           {
             this.updateUser();
+            Fire.$emit('AfterCrud');
+            this.backToUserList();
+
           }
           else {
             return false;
@@ -381,7 +376,7 @@
             
     },
     updated(){
-        //this.fillProfile();
+        this.fillProfile();
     },
     mounted(){    
       this.$refs.email.focus();
