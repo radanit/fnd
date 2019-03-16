@@ -155,7 +155,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-		// Read Profile table name form config
+        // Read Profile table name form config
         $profileTable = Config::get('profile.tables.profile','profiles');               
         
         // Validation
@@ -174,7 +174,7 @@ class UserController extends Controller
             // Populate Profile Data and validate it
             // Second param in Profile::make is for active profile data bag        
             $profile = Profile::make($request->profile_id,true);
-            $profileData = $profile->getDataBag($request->only($profile->getFields()));            
+            $profileData = $profile->getDataBag($request->only($profile->getFields()));         
             $profile->validate($profileData);
         }
         		

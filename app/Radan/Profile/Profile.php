@@ -35,18 +35,25 @@ class Profile
     protected $profile;
 
     /**
+     * For support profile data bag,     
+     *
+     * @var boolean
+     */
+    protected $isDataBag = false;
+
+    /**
      * For support profile data bag,
      * Name of profile data field          
      *
      * @var string
      */
-    protected $isDataBag = false;
     protected $dataBagFieldName = 'profile_data';    
 
     /**
      * Class constructor
      *
      * @param  FileSystem  $disk Laravel FileSystem disk
+     * @param  boolean $isDataBag Set to true if profile data store in bag
      * @return Profile
      */
     public function __construct(FileSystem $disk,$isDataBag = false)
@@ -82,14 +89,14 @@ class Profile
     }
     
     /**
-     * Set profile disk for store file base profile data
+     * Set profile data bag name
      *
      * @param  FileSystem  $disk Laravel FileSystem disk
      * @return Profile
      */
     public function setDataBag($bagName)
     {
-        if (!empty($bag)) {
+        if (isset($bag)) {
             $this->isDataBag = true;
             $this->dataBagFieldName = $bag;
         }
@@ -97,25 +104,34 @@ class Profile
     }
 
     /**
-     * Get profile disk for store file base profile data
-     *    
-     * @return FileSystem Laravel FileSystem disk
+     * Fetch profile data form data bag
+     *  
+     * @param array Array of data for fetch profile data  
+     * @return mixed if $data is null return data bag field name,
+     *                 else return profile data from bag
      */
     public function getDataBag($data)
     {
-        if (is_array($data) && key_exists($this->dataBagFieldName,$data)) {
-            $dataBag = $data[$this->dataBagFieldName];
-            unset($data[$this->dataBagFieldName]);
-            $dataBag = (is_array($dataBag)) ? $dataBag : json_decode($dataBag,true);
-            $data = array_merge($dataBag,$data);
+        if (isset($data)) {        
+            if (isset($data[$this->dataBagFieldName])) {
+                $dataBag = $data[$this->dataBagFieldName];
+                unset($data[$this->dataBagFieldName]);
+                $dataBag = (is_array($dataBag)) ? $dataBag : json_decode($dataBag,true);
+                $data = array_merge($dataBag,$data);
+            }
+
+            return $data;
         }
-        return $data;
+        else {
+            return $this->dataBagFieldName;
+        }                 
     }
     
     /**
      * Make Profile instance by id or name
      *
      * @param  mixed  $key  profile id or name
+     * @param  boolean $isDataBag Set to true if profile data store in bag
      * @return Profile
      */
     public function make($key,$isDataBag = false)
@@ -175,8 +191,8 @@ class Profile
     /**
      * Validate profile data by rule field in profile structure
      *    
-     * @param Illuminate\Http\Request $request http request bag     
-     * @return mixed return true on validate or raise exception on fail
+     * @param array $data include profile data 
+     * @return mixed return this on validate or raise exception on fail
      */
     public function validate($data)
     {
@@ -184,14 +200,17 @@ class Profile
         $rules = $this->getFields('name','rules');
         
         // run validation
-        Validator::make($data ,$rules)->validate();        
+        Validator::make($data ,$rules)->validate();
+        
+        return $this;
     }
     
     /**
-     * Save user profile data send in Illuminate\Http\Request
-     *    
-     * @param Illuminate\Http\Request $request http request bag
-     * @return ProfileUser return ProfileUser model instance saved or failed
+     * Create new profile data
+     * 
+     * @param array $user Elequent User model   
+     * @param array $data include profile data 
+     * @return array return profile data was stored
      */
     public function create($user,$data)
     {
@@ -220,10 +239,11 @@ class Profile
     }
 
     /**
-     * Save user profile data send in Illuminate\Http\Request
-     *    
-     * @param Illuminate\Http\Request $request http request bag
-     * @return ProfileUser return ProfileUser model instance saved or failed
+     * Save user profile data
+     * 
+     * @param array $user Elequent User model   
+     * @param array $data include profile data 
+     * @return array return profile data was stored
      */
     public function update($user,$data)
     {

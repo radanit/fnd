@@ -48,7 +48,7 @@ class ProfileTableSeeder extends Seeder
 					"required" => "false",
 					"label" => "profile.avatar",
 					"errorMsg" => "profile.avatarError",
-					"rules" => "bail|image|mimes:jpeg,jpg,png,gif|max:2048",
+					"rules" => "bail|nullable|image|mimes:jpeg,jpg,png,gif|max:2048",
 					
 				],
 			]												
