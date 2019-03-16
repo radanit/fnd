@@ -168,12 +168,21 @@ class UserController extends Controller
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
+
+        // Find user
+        $user = AuthUser::findOrFail($id);
         
-        if ($request->filled('profile_id'))
+        if (isset($request->profile_id)) {
+            $profileId = $request->profile_id;
+        } else {
+            $profileId = $user->type_id;
+        }
+        
+        if (isset($profileId))
         {
             // Populate Profile Data and validate it
             // Second param in Profile::make is for active profile data bag        
-            $profile = Profile::make($request->profile_id,true);
+            $profile = Profile::make($profileId,true);
             $profileData = $profile->getDataBag($request->only($profile->getFields()));         
             $profile->validate($profileData);
         }
@@ -181,12 +190,11 @@ class UserController extends Controller
 		// Begin Database transaction			
         DB::beginTransaction();
         try {
-            // Find user
-            $user = AuthUser::findOrFail($id);            
+            
 			$user->update($request->only('email','active','password'));
 						
             // Set user profile data
-			if ($request->filled('profile_id')) {
+			if (isset($profileId)) {
                $profile->update($user,$profileData);
 			}
                            
