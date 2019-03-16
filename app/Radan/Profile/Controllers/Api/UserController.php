@@ -19,17 +19,14 @@ use App\Radan\Auth\Models\Role;
 use App\Radan\Resources\UserResource;
 use App\Radan\Resources\AuthUserResource;
 use PasswordPolicy;
+use Profile;
 
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
-use App\Radan\Profile\Traits\ProfileTrait;
 
 class UserController extends Controller
 {
-
-    use ProfileTrait;
-
     protected $passwordValidation = '';
     public function __construct()
     {
@@ -87,12 +84,18 @@ class UserController extends Controller
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',                        
             'password' => 'required|'.$this->passwordValidation,
-            'active' => 'boolean',
+            'active' => 'required|boolean',
             'profile_id' => 'required|exists:'.$profileTable.',id',
             'profile_data' => 'json',
             'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
+        
+        // Populate Profile Data and validate it
+        // Second param in Profile::make is for active profile data bag        
+        $profile = Profile::make($request->profile_id,true);
+        $profileData = $profile->getDataBag($request->only($profile->getFields()));        
+        $profile->validate($profileData);
 
         // Begin Database transaction			
         DB::beginTransaction();
@@ -105,15 +108,14 @@ class UserController extends Controller
                 'active' => $request->active,
             ]);
 
-            // Create profile info base on profile type 
-            $user->profile()->create([           
-                'profile_id' => $request->profile_id,
-                'data' => [json_decode($request->profile_data)]
-            ]);        
-
-            // Find role and assigned to user
-            $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
-            $user->attachRoles($roles);
+            // Save profile data
+            $profile->create($user,$profileData);
+            
+            // Find role and assigned to user            
+            if ($request->filled('rules')) {
+                $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
+                $user->attachRoles($roles);
+            }
             
             // Return
             DB::commit();
@@ -121,6 +123,7 @@ class UserController extends Controller
                 'message' => __('app.insertAlert')],
                 $this->httpCreated
             );
+
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
@@ -128,7 +131,7 @@ class UserController extends Controller
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
-        }                
+        }
     }
 
     /**
@@ -152,7 +155,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-				// Read Profile table name form config
+		// Read Profile table name form config
         $profileTable = Config::get('profile.tables.profile','profiles');               
         
         // Validation
@@ -165,25 +168,26 @@ class UserController extends Controller
 			'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ]);
-								
-		
+        
+        if ($request->filled('profile_id'))
+        {
+            // Populate Profile Data and validate it
+            // Second param in Profile::make is for active profile data bag        
+            $profile = Profile::make($request->profile_id,true);
+            $profileData = $profile->getDataBag($request->only($profile->getFields()));            
+            $profile->validate($profileData);
+        }
+        		
 		// Begin Database transaction			
         DB::beginTransaction();
-        try{
+        try {
             // Find user
             $user = AuthUser::findOrFail($id);            
 			$user->update($request->only('email','active','password'));
 						
             // Set user profile data
 			if ($request->filled('profile_id')) {
-                $profileUser = $user->profile()->first();
-
-                //$this->profileValidate($profileUser->type,$request);
-
-				$profileUser->profile_id = $request->profile_id;
-				$profileUser->data = ($request->filled('profile_data')) ? $request->profile_data: $profileUser->data;
-                $profileUser->data = json_decode($profileUser->data);
-                $user->profile()->save($profileUser);
+               $profile->update($user,$profileData);
 			}
                            
             // Set user roles and update

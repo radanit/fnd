@@ -19,8 +19,8 @@ use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 
 // This Module classes
-use App\Radan\Profile\Models\Profile;
 use App\Radan\Auth\Models\User;
+use Profile;
 
 class UserAvatarController extends Controller
 {        
@@ -53,30 +53,17 @@ class UserAvatarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {                
         // Validation rules
         Validator::make($request->only('avatar'), [
             'avatar' => 'bail|required|image|mimes:jpeg,jpg,png,gif|max:2048',
         ])->validate();
 
-        // Save uploaded file
-        //$avatarPath = $request->file('avatar')->store('avatars','public');
-        $avatarPath = $this->disk->putFile('',$request->file('avatar'));        
+        // Save uploaded file        
+        $profileData = Profile::make($this->user()->type_id)
+                    ->update($this->user(),$request->only('avatar'));
 
-        // Get profile user instance and save old user avatar temporary
-        $profile = $this->user()->profile()->first();
-        $oldUserAvatar = key_exists('avatar',$profile->data) ? $profile->data['avatar']:'';        
-        
-        // Save changes
-        $profileData = $profile->data;
-        $profileData['avatar'] = $this->disk->url($avatarPath);
-        $profile->data = $profileData;
-        $this->user()->profile()->save($profile);
-
-        // Delete old user avatar
-        $this->disk->delete(basename($oldUserAvatar));
-
-        // Return
+        // Return        
         return response()->json([
             'message' => __('app.updateAlert'),
             'url' =>  $profileData['avatar']],
