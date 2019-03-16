@@ -289,12 +289,10 @@
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
-          avatar:this.file,
+          //avatar:this.file,
           profile_data :JSON.stringify(jsonData)
       }
-            console.log(this.file.get('avatar'));
-        console.log(this.file.getAll('avatar'));
-      axios.put('../api/profile/users/'+this.form.id,this.file,this.config).then(response => {      
+      axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.file,this.config).then(response => {      
           this.$message({
             type: 'success',
             center: true,
