@@ -40,7 +40,7 @@ trait ProfileUserTrait
      */
     public function __get($key)    
     {
-        if (!property_exists($this, $key) and !method_exists($this, $key))
+        if (!property_exists($this, $key) and !method_exists($this, $key) and !is_null($this->profile))
         {            
             $profileData = (is_array($this->profile->data)) ? $this->profile->data : json_decode($this->profile->data);
             if (array_key_exists($key,$profileData)) {

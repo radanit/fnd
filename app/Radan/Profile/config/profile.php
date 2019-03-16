@@ -115,7 +115,7 @@ return [
     'profile_disk' => [
       'driver' => 'local',
       'root' => public_path('media/profile'),
-      'url' => 'media/profile',
+      'url' => '/media/profile',
       'visibility' => 'public',
     ],
   ],
