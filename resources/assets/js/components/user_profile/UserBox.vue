@@ -125,6 +125,7 @@ export default {
             }
             if(isJPG & isLt2M)
             {
+                console.log(param);
                 axios.post('../api/profile/user/avatar', param, config).then((response) =>{
                 this.user.avatar = response.data.url;
                 this.$message({

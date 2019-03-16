@@ -123,12 +123,12 @@
                 class="avatar-uploader"
                 :headers="headerInfo"
                 ref="upload"
-                action="/"
-                v-model="form.data[item.name]" 
-                :name="item.name"
+                action=""
+                name="avatar"
+                :on-success="handleAvatarSuccess"
+                :on-change="onAvatarChange"
                 :auto-upload="false">
-                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button>            
-                <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
+                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button>                
               </el-upload>                            
             </el-form-item>                   
             <el-form-item>
@@ -163,15 +163,26 @@
             data:'',
             active:''            
           },
-          user:{},
-          headerInfo: {
-              'Accept': 'application/json'
-          },
+        user:{},
+        headerInfo: {
+            'Accept': 'application/json'
+        },        
+        file:'',
+        config:'',
         profile_options:[],
-          role_options: [],                  
+        role_options: [],                  
       }
     },
     methods :{
+      onAvatarChange(file){
+        this.file = new FormData()  
+        this.file.append('avatar', file, file.name); 
+        //this.file = param;        
+        let config = {
+                headers: {'Content-Type': 'multipart/form-data'}
+          }
+        this.config = config;
+      },
       /*
       |--------------------------------------------------------------------------
       | Load Selected User Info
@@ -283,15 +294,16 @@
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
+          avatar:this.file,
           profile_data :JSON.stringify(jsonData)
       }
-      axios.put('../api/profile/users/'+this.form.id,userInfo).then(response => {      
+      console.log(userInfo);
+      axios.put('../api/profile/users/'+this.form.id,userInfo,this.config).then(response => {      
           this.$message({
             type: 'success',
             center: true,
             message:response.data.message
-          });
-          this.$refs.upload.submit();       
+          });      
           }).catch((error) => {
             this.$message({
               type: 'error',
@@ -300,26 +312,31 @@
             });
         });        
       },
-      handleAvatarSuccess(res, file) {
-          //this.user.avatar = URL.createObjectURL(file.raw);
-      },
-      beforeAvatarUpload(file) {
-          const isJPG = file.type === 'image/jpeg';
-          const isLt2M = file.size / 1024 / 1024 < 2;
-          if (!isJPG) {
-              this.$message.error('Avatar picture must be JPG format!');
-          }
-          if (!isLt2M) {
-              this.$message.error('Avatar picture size can not exceed 2MB!');
-          }           
-          let param = new FormData()  
-              param.append('avatar', file, file.name) 
-          let config = {
-              headers: {'Content-Type': 'multipart/form-data'}
-          }
-          return isJPG & isLt2M
-      },
-      fillProfile(){
+              handleAvatarSuccess(res, file) {
+            //this.user.avatar = URL.createObjectURL(file.raw);
+        },
+        beforeAvatarUpload(file) {
+          alert(file.type);
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isJPG) {
+                this.$message.error('Avatar picture must be JPG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Avatar picture size can not exceed 2MB!');
+            }           
+            let param = new FormData()  
+                param.append('avatar', file, file.name) 
+            let config = {
+                headers: {'Content-Type': 'multipart/form-data'}
+            }
+            if(isJPG & isLt2M)
+            {
+              this.file = param;
+              this.config =config;
+            }
+        },
+      /*fillProfile(){
         for (var i=0 ;i<this.structure.length;i++)
         {
             if(!document.querySelector("input[name="+this.structure[i].name+"]").value)
@@ -335,7 +352,7 @@
             }
               
         };
-      },
+      },*/
       /*
       |--------------------------------------------------------------------------
       | Submit Form Method
@@ -376,7 +393,7 @@
             
     },
     updated(){
-        this.fillProfile();
+       // this.fillProfile();
     },
     mounted(){    
       this.$refs.email.focus();

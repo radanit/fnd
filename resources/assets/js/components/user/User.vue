@@ -314,9 +314,9 @@
                 }
             }
         },       
-        mounted() {
+        created() {
             Fire.$on('AfterCrud',() => {               
-             this.LoadUser();
+             //this.LoadUser();
             });
         }
     }
