@@ -7,7 +7,7 @@ use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -27,16 +27,86 @@ use App\Radan\Auth\Models\User as AuthUser;
 
 class UserController extends Controller
 {
+    /**
+     * Password validation rules
+     * 
+     * @var string
+     */     
     protected $passwordValidation = '';
-    public function __construct()
+
+    /**
+     * Http request container
+     * 
+     * @var Illuminate\Http\Request
+     */
+    protected $request;
+
+    /**
+     * Instance of config repository
+     * 
+     * @var Illuminate\Contracts\Config\Repository
+     */
+    protected $config;
+    protected $paginationCount;    
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(Request $request,Config $config)
     {
+        //  Handeling IOC         
         $this->passwordValidation = PasswordPolicy::getValidation('default');
+        $this->request = $request;
+        $this->config = $config;
+        $this->paginationCount = $this->config->get(
+            'profile.models.pagination.count',
+            $this->config->get('radan.pagination.count',15)
+        );        
     }
 
     /**
-     * Display Authenticated user
+     * Provide request validation rules
      *
-     * @return \Illuminate\Http\Response
+     * @return array validation rules for eache http method
+     */
+    protected function rules() {
+        $profileTable = $this->config->get('profile.tables.profile','profiles');
+        switch ($this->request->method()) {
+            // Create new instance
+            case 'POST':
+                return [
+                    'username' => 'required|string|max:255|unique:users',
+                    'email' => 'required|string|email|max:255|unique:users',
+                    'password' => 'required|'.$this->passwordValidation,
+                    'active' => 'required|boolean',
+                    'profile_id' => 'required|exists:'.$profileTable.',id',
+                    'profile_data' => 'json',
+                    'roles' => 'array',
+                    'roles.*' => 'exists:roles,id',
+                ];
+                break;
+            
+                // Update instance
+            case 'PUT':
+                return [
+                    'email' => 'email|max:255|unique:users,email,'.$this->request->user.',id',                       
+                    'password' => 'nullable|'.$this->passwordValidation,
+                    'active' => 'boolean',
+                    'profile_id' => 'exists:'.$profileTable.',id',
+                    'profile_data' => 'json',
+                    'roles' => 'array',
+                    'roles.*' => 'exists:roles,id',
+                ];
+        }
+
+    }        
+    
+    /**
+     * Display Authenticated user information
+     *
+     * @return Illuminate\Http\Resources\Json\JsonResource
      */
     public function user(Request $request)
     {
@@ -51,19 +121,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Get number of pagination count
-        $count = Config::get(
-            'radan.profile.models.pagination.count',
-            Config::get('radan.pagination.count',15)
-        );
-            
         // Return        
-        if ($count) {
-            /* eager loading */
-            return UserResource::collection(AuthUser::with(['profile','roles'])->paginate($count));
+        if ($this->paginationCount) {
+            // eager loading pagination
+            return UserResource::collection(AuthUser::with(['profile','roles'])->paginate($this->paginationCount));
         }
         else {
-            /* eager loading */
+            // eager loading all
             return UserResource::collection(AuthUser::with(['profile','roles'])->get());
         }        
     }
@@ -75,21 +139,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        // Read Profile table name form config
-        $profileTable = Config::get('profile.tables.profile','profiles');
-               
+    {
         // Validation rules
-        $request->validate([
-            'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',                        
-            'password' => 'required|'.$this->passwordValidation,
-            'active' => 'required|boolean',
-            'profile_id' => 'required|exists:'.$profileTable.',id',
-            'profile_data' => 'json',
-            'roles' => 'array',
-            'roles.*' => 'exists:roles,id',
-        ]);
+        $request->validate($this->rules());
         
         // Populate Profile Data and validate it
         // Second param in Profile::make is for active profile data bag        
@@ -154,40 +206,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {       
-        // Find user
-        $user = AuthUser::findOrFail($id);
-        $userId = isset($user) ? $user->id : null;
-        
-        // Read Profile table name form config
-        $profileTable = Config::get('profile.tables.profile','profiles');               
-        
+    {                       
         // Validation
-		$request->validate([
-            'email' => 'email|max:255|unique:users,email,'.$userId.',id',                       
-            'password' => 'nullable|'.$this->passwordValidation,
-            'active' => 'boolean',
-            'profile_id' => 'exists:'.$profileTable.',id',
-            'profile_data' => 'json',
-			'roles' => 'array',
-            'roles.*' => 'exists:roles,id',
-        ]);
+		$request->validate($this->rules());
                 
-        if (isset($request->profile_id)) {
-            $profileId = $request->profile_id;
-        } else {
-            $profileId = $user->type_id;
-        }
+        // Find user or fail
+        $user = AuthUser::findOrFail($id);
+        $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;        
         
+        // Validate user profile data
         if (isset($profileId))
         {
             // Populate Profile Data and validate it
-            // Second param in Profile::make is for active profile data bag        
+            // Second param in Profile::make is for active profile data bag
             $profile = Profile::make($profileId,true);
             $profileData = $profile->getDataBag($request->only($profile->getFields()));         
             $profile->validate($profileData);
         }
-        		
+                
 		// Begin Database transaction			
         DB::beginTransaction();
         try {
@@ -236,14 +272,14 @@ class UserController extends Controller
             // Find user_profile record by user_id relation
             $user->profile()->delete();
 
-            // deattach all roles and permmisions
+            // Deattach all roles and permmisions
             $user->syncRoles([]);
             $user->syncPermissions([]);
 
-            // delete user
+            // Delete user
             $user->delete();        
             
-            /// Return
+            // Return
             return response()->json([
                 'message' => __('app.deleteAlert')],
                 $this->httpOk
