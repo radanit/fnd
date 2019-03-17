@@ -257,7 +257,6 @@
         |
         */          
       updateUser(){
-        console.log("UPDATE");
       var roles_id=[];
       this.form.roles.forEach((role, index) => {
         if (role){
@@ -282,8 +281,7 @@
           //avatar:this.file.get('avatar'),
           profile_data :JSON.stringify(jsonData)
       }
-      console.log(this.file.get('avatar'))
-      axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.file).then(response => {      
+      axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.file,userInfo).then(response => {      
           this.$message({
             type: 'success',
             center: true,
@@ -302,7 +300,6 @@
             //this.user.avatar = URL.createObjectURL(file.raw);
         },
         onBeforeUpload(file) {
-          console.log("BVFORE");
           alert(file.type);
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
