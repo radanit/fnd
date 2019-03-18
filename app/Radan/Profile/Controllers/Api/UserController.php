@@ -140,7 +140,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation rules
+        // Validation rules       
         $request->validate($this->rules());
         
         // Populate Profile Data and validate it
@@ -206,7 +206,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {                       
+    {    
+        dd($request->all());
         // Validation
 		$request->validate($this->rules());
                 

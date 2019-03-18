@@ -113,7 +113,6 @@
                 action=""
                 name="avatar"
                 :on-success="handleAvatarSuccess"
-                :on-change="onAvatarChange"
                 :before-upload="onBeforeUpload"
                 :file-list="fileList"
                 :auto-upload="false">
@@ -156,17 +155,13 @@
         user:{},
         headerInfo: {
             'Accept': 'application/json'
-        },        
-        file:'',
-        config:'',
+        },
+        formData:'',
         profile_options:[],
         role_options: [],                  
       }
     },
     methods :{
-      onAvatarChange(file,fileList){
-        this.file = new FormData( document.getElementById("my-form-id") );
-      },
       /*
       |--------------------------------------------------------------------------
       | Load Selected User Info
@@ -257,6 +252,7 @@
         |
         */          
       updateUser(){
+      this.formData = new FormData( document.getElementById("my-form-id") );
       var roles_id=[];
       this.form.roles.forEach((role, index) => {
         if (role){
@@ -270,18 +266,21 @@
       {
           var columnName = this.structure[i].name;
           jsonData[columnName] = this.form.data[this.structure[i].name];
-      };      
-      let userInfo={
+      };    
+      /*let userInfo={
           password:this.form.password,
           password_confirmation:this.form.password_confirmation,          
           //data:this.profile_data,
           profile_id:this.form.profile_id,
           active:this.form.active,
           roles:roles_id,
-          //avatar:this.file.get('avatar'),
+          //avatar:this.avatar,
           profile_data :JSON.stringify(jsonData)
-      }
-      axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.file,userInfo).then(response => {      
+      }*/
+      this.formData.append('active',this.form.active);
+      this.formData.append('roles',JSON.stringify(roles_id));
+      //this.formData.append('profile_data',JSON.stringify(jsonData))
+      axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.formData).then(response => {      
           this.$message({
             type: 'success',
             center: true,
@@ -314,30 +313,8 @@
             let config = {
                 headers: {'Content-Type': 'multipart/form-data'}
             }
-            if(isJPG & isLt2M)
-            {
-              alert(222);
-              this.file = param;
-              this.config =config;
-            }
+            return (isJPG & isLt2M);
         },
-      /*fillProfile(){
-        for (var i=0 ;i<this.structure.length;i++)
-        {
-            if(!document.querySelector("input[name="+this.structure[i].name+"]").value)
-            {
-              if(document.querySelector("input[name="+this.structure[i].name+"]").type!='file')
-              {
-                document.querySelector("input[name="+this.structure[i].name+"]").value = this.form.data[this.structure[i].name];
-              }
-              else
-              {
-
-              }
-            }
-              
-        };
-      },*/
       /*
       |--------------------------------------------------------------------------
       | Submit Form Method
@@ -374,9 +351,6 @@
       this.loadRoles();
       this.loadProfileSructure();
             
-    },
-    updated(){
-       // this.fillProfile();
     },
     mounted(){    
       this.$refs.email.focus();
