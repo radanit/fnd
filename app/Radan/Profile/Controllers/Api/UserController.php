@@ -25,23 +25,10 @@ use Profile;
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
 use App\Radan\Profile\Requests\StoreUserRequest;
+use App\Radan\Profile\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Password validation rules
-     * 
-     * @var string
-     */     
-    protected $passwordValidation = '';
-
-    /**
-     * Http request container
-     * 
-     * @var Illuminate\Http\Request
-     */
-    protected $request;
-
     /**
      * Instance of config repository
      * 
@@ -56,53 +43,13 @@ class UserController extends Controller
      * @return void
      */
     public function __construct(Request $request,Config $config)
-    {
-        //  Handeling IOC         
-        $this->passwordValidation = PasswordPolicy::getValidation('default');
-        $this->request = $request;
+    {                        
         $this->config = $config;
         $this->paginationCount = $this->config->get(
             'profile.models.pagination.count',
             $this->config->get('radan.pagination.count',15)
         );        
-    }
-
-    /**
-     * Provide request validation rules
-     *
-     * @return array validation rules for eache http method
-     */
-    protected function rules() {
-        $profileTable = $this->config->get('profile.tables.profile','profiles');
-        switch ($this->request->method()) {
-            // Create new instance
-            case 'POST':
-                return [
-                    'username' => 'required|string|max:255|unique:users',
-                    'email' => 'required|string|email|max:255|unique:users',
-                    'password' => 'required|'.$this->passwordValidation,
-                    'active' => 'required|boolean',
-                    'profile_id' => 'required|exists:'.$profileTable.',id',
-                    'profile_data' => 'json',
-                    'roles' => 'array',
-                    'roles.*' => 'exists:roles,id',
-                ];
-                break;
-            
-                // Update instance
-            case 'PUT':
-                return [
-                    'email' => 'email|max:255|unique:users,email,'.$this->request->user.',id',                       
-                    'password' => 'nullable|'.$this->passwordValidation,
-                    'active' => 'boolean',
-                    'profile_id' => 'exists:'.$profileTable.',id',
-                    'profile_data' => 'json',
-                    'roles' => 'array',
-                    'roles.*' => 'exists:roles,id',
-                ];
-        }
-
-    }        
+    }    
     
     /**
      * Display Authenticated user information
@@ -140,11 +87,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request)
-    {
-        dd($request->toArray());
-        // Validation rules       
-        $request->validate($this->rules());
-        
+    {       
         // Populate Profile Data and validate it
         // Second param in Profile::make is for active profile data bag        
         $profile = Profile::make($request->profile_id,true);
@@ -207,12 +150,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {    
-        //dd($request->all());
-        // Validation
-		$request->validate($this->rules());
-                
+    public function update(UpdateUserRequest $request, $id)
+    {        
         // Find user or fail
         $user = AuthUser::findOrFail($id);
         $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;        

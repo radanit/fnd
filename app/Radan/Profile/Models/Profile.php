@@ -5,10 +5,12 @@ namespace App\Radan\Profile\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use App\Radan\Policy\Password\Traits\PasswordPolicyProfileTrait;
+use App\Radan\Traits\RadanGetTableNameTriat;
 
 class Profile extends Model 
 {            
     use PasswordPolicyProfileTrait;
+    use RadanGetTableNameTriat;
 
     /**
      * The attributes that are mass assignable.

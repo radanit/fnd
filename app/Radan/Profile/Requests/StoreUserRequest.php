@@ -3,10 +3,33 @@
 namespace App\Radan\Profile\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
+use App\Radan\Traits\RadanRequestFilter;
+use Profile;
 use PasswordPolicy;
 
 class StoreUserRequest extends FormRequest
 {
+    use RadanRequestFilter;
+
+    /**
+     * Provide filter request befor validation
+     * 
+     * @var array
+     */
+    protected $beforFilter = [
+        'profile_data' => 'array',
+        'roles' => 'array',        
+    ];
+
+    /**
+     * Provide filter request after validation
+     * 
+     * @var array
+     */
+    protected $afterFilter = [        
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,28 +46,16 @@ class StoreUserRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {        
-        $this->filter();
-        $filter = [
-            'active' => 'boolean',
-            'profile_data' => 'array',
-            
-        ]
-        $profileTable = config('profile.tables.profile','profiles');
+    {            
         return [
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|'.PasswordPolicy::getValidation('default'),
+            'password' => 'required|confirmed|'.PasswordPolicy::getValidation('default'),
             'active' => 'required|boolean',
-            'profile_id' => 'required|exists:'.$profileTable.',id',
-            'profile_data' => 'json',
-            'roles' => 'json',
+            'profile_id' => 'required|exists:'.Profile::getTable().',id',
+            'profile_data' => 'array',
+            'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ];
-    }
-
-    protected function filter()
-    {
-        $this->request->replace(array_merge($request->request->all(), $newData));
-    }
+    }    
 }

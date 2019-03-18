@@ -87,6 +87,10 @@ class Profile
     {        
         return $this->disk;
     }
+
+    public function getTable() {
+        return ProfileModel::getTableName();
+    }
     
     /**
      * Set profile data bag name
@@ -230,7 +234,7 @@ class Profile
         }
          
         // Create new profile
-        $user->profile()->crete([
+        $user->profile()->create([
                 'data' => $data,
                 'profile_id' => $this->profile->id
         ]);                
