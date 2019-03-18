@@ -280,6 +280,7 @@
       this.formData.append('active',this.form.active);
       this.formData.append('roles',JSON.stringify(roles_id));
       //this.formData.append('profile_data',JSON.stringify(jsonData))
+      let arr = ['item1', 'item2', 'item3'];
       axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.formData).then(response => {      
           this.$message({
             type: 'success',
@@ -288,18 +289,18 @@
           });
           this.backToUserList();   
           }).catch((error) => {
+            let msg = this.msg(error.response.data.errors);
             this.$message({
               type: 'error',
-              center: true,
-              message:error.response.data.errors              
+              dangerouslyUseHTMLString: true,
+              message:msg             
             });
         });        
       },
-              handleAvatarSuccess(res, file) {
+        handleAvatarSuccess(res, file) {
             //this.user.avatar = URL.createObjectURL(file.raw);
         },
         onBeforeUpload(file) {
-          alert(file.type);
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
             if (!isJPG) {
@@ -315,6 +316,15 @@
             }
             return (isJPG & isLt2M);
         },
+        msg(msgStr){
+          var errors ="<ul>"
+            for(var k in msgStr) {
+                 errors += "<li>"+msgStr[k]+"</li><br/>";
+                 
+              }
+              return(errors+"</ul>");
+        },
+  
       /*
       |--------------------------------------------------------------------------
       | Submit Form Method
@@ -411,4 +421,13 @@
   .el-select-dropdown__item{
     padding: 0 35px !important;
   }
+  .el-message:lang(fa){
+    text-align: right;
+    direction: rtl;
+  }
+  .el-message:lang(en){
+    text-align: left;
+    direction: ltr;
+  }
+
 </style>
