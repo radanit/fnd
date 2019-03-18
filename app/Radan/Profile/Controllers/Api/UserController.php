@@ -24,6 +24,7 @@ use Profile;
 // This Module classes
 use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
+use App\Radan\Profile\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -138,8 +139,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
+        dd($request->toArray());
         // Validation rules       
         $request->validate($this->rules());
         
