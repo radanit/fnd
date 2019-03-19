@@ -87,7 +87,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request)
-    {       
+    {               
         // Populate Profile Data and validate it
         // Second param in Profile::make is for active profile data bag        
         $profile = Profile::make($request->profile_id,true);
@@ -152,6 +152,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, $id)
     {        
+        dd($request->all());
         // Find user or fail
         $user = AuthUser::findOrFail($id);
         $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;        

@@ -8,9 +8,10 @@ namespace App\Radan\Traits;
  * @license MIT
  * @package Radan/Traits
  */
+use App\Radan\RequestFilter;
 
 trait RadanRequestFilter
-{
+{   
     /**
      * Provide filter request befor validation
      * 
@@ -19,10 +20,7 @@ trait RadanRequestFilter
     protected function beforFilter() 
     {
         // Cast user data
-        $newData = $this->filter($this->beforFilter);
-
-        // Change Request parameters by casting data        
-        $this->mergeRequest($newData);
+        $newData = $this->filter($this->beforFilter);        
     }
 
     /**
@@ -33,22 +31,7 @@ trait RadanRequestFilter
     protected function afterFilter() 
     {
         // Cast user data        
-        $newData = $this->filter($this->afterFilter);
-        
-        // Change Request parameters by casting data        
-        $this->mergeRequest($newData);
-    }
-
-    /**
-     * Request casting by filter
-     * 
-     * @return void
-     */
-    protected function mergeRequest($data) 
-    {
-        // Change Request parameters by casting data
-        if (is_array($data))
-            $this->request->replace(array_merge($this->request->all(), $data));
+        $newData = $this->filter($this->afterFilter);               
     }
 
     /**
@@ -59,33 +42,15 @@ trait RadanRequestFilter
      */
     protected function filter($filters) 
     {        
-        if (is_array($filters)) {
-            $dataFilter = [];
-            foreach ($filters as $key => $filter) {
-                $value = $this->request->get($key);
-                switch ($filter) {
-                    case 'array': 
-                        $dataFilter[$key] = json_decode($value,true);
-                        if (!is_array($dataFilter[$key])) $dataFilter[$key] = (array) $dataFilter[$key];
-                        break;
-                    case 'json':
-                        $dataFilter[$key] = json_encode($value);
-                        break;
-                    case 'boolean':
-                        $dataFilter[$key] = (bool) $value;
-                        break;
-                    case 'unsetIfNull':
-                        if (!empty($value)) break;
-                    case 'remove':                        
-                        $this->request->remove($key);
-                        break;
-                    default:
-                        $dataFilter[$key] = $filter;
-                }
+        // Check if $filter is array
+        if (is_array($filters)) 
+        {
+            // Iterate filters
+            foreach ($filters as $key => $filter) 
+            {                
+                RequestFilter::apply($this->request,$key,$filter);
             }
         }
-        
-        return $dataFilter;       
     }
 
     /**
