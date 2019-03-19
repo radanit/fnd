@@ -151,8 +151,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, $id)
-    {        
-        dd($request->all());
+    {       
         // Find user or fail
         $user = AuthUser::findOrFail($id);
         $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;        
