@@ -86,7 +86,9 @@
             <el-switch
               v-model="form.active"
               active-color='#13ce66'
-              inactive-color='#ff4949' 
+              active-value=1           
+              inactive-color='#ff4949'
+              inactive-value=0
               >
             </el-switch>
             </el-form-item>
@@ -133,6 +135,7 @@
   </div>
 </template>
 <script>
+import {msg} from '../../utilities';
   export default {
     data(){
       return{
@@ -266,20 +269,9 @@
       {
           var columnName = this.structure[i].name;
           jsonData[columnName] = this.form.data[this.structure[i].name];
-      };    
-      /*let userInfo={
-          password:this.form.password,
-          password_confirmation:this.form.password_confirmation,          
-          //data:this.profile_data,
-          profile_id:this.form.profile_id,
-          active:this.form.active,
-          roles:roles_id,
-          //avatar:this.avatar,
-          profile_data :JSON.stringify(jsonData)
-      }*/
+      };
       this.formData.append('active',this.form.active);
       this.formData.append('roles',JSON.stringify(roles_id));
-      //this.formData.append('profile_data',JSON.stringify(jsonData))
       let arr = ['item1', 'item2', 'item3'];
       axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.formData).then(response => {      
           this.$message({
@@ -289,11 +281,11 @@
           });
           this.backToUserList();   
           }).catch((error) => {
-            let msg = this.msg(error.response.data.errors);
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               type: 'error',
               dangerouslyUseHTMLString: true,
-              message:msg             
+              message:msgErr             
             });
         });        
       },
@@ -316,14 +308,14 @@
             }
             return (isJPG & isLt2M);
         },
-        msg(msgStr){
+        /*msg(msgStr){
           var errors ="<ul>"
             for(var k in msgStr) {
                  errors += "<li>"+msgStr[k]+"</li><br/>";
                  
               }
               return(errors+"</ul>");
-        },
+        },*/
   
       /*
       |--------------------------------------------------------------------------

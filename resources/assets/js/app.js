@@ -6,7 +6,6 @@
  */
 
 require('./bootstrap');
-require('./utilities');
 window.Vue = require('vue');
 //begin  VueRouter config
 import VueRouter from 'vue-router'
