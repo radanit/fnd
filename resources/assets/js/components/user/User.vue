@@ -43,12 +43,12 @@
                         prop="active"
                         :label="trans('user.status')"
                         width="100"
-                        :filters="[{ text:trans('user.active'), value: 1 }, { text: trans('user.inActive'), value: 0 }]"
+                        :filters="[{ text:trans('user.active'), value: true }, { text: trans('user.inActive'), value: false }]"
                         :filter-method="filterActive"
                         filter-placement="bottom-end">
                         <template slot-scope="scope">
                             <el-tag
-                            :type="scope.row.active === 1 ? 'success' : 'danger'"
+                            :type="scope.row.active === true ? 'success' : 'danger'"
                             disable-transitions><span v-if="scope.row.active==1">{{trans('user.active')}}</span><span v-else>{{trans('user.inActive')}}</span></el-tag>
                         </template>
                     </el-table-column>

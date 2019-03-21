@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form id="my-form-id"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form id="update_form"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.username')"
             prop="username"
@@ -106,7 +106,7 @@
                   :label="option.description"
                   :value="option.id">
                 </el-option>
-              </el-select>
+              </el-select>              
               <el-upload
                 v-if="item.item=='el-upload'"
                 class="avatar-uploader"
@@ -114,11 +114,12 @@
                 ref="upload"
                 action=""
                 name="avatar"
+                :limit=1
                 :on-success="handleAvatarSuccess"
                 :before-upload="onBeforeUpload"
-                :file-list="fileList"
-                :auto-upload="false">
-                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button>                
+                :auto-upload="false">               
+                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
+                 <img v-if="user.avatar" :src="user.avatar" class="img-fluid img-circle" alt="User profile picture">               
               </el-upload>                            
             </el-form-item>                   
             <el-form-item>
@@ -185,6 +186,15 @@ import {msg} from '../../utilities';
               });              
           });
       },
+      /*
+      |--------------------------------------------------------------------------
+      | Load Profile Structure
+      | Added By e.bagherzadegan        
+      |--------------------------------------------------------------------------
+      |
+      | This method load Profile Structure for edit
+      |
+      */      
       loadProfileSructure(){
         this.form.profile_id=this.$route.params.profileId;
         axios.get("../api/profile/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
@@ -245,17 +255,16 @@ import {msg} from '../../utilities';
       backToUserList(){
         this.$router.push({ name: 'users'});
       },
-        /*
-        |--------------------------------------------------------------------------
-        | Update User Method
-        | Added By e.bagherzadegan        
-        |--------------------------------------------------------------------------
-        |
-        | This method Update User Info To Database
-        |
-        */          
-      updateUser(){
-      this.formData = new FormData( document.getElementById("my-form-id") );
+      /*
+      |--------------------------------------------------------------------------
+      | Update User Method
+      | Added By e.bagherzadegan        
+      |--------------------------------------------------------------------------
+      |
+      | This method Update User Info To Database
+      |
+      */          
+      updateUser(){      
       var roles_id=[];
       this.form.roles.forEach((role, index) => {
         if (role){
@@ -270,6 +279,7 @@ import {msg} from '../../utilities';
           var columnName = this.structure[i].name;
           jsonData[columnName] = this.form.data[this.structure[i].name];
       };
+      this.formData = new FormData( document.getElementById("update_form") );
       this.formData.append('active',this.form.active);
       this.formData.append('roles',JSON.stringify(roles_id));
       let arr = ['item1', 'item2', 'item3'];
@@ -289,34 +299,36 @@ import {msg} from '../../utilities';
             });
         });        
       },
-        handleAvatarSuccess(res, file) {
-            //this.user.avatar = URL.createObjectURL(file.raw);
-        },
-        onBeforeUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isJPG) {
-                this.$message.error('Avatar picture must be JPG format!');
-            }
-            if (!isLt2M) {
-                this.$message.error('Avatar picture size can not exceed 2MB!');
-            }           
-            let param = new FormData()  
-                param.append('avatar', file, file.name) 
-            let config = {
-                headers: {'Content-Type': 'multipart/form-data'}
-            }
-            return (isJPG & isLt2M);
-        },
-        /*msg(msgStr){
-          var errors ="<ul>"
-            for(var k in msgStr) {
-                 errors += "<li>"+msgStr[k]+"</li><br/>";
-                 
-              }
-              return(errors+"</ul>");
-        },*/
-  
+      /*
+      |--------------------------------------------------------------------------
+      | handleAvatarSuccess
+      |--------------------------------------------------------------------------
+      |
+      | This method handleAvatarSuccess
+      |
+      */        
+      handleAvatarSuccess(res, file) {
+        this.user.avatar = URL.createObjectURL(file.raw);
+      },
+      /*
+      |--------------------------------------------------------------------------
+      | Validate Avatar Befor Upload
+      |--------------------------------------------------------------------------
+      |
+      | This method Validate Avatar Befor Upload
+      |
+      */     
+      onBeforeUpload(file) {
+          const isJPG = file.type === 'image/jpeg';
+          const isLt2M = file.size / 1024 / 1024 < 2;
+          if (!isJPG) {
+              this.$message.error('Avatar picture must be JPG format!');
+          }
+          if (!isLt2M) {
+              this.$message.error('Avatar picture size can not exceed 2MB!');
+          }
+          return (isJPG & isLt2M);
+      }, 
       /*
       |--------------------------------------------------------------------------
       | Submit Form Method
@@ -421,5 +433,4 @@ import {msg} from '../../utilities';
     text-align: left;
     direction: ltr;
   }
-
 </style>
