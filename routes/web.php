@@ -15,6 +15,11 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
+// Admin route
+Route::group(['prefix' => 'admin', 'name' => 'admin', 'middleware' => ['role:admin']], function() {
+    Route::get('/logs','\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+});
+
 // Localization
 Route::get('/js/lang.js', function () {
         $strings = Cache::pull('lang.js', function () {
