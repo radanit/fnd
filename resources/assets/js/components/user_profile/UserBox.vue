@@ -1,7 +1,7 @@
 <template>
     <el-row style="font-size:12px;color:#fff;text-align:center;white-space:nowarp;">
         <el-row :gutter="10" class="userbox-msg">
-            <el-col :span="3" class="mt-2">
+            <el-col :span="1" class="mt-2">
                 <a href="#" @click="editProfile()" id="profile-link">
                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </a>
@@ -64,7 +64,7 @@
 
 .edit {
     padding-top: 11%;
-    padding-right: 40%;
+    padding-right: 48%;
 	position: absolute;
 	right: 0;
 	top: 0;

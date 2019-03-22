@@ -8,7 +8,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-            <el-form  @submit.native.prevent  @keyup.enter.native="createUser" :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form id="insert_form"  @submit.native.prevent  @keyup.enter.native="createUser" :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
             <el-form-item
             :label="trans('user.username')"
             
@@ -97,7 +97,7 @@
                 :label="trans(item.label)"
                       :prop="item.name"
                       :rules="[
-                        { type:item.type,required:item.required, message: trans(item.errorMsg)}
+                        {message: trans(item.errorMsg)}
                       ]">
                   <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
                   <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
@@ -108,7 +108,20 @@
                       :value="option.id">
                     </el-option>
                   </el-select>
-                  <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>              
+                  <el-upload
+                    v-if="item.item=='el-upload'"
+                    class="avatar-uploader"
+                    :headers="headerInfo"
+                    ref="upload"
+                    action=""
+                    name="avatar"
+                    :limit=1
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="onBeforeUpload"
+                    :auto-upload="false">               
+                    <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
+                    <img v-if="user.avatar" :src="user.avatar" class="img-fluid img-circle" alt="User profile picture">               
+                  </el-upload>
             </el-form-item>                                           
             <el-form-item>
               <el-button  size="mini" type="success" @click="createUser()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -138,13 +151,17 @@
             email: '',
             password: '',
             confirmPassword: '',
-            roles:'',
+            roles:[],
             role_options: [],
             profile_id:1,            
             profile_options:[],
             active:false
-          },            
-
+          },
+          user:{},
+          headerInfo: {
+            'Accept': 'application/json'
+          },
+          formData:'',
       }
   },
   methods :{
@@ -222,6 +239,36 @@
     },
     /*
     |--------------------------------------------------------------------------
+    | handleAvatarSuccess
+    |--------------------------------------------------------------------------
+    |
+    | This method handleAvatarSuccess
+    |
+    */        
+    handleAvatarSuccess(res, file) {
+      this.user.avatar = URL.createObjectURL(file.raw);
+    },
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Avatar Befor Upload
+    |--------------------------------------------------------------------------
+    |
+    | This method Validate Avatar Befor Upload
+    |
+    */     
+    onBeforeUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isJPG) {
+            this.$message.error('Avatar picture must be JPG format!');
+        }
+        if (!isLt2M) {
+            this.$message.error('Avatar picture size can not exceed 2MB!');
+        }
+        return (isJPG & isLt2M);
+    },    
+    /*
+    |--------------------------------------------------------------------------
     | Create User Method
     |--------------------------------------------------------------------------
     |
@@ -238,6 +285,20 @@
           var columnName = this.structure[i].name;
           jsonData[columnName] = this.form[this.structure[i].name];
       };
+      var roles_id=[];
+      this.form.roles.forEach((role, index) => {
+        if (role){
+          roles_id.push({
+          id: role.id,
+        });
+        }
+      });
+      this.formData = new FormData( document.getElementById("insert_form") );
+      this.formData.append('active',this.form.active);
+      this.formData.append('password',this.form.password);
+      this.formData.append('password_confirmation',this.form.confirmPassword);
+      this.formData.append('profile_id',this.form.profile_id);
+     this.formData.append('roles',JSON.stringify(roles_id));
       let newUser ={            
         username: this.form.username,
         email: this.form.email,
@@ -248,7 +309,7 @@
         active: this.form.active,
         profile_data :JSON.stringify(jsonData)
       }
-      axios.post('../api/profile/users',newUser).then((response) =>{
+      axios.post('../api/profile/users',this.formData).then((response) =>{
       Fire.$emit('AfterCrud');
       this.$message({
             type: 'success',
@@ -334,9 +395,10 @@
           });
         });     
       }
-      else {
-              return false;
-            }
+      else 
+      {
+        return false;
+      }
       });
     },        
     /*
