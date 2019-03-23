@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 // Base Application classes
 use App\Http\Controllers\Controller;
@@ -88,8 +87,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {               
-        // Populate Profile Data and validate it
-        // Second param in Profile::make is for active profile data bag        
+        // Populate Profile Data and validate it        
         $profile = Profile::make($request->profile_id,true);
         $profileData = $profile->getDataBag($request->only($profile->getFields()));        
         $profile->validate($profileData);
@@ -98,19 +96,13 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             // First create user in users table     
-            $user = AuthUser::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => $request->password,
-                'active' => $request->active,
-            ]);
+            $user = AuthUser::create($request->all());
 
             // Save profile data
             $profile->create($user,$profileData);
             
-            // Find role and assigned to user            
-            if ($request->filled('rules')) {
-                $roles = is_array($request->roles) ? $request->roles: explode(',',$request->roles);
+            // Find role and assigned to user
+            if ($request->filled('rules')) {               
                 $user->attachRoles($roles);
             }
             
@@ -160,7 +152,6 @@ class UserController extends Controller
         if (isset($profileId))
         {
             // Populate Profile Data and validate it
-            // Second param in Profile::make is for active profile data bag
             $profile = Profile::make($profileId,true);
             $profileData = $profile->getDataBag($request->only($profile->getFields()));         
             $profile->validate($profileData);
@@ -168,21 +159,20 @@ class UserController extends Controller
                 
 		// Begin Database transaction			
         DB::beginTransaction();
-        try {
-            $userData = array_filter($request->only('email','active','password'));
-			$user->update($userData);
+        try {            
+			$user->update($request->all());
 						
             // Set user profile data
 			if (isset($profileId)) {
                $profile->update($user,$profileData);
 			}
                            
-            // Set user roles and update
+            // Set user roles and update            
             if ($request->filled('roles')) {
 				$user->syncRoles($request->roles);
             }
 
-            // Return 
+            // Return
             DB::commit();
             return response()->json([
                 'message' => __('app.updateAlert')],

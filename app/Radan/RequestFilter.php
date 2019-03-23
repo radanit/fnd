@@ -91,10 +91,10 @@ abstract class RequestFilter
             if ( $method = self::getMethod($rule))
             {
                 $newValue = self::$method($request,$key);
-                if ($newValue) {
+                if (isset($newValue)) {
                     $request->replace(array_merge($request->all(), [$key => $newValue]));
                 }
-            }                
+            }
         }
     }
 
@@ -106,14 +106,14 @@ abstract class RequestFilter
 
     protected static function toArray($request,$key)
     {
-        $value = $request->get($key);
-        if (!is_array($value)) {
+        $value = $request->get($key);       
+        if (!is_array($value)) {            
             $value = json_decode($value,true);
         }
         if (!is_array($value) and isset($delimeter)) {
             $value = explode($delimeter,$value);
         } else {
-            $value = (array) $value;
+            $value = (array) $value;            
         }
         return $value;
     }
@@ -130,14 +130,14 @@ abstract class RequestFilter
     {
         if (isset($key)) {
             $request->remove($key); 
-        }
+        }        
     }
 
     protected static function unsetIfNull(&$request,$key)
     {        
         if (empty($request->get($key))) {
             $request->remove($key); 
-        }     
+        }        
     }
 
     protected static function toBoolean($request,$key)

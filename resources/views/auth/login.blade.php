@@ -72,7 +72,8 @@
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
-					</div>					
+					</div>
+					<!--				
 					<div class="carousel-item">
 						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/2.jpg')}}" style="vertical-align:center;" alt="Second slide">
 					</div>					
@@ -81,7 +82,7 @@
 					</div>
 					<div class="carousel-item">
 						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/4.jpg')}}" style="vertical-align:center;" alt="Third slide">
-					</div>
+					</div>-->
 				</div>
 				<a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -137,8 +138,7 @@
 			<div class="col-md-11 col-lg-12 col-xl-11 mb-12">
 			  <!-- Content -->
 			  <h6 class="text-uppercase font-weight-bold">{{ __('app.customerCompanyName') }}</h6>
-			  <hr class="teal accent-3 mb-2 mt-0 d-inline-block mx-auto" style="width: 60px;">
-			  <p>مجهز به پیشرفته ترین دستگاه سونوگرافی داپلر رنگی پروبهای ترانس واژینال-رادیولوژی ساده-رنگی و opg-و فتوگرافی .</p>
+			  <hr class="teal accent-3 mb-2 mt-0 d-inline-block mx-auto" style="width: 60px;">			 
 			</div>
 			<!-- Grid column -->
 			<!-- Grid column -->

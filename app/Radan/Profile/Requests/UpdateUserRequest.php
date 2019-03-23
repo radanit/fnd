@@ -18,12 +18,12 @@ class UpdateUserRequest extends FormRequest
      * 
      * @var array
      */
-    protected $beforFilter = [
-        'active' => 'boolean',
+    protected $beforFilter = [        
         'username' => 'remove',
         'password' => 'unsetIfNull',
         'profile_data' => 'array',
-        'roles' => 'array',               
+        'roles' => 'array',
+        'active' => 'boolean',
     ];
 
     /**
@@ -48,9 +48,9 @@ class UpdateUserRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array
-     */
+     */    
     public function rules()
-    {       
+    {        
         return [
             'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
             'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
@@ -59,6 +59,6 @@ class UpdateUserRequest extends FormRequest
             'profile_data' => 'array',
             'roles' => 'array',
             'roles.*' => 'exists:roles,id',
-        ];
+        ];        
     }
 }

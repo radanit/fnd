@@ -50,7 +50,7 @@ trait RadanRequestFilter
             {                
                 RequestFilter::apply($this->request,$key,$filter);
             }
-        }
+        }        
     }
 
     /**
