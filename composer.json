@@ -9,6 +9,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.0",
+        "laravel/telescope": "^2.0",
         "laravel/tinker": "^1.0",
         "rap2hpoutre/laravel-log-viewer": "^1.1",
         "santigarcor/laratrust": "5.0.*"

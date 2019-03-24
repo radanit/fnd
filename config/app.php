@@ -160,6 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,        
         App\Providers\RouteServiceProvider::class,
         // Radan Providers
+        App\Providers\TelescopeServiceProvider::class,
         App\Radan\Providers\RadanServiceProvider::class,        
     ],
 

@@ -22,15 +22,10 @@ class ProfileServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/profile.php', 'profile');
 
         // Extend filesystems disk configuration to add profile package disk
-        $this->app['config']["filesystems.disks.profile_disk"] = $this->app['config']['profile.disks.profile_disk'];
-
-        // Contextual Binding
-        $this->app->when(Controller::class)->needs(Filesystem::class)->give(function () {
-            return \Storage::disk('profile_disk');
-        });
+        $this->app['config']["filesystems.disks.profile_disk"] = $this->app['config']['profile.disks.profile_disk'];        
 
         // Create singleton profile instance
-        $this->app->singleton('profile.manager', function ($app) {        
+        $this->app->singleton('profile.manager', function ($app) {
             $profile = new Profile(\Storage::disk('profile_disk'));
             return $profile;
         });

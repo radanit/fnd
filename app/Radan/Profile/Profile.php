@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * This file is part of Radan Profile, 
+ *
+ * This class provide common functionality to work with user profile radan package
+ *
+ * @package    radan/profile 
+ * @license    MIT
+ * 
+ */
+
 namespace App\Radan\Profile;
 
 use Illuminate\Http\Request;
@@ -10,14 +20,11 @@ use App\Radan\Profile\Models\Profile as ProfileModel;
 use App\Radan\Profile\Models\ProfileUser as ProfileUserModel;
 
 /**
- * This file is part of Radan Profile, 
+ * Profile is a manager for user profile.
  *
- * This class provide common functionality to work with user profile radan package
- *
- * @package    radan/profile 
- * @license    MIT
- * 
+ * @author Mehdi Riahimanesh <m.riahimanesh@radanit.ir>
  */
+
 class Profile
 {
     /**
@@ -43,7 +50,7 @@ class Profile
 
     /**
      * For support profile data bag,
-     * Name of profile data field          
+     * Name of profile data field
      *
      * @var string
      */
