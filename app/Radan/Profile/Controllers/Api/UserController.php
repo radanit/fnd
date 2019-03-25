@@ -21,7 +21,6 @@ use PasswordPolicy;
 use Profile;
 
 // This Module classes
-use App\Radan\Profile\Models\ProfileUser;
 use App\Radan\Auth\Models\User as AuthUser;
 use App\Radan\Profile\Requests\StoreUserRequest;
 use App\Radan\Profile\Requests\UpdateUserRequest;
@@ -88,9 +87,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {               
         // Populate Profile Data and validate it        
-        $profile = Profile::make($request->profile_id,true);
-        $profileData = $profile->getDataBag($request->only($profile->getFields()));        
-        $profile->validate($profileData);
+        $profileData = Profile::set($request->profile_id)
+            ->setDataBag('profile_data')
+            ->getData($request);
+        Profile::validate($profileData);                
 
         // Begin Database transaction			
         DB::beginTransaction();
@@ -99,7 +99,7 @@ class UserController extends Controller
             $user = AuthUser::create($request->all());
 
             // Save profile data
-            $profile->create($user,$profileData);
+            Profile::create($user,$profileData);
             
             // Find role and assigned to user
             if ($request->filled('rules')) {               
@@ -146,28 +146,25 @@ class UserController extends Controller
     {       
         // Find user or fail
         $user = AuthUser::findOrFail($id);
-        $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;        
-        
-        // Validate user profile data
-        if (isset($profileId))
-        {
-            // Populate Profile Data and validate it
-            $profile = Profile::make($profileId,true);
-            $profileData = $profile->getDataBag($request->only($profile->getFields()));         
-            $profile->validate($profileData);
-        }
+
+        // Check profile type or data change
+        // Populate Profile Data and validate it
+        $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;               
+        $profileData = Profile::set($profileId)
+            ->setDataBag('profile_data')
+            ->getData($request);
+        Profile::validate($profileData);
                 
 		// Begin Database transaction			
         DB::beginTransaction();
         try {            
-			$user->update($request->all());
+            // Updata user
+            $user->update($request->all());
 						
-            // Set user profile data
-			if (isset($profileId)) {
-               $profile->update($user,$profileData);
-			}
+            // Update profile
+            Profile::update($user,$profileData);		
                            
-            // Set user roles and update            
+            // Update roles
             if ($request->filled('roles')) {
 				$user->syncRoles($request->roles);
             }
@@ -202,7 +199,7 @@ class UserController extends Controller
 
         try {
             // Find user_profile record by user_id relation
-            $user->profile()->delete();
+            Profile::destroy($user);
 
             // Deattach all roles and permmisions
             $user->syncRoles([]);

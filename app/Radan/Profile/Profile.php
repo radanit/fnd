@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Validator;
 use Auth;
+use App\Radan\Profile\ProfileStructure;
 use App\Radan\Profile\Models\Profile as ProfileModel;
 use App\Radan\Profile\Models\ProfileUser as ProfileUserModel;
 
@@ -95,7 +96,13 @@ class Profile
         return $this->disk;
     }
 
-    public function getTable() {
+    /**
+     * Get profile table name
+     *    
+     * @return string
+     */
+    public function getTable() 
+    {
         return ProfileModel::getTableName();
     }
     
@@ -107,35 +114,36 @@ class Profile
      */
     public function setDataBag($bagName)
     {
-        if (isset($bag)) {
+        if (isset($bagName)) {
             $this->isDataBag = true;
-            $this->dataBagFieldName = $bag;
+            $this->dataBagFieldName = $bagName;
         }
         return $this;
     }
 
     /**
-     * Fetch profile data form data bag
+     * Fetch profile data from data bag
      *  
      * @param array Array of data for fetch profile data  
      * @return mixed if $data is null return data bag field name,
      *                 else return profile data from bag
      */
-    public function getDataBag($data)
+    public function getData(Request $request)
     {
-        if (isset($data)) {        
-            if (isset($data[$this->dataBagFieldName])) {
-                $dataBag = $data[$this->dataBagFieldName];
-                unset($data[$this->dataBagFieldName]);
-                $dataBag = (is_array($dataBag)) ? $dataBag : json_decode($dataBag,true);
-                $data = array_merge($dataBag,$data);
+        $profileData = [];
+        $profileFields = with(new ProfileStructure($this->profile))->keys();
+        $profileData = $request->only($profileFields);
+        
+        if ($this->isDataBag)         
+        {
+            $profileDataBag = $request->has($this->dataBagFieldName) ? $request->get($this->dataBagFieldName) : [];
+            foreach($profileField as $field) 
+            {                        
+                $profileData[$field] = isset($profileDataBag[$field]) ? $profileDataBag[$field]:'';
             }
-
-            return $data;
         }
-        else {
-            return $this->dataBagFieldName;
-        }                 
+
+        return $profileData;
     }
     
     /**
@@ -145,7 +153,7 @@ class Profile
      * @param  boolean $isDataBag Set to true if profile data store in bag
      * @return Profile
      */
-    public function make($key,$isDataBag = false)
+    public function set($key,$isDataBag = false)
     {
         $this->profile = ProfileModel::find($key);     
         if (is_null($this->profile)) {
@@ -156,59 +164,15 @@ class Profile
     }
     
     /**
-     * Cast profile structure to laravel collection
-     *    
-     * @return Collection 
-     */
-    protected function toCollect()
-    {        
-        $collection = null;
-        if (!is_null($this->profile)) {
-            $structure = $this->profile->structure;
-            $structure = (is_array($structure)) ? $structure : json_decode($structure,true);
-            $collection =  collect($structure)->map(function($row) {
-                return collect($row);
-            });        
-        }
-        return $collection;
-    }
-
-    /**
-     * Cast profile structure to laravel collection
-     *    
-     * @param string $key profile structure field name
-     * @param string $value profile structure field attribute name
-     * @return Array
-     */
-    public function getFields($key='name',$value=null)
-    {        
-        // Define variables
-        $fields = [];
-        $structure = $this->toCollect();
-        
-        // Check profile structure items
-        foreach($structure as $item) {            
-            $fields[$item->get($key)] = $item->get($value);            
-        }
-
-        if ($this->isDataBag and !key_exists($this->dataBagFieldName,$fields)) {
-            $fields[$this->dataBagFieldName] = '';
-        }
-
-        if (is_null($value)) return array_keys($fields);
-            else return $fields;
-    }   
-    
-    /**
      * Validate profile data by rule field in profile structure
      *    
      * @param array $data include profile data 
      * @return mixed return this on validate or raise exception on fail
      */
     public function validate($data)
-    {
-        // Define validation eules Array
-        $rules = $this->getFields('name','rules');
+    {        
+        $rules = with(new ProfileStructure($this->profile))->rules;
+        $data = $this->getDataBag($data);
         
         // run validation
         Validator::make($data ,$rules)->validate();
@@ -226,8 +190,7 @@ class Profile
     public function create($user,$data)
     {
         // Get profile fields and filed types
-        $fields = $this->getFields();
-        $fieldTypes = $this->getFields('name','type');        
+        $fieldTypes = with(new ProfileStructure($this->profile))->type;       
 
         foreach ($data as $key => $value)
         {        
@@ -258,9 +221,8 @@ class Profile
      */
     public function update($user,$data)
     {
-        // Get profile fields and filed types
-        $fields = $this->getFields();
-        $fieldTypes = $this->getFields('name','type');                
+        // Get profile fields and filed types        
+        $fieldTypes = with(new ProfileStructure($this->profile))->type;
         $oldProfileData = is_null($user->profile) ? []:$user->profile->data;
         $oldFilePath = [];
 
@@ -295,5 +257,31 @@ class Profile
         }
 
         return $oldProfileData;
+    }
+
+    /**
+     * Delete user profile data
+     * 
+     * @param array $user Elequent User model   
+     * @return boolean
+     */
+    public function destroy($user) 
+    {
+        // Get profile fields and filed types        
+        $fieldTypes = with(new ProfileStructure($user->profile->type))->type;
+        $profileData = is_null($user->profile) ? []:$user->profile->data;
+
+        // remove files
+        foreach ($fieldTypes as $field => $type)
+        {        
+            if ($type == 'file') 
+            {
+                $file = $profileData[$field];
+                $this->disk->delete(basename($file));
+            }
+        }
+
+        // Find user_profile record by user_id relation and destroy it
+        return $user->profile()->delete();
     }
 }
