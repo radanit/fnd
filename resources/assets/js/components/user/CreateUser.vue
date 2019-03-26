@@ -55,6 +55,7 @@
               <el-select
                 v-model="form.roles"
                 multiple
+                value-key="id"
                 filterable
                 default-first-option
                 :placeholder="trans('user.role_choose_lbl')">
@@ -62,7 +63,7 @@
                   v-for="item in form.role_options"
                   :key="item.id"
                   :label="item.description"
-                  :value="item.id">
+                  :value="item">
                 </el-option>
               </el-select>
             </el-form-item>
