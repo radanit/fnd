@@ -12,7 +12,11 @@
         "laravel/telescope": "^2.0",
         "laravel/tinker": "^1.0",
         "rap2hpoutre/laravel-log-viewer": "^1.1",
+<<<<<<< HEAD
         "santigarcor/laratrust": "5.2.*"
+=======
+        "santigarcor/laratrust": "5.1.*"
+>>>>>>> b3171e770a6cb8055288e47a06964ab47fd94a9f
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

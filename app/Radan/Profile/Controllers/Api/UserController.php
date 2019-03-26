@@ -86,6 +86,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+       
         // Populate Profile Data and validate it        
         $profileData = Profile::set($request->profile_id)
             ->setDataBag('profile_data')
@@ -144,6 +145,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, $id)
     {
+        
         // Find user or fail
         $user = AuthUser::findOrFail($id);
 

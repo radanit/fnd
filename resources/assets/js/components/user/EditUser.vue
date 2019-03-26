@@ -85,10 +85,8 @@
             <el-form-item :label="trans('user.status')" prop="status">
             <el-switch
               v-model="form.active"
-              active-color='#13ce66'
-              active-value=1           
+              active-color='#13ce66'         
               inactive-color='#ff4949'
-              inactive-value=0
               >
             </el-switch>
             </el-form-item>
