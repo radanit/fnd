@@ -19,8 +19,8 @@ trait RadanRequestFilter
      */
     protected function beforFilter() 
     {
-        // Cast user data
-        $newData = $this->filter($this->beforFilter);        
+        // filter http request
+        $this->filter($this->beforFilter);        
     }
 
     /**
@@ -30,8 +30,8 @@ trait RadanRequestFilter
      */
     protected function afterFilter() 
     {
-        // Cast user data        
-        $newData = $this->filter($this->afterFilter);               
+        // filter http request       
+        $this->filter($this->afterFilter);               
     }
 
     /**
@@ -41,13 +41,13 @@ trait RadanRequestFilter
      * @return array
      */
     protected function filter($filters) 
-    {        
+    {
         // Check if $filter is array
         if (is_array($filters)) 
         {
             // Iterate filters
             foreach ($filters as $key => $filter) 
-            {                
+            {
                 RequestFilter::apply($this->request,$key,$filter);
             }
         }        
