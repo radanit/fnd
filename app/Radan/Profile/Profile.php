@@ -128,12 +128,17 @@ class Profile
      * @return mixed if $data is null return data bag field name,
      *                 else return profile data from bag
      */
-    public function getData(Request $request)
-    {
-        $profileData = [];
-        $profileFields = with(new ProfileStructure($this->profile))->keys();
+    public function getData(Request $request,$fields=null)
+    {        
+        // get profile fields
+        $fields = (array) $fields;        
+        $profileFields = (empty($fields)) ? with(new ProfileStructure($this->profile))->keys():$fields;
+                    
+        // get profile data from request first
+        $profileData = [];        
         $profileData = $request->only($profileFields);                
         
+        dd($profileFields);
         if ($this->isDataBag)         
         {           
             $profileDataBag = $request->has($this->dataBagFieldName) ? $request->get($this->dataBagFieldName) : [];            
@@ -170,7 +175,7 @@ class Profile
      * @param array $data include profile data 
      * @return mixed return this on validate or raise exception on fail
      */
-    public function validate($data)
+    public function validate($data,$fields=null)
     {        
         // get field rules
         $rules = with(new ProfileStructure($this->profile))->rules;    

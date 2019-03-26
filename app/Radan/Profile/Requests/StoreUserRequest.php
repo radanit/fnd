@@ -19,7 +19,8 @@ class StoreUserRequest extends FormRequest
      */
     protected $beforFilter = [
         'profile_data' => 'array',
-        'roles' => 'array',        
+        'roles' => 'array',
+        'active' => 'boolean',
     ];
 
     /**
@@ -51,7 +52,7 @@ class StoreUserRequest extends FormRequest
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|confirmed|'.PasswordPolicy::getValidation('default'),
-            'active' => 'required|boolean',
+            'active' => 'required|accepted',
             'profile_id' => 'required|exists:'.Profile::getTable().',id',
             'profile_data' => 'array',
             'roles' => 'array',

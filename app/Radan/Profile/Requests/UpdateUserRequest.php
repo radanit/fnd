@@ -21,9 +21,9 @@ class UpdateUserRequest extends FormRequest
     protected $beforFilter = [
         'username' => 'remove',
         'password' => 'unsetIfNull',
-        'profile_data' => 'array',
-        'roles' => 'array',
         'active' => 'boolean',
+        'profile_data' => 'array',
+        'roles' => 'array',        
     ];
 
     /**
@@ -54,7 +54,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
             'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
-            'active' => 'boolean',
+            'active' => 'accepted',
             'profile_id' => 'exists:'.Profile::getTable().',id',
             'profile_data' => 'array',
             'roles' => 'array',

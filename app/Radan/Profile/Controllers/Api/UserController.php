@@ -102,8 +102,8 @@ class UserController extends Controller
             Profile::create($user,$profileData);
             
             // Find role and assigned to user
-            if ($request->filled('rules')) {               
-                $user->attachRoles($roles);
+            if ($request->filled('roles')) {               
+                $user->attachRoles($request->roles);
             }
             
             // Return

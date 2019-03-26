@@ -25,22 +25,19 @@ use Profile;
 class UserAvatarController extends Controller
 {        
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    protected $disk;
-
+     * Set authenticated user
+     * 
+     */
     protected function user()
     {
         return Auth::user();
     }
 
-    public function __construct(FileSystem $disk)
-    {
-        $this->disk = $disk;
-    }
-
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         return  $this->user()->avatar;
@@ -60,41 +57,13 @@ class UserAvatarController extends Controller
         ])->validate();
 
         // Save uploaded file        
-        $profileData = Profile::make($this->user()->type_id)
-                    ->update($this->user(),$request->only('avatar'));
+        $profileData = Profile::set($this->user()->type_id)
+            ->update($this->user(),$request->only('avatar'));
 
         // Return        
         return response()->json([
             'message' => __('app.updateAlert'),
             'url' =>  $profileData['avatar']],
-            $this->httpOk
-        );
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy()
-    {
-        // Get profile user instance and save old user avatar temporary
-        $profile = $this->user()->profile()->first();
-        $oldUserAvatar = $profile->data['avatar'];        
-                
-        // Save changes
-        $profileData = $profile->data;            
-        $profileData['avatar'] = '';
-        $profile->data = $profileData;
-        $this->user()->profile()->save($profile);
-
-        // Delete old user avatar
-        $this->disk->delete(basename($oldUserAvatar));
-
-        // Return
-        return response()->json([
-            'message' => __('app.deleteAlert')],
             $this->httpOk
         );
     }
