@@ -17,6 +17,8 @@ use App\Http\Controllers\Controller;
 use App\Radan\Auth\Models\Role;
 use App\Radan\Resources\UserResource;
 use App\Radan\Resources\AuthUserResource;
+use App\Radan\Exceptions\ResourceProtected;
+use App\Radan\Exceptions\ResourceRestricted;
 use PasswordPolicy;
 use Profile;
 
@@ -201,6 +203,18 @@ class UserController extends Controller
         // Find user by id        
         $user = AuthUser::findOrFail($id);
 
+        // Get prevernts from config files
+        $prevents = config('radan.auth.prevents.users');       
+
+        // Check prevents rule
+        if (!is_null($prevents)) {
+            foreach ($prevents as $key => $value) {
+                if ($user->$key==$value) {
+                    throw new ResourceProtected;
+                }
+            }
+        }
+
         try {
             // Find user_profile record by user_id relation
             Profile::destroy($user);
@@ -224,6 +238,6 @@ class UserController extends Controller
                 'errors' => __('app.failedAlert')],
                 $this->httpInternalServerError
             );
-        }                    
+        }        
     }
 }

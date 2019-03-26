@@ -275,12 +275,12 @@ class Profile
     {
         // Get profile fields and filed types        
         $fieldTypes = with(new ProfileStructure($user->profile->type))->type;
-        $profileData = is_null($user->profile) ? []:$user->profile->data;
+        $profileData = is_null($user->profile) ? []:$user->profile->data;       
 
         // remove files
         foreach ($fieldTypes as $field => $type)
         {        
-            if ($type == 'file') 
+            if ($type == 'file' && isset($profileData[$field]))
             {
                 $file = $profileData[$field];
                 $this->disk->delete(basename($file));
