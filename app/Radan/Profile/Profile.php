@@ -132,17 +132,18 @@ class Profile
     {
         $profileData = [];
         $profileFields = with(new ProfileStructure($this->profile))->keys();
-        $profileData = $request->only($profileFields);
+        $profileData = $request->only($profileFields);                
         
         if ($this->isDataBag)         
-        {
-            $profileDataBag = $request->has($this->dataBagFieldName) ? $request->get($this->dataBagFieldName) : [];
-            foreach($profileField as $field) 
+        {           
+            $profileDataBag = $request->has($this->dataBagFieldName) ? $request->get($this->dataBagFieldName) : [];            
+            foreach($profileFields as $field) 
             {                        
-                $profileData[$field] = isset($profileDataBag[$field]) ? $profileDataBag[$field]:'';
+                if (isset($profileDataBag[$field])) {
+                    $profileData[$field] = $profileDataBag[$field];
+                }
             }
-        }
-
+        }        
         return $profileData;
     }
     
@@ -171,8 +172,8 @@ class Profile
      */
     public function validate($data)
     {        
-        $rules = with(new ProfileStructure($this->profile))->rules;
-        $data = $this->getDataBag($data);
+        // get field rules
+        $rules = with(new ProfileStructure($this->profile))->rules;    
         
         // run validation
         Validator::make($data ,$rules)->validate();

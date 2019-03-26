@@ -90,8 +90,8 @@ abstract class RequestFilter
         {
             if ( $method = self::getMethod($rule))
             {
-                $newValue = self::$method($request,$key);
-                if (isset($newValue)) {
+                $newValue = self::$method($request,$key);                
+                if (isset($newValue)) {                    
                     $request->replace(array_merge($request->all(), [$key => $newValue]));
                 }
             }

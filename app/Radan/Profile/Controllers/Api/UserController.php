@@ -41,7 +41,7 @@ class UserController extends Controller
      * @return void
      */
     public function __construct(Request $request,Config $config)
-    {                        
+    {
         $this->config = $config;
         $this->paginationCount = $this->config->get(
             'profile.models.pagination.count',
@@ -85,7 +85,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request)
-    {               
+    {
         // Populate Profile Data and validate it        
         $profileData = Profile::set($request->profile_id)
             ->setDataBag('profile_data')
@@ -143,16 +143,18 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, $id)
-    {       
+    {
         // Find user or fail
         $user = AuthUser::findOrFail($id);
 
         // Check profile type or data change
         // Populate Profile Data and validate it
         $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;               
+                
         $profileData = Profile::set($profileId)
             ->setDataBag('profile_data')
             ->getData($request);
+        
         Profile::validate($profileData);
                 
 		// Begin Database transaction			

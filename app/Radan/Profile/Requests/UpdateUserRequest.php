@@ -18,7 +18,7 @@ class UpdateUserRequest extends FormRequest
      * 
      * @var array
      */
-    protected $beforFilter = [        
+    protected $beforFilter = [
         'username' => 'remove',
         'password' => 'unsetIfNull',
         'profile_data' => 'array',
@@ -50,7 +50,7 @@ class UpdateUserRequest extends FormRequest
      * @return array
      */    
     public function rules()
-    {        
+    {
         return [
             'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
             'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
