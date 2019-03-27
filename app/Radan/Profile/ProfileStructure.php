@@ -73,10 +73,10 @@ class ProfileStructure
      * @return Array
      */
     public function getFields($key='name',$attribute=null,$fields=[])
-    {
+    {       
         // Cast to array
         $fields = (array) $fields;
-        $fields = array_intersect($this->structure,$fields);
+        $fields = array_intersect($this->profile->structure,$fields);
         
         // Define variables
         $arrResult = [];       
@@ -113,6 +113,14 @@ class ProfileStructure
         }
         else {
             return $this->getFields('name',$property);
+        }
+    }
+
+    public function __call($method,$args)
+    {
+        if (!method_exists($this,$method))
+        {
+            return $this->getFields('name',$method,$args);
         }
     }
 }
