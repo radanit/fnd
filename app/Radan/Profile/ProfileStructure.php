@@ -69,22 +69,26 @@ class ProfileStructure
      * Cast profile structure to laravel collection
      *    
      * @param string $key profile structure field name
-     * @param string $value profile structure field attribute name
+     * @param string $attribute profile structure field attribute name
      * @return Array
      */
-    public function getFields($key='name',$value=null)
+    public function getFields($key='name',$attribute=null,$fields=[])
     {
+        // Cast to array
+        $fields = (array) $fields;
+        $fields = array_intersect($this->structure,$fields);
+        
         // Define variables
-        $fields = [];       
+        $arrResult = [];       
         
         // Check profile structure items
-        foreach($this->structure as $item) 
+        foreach($fields as $field) 
         {            
-            $fields[$item->get($key)] = $item->get($value);            
+            $arrResult[$field->get($key)] = $field->get($attribute);
         }       
 
-        if (is_null($value)) return array_keys($fields);
-            else return $fields;
+        if (is_null($attribute)) return array_keys($arrResult);
+            else return $arrResult;
     }   
 
     /**
@@ -92,9 +96,9 @@ class ProfileStructure
      * 
      * @return array
      */
-    public function keys()
+    public function keys($fields=[])
     {
-        return $this->getFields();
+        return $this->getFields('name',null,$fields);
     }
 
     /**
@@ -102,7 +106,7 @@ class ProfileStructure
      * 
      * @return array
      */
-    public function __get($property) 
+    public function __get($property)
     {
         if (property_exists($this, $property)) {
             return $this->$property;
