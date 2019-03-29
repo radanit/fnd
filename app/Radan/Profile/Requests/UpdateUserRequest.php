@@ -54,7 +54,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
             'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
-            'active' => 'accepted',
+            'active' => 'boolean',
             'profile_id' => 'exists:'.Profile::getTable().',id',
             'profile_data' => 'array',
             'roles' => 'array',

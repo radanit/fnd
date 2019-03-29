@@ -51,8 +51,7 @@ class UserController extends APIController
        
         // Populate Profile Data and validate it        
         $profileData = Profile::set($request->profile_id)->getData($request);
-        Profile::validate($profileData);
-        dd($profileData);
+        Profile::validate($profileData);        
 
         // Begin Database transaction			
         DB::beginTransaction();
@@ -112,12 +111,8 @@ class UserController extends APIController
 
         // Check profile type or data change
         // Populate Profile Data and validate it
-        $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;               
-                
-        $profileData = Profile::set($profileId)
-            ->setDataBag('profile_data')
-            ->getData($request);
-        
+        $profileId = isset($request->profile_id) ? $request->profile_id: $user->type_id;
+        $profileData = Profile::set($profileId)->getData($request);        
         Profile::validate($profileData);
                 
 		// Begin Database transaction			

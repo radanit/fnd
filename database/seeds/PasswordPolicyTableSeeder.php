@@ -17,7 +17,10 @@ class PasswordPolicyTableSeeder extends Seeder
 		//
 		PasswordPolicy::create(array(
 			'name' => 'default',
-			'description' => 'پیش فرض',			
+			'description' => 'پیش فرض',
+			'min_length' => 6,
+			'max_length' => 191,
+			'digits' => 0,
 		));	
 	}
 }

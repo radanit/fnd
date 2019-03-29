@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e333ff8ec1c8afc4db2172e9742b5e93",
+    "content-hash": "0daec7cc450a1fecea5ccfb7482efdf4",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -1327,16 +1327,16 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "7.3.2",
+            "version": "7.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "b71f382cd76e3f6905dfc53ef8148b3eebe1fd41"
+                "reference": "c7f499849704ebe2c60b45b6d6bb231df5601d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/b71f382cd76e3f6905dfc53ef8148b3eebe1fd41",
-                "reference": "b71f382cd76e3f6905dfc53ef8148b3eebe1fd41",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/c7f499849704ebe2c60b45b6d6bb231df5601d4a",
+                "reference": "c7f499849704ebe2c60b45b6d6bb231df5601d4a",
                 "shasum": ""
             },
             "require": {
@@ -1400,7 +1400,7 @@
                 "secure",
                 "server"
             ],
-            "time": "2018-11-21T21:42:43+00:00"
+            "time": "2019-03-29T18:19:35+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1531,16 +1531,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.16.1",
+            "version": "2.16.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "b509524136d579f6b15ad9af4e5bd4533d1ab6c2"
+                "reference": "720a9c36927396efeeb48a972e9d129d44b6dc28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b509524136d579f6b15ad9af4e5bd4533d1ab6c2",
-                "reference": "b509524136d579f6b15ad9af4e5bd4533d1ab6c2",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/720a9c36927396efeeb48a972e9d129d44b6dc28",
+                "reference": "720a9c36927396efeeb48a972e9d129d44b6dc28",
                 "shasum": ""
             },
             "require": {
@@ -1587,7 +1587,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-03-20T12:20:01+00:00"
+            "time": "2019-03-29T12:23:12+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2331,65 +2331,6 @@
             "time": "2018-07-19T23:38:55+00:00"
         },
         {
-            "name": "rap2hpoutre/laravel-log-viewer",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
-                "reference": "f6acf9779669568e8afce1182e1a5579d5a0ffe5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/f6acf9779669568e8afce1182e1a5579d5a0ffe5",
-                "reference": "f6acf9779669568e8afce1182e1a5579d5a0ffe5",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.2.*|5.*",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "3.7.*",
-                "phpunit/phpunit": "^7"
-            },
-            "type": "laravel-package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Rap2hpoutre\\LaravelLogViewer\\LaravelLogViewerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/controllers"
-                ],
-                "psr-0": {
-                    "Rap2hpoutre\\LaravelLogViewer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "rap2hpoutre",
-                    "email": "raphaelht@gmail.com"
-                }
-            ],
-            "description": "A Laravel log reader",
-            "keywords": [
-                "laravel",
-                "log",
-                "log-reader",
-                "log-viewer",
-                "logging",
-                "lumen"
-            ],
-            "time": "2019-03-02T15:10:46+00:00"
-        },
-        {
             "name": "santigarcor/laratrust",
             "version": "5.2.0",
             "source": {
@@ -3066,7 +3007,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
+                    "email": "backendtea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -4096,57 +4037,6 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
-        },
-        {
-            "name": "illuminate/console",
-            "version": "v5.8.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/console.git",
-                "reference": "898f200fc75464baa66c56ec3087daf9961c5367"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/console/zipball/898f200fc75464baa66c56ec3087daf9961c5367",
-                "reference": "898f200fc75464baa66c56ec3087daf9961c5367",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "5.8.*",
-                "illuminate/support": "5.8.*",
-                "php": "^7.1.3",
-                "symfony/console": "^4.2",
-                "symfony/process": "^4.2"
-            },
-            "suggest": {
-                "dragonmantank/cron-expression": "Required to use scheduling component (^2.0).",
-                "guzzlehttp/guzzle": "Required to use the ping methods on schedules (^6.0).",
-                "illuminate/filesystem": "Required to use the generator command (5.8.*)"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Illuminate\\Console\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "The Illuminate Console package.",
-            "homepage": "https://laravel.com",
-            "time": "2019-02-21T14:30:13+00:00"
         },
         {
             "name": "mockery/mockery",
