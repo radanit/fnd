@@ -3,6 +3,6 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>سامانه یکپارچه سیستم های اطلاعاتی نیترو |  @yield('title')</title>
+<title>سامانه یکپارچه سیستم های اطلاعاتی رادان |  @yield('title')</title>
 
 <link rel="stylesheet" href="/css/app.css">

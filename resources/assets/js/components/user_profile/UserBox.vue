@@ -1,34 +1,26 @@
 <template>
-    <el-row style="font-size:12px;color:#fff;text-align:center;white-space:nowarp;">
-        <el-row :gutter="10" class="userbox-msg">
-            <el-col :span="1" class="mt-2">
-                <a href="#" @click="editProfile()" id="profile-link">
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </a>
-            </el-col>
-            <el-col :span="7" class="mt-4 brand-text font-weight-light">{{trans('app.welcome_message')}}</el-col>
-            <el-col :span="7" class="mt-1 profile-image">
+        <el-row :gutter="10" class="user-panel mt-3 pt-2 mb-3 d-flex text-justify">
+            <el-col :span="5" class="profile-image">
                 <el-upload
-                    class="avatar-uploader"
+                    class="avatar-uploader image"
                     action="../api/profile/user/avatar/"
                     :headers="headerInfo"
                     :show-file-list="false"
                     name="avatar"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
-                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid img-circle el-icon-plus" alt="User profile picture">
+                    <img v-if="user.avatar" :src="user.avatar" class="img-circle el-icon-plus elevation-2" alt="User profile picture">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
                 </el-upload>
             </el-col>
-            <el-col :span="7" class="mt-4 brand-text font-weight-light">{{user.fullname}}</el-col>
+            <el-col :span="18" class="info text-white">{{user.fullname}}</el-col>
+            <el-col :span="1" class="mt-2">
+                <a href="#" @click="editProfile()" id="profile-link">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </a>
+            </el-col>
         </el-row>
-        <el-row :gutter="10" class="userbox-date">
-            <el-col :span="8" class="brand-text font-weight-light">{{trans('app.current_date')}}<br/><span class="darkOrange">{{ new Date() | moment("jYYYY/jM/jD") }}</span></el-col>
-            <el-col :span="8" class="brand-text font-weight-light"><a href="/logout" @click="logout()" id="user-logout"><i class="nav-icon fas fa-power-off darkOrange"></i><br/>{{trans('menus.logout')}}</a></el-col>            
-            <el-col :span="8" class="brand-text font-weight-light">{{trans('app.last_login')}}<br/><span class="darkOrange">{{user.last_login | moment("jYYYY/jM/jD") }}</span></el-col>
-        </el-row>
-    </el-row>
 </template>
 <style>
   .el-col {
@@ -62,11 +54,19 @@
 	display: block;
 }
 
-.edit {
-    padding-top: 11%;
-    padding-right: 48%;
+.edit:lang(fa) {
+    padding-top: 7%;
+    padding-right: 9%;
 	position: absolute;
 	right: 0;
+	top: 0;
+	display: none;
+}
+.edit:lang(en) {
+    padding-top: 7%;
+    padding-left: 12%;
+	position: absolute;
+	left: 0;
 	top: 0;
 	display: none;
 }
