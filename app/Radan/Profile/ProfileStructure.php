@@ -72,31 +72,48 @@ class ProfileStructure
      * @param string $attribute profile structure field attribute name
      * @return Array
      */
-    public function getFields($key='name',$attribute=null,$fields=[])
-    {       
-        // Cast to array
-        $fields = (array) $fields;
-        $fields = array_intersect($this->profile->structure,$fields);
-        
-        // Define variables
+    public function getFields($key='name',$attribute=null,$fields=null)
+    {      
+        // Filter structure by fields list
+		if (isset($fields)) {
+			$fields = (array) $fields;
+			$structure = $this->structure->filter(function ($item) use ($key,$fields) {
+				return in_array($item->get($key),$fields);
+			})->values();
+		}
+		else{
+			$structure = $this->structure;
+		}
+		
+		// Define variables
         $arrResult = [];       
         
         // Check profile structure items
-        foreach($fields as $field) 
+        foreach($structure as $item) 
         {            
-            $arrResult[$field->get($key)] = $field->get($attribute);
-        }       
+            $arrResult[$item->get($key)] = $item->get($attribute);
+        }	
 
         if (is_null($attribute)) return array_keys($arrResult);
             else return $arrResult;
     }   
 
     /**
+     * Return profile structure
+     * 
+     * @return laravel collection
+     */
+    public function all()
+	{
+		return $this->structure;
+	}
+	
+	/**
      * Return profile structure fields name
      * 
      * @return array
      */
-    public function keys($fields=[])
+    public function keys($fields=null)
     {
         return $this->getFields('name',null,$fields);
     }
@@ -116,11 +133,17 @@ class ProfileStructure
         }
     }
 
+	/**
+     * Return profile structure field and attributes
+     * 
+     * @return array
+     */
     public function __call($method,$args)
-    {
-        if (!method_exists($this,$method))
+    {        
+		if (!method_exists($this,$method))
         {
-            return $this->getFields('name',$method,$args);
+            $args = count($args) ? $args: null;
+			return $this->getFields('name',$method,$args);
         }
     }
 }

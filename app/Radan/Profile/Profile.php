@@ -12,10 +12,10 @@
 
 namespace App\Radan\Profile;
 
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Validator;
 use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use App\Radan\Profile\ProfileStructure;
 use App\Radan\Profile\Models\Profile as ProfileModel;
 use App\Radan\Profile\Models\ProfileUser as ProfileUserModel;
@@ -130,15 +130,13 @@ class Profile
      */
     public function getData(Request $request,$fields=null)
     {        
-        // get profile fields
-        $fields = (array) $fields;        
-        $profileFields = (empty($fields)) ? with(new ProfileStructure($this->profile))->keys():$fields;
+        // get profile fields        
+        $profileFields = with(new ProfileStructure($this->profile))->keys($fields);		
                     
         // get profile data from request first
-        $profileData = [];        
+        $profileData = [];
         $profileData = $request->only($profileFields);                
-        
-        dd($profileFields);
+                
         if ($this->isDataBag)         
         {           
             $profileDataBag = $request->has($this->dataBagFieldName) ? $request->get($this->dataBagFieldName) : [];            

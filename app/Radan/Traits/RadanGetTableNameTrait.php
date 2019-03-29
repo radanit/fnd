@@ -9,7 +9,7 @@ namespace App\Radan\Traits;
  * @package Radan/Traits
  */
 
-trait RadanGetTableNameTriat
+trait RadanGetTableNameTrait
 {
     public static function getTableName()
     {

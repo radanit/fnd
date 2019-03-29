@@ -2,65 +2,26 @@
 
 namespace App\Radan\Profile\Controllers\Api;
 
-// Laravel classis
-use Validator;
+// Laravel Libraries
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\DB;
 
-// Base Application classes
-use App\Http\Controllers\Controller;
+// Radan Libraries
+use App\Radan\Controllers\APIController;
 
-// Radan modules classes
-use App\Radan\Auth\Models\Role;
-use App\Radan\Resources\UserResource;
-use App\Radan\Resources\AuthUserResource;
-use App\Radan\Exceptions\ResourceProtected;
-use App\Radan\Exceptions\ResourceRestricted;
 use PasswordPolicy;
 use Profile;
-
-// This Module classes
-use App\Radan\Auth\Models\User as AuthUser;
+use App\Radan\Auth\Models\User;
+use App\Radan\Auth\Models\Role;
+use App\Radan\Exceptions\ResourceProtected;
+use App\Radan\Exceptions\ResourceRestricted;
+use App\Radan\Resources\UserResource;
 use App\Radan\Profile\Requests\StoreUserRequest;
 use App\Radan\Profile\Requests\UpdateUserRequest;
 
-class UserController extends Controller
-{
-    /**
-     * Instance of config repository
-     * 
-     * @var Illuminate\Contracts\Config\Repository
-     */
-    protected $config;
-    protected $paginationCount;    
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(Request $request,Config $config)
-    {
-        $this->config = $config;
-        $this->paginationCount = $this->config->get(
-            'profile.models.pagination.count',
-            $this->config->get('radan.pagination.count',15)
-        );        
-    }    
-    
-    /**
-     * Display Authenticated user information
-     *
-     * @return Illuminate\Http\Resources\Json\JsonResource
-     */
-    public function user(Request $request)
-    {
-        $user = Auth::user();
-        return new AuthUserResource($user);
-    }
+class UserController extends APIController
+{    
     
     /**
      * Display a listing of the resource.
@@ -69,15 +30,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Return        
-        if ($this->paginationCount) {
-            // eager loading pagination
-            return UserResource::collection(AuthUser::with(['profile','roles'])->paginate($this->paginationCount));
-        }
-        else {
-            // eager loading all
-            return UserResource::collection(AuthUser::with(['profile','roles'])->get());
-        }        
+        // Get all resources
+        $userModel = User::with(['profile','roles']);
+
+        // Determinde number of record to return
+        $pgCount = $this->getPaginationCount();
+        $users = ($pgCount) ? $userModel->paginate($pgCount) : $userModel->get();
+        
+        return UserResource::collection($users);
     }
 
     /**
@@ -90,16 +50,15 @@ class UserController extends Controller
     {
        
         // Populate Profile Data and validate it        
-        $profileData = Profile::set($request->profile_id)
-            ->setDataBag('profile_data')
-            ->getData($request);
-        Profile::validate($profileData);                
+        $profileData = Profile::set($request->profile_id)->getData($request);
+        Profile::validate($profileData);
+        dd($profileData);
 
         // Begin Database transaction			
         DB::beginTransaction();
         try {
             // First create user in users table     
-            $user = AuthUser::create($request->all());
+            $user = User::create($request->all());
 
             // Save profile data
             Profile::create($user,$profileData);
@@ -135,7 +94,7 @@ class UserController extends Controller
     public function show($id)
     {
         // Return
-        return new UserResource(AuthUser::findOrFail($id));        
+        return new UserResource(User::findOrFail($id));        
     }
 
     /**
@@ -149,7 +108,7 @@ class UserController extends Controller
     {
         
         // Find user or fail
-        $user = AuthUser::findOrFail($id);
+        $user = User::findOrFail($id);
 
         // Check profile type or data change
         // Populate Profile Data and validate it
@@ -201,7 +160,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Find user by id        
-        $user = AuthUser::findOrFail($id);
+        $user = User::findOrFail($id);
 
         // Get prevernts from config files
         $prevents = config('radan.auth.prevents.users');       

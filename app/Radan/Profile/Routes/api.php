@@ -14,8 +14,9 @@ use Illuminate\Http\Request;
 */
 Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResource('profiles', 'ProfileController');
-    Route::apiResource('users', 'UserController');    
-    Route::get('user', 'UserController@user');
-    Route::apiResource('user/avatar', 'UserAvatarController')->except(['update','show','destroy']);
-    Route::delete('user/avatar', 'UserAvatarController@destroy');
+    Route::apiResource('users', 'UserController');
+    Route::apiResource('user/avatar', 'UserAvatarController')->except(['update','show','destroy']);    
+    Route::get('users/me', 'CurrentUserController@index' );
+    Route::get('user', 'CurrentUserController@index');
 });
+
