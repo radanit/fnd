@@ -1,17 +1,16 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo 
     <a href="/home#/dashboard" class="brand-link">
-      <img src="../images/logo.png" alt="MAI Logo" class="brand-image img-circle elevation-3"
+      <img src="../images/logo.png" alt="Radan Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ __('menus.admin_area') }}</span>
-    </a>-->
+      <span class="brand-text font-weight-light">{{ __('app.app_name') }}</span>
+    </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <user-box></user-box>
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+      <nav class="mt-3">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->

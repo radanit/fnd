@@ -12,6 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'app_name' => 'Radan Suite',
     'designDate' => '2018',
     'footerMsg'  =>' Desiged & Developed With ',
     'companyName' =>' By RadanIT Co ',
