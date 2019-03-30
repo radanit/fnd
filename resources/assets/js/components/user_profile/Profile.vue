@@ -57,37 +57,8 @@
 					<el-tabs v-model="activeName" type="border-card">
 						<el-tab-pane :label="trans('profile.activities')" name="first">User</el-tab-pane>
 						<el-tab-pane :label="trans('profile.setting')" name="third">
-							 <el-form  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
-								<el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
-									:label="trans(item.label)"
-												:prop="item.name"
-												:rules="[
-													{ type:item.type,required:item.required, message: trans(item.errorMsg)}
-												]">
-										<el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" type="text"></el-input>
-										<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
-											<el-option
-												v-for="option in lists"
-												:key="option.id"
-												:label="option.description"
-												:value="option.id">
-											</el-option>
-										</el-select>
-										<el-upload
-											v-if="item.item=='el-upload'"
-											class="avatar-uploader"
-											:headers="headerInfo"
-											ref="upload"
-											action=""
-											name="avatar"
-											:limit=1
-											:on-success="handleAvatarSuccess"
-											:before-upload="onBeforeUpload"
-											:auto-upload="false">               
-											<el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
-											<img v-if="user.avatar" :src="user.avatar" class="img-fluid img-circle" alt="User profile picture">               
-										</el-upload>                                
-									</el-form-item>
+							 <el-form id="update_form"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+								 	 <user-profile :user='user'></user-profile>  
 									<el-form-item>
 										<el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>										
 									</el-form-item>									
@@ -147,10 +118,7 @@
 	}	
 </style>
 <script>
-import DoctorProfile from './DoctorProfile.vue';
-import PatientProfile from './PatientProfile.vue';
-import TechnicianProfile from './TechnicianProfile.vue';
-import DefaultProfile from './DefaultProfile.vue';
+	import userProfile from '../user/userProfile';
   export default {
 	data(){
 					return{
@@ -171,15 +139,6 @@ import DefaultProfile from './DefaultProfile.vue';
 				 */
 				loadUserInfo(){
 					this.user = this.$route.params.user;
-				},
-				loadProfileSructure(){
-					axios.get("../api/profile/profiles/"+this.user.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
-							this.$message({                      
-								message:error.response.data.errors,
-								center: true,
-								type: 'error'
-							}); 
-					});
 				},				
 				/*
 				|--------------------------------------------------------------------------
@@ -210,17 +169,65 @@ import DefaultProfile from './DefaultProfile.vue';
 								this.$message.error('Avatar picture size can not exceed 2MB!');
 						}
 						return (isJPG & isLt2M);
-				}, 
+				},
+				/*
+				|--------------------------------------------------------------------------
+				| Update User Method
+				| Added By e.bagherzadegan        
+				|--------------------------------------------------------------------------
+				|
+				| This method Update User Info To Database
+				|
+				*/          
+				updateUser(){      
+				var jsonData = {};
+				for (var i=0 ;i<this.structure.length;i++)
+				{
+						var columnName = this.structure[i].name;
+						jsonData[columnName] = this.form.data[this.structure[i].name];
+				};
+				this.formData = new FormData( document.getElementById("update_form") );
+				axios.post('../api/profile/user/?_method=put',this.formData).then(response => {      
+						this.$message({
+							type: 'success',
+							center: true,
+							message:response.data.message
+						});
+						this.backToUserList();   
+						}).catch((error) => {
+							let msgErr = errorMessage(error.response.data.errors);
+							this.$message({
+								type: 'error',
+								dangerouslyUseHTMLString: true,
+								message:msgErr             
+							});
+					});        
+				},				
+				/*
+				|--------------------------------------------------------------------------
+				| Submit Form Method
+				| Added By e.bagherzadegan        
+				|--------------------------------------------------------------------------
+				|
+				| This method Submit Form
+				|
+				*/          
+				submitForm(formName) {
+					this.$refs[formName].validate((valid) => {
+						if (valid) 
+						{
+							this.updateUser();
+							Fire.$emit('AfterCrud');            
+						}
+						else {
+							return false;
+						}
+					});
+				},				
 			},
-			components:{ 
-					'doctor-profile' : DoctorProfile,
-					'patient-profile' :PatientProfile,
-					'technician-profile' :TechnicianProfile,
-					'default-profile' :DefaultProfile
-				 },
 			created() {
 				this.loadUserInfo();
-				this.loadProfileSructure();
-			}
+			},
+			components :{'userProfile':userProfile},
     }
 </script>

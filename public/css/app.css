@@ -83716,7 +83716,7 @@ body,
 .user-panel:lang(fa) .image {
   /*changed by e.bagherzadegan
   padding-left: $nav-link-padding-x - .2;*/
-  padding-right: 0.6rem;
+  padding-right: 0.8rem;
   display: inline-block;
 }
 

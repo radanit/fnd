@@ -89,41 +89,10 @@
               v-model="form.active"
               active-color='#13ce66'
               inactive-color='#ff4949'
-              active-value='1'
-              inactive-value='0'
               >
             </el-switch>
             </el-form-item>
-                <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
-                :label="trans(item.label)"
-                      :prop="item.name"
-                      :rules="[
-                        {message: trans(item.errorMsg)}
-                      ]">
-                  <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
-                  <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
-                    <el-option
-                      v-for="option in lists"
-                      :key="option.id"
-                      :label="option.description"
-                      :value="option.id">
-                    </el-option>
-                  </el-select>
-                  <el-upload
-                    v-if="item.item=='el-upload'"
-                    class="avatar-uploader"
-                    :headers="headerInfo"
-                    ref="upload"
-                    action=""
-                    name="avatar"
-                    :limit=1
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="onBeforeUpload"
-                    :auto-upload="false">               
-                    <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
-                    <img v-if="user.avatar" :src="user.avatar" class="img-fluid img-circle" alt="User profile picture">               
-                  </el-upload>
-            </el-form-item>                                           
+            <user-profile :user='form'></user-profile>                                         
             <el-form-item>
               <el-button  size="mini" type="success" @click="createUser()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button  size="mini" type="primary" @click="createContinueUser()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>              
@@ -140,6 +109,8 @@
   </div>
 </template>
 <script>
+import {msg} from '../../utilities';
+import userProfile from './userProfile';
   export default {
     data(){
       return{
@@ -428,9 +399,9 @@
       
     },
     mounted(){
-      this.loadProfileSructure();
       this.$refs.username.focus();
-    }
+    },
+    components :{'userProfile':userProfile}    
   }
 </script>
 <style>

@@ -90,36 +90,7 @@
               >
             </el-switch>
             </el-form-item>
-            <el-form-item v-for="(item, key, index) in this.structure" :key="item.key"
-            :label="trans(item.label)"
-                  :prop="item.name"
-                  :rules="[
-                    {message: trans(item.errorMsg)}
-                  ]">
-              <el-input v-if="item.item=='el-input' " v-model="form.data[item.name]" :name="item.name" type="text"></el-input>
-              <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
-                <el-option
-                  v-for="option in lists"
-                  :key="option.id"
-                  :label="option.description"
-                  :value="option.id">
-                </el-option>
-              </el-select>              
-              <el-upload
-                v-if="item.item=='el-upload'"
-                class="avatar-uploader"
-                :headers="headerInfo"
-                ref="upload"
-                action=""
-                name="avatar"
-                :limit=1
-                :on-success="handleAvatarSuccess"
-                :before-upload="onBeforeUpload"
-                :auto-upload="false">               
-                <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
-                 <img v-if="user.avatar" :src="user.avatar" class="img-fluid img-circle" alt="User profile picture">               
-              </el-upload>                            
-            </el-form-item>                   
+            <user-profile :user='user'></user-profile>               
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -135,6 +106,7 @@
 </template>
 <script>
 import {msg} from '../../utilities';
+import userProfile from './userProfile';
   export default {
     data(){
       return{
@@ -183,25 +155,6 @@ import {msg} from '../../utilities';
                 type: 'error'
               });              
           });
-      },
-      /*
-      |--------------------------------------------------------------------------
-      | Load Profile Structure
-      | Added By e.bagherzadegan        
-      |--------------------------------------------------------------------------
-      |
-      | This method load Profile Structure for edit
-      |
-      */      
-      loadProfileSructure(){
-        this.form.profile_id=this.$route.params.profileId;
-        axios.get("../api/profile/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
-            this.$message({                      
-              message:error.response.data.errors,
-              center: true,
-              type: 'error'
-            }); 
-        });
       },
       /*
       |--------------------------------------------------------------------------
@@ -360,13 +313,12 @@ import {msg} from '../../utilities';
     created() {
       this.LoadUser();
       this.loadProfiles();
-      this.loadRoles();
-      this.loadProfileSructure();
-            
+      this.loadRoles(); 
     },
     mounted(){    
       this.$refs.email.focus();
-    }
+    },
+    components :{'userProfile':userProfile}
   }
 </script>
 <style>
