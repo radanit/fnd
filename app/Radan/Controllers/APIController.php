@@ -2,6 +2,7 @@
 
 namespace App\Radan\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Config\Repository as Config;
 use App\Http\Controllers\Controller as BaseController;
 use App\Radan\Traits\RadanResponseCodeTrait;
@@ -16,6 +17,13 @@ class APIController extends BaseController
      * @var Illuminate\Contracts\Config\Repository
      */
     protected $config;
+
+    /**
+     * Instance of authenticated user
+     * 
+     * @var User
+     */
+    protected $user;
 	
 	/**
      * Create a new controller instance.
@@ -24,7 +32,12 @@ class APIController extends BaseController
      */
     public function __construct(Config $config)
     {        
-        $this->config = $config;       
+        $this->config = $config;
+
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            return $next($request);
+        });       
     } 
 	
 	/**
@@ -35,5 +48,5 @@ class APIController extends BaseController
 	protected function getPaginationCount()
 	{
 		return $this->config->get('radan.pagination.count',15);                    
-	}
+    }
 }

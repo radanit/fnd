@@ -176,7 +176,7 @@ class Profile
     public function validate($data,$fields=null)
     {        
         // get field rules
-        $rules = with(new ProfileStructure($this->profile))->rules;    
+        $rules = with(new ProfileStructure($this->profile))->rules($fields);        
         
         // run validation
         Validator::make($data ,$rules)->validate();

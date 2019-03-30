@@ -2,36 +2,20 @@
 
 namespace App\Radan\Profile\Controllers\Api;
 
-// Laravel classis
-use Validator;
+// Laravel Libraries
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Filesystem\Filesystem;
-//use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-// Base Application classes
-use App\Http\Controllers\Controller;
+// Radan Libraries
+use App\Radan\Controllers\APIController;
 
-// Radan modules classes
-use App\Radan\Exceptions\ResourceProtected;
-use App\Radan\Exceptions\ResourceRestricted;
-
-// This Module classes
-use App\Radan\Auth\Models\User;
 use Profile;
+use App\Radan\Auth\Models\User;
 
-class UserAvatarController extends Controller
+
+class UserAvatarController extends APIController
 {        
-    /**
-     * Set authenticated user
-     * 
-     */
-    protected function user()
-    {
-        return Auth::user();
-    }
 
     /**
     * Display a listing of the resource.
@@ -40,7 +24,7 @@ class UserAvatarController extends Controller
     */
     public function index()
     {
-        return  $this->user()->avatar;
+        return  $this->user->avatar;
     }
 
     /**
@@ -50,15 +34,13 @@ class UserAvatarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                
-        // Validation rules
-        Validator::make($request->only('avatar'), [
-            'avatar' => 'bail|required|image|mimes:jpeg,jpg,png,gif|max:2048',
-        ])->validate();
+    {
+        // Populate Profile Data and validate it        
+        $profileData = Profile::set($this->user->type_id)->getData($request,'avatar');        
+        Profile::validate($profileData,'avatar');
 
         // Save uploaded file        
-        $profileData = Profile::set($this->user()->type_id)
-            ->update($this->user(),$request->only('avatar'));
+        $profileData = Profile::update($this->user,$profileData);
 
         // Return        
         return response()->json([
