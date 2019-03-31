@@ -16,7 +16,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt lighGray"></i>
+              <i class="nav-icon fas fa-tachometer-alt blue"></i>
               <p>
               {{ __('menus.dashboard') }}
               </p>
@@ -75,7 +75,7 @@
           @endrole
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-info lighGray"></i>
+              <i class="nav-icon fas fa-info green"></i>
               <p>
               {{ __('menus.basic_information') }}
                 @if(App::isLocale('fa'))
