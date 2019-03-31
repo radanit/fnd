@@ -15,20 +15,10 @@ return [
     /*
     * Radan Foundation Service Providers...
     */
-    // Radan Auth package service providers
-    App\Radan\Auth\Providers\ServiceProvider::class,
-    App\Radan\Auth\Providers\RouteServiceProvider::class,
-
-    // Radan Configure package service providers
-    App\Radan\Config\Providers\ServiceProvider::class,
-    App\Radan\Config\Providers\RouteServiceProvider::class,
-
-    // Radan Profile package service providers        
-    App\Radan\Profile\Providers\RouteServiceProvider::class,
-    App\Radan\Profile\Providers\ProfileServiceProvider::class,
-
-    // Radan Password Policy package service providers
-    App\Radan\Policy\Providers\RouteServiceProvider::class,
+    App\Radan\Providers\RouteServiceProvider::class,
+    App\Radan\Auth\AuthServiceProvider::class,
+    App\Radan\Config\ConfigServiceProvider::class,
+    App\Radan\Profile\ProfileServiceProvider::class,
     App\Radan\Policy\Providers\PasswordPolicyServiceProvider::class,    
   ],
   

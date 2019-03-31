@@ -5,7 +5,7 @@ namespace App\Radan\Config;
 use App\Radan\Config\Modifiers\Collection;
 use App\Radan\Config\Modifiers\Modifier;
 use App\Radan\Config\Storage\StorageInterface;
-use App\Radan\Contracts\Repository;
+use App\Radan\Fundation\Contracts\Repository;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 

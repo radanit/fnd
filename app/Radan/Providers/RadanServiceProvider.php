@@ -3,7 +3,6 @@
 namespace App\Radan\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Radan\Radan;
 
 class RadanServiceProvider extends ServiceProvider
 {

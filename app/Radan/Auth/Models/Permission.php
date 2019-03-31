@@ -3,7 +3,7 @@
 namespace App\Radan\Auth\Models;
 
 use Laratrust\Models\LaratrustPermission;
-use App\Radan\Traits\RadanRestrictedRelationTrait;
+use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
 class Permission extends LaratrustPermission
 {
