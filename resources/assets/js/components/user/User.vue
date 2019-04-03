@@ -134,7 +134,7 @@
             |
             */    
             infiniteHandler($state) {
-                axios.get("../api/profile/users", {
+                axios.get("../api/users", {
                     params: {
                     page: this.page,
                     },
@@ -194,7 +194,7 @@
             |
             */    
             loadUser(){
-                axios.get("../api/profile/users").then(({data})=>(this.list = data.data)).catch((error)=>{
+                axios.get("../api/users").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({                      
                       message:error.response.data.errors,
                       center: true,
@@ -282,7 +282,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/profile/users/'+record.id)
+                  axios.delete('../api/users/'+record.id)
                 .then(response => {
                     this.loadUser();
                      this.$message({

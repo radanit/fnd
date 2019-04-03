@@ -116,7 +116,7 @@
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/profile/profiles", {
+                axios.get("../api/profiles", {
                     params: {
                     page: this.page,
                     },
@@ -152,7 +152,7 @@
             |
             */
             loadProfileStructure(page){                
-                axios.get("../api/profile/profiles",{params:{page:page}}).then(({
+                axios.get("../api/profiles",{params:{page:page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     this.$message({
                       title: '',
@@ -215,7 +215,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/profile/profiles/'+record.id)
+                  axios.delete('../api/profiles/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({

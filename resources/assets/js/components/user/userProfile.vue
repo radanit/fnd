@@ -67,7 +67,7 @@ export default {
         this.form.profile_id=this.$route.params.profileId;
         if(!this.form.profile_id)
         this.form.profile_id = this.user.profile_id;
-        axios.get("../api/profile/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+        axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
             this.$message({                      
               message:error.response.data.errors,
               center: true,

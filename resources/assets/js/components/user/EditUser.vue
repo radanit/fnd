@@ -147,7 +147,7 @@ import userProfile from './userProfile';
       */
       LoadUser(){
           this.form.id=this.$route.params.userId;
-          axios.get("../api/profile/users/"+this.form.id).then(({data})=>{(this.form = data),(this.user=data.data)}).catch((error)=>{
+          axios.get("../api/users/"+this.form.id).then(({data})=>{(this.form = data),(this.user=data.data)}).catch((error)=>{
               this.$message({
                 title: '',
                 message: error.response.data.errors,
@@ -166,7 +166,7 @@ import userProfile from './userProfile';
       |
       */      
       loadProfiles(){
-        axios.get("../api/profile/profiles").then(({data})=>(this.profile_options = data.data)).catch((error)=>{
+        axios.get("../api/profiles").then(({data})=>(this.profile_options = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message: error.response.data.errors,
@@ -234,7 +234,7 @@ import userProfile from './userProfile';
       this.formData.append('active',this.form.active);
       this.formData.append('roles',JSON.stringify(roles_id));
       let arr = ['item1', 'item2', 'item3'];
-      axios.post('../api/profile/users/'+this.form.id+'?_method=put',this.formData).then(response => {      
+      axios.post('../api/users/'+this.form.id+'?_method=put',this.formData).then(response => {      
           this.$message({
             type: 'success',
             center: true,

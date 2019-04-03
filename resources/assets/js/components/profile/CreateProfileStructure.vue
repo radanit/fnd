@@ -107,7 +107,7 @@
                 description: this.form.description,
                 structure:this.form.structure
               }
-              axios.post('../api/profile/profiles',newProfile).then((response) =>{
+              axios.post('../api/profiles',newProfile).then((response) =>{
               Fire.$emit('AfterCrud');
               this.$message({
                 title:'',
@@ -149,7 +149,7 @@
             description: this.form.description,
             structure:this.form.structure
           }
-          axios.post('../api/profile/profiles',newProfile).then((response) =>{
+          axios.post('../api/profiles',newProfile).then((response) =>{
           this.$message({
             title:'',
             message:response.data.message,

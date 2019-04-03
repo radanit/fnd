@@ -3,7 +3,7 @@
             <el-col :span="5" class="profile-image">
                 <el-upload
                     class="avatar-uploader image"
-                    action="../api/profile/user/avatar/"
+                    action="../api/users/me/avatar/"
                     :headers="headerInfo"
                     :show-file-list="false"
                     name="avatar"
@@ -98,7 +98,7 @@ export default {
          * Load User Info
         */
         loadUserInfo(){					
-            axios.get("../api/profile/user").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+            axios.get("../api/users/me").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
                 this.$message({                      
                     message:error.response.data.errors,
                     center: true,
@@ -126,7 +126,7 @@ export default {
             if(isJPG & isLt2M)
             {
                 console.log(param);
-                axios.post('../api/profile/user/avatar', param, config).then((response) =>{
+                axios.post('../api/users/me/avatar', param, config).then((response) =>{
                 this.user.avatar = response.data.url;
                 this.$message({
                         type: 'success',

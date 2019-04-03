@@ -158,7 +158,7 @@ import userProfile from './userProfile';
     |
     */
     loadProfiles(){      
-      axios.get("../api/profile/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
+      axios.get("../api/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
@@ -169,7 +169,7 @@ import userProfile from './userProfile';
 
     },
     loadProfileSructure(){
-        axios.get("../api/profile/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+        axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
             this.$message({                      
               message:error.response.data.errors,
               center: true,
@@ -281,7 +281,7 @@ import userProfile from './userProfile';
         active: this.form.active,
         profile_data :JSON.stringify(jsonData)
       }
-      axios.post('../api/profile/users',this.formData).then((response) =>{
+      axios.post('../api/users',this.formData).then((response) =>{
       Fire.$emit('AfterCrud');
       this.$message({
             type: 'success',
@@ -350,7 +350,7 @@ import userProfile from './userProfile';
         active: this.form.active,
         profile_data :JSON.stringify(jsonData)
       }
-      axios.post('../api/profile/users',newUser).then((response) =>{
+      axios.post('../api/users',newUser).then((response) =>{
       Fire.$emit('AfterCrud');
       this.$message({
             type: 'success',
