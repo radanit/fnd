@@ -15,23 +15,48 @@ return [
     /*
     * Radan Foundation Service Providers...
     */
-    // Radan Auth package service providers
-    App\Radan\Auth\Providers\ServiceProvider::class,
-    App\Radan\Auth\Providers\RouteServiceProvider::class,
-
-    // Radan Configure package service providers
-    App\Radan\Config\Providers\ServiceProvider::class,
-    App\Radan\Config\Providers\RouteServiceProvider::class,
-
-    // Radan Profile package service providers        
-    App\Radan\Profile\Providers\RouteServiceProvider::class,
-    App\Radan\Profile\Providers\ProfileServiceProvider::class,
-
-    // Radan Password Policy package service providers
-    App\Radan\Policy\Providers\RouteServiceProvider::class,
+    App\Radan\Providers\RouteServiceProvider::class,
+    App\Radan\Auth\AuthServiceProvider::class,
+    App\Radan\Config\ConfigServiceProvider::class,
+    App\Radan\Profile\ProfileServiceProvider::class,
     App\Radan\Policy\Providers\PasswordPolicyServiceProvider::class,    
   ],
   
+  /*
+  |--------------------------------------------------------------------------
+  | Add middlewre to the application's global HTTP middleware stack.
+  |--------------------------------------------------------------------------
+  | These middleware are run during every request to your application.
+  |
+  */
+  'middleware' => [
+	//\App\Radan\Http\Middleware\Sample::class,
+  ],
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Add middlewre to the application's route middleware groups.
+  |--------------------------------------------------------------------------
+  | These middleware are run during group of request to your application.
+  |
+  */
+  'middlewareGroups' => [
+    'web' => [
+      App\Radan\Http\Middleware\RequestSetLocale::class,
+    ],
+  ],
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Add middlewre to the application's route middleware
+  |--------------------------------------------------------------------------
+  | These middleware may be assigned to groups or used individually.
+  |
+  */
+  'routeMiddleware' => [
+	// 'sample' => \App\Radan\Http\Middleware\Sample::class,
+  ],
+    
   /*
   |--------------------------------------------------------------------------
   | Number of records return
