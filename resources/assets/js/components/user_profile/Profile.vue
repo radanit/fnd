@@ -22,20 +22,8 @@
 				<!-- EN -->
 				<el-row v-if="trans('app.dir')==='ltr'" :gutter="20">
 						<el-col :span="4" class="text-left">
-              <el-upload
-                    v-if="item.item=='el-upload'"
-                    class="avatar-uploader"
-                    action="../api/profile/user/avatar"
-                    :headers="headerInfo"
-                    :show-file-list="false"
-                    name="avatar"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid el-icon-plus" alt="User profile picture">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    <div class="edit"><a href="#"><i class="fas fa-edit"></i></a></div>
-              </el-upload>
-					</el-col>
+							<img v-if="user.avatar" :src="user.avatar" class="profile-user-img img-fluid  el-icon-plus" alt="User profile picture">
+					</el-col>						
 					<el-col :span="10" class="text-left mt-4">
 							<el-row :gutter="20">
 								<el-col :span="24">{{trans('userProfile.fullname')}} : {{user.fullname}}</el-col>
@@ -47,7 +35,7 @@
 								<el-col :span="24">{{trans('userProfile.roles')}} : {{user.roles}}</el-col>
 							</el-row>																
 					</el-col>
-					<el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
+					<el-col :span="10"><div class="grid-content"></div></el-col>		
 				</el-row>
 			</el-col>
 		</el-row>
