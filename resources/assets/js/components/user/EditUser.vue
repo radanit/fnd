@@ -90,7 +90,7 @@
               >
             </el-switch>
             </el-form-item>
-            <user-profile :user='user'></user-profile>               
+            <user-profile :user='user.profile_data'></user-profile>               
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -147,7 +147,7 @@ import userProfile from './userProfile';
       */
       LoadUser(){
           this.form.id=this.$route.params.userId;
-          axios.get("../api/users/"+this.form.id).then(({data})=>{(this.form = data),(this.user=data.data)}).catch((error)=>{
+          axios.get("../api/users/"+this.form.id).then(({data})=>{(this.form = data.data),(this.user=data.data)}).catch((error)=>{
               this.$message({
                 title: '',
                 message: error.response.data.errors,

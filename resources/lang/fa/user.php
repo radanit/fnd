@@ -48,13 +48,16 @@ return [
     'roleDescriptionRequierdError' => 'شرح نقش کاربری اجباری است!',
     'password' => 'کلمه عبور',
     'confirm' => 'تایید کلمه عبور',
-    'passwordRequierdError' => 'فیلد پسورد اجباری است.',
+    'passwordRequierdError' => 'فیلد کلمه عبور اجباری است.',
     'profileRequierdError' => 'فیلد پروفایل اجباری است.',
     'confirmPassword' => 'تکرار کلمه عبور',
     'confirmPasswordRequierdError' => 'تکرار کلمه عبور اجباری است',
     'permissionNameRequierdError' => 'فیلد عنوان سطح دسترسی اجباری است',
     'permissionDescriptionRequierdError' => 'فیلد شرح سطح دسترسی اجباری است',
     'active' => 'فعال',
-    'inActive' => 'غیر فعال'
+    'inActive' => 'غیر فعال',
+    'currentPassword' => 'کلمه عبور فعلی',
+    'newPassword' =>'کلمه عبور  جدید',
+
 
 ];

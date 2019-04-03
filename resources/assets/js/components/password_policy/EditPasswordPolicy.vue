@@ -135,7 +135,7 @@
             */
             loadPasswordPolicy(){
                 this.form.id=this.$route.params.passPolicyId;
-                axios.get("../api/policies/password/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+                axios.get("../api/policy/password/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                     this.$message({
                       title: '',
                       message:error.response.data.errors,
@@ -174,7 +174,7 @@
               special_chars:this.form.special_chars,
               does_not_contain:this.form.does_not_contain
             }            
-            axios.put('../api/policies/password/'+this.form.id,passwordPolicyInfo).then(response => {
+            axios.put('../api/policy/password/'+this.form.id,passwordPolicyInfo).then(response => {
               this.$message({
                 type: 'success',
                 center: true,

@@ -119,7 +119,7 @@
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/policies/password", {
+                axios.get("../api/policy/password/", {
                     params: {
                     page: this.page,
                     },
@@ -155,7 +155,7 @@
             |
             */
             LoadPasswordPolicy(){
-                axios.get("../api/policies/password").then(({data})=>(this.list = data.data)).catch((error)=>{
+                axios.get("../api/policy/password/").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -205,7 +205,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/policies/password/'+record.id)
+                  axios.delete('../api/policy/password/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({

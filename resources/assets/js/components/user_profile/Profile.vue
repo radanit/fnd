@@ -55,7 +55,12 @@
 			<el-col :span="24">
 				<template>
 					<el-tabs v-model="activeName" type="border-card">
-						<el-tab-pane :label="trans('profile.activities')" name="first">User</el-tab-pane>
+						<el-tab-pane :label="trans('profile.activities')" name="first">
+
+						</el-tab-pane>
+						<el-tab-pane :label="trans('profile.changePass')" name="two">
+							<change-pass></change-pass>
+						</el-tab-pane>
 						<el-tab-pane :label="trans('profile.setting')" name="third">
 							 <el-form id="update_form"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
 								 	 <user-profile :user='user'></user-profile>  
@@ -119,6 +124,7 @@
 </style>
 <script>
 	import userProfile from '../user/userProfile';
+	import changePass from '../user_profile/changePass';
   export default {
 	data(){
 					return{
@@ -228,6 +234,10 @@
 			created() {
 				this.loadUserInfo();
 			},
-			components :{'userProfile':userProfile},
+			components :
+			{
+				'user-profile':userProfile,
+				'change-pass' :changePass
+			},
     }
 </script>

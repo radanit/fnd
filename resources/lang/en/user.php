@@ -55,5 +55,7 @@ return [
     'permissionNameRequierdError' => 'permission title is required!',
     'permissionDescriptionRequierdError' => 'permission description is required!',
     'active' => 'Active',
-    'inActive' => 'Inactive'
+    'inActive' => 'Inactive',
+    'currentPassword' => 'Current Password',
+    'newPassword' =>'New Password',
 ];
