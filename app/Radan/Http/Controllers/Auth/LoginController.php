@@ -10,7 +10,7 @@ use App\Radan\Auth\Models\User;
 use App\Http\Controllers\Controller;
 use App\Radan\Auth\Request\LoginRequest;
 use App\Radan\Fundation\Contracts\Repository;
-use Carbon\Carbon;
+use App\Radan\Auth\Events\UserLoggedIn;
 
 
 class LoginController extends Controller
@@ -64,12 +64,8 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // Check if user activity loged enabled
-        if ($this->config->get('radan.auth.userActivityLog',0)) {
-            $user->last_login = Carbon::now();
-            $user->last_login_ip = $request->getClientIp();
-            $user->save();
-        }
+        // Call user login event
+		event(new UserLoggedIn($user));		
     }
     
     /**

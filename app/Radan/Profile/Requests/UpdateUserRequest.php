@@ -7,13 +7,13 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Input;
 
 // Radan Libraries
-use App\Radan\Fundation\Traits\RadanRequestFilter;
+use App\Radan\Fundation\Traits\RadanRequestFilterTrait;
 use Profile;
 use PasswordPolicy;
 
 class UpdateUserRequest extends FormRequest
 {
-    use RadanRequestFilter;
+    use RadanRequestFilterTrait;
 
     /**
      * Provide filter request befor validation

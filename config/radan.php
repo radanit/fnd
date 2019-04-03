@@ -78,6 +78,8 @@ return [
   | Authrization.
   */
   'auth' => [
+  
+    'userActivityLog' => true,
     /*
     |--------------------------------------------------------------------------
     | Radan Auth Models

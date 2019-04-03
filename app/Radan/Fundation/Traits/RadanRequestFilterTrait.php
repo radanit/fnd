@@ -8,9 +8,9 @@ namespace App\Radan\Fundation\Traits;
  * @license MIT
  * @package Radan/Traits
  */
-use App\Radan\RequestFilter;
+use App\Radan\Fundation\Support\RequestFilter;
 
-trait RadanRequestFilter
+trait RadanRequestFilterTrait
 {   
     /**
      * Provide filter request befor validation

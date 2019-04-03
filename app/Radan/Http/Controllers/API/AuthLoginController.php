@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Carbon\Carbon;
 
 // Radan Libraries
 use App\Radan\Http\Controllers\APIController;
@@ -15,6 +14,7 @@ use App\Radan\Http\Controllers\APIController;
 use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Request\LoginRequest;
 use App\Radan\Fundation\Contracts\Repository;
+use App\Radan\Auth\Events\UserLoggedIn;
 
 class AuthLoginController extends APIController
 {
@@ -65,14 +65,10 @@ class AuthLoginController extends APIController
      * @param  mixed  $user
      * @return mixed
      */
-    protected function authenticated(Request $request,User $user)
+    protected function authenticated(Request $request, $user)
     {
-        // Check if user activity loged enabled
-        if ($this->config->get('radan.auth.userActivityLog',0)) {
-            $user->last_login = Carbon::now();
-            $user->last_login_ip = $request->getClientIp();
-            $user->save();
-        }
+        // Call user login event
+		event(new UserLoggedIn($user));		
     }
     
     /**
@@ -154,13 +150,15 @@ class AuthLoginController extends APIController
         }
         else
         {            
-            // Ckech if remember_me checked, Set token expire
-            if ($loginRequest->remember_me) {            
-                $user = User::Where('username',$loginRequest->username)->first();
+            $user = User::Where('username',$loginRequest->username)->first();						
+			// Ckech if remember_me checked, Set token expire
+            if ($loginRequest->remember_me) {                           
                 $token = $user->tokens()->first();
                 $token->expires_at = Carbon::now()->addWeeks(5);
                 $token->save();         
-            }                
+            }					
+			
+			// return response
             return $response;
         }
     }      
@@ -173,7 +171,7 @@ class AuthLoginController extends APIController
     public function revoke(Request $request)
     {        
         // Logout token base authenticate
-        $request->user()->token()->revoke();                
+        $request->user()->token()->revoke();
         
         return response()->json([
             'message' => 'Successfully logged out'
