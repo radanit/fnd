@@ -36,7 +36,8 @@ const routes = [
 	{ path: '/edit_user_permissions',name:'edit_user_permissions', component: require('../components/user/permission/EditUserPermission.vue').default },
 	/*End Permission Routes*/
 
-    { path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
+	{ path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
+	{ path: '/chats',name:'chats', component: require('../components/chat/chatMessage.vue').default },
 ];
 
 export default routes;
