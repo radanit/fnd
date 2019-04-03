@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+		'App\Radan\Auth\Events\UserLoggedIn' => [
+			'App\Radan\Auth\Listeners\SaveUserActivityLog',
+		],
     ];
 
     /**
