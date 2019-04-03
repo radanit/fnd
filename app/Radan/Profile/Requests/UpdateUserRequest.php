@@ -2,10 +2,12 @@
 
 namespace App\Radan\Profile\Requests;
 
+// Laravel Libraries
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Input;
 
-use App\Radan\Traits\RadanRequestFilter;
+// Radan Libraries
+use App\Radan\Fundation\Traits\RadanRequestFilter;
 use Profile;
 use PasswordPolicy;
 
