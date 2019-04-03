@@ -24,6 +24,41 @@ return [
   
   /*
   |--------------------------------------------------------------------------
+  | Add middlewre to the application's global HTTP middleware stack.
+  |--------------------------------------------------------------------------
+  | These middleware are run during every request to your application.
+  |
+  */
+  'middleware' => [
+	//\App\Radan\Http\Middleware\Sample::class,
+  ],
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Add middlewre to the application's route middleware groups.
+  |--------------------------------------------------------------------------
+  | These middleware are run during group of request to your application.
+  |
+  */
+  'middlewareGroups' => [
+    'web' => [
+      App\Radan\Http\Middleware\RequestSetLocale::class,
+    ],
+  ],
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Add middlewre to the application's route middleware
+  |--------------------------------------------------------------------------
+  | These middleware may be assigned to groups or used individually.
+  |
+  */
+  'routeMiddleware' => [
+	// 'sample' => \App\Radan\Http\Middleware\Sample::class,
+  ],
+    
+  /*
+  |--------------------------------------------------------------------------
   | Number of records return
   |--------------------------------------------------------------------------
   | This configuration use in apiResource controller@index method that return

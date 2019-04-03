@@ -13,36 +13,39 @@ use Illuminate\Http\Request;
 |
 */
 // Auth Module
-Route::post('auth/login', 'LoginController@authenticate',['as' => 'auth.login']);
+Route::post('auth/login', 'AuthLoginController@authenticate',['as' => 'auth.login']);
 Route::group(['middleware' => 'auth:api','prefix' => 'auth','as' => 'auth.'], function() {
-        Route::get('logout', 'LoginController@revoke')->name('logout');
-        Route::apiResource('roles', 'RoleController');
-        Route::apiResource('permissions', 'PermissionController');
+        Route::get('logout', 'AuthLoginController@revoke')->name('logout');
+        Route::apiResource('roles', 'AuthRoleController');
+        Route::apiResource('permissions', 'AuthPermissionController');
 });
 
 // User
-Route::group(['middleware' => 'auth:api','prefix' => 'users/me','as' => 'users.me.'], function() {
-    Route::put('password', 'ChangePasswordController@update')->name('password');
-    Route::apiResource('avatar', 'UserAvatarController')->except(['update','show','destroy']); 
-    Route::get('/', 'CurrentUserController@index')->name('profile');
+Route::group(['middleware' => 'auth:api','as' => 'users.me.'], function() {
+    Route::put('users/me/password', 'UserPasswordController@update')->name('password');
+    Route::apiResource('users/me/avatar', 'UserAvatarController')->except(['update','show','destroy']); 
+    Route::get('users/me', 'UserMeController@index')->name('profile');
 });
 
-Route::group(['middleware' => 'auth:api','prefix' => 'users','as' => 'users.'], function() {    
-    Route::apiResource('batch/active', 'BatchActiveUsersController')->except(['update','show','destroy']);
-    Route::apiResource('/', 'UserController');
+Route::group(['middleware' => 'auth:api','as' => 'users.batch.'], function() {    
+    Route::apiResource('users/batch/active', 'UserBatchActiveController')->except(['index','store','destroy']);    
 });
-/*        
+
+Route::group(['middleware' => 'auth:api'], function() {    
+    Route::apiResource('users', 'UserController');
+});
+       
 // Profile Module
-Route::name('profiles.')->group(['middleware' => 'auth:api','prefix' => 'profiles'], function() {    
-    Route::apiResource('/', 'ProfileController')->name('profile');
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::apiResource('profiles', 'ProfileController');
 });
 
 // Config Module
-Route::name('settings.')->group(['middleware' => 'auth:api','prefix' => 'settings'], function() {    
-    Route::apiResource('/', 'ConfigController')->name('setting');
+Route::group(['middleware' => 'auth:api'], function() {    
+    Route::apiResource('settings', 'ConfigController');
 });
 
 // Policy Module
-Route::name('policy.')->group(['middleware' => 'auth:api','prefix' => 'policy'], function() {
-    Route::apiResource('password', 'PasswordPolicyController')->name('password');
-});*/
+Route::group(['middleware' => 'auth:api','as' => 'policy.'], function() {
+    Route::apiResource('policy/password', 'PolicyPasswordController');
+});

@@ -27,7 +27,7 @@ class UserResource extends JsonResource
             'profile_name' => $this->type,
             'profile_description' => $this->type_description,
             // Cast to array in Profile\Models\ProfileUser
-            'data' => $this->profile->data,
+            'profile_data' => $this->profile->data,
             // Cast to array in Auth\Models\Role
             'roles' => $this->roles,
         ];

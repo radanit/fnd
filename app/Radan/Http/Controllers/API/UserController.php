@@ -16,7 +16,7 @@ use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Models\Role;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
-use App\Radan\Resources\UserResource;
+use App\Radan\Http\Resources\UserResource;
 use App\Radan\Profile\Requests\StoreUserRequest;
 use App\Radan\Profile\Requests\UpdateUserRequest;
 

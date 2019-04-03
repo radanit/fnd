@@ -26,6 +26,7 @@ class AuthUserResource extends JsonResource
             'active' => $this->active,
             'profile_id' => $this->type_id,
             'profile_name' => $this->type,
+			'profile_data' => $this->profile->data,
             'last_login' => $this->last_login,
             
             // Cast to array in Auth\Models\Role
