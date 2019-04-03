@@ -2,22 +2,17 @@
 
 namespace App\Radan\Http\Controllers\API;
 
-// Laravel classis
+// Laravel Libraries
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-// Base Application classes
+// Radan Libraries
 use App\Radan\Http\Controllers\APIController;
 
-// Radan modules classes
-use App\Radan\Resources\ProfileResource;
+use App\Radan\Http\Resources\ProfileResource;
 use App\Radan\Exceptions\ResourceProtected;
-use App\Radan\Exceptions\ResourceRestricted;
-
-// This Module classes
 use App\Radan\Profile\Models\Profile;
 
 class ProfileController extends APIController
