@@ -4,7 +4,7 @@ namespace App\Radan\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthUserResource extends JsonResource
+class UserMeResource extends JsonResource
 {
     /**
     * Transform the resource into an array.

@@ -67,7 +67,7 @@ class PolicyManager
     }
 
     /**
-     * Set the name of the default policy
+     * Get the name of the policy
      *
      * @param $name string
      *
