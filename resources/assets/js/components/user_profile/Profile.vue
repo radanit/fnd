@@ -132,9 +132,16 @@
 				/**
 				 * Load User Info
 				 */
-				loadUserInfo(){
-					this.user = this.$route.params.user;
-				},				
+        loadUserInfo(){					
+            axios.get("../api/users/me").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+                let msgErr = errorMessage(error.response.data.errors);
+                this.$message({                      
+                    message:msgErr,
+                    center: true,
+                    type: 'error'
+                });
+            });
+        },			
 				/*
 				|--------------------------------------------------------------------------
 				| handleAvatarSuccess

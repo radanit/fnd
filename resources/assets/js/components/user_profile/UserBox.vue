@@ -146,7 +146,7 @@ export default {
             }
         },
         editProfile(){
-             this.$router.push({ name: 'profiles', params: { user: this.user} });
+             this.$router.push({ name: 'profiles'});
         }
     },
     created() 

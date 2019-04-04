@@ -1,11 +1,12 @@
 <template>
     <div>
-        <el-form-item v-for="item in this.structure" :key="item.key"
+        <el-input ref="profile_id" v-model="this.user.profile_id" type="text"></el-input>
+        <el-form-item v-for="item in this.structure" :key="item.key"        
         :label="trans(item.label)"
                 :prop="item.name"
                 :rules="[
                 {message: trans(item.errorMsg)}
-                ]">
+                ]">            
             <el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" type="text"></el-input>
             <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
             <el-option
@@ -42,6 +43,7 @@ export default {
     data(){
         return{
             structure:{},
+            test:this.user,
             form: 
             {
                 id:'',             
@@ -55,6 +57,9 @@ export default {
             }
     },
     methods:{
+      loadUser:function(){
+          return this.user.profile_id;
+      },
       /*
       |--------------------------------------------------------------------------
       | Load Profile Structure
@@ -64,11 +69,8 @@ export default {
       | This method load Profile Structure for edit
       |
       */      
-      loadProfileSructure(){
-        this.form.profile_id=this.$route.params.profileId;
-        if(!this.form.profile_id)
-        this.form.profile_id = this.user.profile_id;
-        axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+      loadProfileSructure:function(){
+        axios.get("../api/profiles/"+this.loadUser()).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({                                    
               message:msgErr,
@@ -109,8 +111,8 @@ export default {
       },       
     },
     created() {
-      this.loadProfileSructure();
-            
+        this.loadUser();
+        this.loadProfileSructure();
     },
 }
 </script>
