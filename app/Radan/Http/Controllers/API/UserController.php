@@ -10,12 +10,10 @@ use Illuminate\Support\Facades\DB;
 // Radan Libraries
 use App\Radan\Http\Controllers\APIController;
 
-use PasswordPolicy;
 use Profile;
 use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Models\Role;
-use App\Radan\Exceptions\ResourceProtected;
-use App\Radan\Exceptions\ResourceRestricted;
+use App\Radan\Fundation\Exceptions\ResourceProtected;
 use App\Radan\Http\Resources\UserResource;
 use App\Radan\Profile\Requests\StoreUserRequest;
 use App\Radan\Profile\Requests\UpdateUserRequest;

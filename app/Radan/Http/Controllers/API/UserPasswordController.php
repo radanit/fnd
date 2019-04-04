@@ -2,14 +2,15 @@
 
 namespace App\Radan\Http\Controllers\API;
 
+// Laravel Libraries
 use Validator;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+// Radan Libraries
 use App\Radan\Http\Controllers\APIController;
 use App\Radan\Auth\Models\User;
-
 
 class UserPasswordController extends APIController
 {
@@ -22,9 +23,10 @@ class UserPasswordController extends APIController
      */
     public function update(Request $request)
     {
+       
         // Find Resource
-        $user = User::findOrFail(Auth::user()->id);
-        
+        $user = User::findOrFail(Auth::user()->id);        
+
         // Validation rules
         Validator::make($request->all(), [
             'password' => ['required',function ($attribute, $value, $fail) {
@@ -32,7 +34,7 @@ class UserPasswordController extends APIController
                     $fail(__('validation.exists'));
                 }
             }],
-            'new_password' => 'required|min:6|confirmed|different:password',
+            'new_password' => 'required|confirmed|different:password|'.$user->passwordPolicy(),
         ])->validate();
         
         // Update Resource

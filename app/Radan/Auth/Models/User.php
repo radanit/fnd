@@ -13,6 +13,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 use App\Radan\Profile\Traits\SetPasswordAccessorTrait;
 use App\Radan\Profile\Traits\ProfileUserTrait;
 use App\Radan\Profile\Traits\ProfileUserScopeTrait;
+use App\Radan\Policy\Password\Traits\PasswordPolicyUserTrait;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
     use SetPasswordAccessorTrait; 
     use ProfileUserTrait;
     use ProfileUserScopeTrait;
+    use PasswordPolicyUserTrait;
 
     /**
      * The attributes that are mass assignable.
