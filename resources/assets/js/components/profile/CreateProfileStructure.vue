@@ -56,6 +56,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../utilities';
     export default 
     {
     data(){
@@ -118,9 +119,10 @@
                   this.backToProfileList();
                 })
                 .catch((error) => {
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: error.response.data.message,
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
                       type: 'error'
                     });
@@ -159,9 +161,10 @@
             this.resetForm('form');
             })
             .catch((error) => {
+                let msgErr = errorMessage(error.response.data.errors);
                 this.$message({
                   title: error.response.data.message,
-                  message: error.response.data.errors,
+                  message: msgErr,
                   center: true,
                   type: 'error'
                 });

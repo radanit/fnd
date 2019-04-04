@@ -80,6 +80,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../../utilities';
     export default {
         data(){
             return{
@@ -152,9 +153,10 @@
             */
             loadUserPermissions(){
                 axios.get("../api/auth/permissions").then(({data})=>(this.list = data.data)).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
                       type: 'error'
                     });         
@@ -209,10 +211,11 @@
                         message:response.data.message
                       });
                 }).catch((error) => {
+                        let msgErr = errorMessage(error.response.data.errors);
                         this.$message({
                         type: 'error',
                         center: true,
-                        message:error.response.data.errors                        
+                        message:msgErr                        
                       }); 
                     }); 
                 }).catch(() => {

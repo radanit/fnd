@@ -78,6 +78,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../utilities';
     export default 
     {
         data()
@@ -153,10 +154,11 @@
             */
             loadProfileStructure(page){                
                 axios.get("../api/profiles",{params:{page:page}}).then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
                       type: 'error'
                     });               
@@ -225,11 +227,12 @@
                       });
                       this.loadPage();
                 }).catch((error) => {
-                     this.$message({
+                    let msgErr = errorMessage(error.response.data.errors); 
+                    this.$message({
                         title: error.response.data.message,
                         type: 'error',
                         center: true,
-                        message: error.response.data.errors,
+                        message: msgErr,
                       }); 
                     }); 
                 }).catch(() => {

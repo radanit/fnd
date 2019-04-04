@@ -111,6 +111,7 @@
 	}	
 </style>
 <script>
+	import {errorMessage} from '../../utilities';
 	import userProfile from '../user/userProfile';
 	import changePass from '../user_profile/changePass';
   export default {

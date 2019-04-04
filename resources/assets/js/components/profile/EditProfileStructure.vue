@@ -55,6 +55,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../utilities';
     export default {
         data()
         {
@@ -80,9 +81,10 @@
             loadProfileStructure(){
                 this.form.id=this.$route.params.profileId;
                 axios.get("../api/profiles/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message:error.response.data.errors,
+                      message:msgErr,
                       center: true,
                       type: 'error'
                     });                
@@ -116,11 +118,12 @@
                 message:response.data.message
               });                
                 }).catch((error) => {
+                  let msgErr = errorMessage(error.response.data.errors);
                   this.$message({
                     title: error.response.data.message,
                     type: 'error',
                     center: true,
-                    message:error.response.data.errors
+                    message:msgErr
                   });
               }); 
             },

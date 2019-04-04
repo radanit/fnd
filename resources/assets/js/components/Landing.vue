@@ -41,6 +41,7 @@
 </template>
 
 <script>
+  import {errorMessage} from '../utilities';
   export default {
     data() {
       return {

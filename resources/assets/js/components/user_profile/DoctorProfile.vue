@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import {errorMessage} from '../../utilities';
   export default 
   {
     props:['user'],

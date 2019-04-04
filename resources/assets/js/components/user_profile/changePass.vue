@@ -33,7 +33,8 @@
 
 </style>
 <script>
-export default {
+import {errorMessage} from '../../utilities';
+export default {    
     data(){
         return{
             form:{
@@ -65,12 +66,13 @@ export default {
                 center: true,
                 message:response.data.message
             });                          
-                }).catch((error) => {              
-                this.$message({
+                }).catch((error) => {
+                    let msgErr = errorMessage(error.response.data.errors);          
+                    this.$message({
                     title: error.response.data.message,
                     type: 'error',
                     center: true,
-                    message:error.response.data.errors
+                    message:msgErr
                 });
             }); 
         },

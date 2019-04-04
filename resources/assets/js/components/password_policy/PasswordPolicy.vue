@@ -80,6 +80,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../utilities';
     export default 
     {
         data()
@@ -156,9 +157,10 @@
             */
             LoadPasswordPolicy(){
                 axios.get("../api/policy/password/").then(({data})=>(this.list = data.data)).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
                       type: 'error'
                     });          
@@ -186,7 +188,6 @@
             |
             */      
             editPasswordPolicy(record){
-              console.log(record);
               this.$router.push({ name: 'edit_password_policies', params: { passPolicyId: record.id } });
             },
             /*
@@ -215,11 +216,12 @@
                       });
                       this.LoadPasswordPolicy();
                 }).catch((error) => {
+                     let msgErr = errorMessage(error.response.data.errors);
                      this.$message({
                         title: error.response.data.message,
                         type: 'error',
                         center: true,
-                        message: error.response.data.errors,
+                        message: msgErr,
                       }); 
                     }); 
                 }).catch(() => {

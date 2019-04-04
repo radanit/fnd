@@ -35,7 +35,7 @@
                     <el-table-column
 					  :label="trans('user.profileName')"
                       sortable
-					  prop="profile_name">
+					  prop="profile_description">
 					</el-table-column>
                     <el-table-column prop="roles[0].description" :label="trans('user.roles')" sortable>                        
                     </el-table-column>
@@ -98,6 +98,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../utilities';
     export default 
     {
         data(){
@@ -195,8 +196,9 @@
             */    
             loadUser(){
                 axios.get("../api/users").then(({data})=>(this.list = data.data)).catch((error)=>{
-                    this.$message({                      
-                      message:error.response.data.errors,
+                    let msgErr = errorMessage(error.response.data.errors);
+                    this.$message({                                           
+                      message:msgErr,
                       center: true,
                       type: 'error'
                     }); 
@@ -230,10 +232,11 @@
                     });
                     Fire.$emit('AfterCrud');                  
                     }).catch((error) => {
+                        let msgErr = errorMessage(error.response.data.errors);
                         this.$message({
                         type: 'error',
                         center: true,
-                        message:error.response.data.errors              
+                        message:msgErr              
                         });
                     }); 
                }
@@ -291,10 +294,11 @@
                         message:response.data.message
                       });                
                 }).catch((error) => {
+                     let msgErr = errorMessage(error.response.data.errors);
                      this.$message({
                         type: 'error',
                         center: true,
-                        message:error.response.data.errors                        
+                        message:msgErr                        
                       });
                     }); 
                 }).catch(() => {

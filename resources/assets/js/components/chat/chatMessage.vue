@@ -151,5 +151,6 @@
 }
 </style>
 <script>
+import {errorMessage} from '../../utilities';
 export default {};
 </script>
