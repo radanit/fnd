@@ -82,6 +82,7 @@
 }
 </style>
 <script>
+import {errorMessage} from '../../utilities';
 export default {
 	data(){
         return{          
@@ -99,8 +100,9 @@ export default {
         */
         loadUserInfo(){					
             axios.get("../api/users/me").then(({data})=>{(this.user =data.data),(this.profile_id =data.data.profile_id) }).catch((error)=>{
+                let msgErr = errorMessage(error.response.data.errors);
                 this.$message({                      
-                    message:error.response.data.errors,
+                    message:msgErr,
                     center: true,
                     type: 'error'
                 });
@@ -125,7 +127,6 @@ export default {
             }
             if(isJPG & isLt2M)
             {
-                console.log(param);
                 axios.post('../api/users/me/avatar', param, config).then((response) =>{
                 this.user.avatar = response.data.url;
                 this.$message({
@@ -135,8 +136,9 @@ export default {
                     });
                 })
                 .catch((error) => {
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
-                        message: error.response.data.errors,
+                        message: msgErr,
                         center: true,
                         type: 'error'
                     });

@@ -578,6 +578,7 @@
 </template>
 
 <script>
+    import {errorMessage} from '../utilities';
     export default {
         created() {
             console.log('Component mounted.')

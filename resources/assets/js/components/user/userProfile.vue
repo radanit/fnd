@@ -36,6 +36,7 @@
 
 </style>
 <script>
+import {errorMessage} from '../../utilities';
 export default {
     props:['user'],
     data(){
@@ -68,8 +69,9 @@ export default {
         if(!this.form.profile_id)
         this.form.profile_id = this.user.profile_id;
         axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
-            this.$message({                      
-              message:error.response.data.errors,
+            let msgErr = errorMessage(error.response.data.errors);
+            this.$message({                                    
+              message:msgErr,
               center: true,
               type: 'error'
             }); 

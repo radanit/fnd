@@ -105,7 +105,7 @@
   </div>
 </template>
 <script>
-import {msg} from '../../utilities';
+import {errorMessage} from '../../utilities';
 import userProfile from './userProfile';
   export default {
     data(){
@@ -167,9 +167,10 @@ import userProfile from './userProfile';
       */      
       loadProfiles(){
         axios.get("../api/profiles").then(({data})=>(this.profile_options = data.data)).catch((error)=>{
+              let msgErr = errorMessage(error.response.data.errors);
               this.$message({
                 title: '',
-                message: error.response.data.errors,
+                message: msgErr,
                 center: true,
                 type: 'error'
               });              
@@ -186,9 +187,10 @@ import userProfile from './userProfile';
       */          
       loadRoles(){
         axios.get("../api/auth/roles").then(({data})=>(this.role_options = data.data)).catch((error)=>{
+              let msgErr = errorMessage(error.response.data.errors);
               this.$message({
                 title: '',
-                message: error.response.data.errors,
+                message: msgErr,
                 center: true,
                 type: 'error'
               });                
@@ -233,7 +235,6 @@ import userProfile from './userProfile';
       this.formData = new FormData( document.getElementById("update_form") );
       this.formData.append('active',this.form.active);
       this.formData.append('roles',JSON.stringify(roles_id));
-      let arr = ['item1', 'item2', 'item3'];
       axios.post('../api/users/'+this.form.id+'?_method=put',this.formData).then(response => {      
           this.$message({
             type: 'success',
@@ -246,7 +247,7 @@ import userProfile from './userProfile';
             this.$message({
               type: 'error',
               dangerouslyUseHTMLString: true,
-              message:msgErr             
+              message:msgErr          
             });
         });        
       },
@@ -259,7 +260,7 @@ import userProfile from './userProfile';
       |
       */        
       handleAvatarSuccess(res, file) {
-        this.user.avatar = URL.createObjectURL(file.raw);
+        //this.user.avatar = URL.createObjectURL(file.raw);
       },
       /*
       |--------------------------------------------------------------------------

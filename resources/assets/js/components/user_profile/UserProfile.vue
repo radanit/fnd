@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import {errorMessage} from '../../utilities';
 export default 
 {
   props:['profile_id'],
@@ -55,8 +56,9 @@ export default
     },    
     loadProfileSructure(){     
         axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({                      
-              message:error.response.data.errors,
+              message:msgErr,
               center: true,
               type: 'error'
             }); 
@@ -73,16 +75,17 @@ export default
       */
       loadList(apiUrl){
           axios.get(apiUrl).then(({data})=>(this.lists = data.data)).catch((error)=>{
+              let msgErr = errorMessage(error.response.data.errors);
               this.$message({
                 title: '',
-                message: error.response.data.errors,
+                message: msgErr,
                 center: true,
                 type: 'error'
               });         
           });
       },     
       onValidated(isValid, errors) {
-        console.log("Validation result: ", isValid, ", Errors:", errors);
+        //console.log("Validation result: ", isValid, ", Errors:", errors);
       },
       submit(formName){
         this.$refs[formName].validate((valid) => {

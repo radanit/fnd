@@ -109,7 +109,7 @@
   </div>
 </template>
 <script>
-import {msg} from '../../utilities';
+import {errorMessage} from '../../utilities';
 import userProfile from './userProfile';
   export default {
     data(){
@@ -159,9 +159,10 @@ import userProfile from './userProfile';
     */
     loadProfiles(){      
       axios.get("../api/profiles").then(({data})=>(this.form.profile_options = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message: error.response.data.errors,
+              message: msgErr,
               center: true,
               type: 'error'
             });              
@@ -170,8 +171,9 @@ import userProfile from './userProfile';
     },
     loadProfileSructure(){
         axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({                      
-              message:error.response.data.errors,
+              message:msgErr,
               center: true,
               type: 'error'
             }); 
@@ -189,9 +191,10 @@ import userProfile from './userProfile';
     */        
     loadRoles(){
       axios.get("../api/auth/roles").then(({data})=>(this.form.role_options = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message:error.response.data.errors,
+              message:msgErr,
               center: true,
               type: 'error'
             });
@@ -291,8 +294,9 @@ import userProfile from './userProfile';
           this.backToUserList();
         })
         .catch((error) => {
+          let msgErr = errorMessage(error.response.data.errors);
           this.$message({
-            message: error.response.data.errors,
+            message: msgErr,
             center: true,
             type: 'error'
           });
@@ -314,9 +318,10 @@ import userProfile from './userProfile';
     */
     loadList(apiUrl){
         axios.get(apiUrl).then(({data})=>(this.lists = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message: error.response.data.errors,
+              message: msgErr,
               center: true,
               type: 'error'
             });         
@@ -360,8 +365,9 @@ import userProfile from './userProfile';
           this.resetForm('form');
         })
         .catch((error) => {
+          let msgErr = errorMessage(error.response.data.errors);
           this.$message({
-            message: error.response.data.errors,
+            message: msgErr,
             center: true,
             type: 'error'
           });

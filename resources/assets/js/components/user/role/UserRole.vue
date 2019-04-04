@@ -79,6 +79,7 @@
     </div>
 </template>
 <script>
+    import {errorMessage} from '../../../utilities';
     export default {
         data(){
             return{
@@ -155,9 +156,10 @@
             */
             LoadUserRole(){
                 axios.get("../api/auth/roles").then(({data})=>(this.list = data.data)).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
                       type: 'error'
                     });          
@@ -210,11 +212,12 @@
                       });
                 this.LoadUserRole();                  
                 }).catch((error) => {
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                         title: error.response.data.message,
                         type: 'error',
                         center: true,
-                        message:error.response.data.errors
+                        message:msgErr
                       });
                     }); 
                 }).catch(() => {
