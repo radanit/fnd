@@ -3,6 +3,7 @@
 namespace App\Radan\Http\Middleware;
 
 use Closure;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ForceChangePasswordAtFirstLogin
@@ -46,9 +47,9 @@ class ForceChangePasswordAtFirstLogin
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {        
+    {                
         if (Auth::guard($guard)->check() && $this->checkAllowRoutes($request))                
-        {                    
+        {
             if ($this->checkUserLastLogin(Auth::guard($guard)->user())) 
             {
                 return redirect()->route($this->passwordChangeRoute);
@@ -78,7 +79,10 @@ class ForceChangePasswordAtFirstLogin
      */
     protected function checkUserLastLogin($user)
     {
+       //dd(Carbon::parse($user->getAttribute($this->lastLoginAttribute))->diffInSeconds());        
         return  config($this->activityLogConfig,false) &&
-                is_null($user->getAttribute($this->lastLoginAttribute)); 
+                (
+                    is_null($user->getAttribute($this->lastLoginAttribute))                   
+                );
     }
 }
