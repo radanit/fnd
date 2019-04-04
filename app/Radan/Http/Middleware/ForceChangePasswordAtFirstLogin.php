@@ -7,13 +7,32 @@ use Illuminate\Support\Facades\Auth;
 
 class ForceChangePasswordAtFirstLogin
 {
-    
+    /**
+     * User last login database field name
+     * 
+     * @var string
+     */
     protected $lastLoginAttribute = 'last_login';
 
+    /**
+     * Password change route name
+     * 
+     * @var string
+     */
     protected $passwordChangeRoute = 'password.change.show';
 
+    /**
+     * Radan auth module config key for last login action status
+     * 
+     * @var string
+     */
     protected $activityLogConfig = 'radan.auth.userActivityLog';
 
+    /**
+     * List of allow routes when force user to change password
+     * 
+     * @var array
+     */
     protected $allowRoutes = [
         'logout',
     ];
@@ -39,12 +58,24 @@ class ForceChangePasswordAtFirstLogin
         return $next($request);
     }
 
+    /**
+     * Check http request and validate for redirect
+     * 
+     * @param Illuminate\Http\Request;
+     * @return boolean
+     */
     protected function checkAllowRoutes($request)
     {
         return !in_array($request->route()->getName(),$this->allowRoutes) &&
                 $request->route()->getName() != $this->passwordChangeRoute;
     }
 
+    /**
+     * Check user last login 
+     * 
+     * @param User;
+     * @return boolean
+     */
     protected function checkUserLastLogin($user)
     {
         return  config($this->activityLogConfig,false) &&
