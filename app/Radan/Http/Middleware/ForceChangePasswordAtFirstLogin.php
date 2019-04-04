@@ -13,6 +13,10 @@ class ForceChangePasswordAtFirstLogin
     protected $passwordChangeRoute = 'password.change.show';
 
     protected $activityLogConfig = 'radan.auth.userActivityLog';
+
+    protected $allowRoutes = [
+        'logout',
+    ];
     
     /**
      * Handle an incoming request.
@@ -24,16 +28,26 @@ class ForceChangePasswordAtFirstLogin
      */
     public function handle($request, Closure $next, $guard = null)
     {        
-        if ($user = Auth::guard($guard)->user()) {            
-                        
-            // Check if user not login and user activity log in true
-            if (is_null($user->getAttribute($this->lastLoginAttribute)) && 
-                $request->route()->getName() != $this->passwordChangeRoute &&
-                config($this->activityLogConfig,false)) {
-                    return redirect()->route($this->passwordChangeRoute);
+        if (Auth::guard($guard)->check() && $this->checkAllowRoutes($request))                
+        {                    
+            if ($this->checkUserLastLogin(Auth::guard($guard)->user())) 
+            {
+                return redirect()->route($this->passwordChangeRoute);
             }
         }
 
         return $next($request);
+    }
+
+    protected function checkAllowRoutes($request)
+    {
+        return !in_array($request->route()->getName(),$this->allowRoutes) &&
+                $request->route()->getName() != $this->passwordChangeRoute;
+    }
+
+    protected function checkUserLastLogin($user)
+    {
+        return  config($this->activityLogConfig,false) &&
+                is_null($user->getAttribute($this->lastLoginAttribute)); 
     }
 }
