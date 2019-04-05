@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
@@ -38,5 +39,4 @@ class RadioType extends Model
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
-
 }

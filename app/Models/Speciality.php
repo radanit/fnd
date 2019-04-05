@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Traits\RadanRestrictedRelationTrait;
+use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
 class Speciality extends Model
 {
@@ -27,16 +27,5 @@ class Speciality extends Model
      */
     protected $restricteds = [
         //'receptions',
-    ];
-
-    /**
-     * The method manage relation with Role Model
-     *
-     * @var array
-     */
-    function doctors()
-    {
-        return $this->belongsTo(Doctor::class, 'id', 'speciality_id');
-    }
-
+    ];    
 }
