@@ -4,20 +4,10 @@ namespace App\Bahar\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Traits\RadanRestrictedRelationTrait;
+use App\Radan\Auth\Models\User;
 
-class RadioType extends Model
-{
-    use RadanRestrictedRelationTrait;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'description','name','role_id'
-    ];
-
+class Doctor extends User
+{         
     /**
      * The attributes that are use for deleteing restricted
      * come with RadanًRestrictedRelationTrait.
@@ -27,16 +17,5 @@ class RadioType extends Model
      */
     protected $restricteds = [
         //'receptions',
-    ];
-
-    /**
-     * The method manage relation with Role Model
-     *
-     * @var array
-     */
-    function role()
-    {
-        return $this->hasOne(Role::class, 'id', 'role_id');
-    }
-
+    ];  
 }

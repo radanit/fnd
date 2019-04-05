@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Bahar\Controllers;
+namespace App\Http\Controllers\API;
 
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Http\Controllers\Controller;
+
+
+use App\Radan\Http\Controllers\APIController;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
-use App\Bahar\Models\Doctor;
-use App\Bahar\Resources\DoctorResource;
+use App\Models\RadioType;
+use App\Resources\RadioTypeResource;
 
-class DoctorController extends Controller
+class RadioTypeController extends APIController
 {
     /**
      * Display a listing of the resource.
@@ -23,16 +23,14 @@ class DoctorController extends Controller
      */
     public function index()
     {        
-        // Return JSON response
-        $count = Config::get('radan.pagination.count',15);    
+        // Get all resources
+        $radiotypeModel = RadioType::with('role');
+
+        // Determinde number of record to return
+        $pgCount = $this->getPaginationCount();
+        $radiotypes = ($pgCount) ? $radiotypeModel->paginate($pgCount) : $radiotypeModel->get();
         
-        if ($count) {            
-            $doctors = Doctor::with('speciality')->paginate($count);
-        }
-        else {
-            $doctors = Doctor::with('speciality')->get();
-        }
-        return DoctorResource::collection($doctors);
+        return RadioTypeResource::collection($radiotypes);		
     }
 
     /**
@@ -45,64 +43,63 @@ class DoctorController extends Controller
     {
         // Validation Request
         Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-			'last_name' => 'required|string|max:255',            
-            'specialities' => 'required|exists:specialities,id',
+            'name' => 'required|string|max:255|unique:radio_types',
+            'description' => 'string|max:255',
+            'roles' => 'exists:roles,id',
+
         ])->validate();
 
         // Create Resource
-        $doctor = Doctor::create([
-            'first_name' => $request->first_name,
-			'last_name' => $request->last_name,                
-            'speciality_id' => $request->specialities
+        $radioType = RadioType::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'role_id' => $request->roles
         ]);
-                
-        // Return JSON response
+            
+        // Return JSON response    
         return response()->json([
             'message' => __('app.insertAlert')],
             $this->httpCreated
-        );       
+        );    
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Integer    $id
+     * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         // Return JSON response
-        return new DoctorResource(Doctor::with('speciality')->findOrFail($id));
+        return new RadioTypeResource(RadioType::with('role')->findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Integer                   $id
+     * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
         // Validation Request   
-        Validator::make($request->only('first_name','last_name','specialities'), [
-            'first_name' => 'string|max:255',
-			'last_name' => 'string|max:255',
-            'specialities' => 'exists:specialities,id'
+        Validator::make($request->only('description','roles'), [
+            'description' => 'string|max:255',
+            'roles' => 'exists:roles,id'
         ])->validate();
         
-        // Find Resource and update, 
+        // Find Resource and update it
         // ModelNotFoundException throw if Resource not found
-        $Doctor = Doctor::findOrFail($id);
-        $Doctor->update([
-            'first_name' => $request->first_name,
-			'last_name' => $request->last_name,
-            'speciality_id' => $request->specialities
+        $radioType = RadioType::findOrFail($id);
+        $radioType->update([
+            'description' => $request->description,
+            'role_id' => $request->roles
         ]);
-          
-        // Return JSON response              
+            
+        // Return JSON response            
         return response()->json([
             'message' => __('app.updateAlert')],
             $this->httpOk
@@ -112,17 +109,17 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Integer $id
+     * @param  Integer  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        // Find Resource by id
+        // Find Resource
         // ModelNotFoundException throw if Resource not found
-        $doctor = Doctor::findOrFail($id);                
+        $radioType = RadioType::findOrFail($id);                
             
-        // Delete Resource
-        $doctor->delete();
+        // Delete Resource           
+        $radioType->delete();
             
         // Return JSON response
         return response()->json([

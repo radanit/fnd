@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Bahar\Controllers;
+namespace App\Http\Controllers\API;
 
 use Validator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Http\Controllers\Controller;
+
+
+use App\Radan\Http\Controllers\APIController;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
-use App\Bahar\Models\RadioType;
-use App\Bahar\Resources\RadioTypeResource;
+use App\Models\Speciality;
+use App\Resources\SpecialityResource;
 
-class RadioTypeController extends Controller
+class SpecialityController extends APIController
 {
     /**
      * Display a listing of the resource.
@@ -22,17 +22,12 @@ class RadioTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        // Return JSON response
-        $count = Config::get('radan.pagination.count',15);    
+    {
+        // Determinde number of record to return
+        $pgCount = $this->getPaginationCount();
+        $specialities = ($pgCount) ? Speciality::paginate($pgCount) : Speciality::all();
         
-        if ($count) {            
-            $radiotype = RadioType::with('role')->paginate($count);
-        }
-        else {
-            $radiotype = RadioType::with('role')->get();
-        }
-        return RadioTypeResource::collection($radiotype);
+        return SpecialityResource::collection($specialities);		
     }
 
     /**
@@ -45,36 +40,33 @@ class RadioTypeController extends Controller
     {
         // Validation Request
         Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:radio_types',
-            'description' => 'string|max:255',
-            'roles' => 'exists:roles,id',
-
+            'name' => 'required|string|max:255|unique:specialities',
+            'description' => 'string|max:255',            
         ])->validate();
-
-        // Create Resource
-        $radioType = RadioType::create([
+        
+        // Create Resource     
+        $speciality = Speciality::create([
             'name' => $request->name,
-            'description' => $request->description,
-            'role_id' => $request->roles
+            'description' => $request->description,               
         ]);
-            
-        // Return JSON response    
+                
+        // Return JSON response
         return response()->json([
             'message' => __('app.insertAlert')],
             $this->httpCreated
-        );    
+        );        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Integer  $id
+     * @param  Integer  $id ,Speciality id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         // Return JSON response
-        return new RadioTypeResource(RadioType::with('role')->findOrFail($id));
+        return new SpecialityResource(Speciality::findOrFail($id));
     }
 
     /**
@@ -85,27 +77,24 @@ class RadioTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-        // Validation Request   
-        Validator::make($request->only('description','roles'), [
-            'description' => 'string|max:255',
-            'roles' => 'exists:roles,id'
+    {        
+        // Validation Request  
+        Validator::make($request->only('description'), [
+            'description' => 'string|max:255',            
         ])->validate();
-        
-        // Find Resource and update it
+                
+        // Find Resource and update, 
         // ModelNotFoundException throw if Resource not found
-        $radioType = RadioType::findOrFail($id);
-        $radioType->update([
-            'description' => $request->description,
-            'role_id' => $request->roles
+        $speciality = Speciality::findOrFail($id);
+        $speciality->update([
+            'description' => $request->description,                
         ]);
-            
+        
         // Return JSON response            
         return response()->json([
             'message' => __('app.updateAlert')],
             $this->httpOk
-        );        
+        );
     }
 
     /**
@@ -116,12 +105,12 @@ class RadioTypeController extends Controller
      */
     public function destroy($id)
     {
-        // Find Resource
-        // ModelNotFoundException throw if Resource not found
-        $radioType = RadioType::findOrFail($id);                
+        // Find Resource by id
+        // ModelNotFoundException throw if Resource not found        
+        $speciality = Speciality::findOrFail($id);                
             
-        // Delete Resource           
-        $radioType->delete();
+        // Delete Resource            
+        $speciality->delete();
             
         // Return JSON response
         return response()->json([

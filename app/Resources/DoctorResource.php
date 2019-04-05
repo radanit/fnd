@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bahar\Resources;
+namespace App\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +21,7 @@ class DoctorResource extends JsonResource
             'last_name' => $this->last_name,
             'speciality_id' => $this->speciality_id,
             'speciality_description' => $this->whenLoaded('speciality',function() {
-				return $this->speciality->description;
+				return $this->speciality()->description;
 			}),
         ];
     }

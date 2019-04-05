@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Bahar\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Traits\RadanRestrictedRelationTrait;
 
-class Doctor extends Model
+class Speciality extends Model
 {
-    
-    
-    
     use RadanRestrictedRelationTrait;
 
     /**
@@ -18,12 +15,12 @@ class Doctor extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','speciality_id'
+        'description','name','role_id'
     ];
 
     /**
      * The attributes that are use for deleteing restricted
-     * come with RadanًRestrictedRelationTrait.
+     * come with RadanRestrictedRelationTrait.
      * On deleting this mode instance , check restricted array
      * to have relation with this model.
      * @var array
@@ -37,9 +34,9 @@ class Doctor extends Model
      *
      * @var array
      */
-    function speciality()
+    function doctors()
     {
-        return $this->hasOne(Speciality::class, 'id', 'speciality_id');
+        return $this->belongsTo(Doctor::class, 'id', 'speciality_id');
     }
 
 }
