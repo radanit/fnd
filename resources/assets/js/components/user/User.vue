@@ -267,7 +267,7 @@
             |
             */      
             editUser(record){
-              this.$router.push({ name: 'edit_users', params: { userId: record.id,profileId:record.profile_id } });
+              this.$router.push({ name: 'edit_users', params: { userId: record.id,profile_id:record.profile_id } });
             },
             /*
             |--------------------------------------------------------------------------

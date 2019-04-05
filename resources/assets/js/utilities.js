@@ -1,4 +1,5 @@
 export function errorMessage(msgStr){
+  alert(Object.keys(msgStr).length);
   if(Object.keys(msgStr).length>1){
     var errors ="<ul>"
     for(var k in msgStr) {

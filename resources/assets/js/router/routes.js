@@ -35,6 +35,29 @@ const routes = [
 	{ path: '/create_user_permissions',name:'create_user_permissions', component: require('../components/user/permission/CreateUserPermission.vue').default },
 	{ path: '/edit_user_permissions',name:'edit_user_permissions', component: require('../components/user/permission/EditUserPermission.vue').default },
 	/*End Permission Routes*/
+	/*Begin receptions Routes*/
+	{ path: '/receptions',name:'receptions', component: require('../components/reception/Reception.vue').default },
+	{ path: '/create_receptions',name:'create_receptions', component: require('../components/reception/CreateReception.vue').default },
+	{ path: '/edit_receptions',name:'edit_receptions', component: require('../components/reception/EditReception.vue').default },
+	/*End receptions Routes*/
+
+	/*Begin RadioType Routes*/
+	{ path: '/radio_types',name:'radio_types', component: require('../components/radio_type/RadioType.vue').default },
+	{ path: '/create_radio_types',name:'create_radio_types', component: require('../components/radio_type/CreateRadioType.vue').default },
+	{ path: '/edit_radio_types',name:'edit_radio_types', component: require('../components/radio_type/EditRadioType.vue').default },
+	/*End RadioType Routes*/
+
+	/*Begin Speciality Routes*/
+	{ path: '/specialities',name:'specialities', component: require('../components/speciality/Speciality.vue').default },
+	{ path: '/create_specialities',name:'create_specialities', component: require('../components/speciality/CreateSpeciality.vue').default },
+	{ path: '/edit_specialities',name:'edit_specialities', component: require('../components/speciality/EditSpeciality.vue').default },
+	/*End Speciality Routes*/
+	
+	/*Begin Doctor Routes*/
+	{ path: '/doctors',name:'doctors', component: require('../components/doctor/Doctor.vue').default },
+	{ path: '/create_doctors',name:'create_doctors', component: require('../components/doctor/CreateDoctor.vue').default },
+	{ path: '/edit_doctors',name:'edit_doctors', component: require('../components/doctor/EditDoctor.vue').default },
+	/*End Doctor Routes*/		
 
 	{ path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
 	{ path: '/chats',name:'chats', component: require('../components/chat/chatMessage.vue').default },

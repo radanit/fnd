@@ -15,7 +15,9 @@ return [
 'publicTable' => 'جداول عمومی',
 'speciality' => 'تخصص ها',
 'profile_structure' => 'مدیریت پروفایل ها',
-'reception_managment' =>'مدیریت پذیرش',
+'reception_management' =>'مدیریت پذیرش',
 'reception' => 'پذیرش',
-'password_policy' => 'سیاست های رمز عبور'
+'password_policy' => 'سیاست های رمز عبور',
+'doctor_management' => 'پزشکان',
+'radio_type_management' => 'انواع عکسبرداری',
 ];

@@ -71,7 +71,7 @@
             :label="trans('user.profile_lbl')"
             prop="profile_id">
               <el-select
-                @change="loadProfileSructure()"
+                @change="changeProfileStructure()"
                 v-model.number="form.profile_id"
                 filterable
                 default-first-option
@@ -92,7 +92,7 @@
               >
             </el-switch>
             </el-form-item>
-            <user-profile :user='form'></user-profile>                                         
+            <user-profile :bus='bus' :user='form'></user-profile>                                         
             <el-form-item>
               <el-button  size="mini" type="success" @click="createUser()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button  size="mini" type="primary" @click="createContinueUser()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>              
@@ -112,7 +112,7 @@
 import {errorMessage} from '../../utilities';
 import userProfile from './userProfile';
   export default {
-    data(){
+    data(){      
       return{
           structure:{},
           model: {},
@@ -134,6 +134,7 @@ import userProfile from './userProfile';
             'Accept': 'application/json'
           },
           formData:'',
+          bus: new Vue()
       }
   },
   methods :{
@@ -169,17 +170,18 @@ import userProfile from './userProfile';
         });
 
     },
-    loadProfileSructure(){
-        axios.get("../api/profiles/"+this.form.profile_id).then(({data})=>(this.structure =JSON.parse(data.data.structure))).catch((error)=>{
-            let msgErr = errorMessage(error.response.data.errors);
-            this.$message({                      
-              message:msgErr,
-              center: true,
-              type: 'error'
-            }); 
-        });
-         console.log(this.structure);
-      },
+    /*
+    |--------------------------------------------------------------------------
+    | Load changeProfileStructure Method
+    | Added By e.bagherzadegan
+    |--------------------------------------------------------------------------
+    |
+    | This method change Profile Structure 
+    |
+    */    
+    changeProfileStructure(){
+        this.bus.$emit('loadProfileSructure')
+    },
     /*
     |--------------------------------------------------------------------------
     | Load Roles Method

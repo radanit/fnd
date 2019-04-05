@@ -70,6 +70,7 @@
               :label="trans('user.profile_lbl')"
               prop="profile_id">
               <el-select
+                @change="changeProfileStructure()"
                 v-model="form.profile_id"
                 filterable
                 default-first-option
@@ -90,7 +91,7 @@
               >
             </el-switch>
             </el-form-item>
-            <user-profile :user='user.profile_data'></user-profile>               
+            <user-profile :user='user.profile_data' :bus='bus'></user-profile>               
             <el-form-item>
               <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
               <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -110,22 +111,23 @@ import userProfile from './userProfile';
   export default {
     data(){
       return{
-          structure:{},
-          model: {},
-          lists:{},
-          fileList:[],
-          form: 
-          {
-            id:'',
-            username: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            roles:[],                  
-            profile_id:'',
-            data:'',
-            active:''            
-          },
+        structure:{},
+        model: {},
+        lists:{},
+        fileList:[],
+        form: 
+        {
+          id:'',
+          username: '',
+          email: '',
+          password: '',
+          password_confirmation: '',
+          roles:[],                  
+          profile_id:'',
+          data:'',
+          active:''            
+        },
+        bus: new Vue(),
         user:{},
         headerInfo: {
             'Accept': 'application/json'
@@ -280,7 +282,19 @@ import userProfile from './userProfile';
               this.$message.error('Avatar picture size can not exceed 2MB!');
           }
           return (isJPG & isLt2M);
-      }, 
+      },
+      /*
+      |--------------------------------------------------------------------------
+      | Load changeProfileStructure Method
+      | Added By e.bagherzadegan
+      |--------------------------------------------------------------------------
+      |
+      | This method change Profile Structure 
+      |
+      */    
+      changeProfileStructure(){
+          this.bus.$emit('loadProfileSructure')
+      },      
       /*
       |--------------------------------------------------------------------------
       | Submit Form Method

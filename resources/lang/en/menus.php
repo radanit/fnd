@@ -18,5 +18,8 @@ return [
     'profile_structure' => 'Profiles Management',
     'reception_managment' =>'Reception Managment',
     'reception' => 'Reception',
-    'password_policy' => 'Password Policies'
+    'password_policy' => 'Password Policies',
+    'reception_management' =>'Reception Management',
+    'doctor_management' => 'Doctor Management',
+    'radio_type_management' => 'RadioType Management',
 ];

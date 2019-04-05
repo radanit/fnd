@@ -4,7 +4,6 @@
            style="opacity: .8">
       <span class="brand-text font-weight-light">{{ __('app.app_name') }}</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -73,9 +72,10 @@
             </ul>
           </li>
           @endrole
-          <li class="nav-item has-treeview">
+             <!-- Begin Basic Info menu --->
+             <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-info green"></i>
+              <i class="nav-icon fas fa-info lighGray"></i>
               <p>
               {{ __('menus.basic_information') }}
                 @if(App::isLocale('fa'))
@@ -87,23 +87,64 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/#" class="nav-link">
-                  <i class="nav-icon fas fa-table lighGray"></i>
+                <router-link to="/specialities" class="nav-link">
+                  <i class="nav-icon fas fa-table cyan"></i>
                   <p>
-                  {{ __('menus.item') }}
+                  {{ __('menus.speciality') }}
                   </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/doctors" class="nav-link">
+                  <i class=" nav-icon fas fa-user-md teal"></i>
+                  <p>
+                  {{ __('menus.doctor_management') }}
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/radio_types" class="nav-link">
+                  <i class="nav-icon fas fa-images pink"></i>
+                  <p>
+                  {{ __('menus.radio_type_management') }}
+                  </p>
+                </router-link>
+              </li>                              
+            </ul>
+          </li>
+          <!-- End Basic Info menu --->
+
+          <!-- Begin Radiology menu --->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-receipt green"></i>
+              <p>
+              {{ __('menus.reception_management') }}
+                @if(App::isLocale('fa'))
+                <i class="right fa fa-angle-right"></i>
+                @elseif(App::isLocale('en'))
+                <i class="right fa fa-angle-left"></i>
+                @endif
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/receptions" class="nav-link">
+                  <i class="fas fa-id-badge nav-icon indigo"></i>
+                  <p>{{ __('menus.reception') }}</p>
                 </router-link>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- End Radiology menu --->
+          <!--<li class="nav-item">
             <router-link to="/profiles" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
               <p>
               {{ __('menus.profile') }}
               </p>
             </router-link>
-          </li>
+          </li>-->
           <li class="nav-item">       
             <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
