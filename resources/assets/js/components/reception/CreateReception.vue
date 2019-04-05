@@ -222,7 +222,7 @@
         |
         */    
         loadRadioTypeList(){
-          axios.get("../api/radio_types").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
+          axios.get("../api/radiotypes").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,

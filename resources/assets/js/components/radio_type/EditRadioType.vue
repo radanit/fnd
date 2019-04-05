@@ -31,7 +31,7 @@
               :label="trans('radioType.roles_lbl')"
               prop="roles">
               <el-select
-                v-model="form.role_id"
+                v-model.number="form.role_id"
                 filterable
                 default-first-option
                 :placeholder="trans('radioType.role_choose_lbl')">
@@ -83,7 +83,7 @@
         */
         loadUserRadioType(){
           this.form.id=this.$route.params.radioTypeId;
-          axios.get("../api/bahar/radiotypes/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
+          axios.get("../api/radiotypes/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
               this.$message({
                 title: '',
                 message:error.response.data.errors,
@@ -120,7 +120,7 @@
             description:this.form.description,          
             roles:this.form.role_id
           }
-          axios.put('../api/bahar/radiotypes/'+this.form.id,radioTypeInfo).then(response => {
+          axios.put('../api/radiotypes/'+this.form.id,radioTypeInfo).then(response => {
           this.$message({
             type: 'success',
             center: true,

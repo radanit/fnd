@@ -4,31 +4,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Language Lines
+    | Speciality Component Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
+    | messages that we need to display to the speciality. You are free to modify
     | these language lines according to your application's requirements.
     |
     */
-    'id' =>'شناسه',
-    'code' => 'کد تخصص',
-    'description' => 'شرح تخصص',
+    'specialityId' =>'شناسه',
+	'name' => 'عنوان لاتین',
+	'description' => 'عنوان فارسی',
     'action' => 'عملیات',
-    'cardTitle' => 'لیست تخصص ها',
-    'updateAlert' =>'اطلاعات جدول با موفقیت بروزرسانی گردید',
-    'insertAlert' => 'اطلاعات جدول با موفقیت به ثبت رسید',
-    'updateAlert' => 'اطلاعات جدول با موفقیت بروزرسانی گردید',
-    'deleteAlert' => 'اطلاعات جدول با موفقیت حذف گردید',
-    'warningAlert' => 'آیا از انجام عملیات اطمینان دارید؟',
-    'failedAlert' => '!در هنگام انجام عملیات خطایی رخ داده است',
-    'lblAddModal' => 'درج اطلاعات تخصص',
-    'lblUpdateModal' => 'بروزرسانی اطلاعات جدول',
-    'fa' => 'true',
-    'publicTable' => 'جداول عمومی',
-	'searchPlaceholder' => 'جستجو ...',
-    'showList' => 'مشاهده مقادیر',
-	'codeRequierdError' => ' کد تخصص اجباری است!',
-	'desRequierdError' => ' شرح تخصص اجباری است!',
+    'specialityCardTitle' => 'لیست انواع تخصص ها',
+    'lblAddCardTitle' => 'درج اطلاعات نوع تخصص',
+    'lblUpdateCardTitle' => 'بروزرسانی اطلاعات نوع تخصص',
+    'specialityNameRequierdError' => 'عنوان لاتین تخصص اجباری است!',
+    'specialityDescriptionRequierdError' => 'عنوان فارسی تخصص اجباری است!',
+    'status' => 'وضعیت',
+    'speciality_lbl' => 'نوع تخصص',
 ];

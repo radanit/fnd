@@ -113,7 +113,7 @@
             |
             */     
             infiniteHandler($state) {
-                axios.get("../api/bahar/radiotypes", {
+                axios.get("../api/radiotypes", {
                     params: {
                     page: this.page,
                     },
@@ -149,7 +149,7 @@
             |
             */
             loadRadioTypes(){
-                axios.get("../api/bahar/radiotypes").then(({data})=>(this.list = data.data)).catch((error)=>{
+                axios.get("../api/radiotypes").then(({data})=>(this.list = data.data)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
@@ -198,7 +198,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/bahar/radiotypes/'+record.id)
+                  axios.delete('../api/radiotypes/'+record.id)
                 .then(response => {
                    this.loadRadioTypes();
                         this.$message({

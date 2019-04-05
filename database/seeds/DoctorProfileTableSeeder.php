@@ -65,7 +65,7 @@ class DoctorProfileTableSeeder extends Seeder
 			]												
 		));	
 		
-		Role::create([            
+		Role::create([          
                 'name' => 'doctor',
                 'display_name' => 'پزشک', 
                 'description'=> 'پزشک',                
