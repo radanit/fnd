@@ -12,3 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['middleware' => 'auth:api,role:admin,radio-admin'], function() {    
+    Route::apiResource('radiotypes', 'API\RadioTypeController');
+	Route::apiResource('specialities', 'API\SpecialityController');
+});

@@ -27,14 +27,16 @@ class DatabaseSeeder extends Seeder
 		$this->call('PasswordPolicyTableSeeder');
 		$this->command->info('Radan Password Policy table seeded!');
 
-    $this->call('PermissionTableSeeder');
-    $this->command->info('Permission table seeded!');
+		$this->call('PermissionTableSeeder');
+		$this->command->info('Permission table seeded!');
 
-    $this->call('RoleTableSeeder');
-    $this->command->info('Role table seeded!');
-    
-    $this->call('UserTableSeeder');
-    $this->command->info('User table seeded!');
+		$this->call('RoleTableSeeder');
+		$this->command->info('Role table seeded!');
 		
+		$this->call('UserTableSeeder');
+		$this->command->info('User table seeded!');
+	
+		$this->call('DoctorProfileTableSeeder');
+		$this->command->info('Doctor profile table seeded!');
 	}
 }
