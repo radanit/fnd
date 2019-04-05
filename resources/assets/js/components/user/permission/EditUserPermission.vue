@@ -72,6 +72,7 @@
                 title: '',
                 message:msgErr,
                 center: true,
+                dangerouslyUseHTMLString: true,
                 type: 'error'
               });
               this.$router.push({name: 'edit_user_permissions'});                 
@@ -112,6 +113,7 @@
               this.$message({
                 title: error.response.data.message,
                 type: 'error',
+                dangerouslyUseHTMLString: true,
                 center: true,
                 message:msgErr
               });

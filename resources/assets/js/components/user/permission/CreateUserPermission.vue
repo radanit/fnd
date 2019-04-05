@@ -106,7 +106,8 @@
                       title: error.response.data.message,
                       message:msgErr,
                       center: true,
-                      type: 'error'
+                      type: 'error',
+                      dangerouslyUseHTMLString: true
                     });
                 });
               }
@@ -149,6 +150,7 @@
                       title: error.response.data.message,
                       message:msgErr,
                       center: true,
+                      dangerouslyUseHTMLString: true,
                       type: 'error'
                     });
                 });
