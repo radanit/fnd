@@ -100,7 +100,8 @@
                   {
                     let newRadioType ={
                     name: this.form.name,
-                    description: this.form.description
+                    description: this.form.description,
+                    roles: this.form.roles
                   }
                   axios.post('../api/radiotypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');
