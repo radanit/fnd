@@ -72,6 +72,7 @@ export default {
                     title: error.response.data.message,
                     type: 'error',
                     center: true,
+                    dangerouslyUseHTMLString: true,
                     message:msgErr
                 });
             }); 

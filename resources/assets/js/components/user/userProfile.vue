@@ -74,7 +74,8 @@ export default {
             this.$message({                                    
               message:msgErr,
               center: true,
-              type: 'error'
+              type: 'error',
+              dangerouslyUseHTMLString: true
             }); 
         });
       },
@@ -104,7 +105,8 @@ export default {
                 title: '',
                 message: error.response.data.errors,
                 center: true,
-                type: 'error'
+                type: 'error',
+                dangerouslyUseHTMLString: true,
               });         
           });
       },  
