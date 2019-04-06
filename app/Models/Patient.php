@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bahar\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Traits\RadanRestrictedRelationTrait;
@@ -9,6 +9,27 @@ use App\Radan\Auth\Models\User;
 class Patient extends User
 {         
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+    
+    /**
+     * The profile type name used in global scop
+     *
+     * @var string
+     */
+    protected const PROFILE_TYPE='patient';
+    
+    /**
+     * The user role name used in global scop
+     *
+     * @var string
+     */
+	protected const ROLE_NAME='patient';
+		
+	/**
      * The attributes that are use for deleteing restricted
      * come with RadanًRestrictedRelationTrait.
      * On deleting this mode instance , check restricted array
@@ -16,61 +37,53 @@ class Patient extends User
      * @var array
      */
     protected $restricteds = [
-        //'receptions',
-    ];
-
-    use PasswordPolicyProfileTrait;
-    use RadanGetTableNameTrait;
-
+        'receptions',
+    ];		
+        
     /**
-     * The attributes that are mass assignable.
+     * The "booting" method of the model.
      *
-     * @var array
-     */
-
-    protected $fillable = [
-        'name', 'description', 'structure',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [    
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'structure' => 'array',
-    ];
-
-    /**
-     * Creates a new instance of the model.
-     *
-     * @param  array  $attributes
      * @return void
      */
-    public function __construct(array $attributes = [])
+    public static function boot()
     {
-        parent::__construct($attributes);
-        $this->table = Config::get('profile.tables.profile');
+        parent::boot();
+
+        static::addGlobalScope(function ($query) {
+            $query->ofType(self::PROFILE_TYPE);
+        });
     }
 
     /**
-     * The method for relationships
-     *
-     * @var void
+     * Override create method
+     * 
+     * @return Model
      */
-    public function users()
+    public static function create(array $attributes = [])
     {
-        return $this->hasMany(
-            Config::get('profile.models.profile_user'),
-            Config::get('profile.foreign_keys.profile')
-        );
-    }     
+        // Validate profile data
+        Profile::set(self::PROFILE_TYPE)->validate($attributes);
+
+        // Create Parent
+        $model = static::query()->create($attributes);
+        
+        // Create Profile data
+        Profile::create($model,$attributes);
+        
+        // Attache role
+        $role = Role::where('name',self::ROLE_NAME);
+        $model->attachRoles($role);
+
+        return $model;
+    }    		  	    
+
+    /**
+     * Relation with receptions
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function receptions()
+    {
+        return $this->hasMany(Reception::class);
+    }
 }

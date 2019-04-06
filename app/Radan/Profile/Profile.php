@@ -73,11 +73,16 @@ class Profile
         $this->isDataBag = $isDataBag;
         return $this;
     }
-		
-		public function getProfile()
-		{
-			return $this->profile;
-		}
+        
+    /**
+     * Return this profile instance
+     * 
+     * @return ProfileModel
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
 
     /**
      * Set profile disk for store file base profile data
@@ -199,16 +204,16 @@ class Profile
     public function create($user,$data)
     {
         // Get profile fields and filed types
-        $fieldTypes = with(new ProfileStructure($this->profile))->type;       
+        $fieldTypes = with(new ProfileStructure($this->profile))->type;        
 
-        foreach ($data as $key => $value)
+        foreach ($fieldTypes as $field => $type)
         {        
-            if ($fieldTypes[$key] == 'file' and $data[$key]) {
+            if ($type == 'file' and isset($data[$field])) {
                 // Upload file
-                $filePath = $this->disk->putFile('',$data[$key]);                
+                $filePath = $this->disk->putFile('',$data[$field]);                
                 
                 // Save changes                                   
-                $data[$key] = $this->disk->url($filePath);                
+                $data[$field] = $this->disk->url($filePath);                
             }
         }
          
@@ -235,22 +240,22 @@ class Profile
         $oldProfileData = is_null($user->profile) ? []:$user->profile->data;
         $oldFilePath = [];
 
-        foreach ($data as $key => $value)
+        foreach ($fieldTypes as $field => $type)
         {        
-            if ($fieldTypes[$key] == 'file') {
-                if ($data[$key]) {
+            if ($type == 'file') {
+                if (isset($data[$field])) {
                     // Upload file
-                    $filePath = $this->disk->putFile('',$data[$key]);
+                    $filePath = $this->disk->putFile('',$data[$field]);
                     
                     // save for Delete old user files
-                    $oldFilePath[] = key_exists($key,$oldProfileData) ? $oldProfileData[$key]:'';
+                    $oldFilePath[] = key_exists($field,$oldProfileData) ? $oldProfileData[$field]:'';
                     
                     // Save changes                                   
-                    $oldProfileData[$key] = $this->disk->url($filePath);
+                    $oldProfileData[$field] = $this->disk->url($filePath);
                 }
             }
             else {
-                $oldProfileData[$key] = $value;
+                $oldProfileData[$field] = $data[$field];
             }
         }
         

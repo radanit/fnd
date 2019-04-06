@@ -14,7 +14,7 @@ class DoctorProfileTableSeeder extends Seeder
      */
 	public function run()
 	{		
-		//
+		// doctor profile
 		Profile::create(array(
 			'name' => 'doctor',
 			'description' => 'پزشک',
@@ -54,8 +54,9 @@ class DoctorProfileTableSeeder extends Seeder
 				[
 					"id" => "4",
 					"name" => "speciality",
-					"item" => "el-list",
-					"type" => "list",
+					"item" => "el-select",
+					"apiUrl" => "../api/specialities",
+					"type" => "select",
 					"required" => "true",
 					"label" => "profile.speciality",
 					"errorMsg" => "profile.specialityError",
@@ -64,6 +65,7 @@ class DoctorProfileTableSeeder extends Seeder
 			]												
 		));	
 
+		// patient profile
 		Profile::create(array(
 			'name' => 'patient',
 			'description' => 'بیمار',

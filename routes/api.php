@@ -15,5 +15,6 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth:api,role:admin,radio-admin'], function() {    
     Route::apiResource('radiotypes', 'API\RadioTypeController');
-	Route::apiResource('specialities', 'API\SpecialityController');
+    Route::apiResource('specialities', 'API\SpecialityController');
+    Route::apiResource('doctors', 'API\DoctorController');
 });

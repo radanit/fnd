@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Bahar\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Traits\RadanRestrictedRelationTrait;
@@ -18,11 +18,18 @@ class Doctor extends User
     protected $table = 'users';
     
     /**
-     * The profile type name use in global scop
+     * The profile type name used in global scop
      *
      * @var string
      */
-	protected const PROFILE_TYPE='doctor';		
+    protected const PROFILE_TYPE='doctor';
+    
+    /**
+     * The user role name used in global scop
+     *
+     * @var string
+     */
+	protected const ROLE_NAME='doctor';
 		
 	/**
      * The attributes that are use for deleteing restricted
@@ -59,13 +66,15 @@ class Doctor extends User
         // Validate profile data
         Profile::set(self::PROFILE_TYPE)->validate($attributes);
 
-        // Create user
-        $user = User::create($attributes);
-        Profile::create($user,$attributes);
+        // Create Parent
+        $model = static::query()->create($attributes);
         
-        //$model = static::query()->create($attributes);
-
-        // ...
+        // Create Profile data
+        Profile::create($model,$attributes);
+        
+        // Attache role
+        $role = Role::where('name',self::ROLE_NAME);
+        $model->attachRoles($role);
 
         return $model;
     }
@@ -75,10 +84,9 @@ class Doctor extends User
      * 
      * @return string
      */
-    public function getSpecialityAttribute()
+    public function getSpecialityDescAttribute()
     {
-        return Speciality::find($this->specility_id)->description;
-    }
-				  		
-    
+        if ($speciality = Speciality::find($this->speciality))
+            return $speciality->description;
+    }				  	    
 }

@@ -19,10 +19,8 @@ class DoctorResource extends JsonResource
             'id' => $this->id,
             'first_name' => $this->first_name,        
             'last_name' => $this->last_name,
-            'speciality_id' => $this->speciality_id,
-            'speciality_description' => $this->whenLoaded('speciality',function() {
-				return $this->speciality()->description;
-			}),
+            'speciality_id' => $this->speciality,
+            'speciality_description' => $this->speciality_desc,
         ];
     }
 }

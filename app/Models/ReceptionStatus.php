@@ -4,11 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
+use App\Radan\Fundation\Traits\RadanUserStampTrait;
 
-class Reception extends Model
-{         
-    
+class ReceptionStatus extends Model
+{             
     use RadanRestrictedRelationTrait;
+    
+    use RadanUserStampTrait;
+    public function userstamp() {
+		return [
+            'create' => 'created_by',  
+		];
+	}
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'reception_status';
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +31,7 @@ class Reception extends Model
      */
 
     protected $fillable = [
-        'patient_id', 'radio_type_id', 'reception_status_id','votes',
+        'reception_id', 'status', 'created_by',
     ];
 
     /**
@@ -33,23 +47,8 @@ class Reception extends Model
      * 
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function patient()
+    public function reception()
     {
-        return $this->belongsTo(Patient::class);
-    }
-
-    public function radioType()
-    {
-        return $this->belongsTo(RadioType::class);
-    }
-
-    public function status()
-    {
-        return $this->hasMany(ReceptionStatus::class);
-    }
-
-    public function lastStatus()
-    {
-        return $this->status->last();
+        return $this->belongsTo(Reception::class);
     }
 }

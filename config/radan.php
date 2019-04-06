@@ -42,7 +42,7 @@ return [
   */
   'middlewareGroups' => [
     'web' => [
-      App\Radan\Http\Middleware\ForceChangePasswordAtFirstLogin::class,
+      //App\Radan\Http\Middleware\ForceChangePasswordAtFirstLogin::class,
       App\Radan\Http\Middleware\RequestSetLocale::class,
     ],
   ],

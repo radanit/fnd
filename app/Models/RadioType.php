@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
@@ -35,8 +34,13 @@ class RadioType extends Model
      *
      * @var array
      */
-    function role()
+    public function role()
     {
         return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    public function receptions()
+    {
+        return $this->hasMany(Reception::class);
     }
 }
