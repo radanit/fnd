@@ -59,7 +59,7 @@ class DoctorProfileTableSeeder extends Seeder
 					"required" => "true",
 					"label" => "profile.speciality",
 					"errorMsg" => "profile.specialityError",
-					"rules" => "required|string|exists:specialities",					
+					"rules" => "required|string|exists:specialities,id",					
 				],
 			]												
 		));	
@@ -99,7 +99,39 @@ class DoctorProfileTableSeeder extends Seeder
 					"errorMsg" => "profile.avatarError",
 					"rules" => "bail|nullable|image|mimes:jpeg,jpg,png,gif|max:2048",
 					
-				],				
+				],
+				[
+					"id" => "4",
+					"name" => "mobile",
+					"item" => "el-input",
+					"type" => "string",
+					"required" => "false",
+					"label" => "profile.mobile",
+					"errorMsg" => "profile.mobileError",
+					"rules" => "numeric|regex:/(0)[0-9]{10}/",
+					
+				],
+				[
+					"id" => "5",
+					"name" => "gender",
+					"item" => "el-input",
+					"type" => "string",
+					"required" => "true",
+					"label" => "profile.gender",
+					"errorMsg" => "profile.genderError",
+					"rules" => "required|boolean",
+					
+				],
+				[
+					"id" => "6",
+					"name" => "birth_year",
+					"item" => "el-input",
+					"type" => "string",
+					"required" => "true",
+					"label" => "profile.birthYear",
+					"errorMsg" => "profile.birthYearError",
+					"rules" => "required|digits:4",					
+				],
 			]												
 		));	
 		
