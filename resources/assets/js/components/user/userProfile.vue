@@ -7,14 +7,20 @@
                 {message: trans(item.errorMsg)}
                 ]">
             <el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" type="text"></el-input>
-            <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
+            <!--<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
             <el-option
                 v-for="option in lists"
                 :key="option.id"
                 :label="option.description"
                 :value="option.id">
             </el-option>
-            </el-select>              
+            </el-select>-->
+            <el-select  @focus="loadList(item.apiUrl)" v-if="item.item=='el-select'" v-model="selected" :name="item.name" >            
+            <el-option v-for="option in lists"
+                :key="option.id"
+                :value="option.id"
+                v-bind:label="selected">{{option.description}}</el-option>
+            </el-select>                
             <el-upload
             v-if="item.item=='el-upload'"
             class="avatar-uploader"
@@ -41,6 +47,7 @@ export default {
     data(){
         return{
             structure:{},
+            selected:'',
             form: 
             {
                 id:'',             
