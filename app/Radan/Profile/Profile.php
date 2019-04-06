@@ -73,6 +73,11 @@ class Profile
         $this->isDataBag = $isDataBag;
         return $this;
     }
+		
+		public function getProfile()
+		{
+			return $this->profile;
+		}
 
     /**
      * Set profile disk for store file base profile data
@@ -175,8 +180,8 @@ class Profile
      */
     public function validate($data,$fields=null)
     {        
-        // get field rules
-        $rules = with(new ProfileStructure($this->profile))->rules($fields);        
+        // get field rules				
+        $rules = with(new ProfileStructure($this->profile))->rules($fields);
         
         // run validation
         Validator::make($data ,$rules)->validate();

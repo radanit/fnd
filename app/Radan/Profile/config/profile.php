@@ -71,7 +71,7 @@ return [
   |
   */
   'foreign_keys' => [
-      'users' => 'user_id',
+      'user' => 'user_id',
       'profile' => 'profile_id',
   ],
 

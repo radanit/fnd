@@ -74,7 +74,7 @@ class ProfileStructure
      */
     public function getFields($key='name',$attribute=null,$fields=null)
     {      
-        // Filter structure by fields list
+        // Filter structure by fields list						
 		if (isset($fields)) {
 			$fields = (array) $fields;
 			$structure = $this->structure->filter(function ($item) use ($key,$fields) {
@@ -93,7 +93,7 @@ class ProfileStructure
         {            
             $arrResult[$item->get($key)] = $item->get($attribute);
         }	
-
+				
         if (is_null($attribute)) return array_keys($arrResult);
             else return $arrResult;
     }   
@@ -139,10 +139,11 @@ class ProfileStructure
      * @return array
      */
     public function __call($method,$args)
-    {        
+    {        			
 		if (!method_exists($this,$method))
-        {
-            $args = count($args) ? $args: null;
+        {            																		
+						$args = count($args) ? $args[0]: null;
+											
 			return $this->getFields('name',$method,$args);
         }
     }
