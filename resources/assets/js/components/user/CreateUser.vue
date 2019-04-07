@@ -300,7 +300,8 @@ import userProfile from './userProfile';
           this.$message({
             message: msgErr,
             center: true,
-            type: 'error'
+            type: 'error',
+            dangerouslyUseHTMLString: true
           });
         });     
       }

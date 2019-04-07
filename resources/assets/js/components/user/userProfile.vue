@@ -6,7 +6,7 @@
                 :rules="[
                 {message: trans(item.errorMsg),required:false}
                 ]">
-            <el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" type="text"></el-input>
+            <el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" :type="item.type"></el-input>
             <!--<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
             <el-option
                 v-for="option in lists"
@@ -34,7 +34,12 @@
             :auto-upload="false">               
             <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
                 <img v-if="user.avatar" :src="user.avatar" class="img-fluid img-circle" alt="User profile picture">               
-            </el-upload>                            
+            </el-upload>
+            <el-radio-group v-if="item.item=='el-radio-group'" v-model="user[item.name]">
+                <el-radio-button :name="item.name"  :label="item.value1">{{trans(item.label1)}}</el-radio-button>
+                <el-radio-button :name="item.name" :label="item.value2">{{trans(item.label2)}}</el-radio-button>
+            </el-radio-group>
+            <date-picker v-if="item.item=='date-year-picker'" v-model="user[item.name]" type="year" :auto-submit="true" :editable="true" max="1398" :name="item.name"></date-picker>                          
         </el-form-item>
     </div>
 </template>

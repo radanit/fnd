@@ -83716,7 +83716,7 @@ body,
 .user-panel:lang(fa) .image {
   /*changed by e.bagherzadegan
   padding-left: $nav-link-padding-x - .2;*/
-  padding-right: 0.8rem;
+  padding-right: 0.6rem;
   display: inline-block;
 }
 
@@ -85270,6 +85270,7 @@ body,
   position: relative;
   /* added by e.bagherzadegan*/
   direction: rtl;
+  text-align: justify;
 }
 
 .nav-sidebar:lang(fa):hover {

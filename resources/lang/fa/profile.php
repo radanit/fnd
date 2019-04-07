@@ -27,6 +27,11 @@ return [
     'specialityError' => 'تخصص اجباری است!', 
     'national_code' => 'کد ملی',
     'national_codeError' => 'کد ملی اجباری است!',
-    'changePass' => 'تغییر  پسورد'
+    'changePass' => 'تغییر  پسورد',
+    'male' =>'مرد',
+    'female' => 'زن',
+    'birthYear' => 'سال تولد',
+    'gender' => 'جنسیت',
+    'mobile' => 'تلفن همراه'
 
 ];
