@@ -4,7 +4,7 @@
         :label="trans(item.label)"
                 :prop="item.name"
                 :rules="[
-                {message: trans(item.errorMsg)}
+                {message: trans(item.errorMsg),required:false}
                 ]">
             <el-input v-if="item.item=='el-input' " v-model="user[item.name]" :name="item.name" type="text"></el-input>
             <!--<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
@@ -15,12 +15,12 @@
                 :value="option.id">
             </el-option>
             </el-select>-->
-            <el-select  @focus="loadList(item.apiUrl)" v-if="item.item=='el-select'" v-model="selected" :name="item.name" >            
-            <el-option v-for="option in lists"
+            <select class="custom-select"  @focus="loadList(item.apiUrl)" v-if="item.item=='el-select'" v-model="user[item.name]" :name="item.name" >            
+            <option v-for="option in lists"
                 :key="option.id"
                 :value="option.id"
-                v-bind:label="selected">{{option.description}}</el-option>
-            </el-select>                
+                :label="option.description">{{option.description}}</option>
+            </select>                
             <el-upload
             v-if="item.item=='el-upload'"
             class="avatar-uploader"
@@ -39,6 +39,11 @@
     </div>
 </template>
 <style>
+.custom-select{
+    border-color:#c0c4cc;
+    height:40px;
+    width:30% !important;
+}
 </style>
 <script>
 import {errorMessage} from '../../utilities';
@@ -83,7 +88,7 @@ export default {
               center: true,
               type: 'error',
               dangerouslyUseHTMLString: true
-            }); 
+            });
         });
       },
       /*
@@ -138,10 +143,11 @@ export default {
       },       
     },
     created() {
-      this.loadProfileSructure();            
+      this.loadProfileSructure();
+      this.loadList("../api/specialities");            
     },
     mounted(){
-        this.bus.$on('loadProfileSructure', this.loadProfileSructure)
+        this.bus.$on('loadProfileSructure', this.loadProfileSructure);
     }
 }
 </script>
