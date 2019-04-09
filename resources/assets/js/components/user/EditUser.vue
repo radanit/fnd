@@ -262,7 +262,7 @@ import userProfile from './userProfile';
       |
       */        
       handleAvatarSuccess(res, file) {
-        //this.user.avatar = URL.createObjectURL(file.raw);
+        this.user.avatar = URL.createObjectURL(file.raw);
       },
       /*
       |--------------------------------------------------------------------------
