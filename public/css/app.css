@@ -88503,3 +88503,25 @@ a.text-muted:hover {
   margin: -1rem auto -1rem -1rem;
 }
 
+/* Custom CSS */
+
+@media screen and (min-width: 992px) {
+  #mobile-only {
+    display: none !important;
+  }
+
+  #desktop-only {
+    display: block !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  #mobile-only {
+    display: block !important;
+  }
+
+  #desktop-only {
+    display: none !important;
+  }
+}
+

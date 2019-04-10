@@ -62,7 +62,8 @@
             </div>
         </div>
         <div class="col-md-8">
-			<div id="carouselControls" class="carousel slide" data-ride="carousel">
+			<!--div id="carouselControls desktop-only" class="carousel slide " data-ride="carousel"-->
+			<div id="desktop-only" class="carousel slide " data-ride="carousel">
 				<ol class="carousel-indicators">
 					<li data-target="#carouselControls" data-slide-to="0" class="active"></li>
 					<li data-target="#carouselControls" data-slide-to="1"></li>
