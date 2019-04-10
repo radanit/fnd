@@ -14,7 +14,7 @@
                 :label="option.description"
                 :value="option.id">
             </el-option>
-            </el-select>-->
+            </el-select> -->
             <select class="custom-select"  @focus="loadList(item.apiUrl)" v-if="item.item=='el-select'" v-model="user[item.name]" :name="item.name" >            
             <option v-for="option in lists"
                 :key="option.id"
