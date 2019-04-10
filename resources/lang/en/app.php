@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'app_name' => 'Radan Suite',
+    'app_name' => 'Bahar Radiology',
     'designDate' => '2018',
     'footerMsg'  =>' Desiged & Developed With ',
     'companyName' =>' By RadanIT Co ',

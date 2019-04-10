@@ -94,14 +94,14 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <!--<li class="nav-item">
                 <router-link to="/doctors" class="nav-link">
                   <i class=" nav-icon fas fa-user-md teal"></i>
                   <p>
                   {{ __('menus.doctor_management') }}
                   </p>
                 </router-link>
-              </li>
+              </li>-->
               <li class="nav-item">
                 <router-link to="/radio_types" class="nav-link">
                   <i class="nav-icon fas fa-images pink"></i>

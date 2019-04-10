@@ -27,6 +27,7 @@ return [
     'specialityError' => 'تخصص اجباری است!', 
     'national_code' => 'کد ملی',
     'national_codeError' => 'کد ملی اجباری است!',
-    'changePass' => 'تغییر  پسورد'
+    'changePass' => 'تغییر  پسورد',
+    'gender' => 'جنسیت'
 
 ];
