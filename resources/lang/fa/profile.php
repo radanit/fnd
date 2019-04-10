@@ -28,6 +28,14 @@ return [
     'national_code' => 'کد ملی',
     'national_codeError' => 'کد ملی اجباری است!',
     'changePass' => 'تغییر  پسورد',
+<<<<<<< HEAD
     'gender' => 'جنسیت'
+=======
+    'male' =>'مرد',
+    'female' => 'زن',
+    'birthYear' => 'سال تولد',
+    'gender' => 'جنسیت',
+    'mobile' => 'تلفن همراه'
+>>>>>>> 68d5a1ef79d4ec91744672eeda9335988ab97f8c
 
 ];

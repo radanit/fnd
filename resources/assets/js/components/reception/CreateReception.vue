@@ -67,7 +67,7 @@
                       { required: true, message: trans('reception.birth_year_required_error')}
                     ]"
                     >
-                    <date-picker v-model="form.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
+                    <date-picker v-model="form.birth_year" type="year" :auto-submit="true" :editable="true" max="1398"></date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
