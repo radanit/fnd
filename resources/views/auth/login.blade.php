@@ -131,7 +131,7 @@
 		  </div>
 		</div>
 		<!-- Footer Links -->
-		<div class="container text-justify text-md-right mt-3">
+		<div id="desktop-only" class="container text-justify text-md-right mt-3">
 		  <!-- Grid row -->
 		  <div class="row mt-3 dark-grey-text">
 			<!-- Grid column
