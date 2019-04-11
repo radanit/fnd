@@ -29,7 +29,7 @@
                       { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                     ]"
                     >
-                    <el-input :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.natinalid" autocomplete="off"></el-input>
+                    <el-input :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.natinalid" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -42,7 +42,7 @@
                       { required: true, message: trans('reception.last_name_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="last_name" ref="last_name" type="text" v-model="form.last_name" autocomplete="off"></el-input>
+                    <el-input  label="right" name="last_name" ref="last_name" type="text" v-model="form.patient.last_name" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -53,7 +53,7 @@
                       { required: true, message: trans('reception.first_name_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="first_name" ref="first_name" type="text"  v-model="form.first_name" autocomplete="off"></el-input>
+                    <el-input  label="right" name="first_name" ref="first_name" type="text"  v-model="form.patient.first_name" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -66,7 +66,7 @@
                       { required: true, message: trans('reception.birth_year_required_error')}
                     ]"
                     >
-                    <date-picker v-model="form.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
+                    <date-picker v-model="form.patient.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -77,7 +77,7 @@
                       { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.mobile_number" autocomplete="off"></el-input>
+                    <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile_number" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -95,7 +95,7 @@
                         default-first-option
                         :placeholder="trans('reception.doctor_choose')">
                         <el-option
-                          v-for="p_item in form.doctor_lists"
+                          v-for="p_item in doctor_lists"
                           :key="p_item.id"
                           :label="p_item.description"
                           :value="p_item.id">
@@ -111,7 +111,7 @@
                       { required: true, message: trans('reception.gender_required_error')}
                     ]"
                     >
-                    <el-radio-group v-model="form.gender">
+                    <el-radio-group v-model="form.patient.gender">
                       <el-radio-button :label="0">{{trans('reception.man')}}</el-radio-button>
                       <el-radio-button :label="1">{{trans('reception.women')}}</el-radio-button>
                     </el-radio-group>
@@ -132,10 +132,10 @@
                         default-first-option
                         :placeholder="trans('reception.radio_type_choose')">
                         <el-option
-                          v-for="p_item in form.radio_type_lists"
-                          :key="p_item.id"
-                          :label="p_item.description"
-                          :value="p_item.id">
+                          v-for="item in radio_type_lists"
+                          :key="item.id"
+                          :label="item.description"
+                          :value="item.id">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -162,9 +162,11 @@
     export default {
         data(){
             return{
-                updateAlert : trans('profileStructure.updateAlert'),                
-                failedAlert : trans('app.failedAlert'),
-                form:{},
+                form:{
+                  radio_type_id:''
+                },
+                doctor_lists:[],
+                radio_type_lists:[]
             }
         },
         methods :{
@@ -178,7 +180,7 @@
         */
         loadReception(){
             this.form.id=this.$route.params.receptionId;
-            axios.get("../api/receptions/"+this.form.id).then(({data})=>(this.form = data.data.patient)).catch(()=>{
+            axios.get("../api/receptions/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
                 let msgErr = errorMessage(error.response.data.errors);
                 this.$message({
                   title: '',
@@ -209,7 +211,7 @@
         |
         */    
         loadDoctorList(){
-          axios.get("../api/doctors").then(({data})=>(this.form.doctorl_lists = data.data)).catch((error)=>{
+          axios.get("../api/doctors").then(({data})=>(this.doctor_lists = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
@@ -228,7 +230,7 @@
         |
         */    
         loadRadioTypeList(){
-          axios.get("../api/radiotypes").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
+          axios.get("../api/radiotypes").then(({data})=>(this.radio_type_lists = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
@@ -278,7 +280,7 @@
         },
     },        
     created() {
-      this.loadReception();
+        this.loadReception();
         this.loadDoctorList();
         this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {
@@ -286,7 +288,7 @@
         });
     },
     mounted(){
-      this.$refs.national_id.focus();
+      //this.$refs.national_id.focus();
     }
 }
 </script>
