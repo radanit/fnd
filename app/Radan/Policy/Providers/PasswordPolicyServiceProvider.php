@@ -4,16 +4,14 @@ namespace App\Radan\Policy\Providers;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Config\Repository as Config;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Exception;
 
 use App\Radan\Policy\Password\Policy;
 use App\Radan\Policy\Password\PolicyManager;
 use App\Radan\Policy\Password\PolicyBuilder;
 use App\Radan\Policy\Password\PasswordPolicyFacade;
 use App\Radan\Policy\Password\PasswordValidator;
-//use Validator;
 
 /**
  * Class PasswordPolicyServiceProvider
@@ -41,7 +39,7 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Config $config,Request $request)
+    public function boot(Request $request)
     {
         $this->extendValidator();
         $this->definePolicies();
@@ -111,23 +109,24 @@ class PasswordPolicyServiceProvider extends ServiceProvider
      * @return void
      */
     protected function definePolicies()
-    {        
+    {
         // First try read password policy rules from database
-        // get password policy elequent model name form config
-        $policyDataModel = $this->app['config']->get('password_policy.models.password_policy');
+        try {
+            // get password policy elequent model name form config
+            $policyDataModel = $this->app['config']->get('password_policy.models.password_policy');
+            $policies = $policyDataModel::all()->toArray();                                
+        } catch (Exception $e) {
+            // can not get data from database, then read from config local file
+            if ($policyData = $this->app['config']->get('password_policy.local_policies')) {
+                $policies = $policyData;
+            }
+        }
         
-        // Check policy elequent model is exists
-        if (class_exists($policyDataModel)) {
-            $policies = $policyDataModel::all()->toArray();            
-        }
-        elseif ($policyData = $this->app['config']->get('password_policy.local_policies')) {
-            $policies = $policyData;
-        }
-           
+        // Define password policies
         foreach ($policies as $rules)  {
             $builder = new PolicyBuilder();
             $policy = $builder->createPolicy($rules);           
             $this->app['policy.manager']->define($rules['name'],$policy);
-        }        
+        }
     }    
 }
