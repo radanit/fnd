@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Profile\Requests;
+namespace App\Radan\Requests;
 
 // Laravel Libraries
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,7 +11,7 @@ use App\Radan\Fundation\Traits\RadanRequestFilterTrait;
 use Profile;
 use PasswordPolicy;
 
-class UpdateUserRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     use RadanRequestFilterTrait;
 
@@ -21,11 +21,9 @@ class UpdateUserRequest extends FormRequest
      * @var array
      */
     protected $beforFilter = [
-        'username' => 'remove',
-        'password' => 'unsetIfNull',
-        'active' => 'boolean',
         'profile_data' => 'array',
-        'roles' => 'array',        
+        'roles' => 'array',
+        'active' => 'boolean',
     ];
 
     /**
@@ -35,7 +33,7 @@ class UpdateUserRequest extends FormRequest
      */
     protected $afterFilter = [        
     ];
-    
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -43,6 +41,12 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
+        if ($this->request->get('roles')) {
+            if (in_array('admin',array_values($this->request->get('roles')) ))
+            {
+                return (auth()->user()->hasRole('admin')) ? true: false;
+            }
+        }
         return true;
     }
 
@@ -50,17 +54,18 @@ class UpdateUserRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array
-     */    
+     */
     public function rules()
     {
         return [
-            'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
-            'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
-            'active' => 'boolean',
-            'profile_id' => 'exists:'.Profile::getTable().',id',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'string|email|max:255|unique:users',
+            'password' => 'required|confirmed|'.PasswordPolicy::getValidation('default'),
+            'active' => 'required|boolean',
+            'profile_id' => 'required|exists:'.Profile::getTable().',id',
             'profile_data' => 'array',
             'roles' => 'array',
             'roles.*' => 'exists:roles,id',
-        ];        
-    }
+        ];
+    }    
 }
