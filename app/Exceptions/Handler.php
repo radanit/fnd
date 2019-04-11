@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\PostTooLargeException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Radan\Fundation\Exceptions\ResourceProtected;
 use App\Radan\Fundation\Exceptions\ResourceRestricted;
 
@@ -93,12 +94,28 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'message' => 'Post too large',
                 'errors' => __('app.postTooLarg')], 404);
-        }        
+        } 
         
-        /*return response()->json([
-                'message' => $exception->getMessage(),
-                'errors' => __('app.failedAlert')], 500);
-        */
+        /**
+         * Check if post file is too large size, and request is api, 
+         *   then return json response
+         */
+        if ($exception instanceof HttpException && $request->wantsJson()) {
+            switch ($exception->getStatusCode())            
+            {
+                case 403:
+                case 401:
+                    return response()->json([
+                        'message' => 'Http exception',
+                        'errors' => __('app.accessAlert')], $exception->getStatusCode());
+                    break;
+                default:
+                    return response()->json([
+                        'message' => 'Http exception',
+                        'errors' => __('app.accessAlert')], $exception->getStatusCode());
+            }          
+        } 
+                            
         return parent::render($request, $exception);
     }
 }

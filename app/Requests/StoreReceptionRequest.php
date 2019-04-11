@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Profile\Requests;
+namespace App\Requests;
 
 // Laravel Libraries
 use Illuminate\Foundation\Http\FormRequest;
@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Input;
 // Radan Libraries
 use App\Radan\Fundation\Traits\RadanRequestFilterTrait;
 use Profile;
-use PasswordPolicy;
 
 class StoreReceptionRequest extends FormRequest
 {
@@ -49,10 +48,9 @@ class StoreReceptionRequest extends FormRequest
     public function rules()
     {
         return [            
-            'national_id' => 'required|string|max:255|unique:users,username',
-            'reception_date' => 'required|exists:'.Profile::getTable().',id',
-            'doctor_id' => 'required|string|max:255|unique:users,username',
-            'radio_type_id' => 'required|exists:radio_types',
+            'national_id' => 'required|string|digits:10|unique:users,username',
+            'reception_date' => 'date',            
+            'radio_type_id' => 'required|exists:radio_types,id',
         ];
     }    
 }

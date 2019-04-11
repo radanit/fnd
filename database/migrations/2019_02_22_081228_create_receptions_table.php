@@ -16,8 +16,8 @@ class CreateReceptionsTable extends Migration
         Schema::create('receptions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('patient_id')->comment('FK: users');
-            $table->unsignedInteger('radio_type_id')->comment('FK: radio_types');
-            $table->unsignedInteger('reception_status_id')->comment('FK: last reception_status');
+            $table->unsignedInteger('radio_type_id')->comment('FK: radio_types');           
+            $table->datetime('reception_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->tinyInteger('votes')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -41,5 +41,7 @@ class CreateReceptionsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('receptions');
+        Schema::dropIfExists('reception_status');
+        
     }
 }

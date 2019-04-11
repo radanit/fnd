@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Radan\Traits\RadanRestrictedRelationTrait;
 use App\Radan\Auth\Models\User;
+use Profile;
 
 class Patient extends User
 {         
@@ -20,7 +21,7 @@ class Patient extends User
      *
      * @var string
      */
-    protected const PROFILE_TYPE='patient';
+    public const PROFILE_TYPE='patient';
     
     /**
      * The user role name used in global scop
@@ -65,9 +66,11 @@ class Patient extends User
         Profile::set(self::PROFILE_TYPE)->validate($attributes);
 
         // Create Parent
+        $attributes['username'] = $attributes['national_id'];
+        $attributes['password'] = str_random(6);
         $model = static::query()->create($attributes);
         
-        // Create Profile data
+        // Create Profile data       
         Profile::create($model,$attributes);
         
         // Attache role
@@ -85,5 +88,10 @@ class Patient extends User
     public function receptions()
     {
         return $this->hasMany(Reception::class);
+    }
+
+    public function setNationalIdAttribute($value) 
+    {
+        $this->attributes['username'] = $value;
     }
 }

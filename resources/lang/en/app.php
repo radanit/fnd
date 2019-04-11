@@ -26,6 +26,7 @@ return [
     'cancelAlert' => 'Action Canceled',
     'loadAlert' => 'Opps,Error In Data Loading!',
     'failedAlert' => 'Action Faield Contact To System Administrator.',
+    'accessAlert' => 'unauthorized',
     'dir' => 'ltr',
     'customerCompanyName' => '‌Bahar Radiology',
     'closeBtnLbl' => 'Close',

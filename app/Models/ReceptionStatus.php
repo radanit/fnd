@@ -15,7 +15,22 @@ class ReceptionStatus extends Model
 		return [
             'create' => 'created_by',  
 		];
-	}
+    }
+
+    /**
+     * Status codes
+     * 
+     */
+    public  const RECEPTING = 'recepting';
+    public  const RECEPTED = 'recepted';
+    public  const CONFIRMED = 'confirmed';
+    public  const REJECTED = 'rejected';
+
+    /**
+     * Alias of status codes
+     */
+    public const FIRST = self::RECEPTING;
+    public const LAST = self::CONFIRMED;
 
     /**
      * The table associated with the model.

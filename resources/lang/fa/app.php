@@ -26,6 +26,7 @@ return [
     'cancelAlert' => 'عملیات لغو گردید',
     'loadAlert' => 'خطا در نمایش اطلاعات!',
     'failedAlert' => '!خطا در انجام عملیات با مسئول سیستم تماس بگیرید',
+    'accessAlert' => 'خطای دسترسی',
     'dir' =>'rtl',
 	'customerCompanyName' => 'Bahar Radiology' ,
 	'contact' => 'تماس با ما',

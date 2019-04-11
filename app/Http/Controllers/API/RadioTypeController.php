@@ -16,22 +16,30 @@ use App\Resources\RadioTypeResource;
 
 class RadioTypeController extends APIController
 {
+    
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Bind Model to Controller
+     * 
+     * @var Illuminate\Database\Eloquent\Model
      */
-    public function index()
-    {        
-        // Get all resources
-        $radiotypeModel = RadioType::with('role');
+    protected $model = RadioType::class;
 
-        // Determinde number of record to return
-        $pgCount = $this->getPaginationCount();
-        $radiotypes = ($pgCount) ? $radiotypeModel->paginate($pgCount) : $radiotypeModel->get();
-        
-        return RadioTypeResource::collection($radiotypes);		
-    }
+    /**
+     * Relations for eger loading
+     * 
+     * @var array
+     */
+    protected $relations = [
+        'role',
+    ];
+
+    /**
+     * Api resource class name
+     * 
+     * @var Illuminate\Http\Resources\Json\JsonResource
+     */
+    protected $jsonResource = RadioTypeResource::class;
+    
 
     /**
      * Store a newly created resource in storage.
@@ -61,18 +69,6 @@ class RadioTypeController extends APIController
             'message' => __('app.insertAlert')],
             $this->httpCreated
         );    
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Integer  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // Return JSON response
-        return new RadioTypeResource(RadioType::with('role')->findOrFail($id));
     }
 
     /**

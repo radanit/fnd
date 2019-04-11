@@ -52,4 +52,14 @@ class Reception extends Model
     {
         return $this->status->last();
     }
+
+    public function getLastStatusAttribute()
+    {
+        return $this->lastStatus()->status;
+    }
+    
+    public function getLastStatusIdAttribute()
+    {
+        return $this->lastStatus()->id;
+    }
 }

@@ -204,7 +204,8 @@ class Profile
     public function create($user,$data)
     {
         // Get profile fields and filed types
-        $fieldTypes = with(new ProfileStructure($this->profile))->type;        
+        $fieldTypes = with(new ProfileStructure($this->profile))->type;
+        $newData = [];
 
         foreach ($fieldTypes as $field => $type)
         {        
@@ -213,17 +214,20 @@ class Profile
                 $filePath = $this->disk->putFile('',$data[$field]);                
                 
                 // Save changes                                   
-                $data[$field] = $this->disk->url($filePath);                
+                $newData[$field] = $this->disk->url($filePath);                
+            }
+            elseif (isset($data[$field])) {
+                $newData[$field] = $data[$field];
             }
         }
          
         // Create new profile
         $user->profile()->create([
-                'data' => $data,
+                'data' => $newData,
                 'profile_id' => $this->profile->id
         ]);                
 
-        return $data;
+        return $newData;
     }
 
     /**
