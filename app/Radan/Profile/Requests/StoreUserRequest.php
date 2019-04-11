@@ -59,7 +59,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'string|email|max:255|unique:users',
             'password' => 'required|confirmed|'.PasswordPolicy::getValidation('default'),
             'active' => 'required|boolean',
             'profile_id' => 'required|exists:'.Profile::getTable().',id',
