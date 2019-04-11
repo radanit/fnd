@@ -17,10 +17,13 @@ class PatientResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
+            'national_id' => $this->username,
             'first_name' => $this->first_name,        
             'last_name' => $this->last_name,
+            'fullname' => $this->fullname,
             'mobile' => $this->mobile,
-            'natinalid' => $this->username,
+            'gender' => $this->gender,
+            'birth_year' => $this->birth_year,
             'avatar' => $this->avatar,
         ];
     }

@@ -70,6 +70,5 @@ return [
       'permissions' => [
         'name' => 'All',
       ],
-    ],
-  ],  
+    ],  
 ];
