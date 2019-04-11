@@ -41,6 +41,12 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
+        if ($this->request->get('roles')) {
+            if (in_array('admin',array_values($this->request->get('roles')) ))
+            {
+                return (auth()->user()->hasRole('admin')) ? true: false;
+            }
+        }
         return true;
     }
 

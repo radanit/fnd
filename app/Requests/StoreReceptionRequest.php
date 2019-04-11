@@ -48,7 +48,7 @@ class StoreReceptionRequest extends FormRequest
     public function rules()
     {
         return [            
-            'national_id' => 'required|string|digits:10|unique:users,username',
+            'national_id' => 'required|digits:10|unique:users,username',
             'reception_date' => 'date',            
             'radio_type_id' => 'required|exists:radio_types,id',
         ];
