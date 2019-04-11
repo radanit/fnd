@@ -99,7 +99,6 @@ export default
       }
   },
   mounted(){
-     alert(this.form.profile_id);
     this.loadProfileSructure(this.$parent.form.profile_id);
   },
 }

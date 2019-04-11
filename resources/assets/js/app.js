@@ -205,10 +205,7 @@ Vue.component(
 import InfiniteLoading from 'vue-infinite-loading';
 
 Vue.use(InfiniteLoading, { /* options */ });
-Vue.component(
-  'user-box',
-  require('./components/user_profile/UserBox.vue').default
-);
+Vue.component('user-box',require('./components/user_profile/UserBox.vue').default);
 const app = new Vue({
     el: '#app',
     router
