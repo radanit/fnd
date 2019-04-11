@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @keydown.esc="backToReceptionList">
+    <div class="container" @keydown.esc="backToReceptionList" dir="rtl">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
@@ -23,14 +23,14 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item 
-                    :label="trans('reception.meli_code')"
-                    prop="meli_code"
+                    :label="trans('reception.national_id')"
+                    prop="national_id"
                     :rules="[
-                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.meli_code_number_error')},
+                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                      
                     ]"
                     >
-                    <el-input name="meli_code" ref="meli_code" type="number"  v-model.number="form.meli_code" autocomplete="off"></el-input>
+                    <el-input name="national_id" ref="national_id" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -88,7 +88,7 @@
                     :label="trans('reception.doctor')"
                     prop="doctor_id"
                     :rules="[
-                      { required: true, message: trans('reception.doctor_required_error')}
+                      { required: false, message: trans('reception.doctor_required_error')}
                     ]">
                       <el-select
                         v-model.number="form.doctor_id"
@@ -167,7 +167,7 @@
             form: 
             {
               id: '',
-              meli_code:'',              
+              national_id:'',              
               first_name: '',
               last_name: '',
               mobile_number:'',          
@@ -244,15 +244,15 @@
             if (valid) 
             {
               let newReception = {
-                meli_code: this.form.meli_code,
+                national_id: this.form.national_id,
                 reception_date: this.form.reception_date,
                 first_name: this.form.first_name,
                 last_name:this.form.last_name,
                 mobile_number:this.form.mobile_number,
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
-                doctor_id:this.doctor_id,
-                radio_type_id:this.radio_type_id
+                doctor_id:this.form.doctor_id,
+                radio_type_id:this.form.radio_type_id
               }
               axios.post('../api/receptions',newReception).then((response) =>{
                 Fire.$emit('AfterCrud');
@@ -292,7 +292,7 @@
             if (valid) 
             {
               let newReception = {
-                meli_code: this.form.meli_code,
+                national_id: this.form.national_id,
                 reception_date: this.form.reception_date,
                 first_name: this.form.first_name,
                 last_name:this.form.last_name,
@@ -356,7 +356,7 @@
         });
       },
       mounted(){
-        this.$refs.meli_code.focus();
+        this.$refs.national_id.focus();
       }
     }
 </script>

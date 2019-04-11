@@ -23,7 +23,7 @@
             :label="trans('user.email')"
             prop="email"
             :rules="[
-              { required: true, message: trans('user.emailRequierdError')},
+              { required: false, message: trans('user.emailRequierdError')},
               { type: 'email', message: trans('app.emailFormatError'), trigger: ['blur'] }
             ]"
             >

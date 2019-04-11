@@ -23,13 +23,13 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item 
-                    :label="trans('reception.meli_code')"
-                    prop="meli_code"
+                    :label="trans('reception.national_id')"
+                    prop="natinalid"
                     :rules="[
-                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.meli_code_number_error')},
+                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                     ]"
                     >
-                    <el-input :minlength="11" :maxlength="11" name="meli_code" ref="meli_code" type="number"  v-model="form.meli_code" autocomplete="off"></el-input>
+                    <el-input :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.natinalid" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -164,18 +164,31 @@
             return{
                 updateAlert : trans('profileStructure.updateAlert'),                
                 failedAlert : trans('app.failedAlert'),
-                form: 
-                {
-                  id: '',
-                  name: '',
-                  description: '',
-                  structure:'',
-            
-                },
+                form:{},
             }
         },
         methods :{
-            /*
+        /*
+        |--------------------------------------------------------------------------
+        | Load Selected Profile Info
+        |--------------------------------------------------------------------------
+        |
+        | This method load profile info for edit
+        |
+        */
+        loadReception(){
+            this.form.id=this.$route.params.receptionId;
+            axios.get("../api/receptions/"+this.form.id).then(({data})=>(this.form = data.data.patient)).catch(()=>{
+                let msgErr = errorMessage(error.response.data.errors);
+                this.$message({
+                  title: '',
+                  message:msgErr,
+                  center: true,
+                  type: 'error'
+                });                
+            });
+        },          
+        /*
         |--------------------------------------------------------------------------
         | Back to User Reception List
         |--------------------------------------------------------------------------
@@ -215,7 +228,7 @@
         |
         */    
         loadRadioTypeList(){
-          axios.get("../api/radio_types").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
+          axios.get("../api/radiotypes").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
             this.$message({
               title: '',
               message: error.response.data.errors,
@@ -226,7 +239,7 @@
         },  
         updateReception(){
         let receptionInfo = {
-          meli_code: this.form.meli_code,
+          national_id: this.form.nationalid,
           reception_date: this.form.reception_date,
           first_name: this.form.first_name,
           last_name:this.form.last_name,
@@ -265,6 +278,7 @@
         },
     },        
     created() {
+      this.loadReception();
         this.loadDoctorList();
         this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {
@@ -272,7 +286,7 @@
         });
     },
     mounted(){
-      this.$refs.meli_code.focus();
+      this.$refs.national_id.focus();
     }
 }
 </script>

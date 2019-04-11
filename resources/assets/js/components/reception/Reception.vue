@@ -15,8 +15,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.first_name.toLowerCase().includes(search.toLowerCase())|| data.last_name.toLowerCase().includes(search.toLowerCase()))"
-          :default-sort = "{prop: 'first_name', order: 'ascending'}"
+					:data="tableData.filter(data => !search || data.patient.first_name.toLowerCase().includes(search.toLowerCase())|| data.patient.last_name.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase())|| data.patient.id.toLowerCase().includes(search.toLowerCase()))"
+          :default-sort = "{prop: 'patient.first_name', order: 'ascending'}"
 					style="width: 100%"
           :empty-text = "trans('app.no_data_found')"
           @selection-change="handleSelectionChange">
@@ -27,22 +27,27 @@
 					<el-table-column
 					  :label="trans('reception.file_number')"
                       sortable
-					  prop="file_number">
-					</el-table-column>                    
+					  prop="id">
+					</el-table-column>
+					<el-table-column
+					  :label="trans('reception.national_id')"
+                      sortable
+					  prop="patient.natinalid">
+					</el-table-column>                             
 					<el-table-column
 					  :label="trans('reception.first_name')"
                       sortable
-					  prop="first_name">
+					  prop="patient.first_name">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('reception.last_name')"
                       sortable
-					  prop="last_name">
+					  prop="patient.last_name">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('reception.mobile_number')"
                       sortable
-					  prop="mobile_number">
+					  prop="patient.mobile">
 					</el-table-column>                    
 					<el-table-column class="float-left"
 					  align="right">
@@ -128,7 +133,7 @@
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/profile/profiles", {
+                axios.get("../api/receptions", {
                     params: {
                     page: this.page,
                     },
@@ -164,7 +169,7 @@
             |
             */
             loadReception(page){                
-                axios.get("../api/profile/profiles",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     this.$message({
                       title: '',
@@ -214,7 +219,7 @@
                   type: 'warning',
                   center: true
                 }).then((response) => {
-                  axios.delete('../api/profile/profiles/'+record.id)
+                  axios.delete('../api/receptions/'+record.id)
                 .then(response => {
                     Fire.$emit('AfterCrud');
                      this.$message({
@@ -248,6 +253,7 @@
             }
         },           
         created() {
+          this.loadReception();
             Fire.$on('AfterCrud',() => {
                 //
             });
