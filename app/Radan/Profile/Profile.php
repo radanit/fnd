@@ -234,7 +234,7 @@ class Profile
      * @return array return profile data was stored
      */
     public function update($user,$data)
-    {
+    {        
         // Get profile fields and filed types        
         $fieldTypes = with(new ProfileStructure($this->profile))->type;
         $oldProfileData = is_null($user->profile) ? []:$user->profile->data;
@@ -254,7 +254,7 @@ class Profile
                     $oldProfileData[$field] = $this->disk->url($filePath);
                 }
             }
-            else {
+            elseif (isset($data[$field])) {
                 $oldProfileData[$field] = $data[$field];
             }
         }

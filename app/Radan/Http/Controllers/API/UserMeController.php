@@ -18,7 +18,7 @@ class UserMeController extends APIController
      *
      * @return Illuminate\Http\Resources\Json\JsonResource
      */
-    public function index(Request $request)
+    public function index()
     {        
         return new UserMeResource($this->user);
     }

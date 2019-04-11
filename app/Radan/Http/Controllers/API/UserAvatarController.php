@@ -36,7 +36,7 @@ class UserAvatarController extends APIController
     public function store(Request $request)
     {
         // Populate Profile Data and validate it        
-        $profileData = Profile::set($this->user->type_id)->getData($request,'avatar');        
+        $profileData = Profile::set($this->user->type_id)->getData($request,'avatar');           
         Profile::validate($profileData,'avatar');
 
         // Save uploaded file        
