@@ -18,7 +18,7 @@
                       { required: true, message: trans('reception.reception_date_required_error')}
                     ]"
                     >
-                    <date-picker v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
+                    <date-picker format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
                    </el-form-item>                    
                   </el-col>
                   <el-col :span="12">
@@ -75,7 +75,7 @@
                     :label="trans('reception.mobile_number')"
                     prop="mobile_number"
                     :rules="[
-                      { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
+                      { required: true,pattern:/^(\+\d{0,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
                     <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.mobile_number" autocomplete="off"></el-input>
@@ -248,7 +248,7 @@
                 reception_date: this.form.reception_date,
                 first_name: this.form.first_name,
                 last_name:this.form.last_name,
-                mobile_number:this.form.mobile_number,
+                mobile:this.form.mobile_number,
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
