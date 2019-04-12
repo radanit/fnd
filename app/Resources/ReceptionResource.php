@@ -17,6 +17,7 @@ class ReceptionResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
+            'reception_date' => $this->reception_date,
             'patient' => new PatientResource($this->patient),                 
             'radio_type_id' => $this->radioType->id,
             'radio_type_name' => $this->radioType->name,

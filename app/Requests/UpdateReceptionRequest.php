@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Radan\Profile\Requests;
+namespace App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReceptionRequest extends FormRequest
 {
-    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -21,17 +20,13 @@ class UpdateReceptionRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array
-     */    
+     */
     public function rules()
-    {
-        return [
-            'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
-            'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
-            'active' => 'boolean',
-            'profile_id' => 'exists:'.Profile::getTable().',id',
-            'profile_data' => 'array',
-            'roles' => 'array',
-            'roles.*' => 'exists:roles,id',
-        ];        
-    }
+    {       
+        return [            
+            'national_id' => 'required|digits:10|unique:users,username',
+            'reception_date' => 'date',            
+            'radio_type_id' => 'required|exists:radio_types,id',
+        ];
+    }    
 }

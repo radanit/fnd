@@ -2,22 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use Validator;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
-
-
 use App\Radan\Http\Controllers\APIController;
-use App\Radan\Exceptions\ResourceProtected;
-use App\Radan\Exceptions\ResourceRestricted;
 use App\Models\Reception;
 use App\Models\Patient;
 use App\Models\ReceptionStatus;
 use App\Resources\ReceptionResource;
 use App\Requests\StoreReceptionRequest;
 use App\Requests\UpdateReceptionRequest;
-use Profile;
 
 class ReceptionController extends APIController
 {
@@ -56,6 +48,7 @@ class ReceptionController extends APIController
 
         $reception = Reception::create([
             'patient_id' => $patient->id,
+            'reception_date' => $request->get('reception_date'),
             'radio_type_id' => $request->get('radio_type_id'),            
         ]);
 
@@ -80,12 +73,29 @@ class ReceptionController extends APIController
      */
     public function update(UpdateReceptionRequest $request, $id)
     {
-        
-            
-        // Return JSON response            
-        return response()->json([
-            'message' => __('app.updateAlert')],
-            $this->httpOk
-        );        
+        // Find resource or throw exception
+        $reception = Reception::findOrfail($id);
+
+        // Check reception status, if in recepting
+        if ($reception->lastStatus()->status == ReceptionStatus::FIRST) {
+            // update patinet
+            $reception->patient()->update($request);
+
+            // update reception
+            $reception->update($request);
+
+            // Return JSON response
+            return response()->json([
+                'message' => __('app.updateAlert')],
+                $this->httpOk
+            );
+        }
+        else {
+            // Return JSON response            
+            return response()->json([
+                'message' => __('app.failedAlert')],
+                $this->httpForbidden
+            );
+        }
     }
 }

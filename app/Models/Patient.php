@@ -81,6 +81,28 @@ class Patient extends User
     }    		  	    
 
     /**
+     * Override update method
+     * 
+     * @return Model
+     */
+    public function update(array $attributes = [],array $options = [])
+    {
+        // Validate profile data
+        Profile::set(self::PROFILE_TYPE)->validate($attributes);
+
+        // Create Parent
+        if (isset($attributes['national_id'])) {
+            $attributes['username'] = $attributes['national_id'];
+        }
+        $model = $this->query()->update($attributes,$options);
+        
+        // Create Profile data       
+        Profile::update($model,$attributes);
+
+        return $model;
+    }
+
+    /**
      * Relation with receptions
      * 
      * @return Illuminate\Database\Eloquent\Relations\HasMany
