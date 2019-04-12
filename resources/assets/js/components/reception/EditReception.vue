@@ -24,12 +24,12 @@
                   <el-col :span="12">
                     <el-form-item 
                     :label="trans('reception.national_id')"
-                    prop="natinalid"
+                    prop="patient.national_id"
                     :rules="[
                       { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                     ]"
                     >
-                    <el-input :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.natinalid" autocomplete="off"></el-input>
+                    <el-input :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -37,7 +37,7 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.last_name')"
-                    prop="last_name"
+                    prop="patient.last_name"
                     :rules="[
                       { required: true, message: trans('reception.last_name_required_error')}
                     ]"
@@ -48,7 +48,7 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.first_name')"
-                    prop="first_name"
+                    prop="patient.first_name"
                     :rules="[
                       { required: true, message: trans('reception.first_name_required_error')}
                     ]"
@@ -61,7 +61,7 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.birth_year')"
-                    prop="birth_year"
+                    prop="patient.birth_year"
                     :rules="[
                       { required: true, message: trans('reception.birth_year_required_error')}
                     ]"
@@ -72,12 +72,12 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.mobile_number')"
-                    prop="mobile_number"
+                    prop="patient.mobile"
                     :rules="[
                       { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile_number" autocomplete="off"></el-input>
+                    <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -87,7 +87,7 @@
                     :label="trans('reception.doctor')"
                     prop="doctor_id"
                     :rules="[
-                      { required: true, message: trans('reception.doctor_required_error')}
+                      { required: false, message: trans('reception.doctor_required_error')}
                     ]">
                       <el-select
                         v-model.number="form.doctor_id"
@@ -106,7 +106,7 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.gender')"
-                    prop="gender"
+                    prop="patient.gender"
                     :rules="[
                       { required: true, message: trans('reception.gender_required_error')}
                     ]"
@@ -143,8 +143,7 @@
                 </el-row>                
                 <el-row :gutter="20">                                          
                   <el-form-item>
-                      <el-button  size="mini" type="success" @click="createReception()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                      <el-button  size="mini" type="primary" @click="createContinueReception()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
+                      <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>                     
                       <el-button size="mini" type="info" @click="backToReceptionList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
                   </el-form-item>
                 </el-row>
@@ -163,7 +162,8 @@
         data(){
             return{
                 form:{
-                  radio_type_id:''
+                  radio_type_id:'',
+                  patient:{}
                 },
                 doctor_lists:[],
                 radio_type_lists:[]
@@ -241,7 +241,7 @@
         },  
         updateReception(){
         let receptionInfo = {
-          national_id: this.form.nationalid,
+          national_id: this.form.patient.national_id,
           reception_date: this.form.reception_date,
           first_name: this.form.first_name,
           last_name:this.form.last_name,

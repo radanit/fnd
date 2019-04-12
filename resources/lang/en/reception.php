@@ -37,4 +37,5 @@ return [
     'gender_required_error' => 'gender is required!',
     'doctor_required_error' => 'doctor is required!',
     'radio_type_required_error' => 'radio type is required!',
+    'fullname' => 'full name',
 ];

@@ -32,17 +32,12 @@
 					<el-table-column
 					  :label="trans('reception.national_id')"
                       sortable
-					  prop="patient.natinalid">
+					  prop="patient.national_id">
 					</el-table-column>                             
 					<el-table-column
-					  :label="trans('reception.first_name')"
+					  :label="trans('reception.fullname')"
                       sortable
-					  prop="patient.first_name">
-					</el-table-column>
-					<el-table-column
-					  :label="trans('reception.last_name')"
-                      sortable
-					  prop="patient.last_name">
+					  prop="patient.fullname">
 					</el-table-column>
 					<el-table-column
 					  :label="trans('reception.mobile_number')"
