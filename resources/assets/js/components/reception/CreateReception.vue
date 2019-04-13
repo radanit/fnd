@@ -18,7 +18,7 @@
                       { required: true, message: trans('reception.reception_date_required_error')}
                     ]"
                     >
-                    <date-picker format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
+                    <date-picker :locale="trans('reception.locale')" format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
                    </el-form-item>                    
                   </el-col>
                   <el-col :span="12">
