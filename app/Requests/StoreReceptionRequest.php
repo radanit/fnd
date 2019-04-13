@@ -22,10 +22,12 @@ class StoreReceptionRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {       
-        return [            
-            'national_id' => 'required|digits:10|unique:users,username',
-            'reception_date' => 'date',            
+    {               
+        return [
+
+            'national_id' => 'required|digits:10|unique:users,username,'.$this->national_id.',username',
+            'reception_date' => 'date',
+            'doctor_id' => 'required|exists:users,id',
             'radio_type_id' => 'required|exists:radio_types,id',
         ];
     }    

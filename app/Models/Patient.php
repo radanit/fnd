@@ -78,7 +78,24 @@ class Patient extends User
         $model->attachRoles($role);
 
         return $model;
-    }    		  	    
+    }
+
+    /**
+     * Override firstOrCreate method
+     * 
+     * @return Model
+     */
+    public static function firstOrCreate(array $attributes = [])
+    {
+        $model = static::query()->where('username',$attributes['national_id']);
+        
+        if ($model->get()->count())  {
+            return $model->first();
+        }
+        else {
+            return static::create($attributes);
+        }
+    }
 
     /**
      * Override update method

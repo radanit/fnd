@@ -15,7 +15,8 @@ class CreateReceptionsTable extends Migration
     {
         Schema::create('receptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('patient_id')->comment('FK: users');
+            $table->unsignedInteger('patient_id')->comment('FK: users of type patient');
+            $table->unsignedInteger('doctor_id')->comment('FK: users of type doctor');
             $table->unsignedInteger('radio_type_id')->comment('FK: radio_types');           
             $table->datetime('reception_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->tinyInteger('votes')->default(0);

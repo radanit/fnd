@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth:api','role:admin|radio-admin']], function()
     Route::apiResource('radiotypes', 'API\RadioTypeController');
     Route::apiResource('specialities', 'API\SpecialityController');
     Route::apiResource('doctors', 'API\DoctorController');
+    Route::apiResource('patients', 'API\PatientController');
 });
 
 Route::group(['middleware' => ['auth:api','role:admin|receptor']], function() {    

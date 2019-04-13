@@ -43,14 +43,13 @@ class ReceptionController extends APIController
      * @return \Illuminate\Http\Response
      */
     public function store(StoreReceptionRequest $request)
-    {
-        $patient = Patient::create($request->all());
-
-        $reception = Reception::create([
-            'patient_id' => $patient->id,
-            'reception_date' => $request->get('reception_date'),
-            'radio_type_id' => $request->get('radio_type_id'),            
-        ]);
+    {        
+        $patient = Patient::firstOrCreate($request->all());
+                
+        $reception = Reception::create(array_merge(
+            $request->all(),
+            ['patient_id' => $patient->id ]
+        ));
 
         $status = ReceptionStatus::create([
             'reception_id' => $reception->id,
