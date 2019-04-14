@@ -17,5 +17,9 @@ return [
         'recepted' => 'پذیرش شده',
         'confirmed' => 'تایید شده توسط پزشک',
         'rejeted' => 'بازگشت شده',
+    ],
+
+    'doctor' => [
+        'specialities' => 'متخصص',
     ]
 ];

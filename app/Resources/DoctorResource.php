@@ -19,6 +19,7 @@ class DoctorResource extends JsonResource
             'id' => $this->id,
             'first_name' => $this->first_name,        
             'last_name' => $this->last_name,
+            'fullname' => $this->fullname.'-'.__('bahar.doctor.specialities').' '.$this->speciality_desc,
             'speciality_id' => $this->speciality,
             'speciality_description' => $this->speciality_desc,
         ];

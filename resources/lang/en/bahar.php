@@ -17,6 +17,10 @@ return [
         'recepted' => 'Recepted',
         'confirmed' => 'Confirmed',
         'rejeted' => 'Rejected',
+    ],
+
+    'doctor' => [
+        'specialities' => 'Specialist of',
     ]
 
 ];
