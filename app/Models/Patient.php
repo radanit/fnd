@@ -126,7 +126,7 @@ class Patient extends User
      */
     public function receptions()
     {
-        return $this->hasMany(Reception::class);
+        return $this->hasMany(Reception::class,'national_id','username');
     }
 
     public function setNationalIdAttribute($value) 

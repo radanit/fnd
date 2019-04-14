@@ -21,16 +21,17 @@ class ReceptionStatus extends Model
      * Status codes
      * 
      */
-    public  const RECEPTING = 'recepting';
     public  const RECEPTED = 'recepted';
-    public  const CONFIRMED = 'confirmed';
+    public  const CAPTURED = 'captured';
+    public  const VISITED = 'visited';
+    public  const COMPLETED = 'completed';
     public  const REJECTED = 'rejected';
 
     /**
      * Alias of status codes
      */
-    public const FIRST = self::RECEPTING;
-    public const LAST = self::CONFIRMED;
+    public const FIRST = self::RECEPTED;
+    public const LAST = self::COMPLETED;
 
     /**
      * The table associated with the model.

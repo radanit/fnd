@@ -16,8 +16,11 @@ class Reception extends Model
      * @var array
      */
 
-    protected $fillable = [
-        'patient_id', 'radio_type_id', 'reception_status_id','votes',
+    protected $fillable = [        
+    ];
+
+    protected $guarded  = [
+        'id',
     ];
 
     /**
@@ -35,19 +38,43 @@ class Reception extends Model
      */
     public function patient()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(Patient::class,'national_id','username');
     }
 
+    /**
+     * Relation with doctor
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class,'doctor_id','id');
+    }
+
+    /**
+     * Relation with radio types
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function radioType()
     {
         return $this->belongsTo(RadioType::class);
     }
 
+    /**
+     * Relation with reception status
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function status()
     {
         return $this->hasMany(ReceptionStatus::class);
     }
 
+    /**
+     * Accessor and Mataurs
+     * 
+     */
     public function lastStatus()
     {
         return $this->status->last();

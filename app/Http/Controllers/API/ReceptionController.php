@@ -46,10 +46,7 @@ class ReceptionController extends APIController
     {        
         $patient = Patient::firstOrCreate($request->all());
                 
-        $reception = Reception::create(array_merge(
-            $request->all(),
-            ['patient_id' => $patient->id ]
-        ));
+        $reception = Reception::create($request->all());
 
         $status = ReceptionStatus::create([
             'reception_id' => $reception->id,
