@@ -22,6 +22,7 @@ class ReceptionResource extends JsonResource
                 'national_id' => $this->national_id,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
+                'fullname' => $this->first_name.' '.$this->last_name,
                 'mobile' => $this->mobile,
                 'gender' => $this->gender,
                 'birth_year' => $this->birth_year,
