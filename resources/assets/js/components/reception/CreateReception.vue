@@ -88,7 +88,7 @@
                     :label="trans('reception.doctor')"
                     prop="doctor_id"
                     :rules="[
-                      { required: false, message: trans('reception.doctor_required_error')}
+                      { required: true, message: trans('reception.doctor_required_error')}
                     ]">
                       <el-select
                         v-model.number="form.doctor_id"
@@ -98,7 +98,7 @@
                         <el-option
                           v-for="p_item in form.doctor_lists"
                           :key="p_item.id"
-                          :label="p_item.description"
+                          :label="p_item.fullname"
                           :value="p_item.id">
                         </el-option>
                       </el-select>
@@ -160,6 +160,7 @@
     </div>
 </template>
 <script>
+import {errorMessage} from '../../utilities';
     export default {
         data()
         {
@@ -203,10 +204,11 @@
         |
         */    
         loadDoctorList(){
-          axios.get("../api/doctors").then(({data})=>(this.form.doctorl_lists = data.data)).catch((error)=>{
+          axios.get("../api/doctors").then(({data})=>(this.form.doctor_lists = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message: error.response.data.errors,
+              message: msgErr,
               center: true,
               type: 'error'
             });                
@@ -223,9 +225,10 @@
         */    
         loadRadioTypeList(){
           axios.get("../api/radiotypes").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message: error.response.data.errors,
+              message: msgErr,
               center: true,
               type: 'error'
             });                
@@ -265,9 +268,10 @@
                 this.backToReceptionList();
               })
               .catch((error) => {
+                let msgErr = errorMessage(error.response.data.errors);
                 this.$message({
                   title: error.response.data.message,
-                  message: error.response.data.errors,
+                  message: msgErr,
                   center: true,
                   type: 'error'
                 });
@@ -296,11 +300,11 @@
                 reception_date: this.form.reception_date,
                 first_name: this.form.first_name,
                 last_name:this.form.last_name,
-                mobile_number:this.form.mobile_number,
+                mobile:this.form.mobile_number,
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
-                doctor_id:this.doctor_id,
-                radio_type_id:this.radio_type_id
+                doctor_id:this.form.doctor_id,
+                radio_type_id:this.form.radio_type_id
               }
               axios.post('../api/receptions',newReception).then((response) =>{
                 Fire.$emit('AfterCrud');
@@ -313,8 +317,9 @@
                 this.resetForm('form');
               })
               .catch((error) => {
+                let msgErr = errorMessage(error.response.data.errors);
                 this.$message({
-                  title: error.response.data.message,
+                  title: msgErr,
                   message: error.response.data.errors,
                   center: true,
                   type: 'error'

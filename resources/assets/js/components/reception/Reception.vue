@@ -89,6 +89,7 @@
     </div>
 </template>
 <script>
+import {errorMessage} from '../../utilities';
     export default 
     {
       props: ['currentuser'],
@@ -166,9 +167,10 @@
             loadReception(page){                
                 axios.get("../api/receptions",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
                       type: 'error'
                     });               
@@ -207,7 +209,7 @@
             | This method delete profile info
             |
             */         
-            deleteReception(record){
+          deleteReception(record){
 				  this.$confirm(this.noticTxt,this.warningAlert, {
                   confirmButtonText: this.confirmButtonText,
                   cancelButtonText: this.cancelButtonText,
@@ -223,11 +225,12 @@
                         message: response.data.message
                       });
                 }).catch((error) => {
+                  let msgErr = errorMessage(error.response.data.errors);
                      this.$message({
                         title: error.response.data.message,
                         type: 'error',
                         center: true,
-                        message: error.response.data.errors,
+                        message: msgErr,
                       }); 
                     }); 
                 }).catch(() => {
