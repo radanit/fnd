@@ -37,5 +37,19 @@ trait ProfileUserScopeTrait
 				$q->where('profiles.name', '=', $type);
 			});
 		});
+    }
+    
+    /**
+     * Scope a query to only include users of a given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+	public function scopeSearchBy($query, $field , $value)
+	{
+		return $query->whereHas('profile', function ($q) use ($field,$value) {
+            $q->whereRaw("`data` -> '$.".$field."' like '%".$value."%'");
+		});
 	}
 }
