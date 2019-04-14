@@ -87,7 +87,7 @@
                     :label="trans('reception.doctor')"
                     prop="doctor_id"
                     :rules="[
-                      { required: false, message: trans('reception.doctor_required_error')}
+                      { required: true, message: trans('reception.doctor_required_error')}
                     ]">
                       <el-select
                         v-model.number="form.doctor_id"
@@ -158,6 +158,7 @@
     </div>
 </template>
 <script>
+import {errorMessage} from '../../utilities';
     export default {
         data(){
             return{
@@ -212,9 +213,10 @@
         */    
         loadDoctorList(){
           axios.get("../api/doctors").then(({data})=>(this.doctor_lists = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message: error.response.data.errors,
+              message: msgErr,
               center: true,
               type: 'error'
             });                
@@ -231,9 +233,10 @@
         */    
         loadRadioTypeList(){
           axios.get("../api/radiotypes").then(({data})=>(this.radio_type_lists = data.data)).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
-              message: error.response.data.errors,
+              message: msgErr,
               center: true,
               type: 'error'
             });                
@@ -259,11 +262,11 @@
           });
           Fire.$emit('AfterCrud');                  
             }).catch((error) => {
-              console.log(error.response.status);
+              let msgErr = errorMessage(error.response.data.errors);
               this.$message({
                 type: 'error',
                 center: true,
-                message:error.response.data.errors.name
+                message:msgErr
               });
           }); 
         },
