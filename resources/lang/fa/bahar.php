@@ -12,11 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'reception_status' => [
-        'recepting' => 'در حال پذیرش',
-        'recepted' => 'پذیرش شده',
-        'confirmed' => 'تایید شده توسط پزشک',
-        'rejeted' => 'بازگشت شده',
+    'reception_status' => [        
+        'recepted' => 'پذیرش شد',
+        'captured' => 'تصویر برداری شد',
+        'visited' => 'مشاهده شد',
+        'completed' => 'تکمیل شد',
+        'rejeted' => 'برگشت شد',
     ],
 
     'doctor' => [

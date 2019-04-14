@@ -12,10 +12,11 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'reception_status' => [
-        'recepting' => 'Recepting',
+    'reception_status' => [        
         'recepted' => 'Recepted',
-        'confirmed' => 'Confirmed',
+        'captured' => 'Captured',
+        'visited' => 'Visited',
+        'completed' => 'Completed',
         'rejeted' => 'Rejected',
     ],
 

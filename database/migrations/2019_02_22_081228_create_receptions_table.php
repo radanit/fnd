@@ -19,7 +19,7 @@ class CreateReceptionsTable extends Migration
             $table->string('first_name')->comment('patient firstname');
             $table->string('last_name')->comment('patient lastname');
             $table->string('mobile',11);
-            $table->year('birth_year');
+            $table->string('birth_year',4);
             $table->boolean('gender');
             $table->unsignedInteger('doctor_id')->comment('FK: users of type doctor');
             $table->unsignedInteger('radio_type_id')->comment('FK: radio_types');
