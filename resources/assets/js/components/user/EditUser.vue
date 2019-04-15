@@ -154,6 +154,7 @@ import userProfile from './userProfile';
                 title: '',
                 message: error.response.data.errors,
                 center: true,
+                dangerouslyUseHTMLString: true,
                 type: 'error'
               });              
           });
@@ -174,7 +175,8 @@ import userProfile from './userProfile';
                 title: '',
                 message: msgErr,
                 center: true,
-                type: 'error'
+                type: 'error',
+                dangerouslyUseHTMLString: true,
               });              
           });
       },
@@ -194,7 +196,8 @@ import userProfile from './userProfile';
                 title: '',
                 message: msgErr,
                 center: true,
-                type: 'error'
+                type: 'error',
+                dangerouslyUseHTMLString: true,
               });                
           });
       },            

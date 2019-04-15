@@ -43,6 +43,7 @@
     </div>
 </template>
 <script>
+import {errorMessage} from '../../utilities';
     export default 
     {
       data(){
@@ -94,12 +95,14 @@
                   this.backToSpecialityList();			                  
                 })
                 .catch((error) => {
-                    this.$message({
-                      title: error.response.data.message,
-                      message:error.response.data.errors,
-                      center: true,
-                      type: 'error'
-                    });
+                  let msgErr = errorMessage(error.response.data.errors);
+                  this.$message({
+                    title: msgErr,
+                    dangerouslyUseHTMLString: true,
+                    message: error.response.data.errors,
+                    center: true,
+                    type: 'error'
+                  });
                 });
               }
               else {
@@ -136,12 +139,14 @@
                   this.resetForm('form');
                 })
                 .catch((error) => {
-                    this.$message({
-                      title: error.response.data.message,
-                      message:error.response.data.errors,
-                      center: true,
-                      type: 'error'
-                    });
+                  let msgErr = errorMessage(error.response.data.errors);
+                  this.$message({
+                    title: msgErr,
+                    dangerouslyUseHTMLString: true,
+                    message: error.response.data.errors,
+                    center: true,
+                    type: 'error'
+                  });
                 });
               }
               else {

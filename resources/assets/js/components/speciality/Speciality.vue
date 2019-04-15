@@ -80,6 +80,7 @@
     </div>
 </template>
 <script>
+import {errorMessage} from '../../utilities';
     export default {
         data(){
             return{
@@ -150,12 +151,14 @@
             */
             loadSpeciality(){
                 axios.get("../api/specialities").then(({data})=>(this.list = data.data)).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
-                      title: '',
-                      message: error.response.data.errors,
-                      center: true,
-                      type: 'error'
-                    });         
+                    title: msgErr,
+                    dangerouslyUseHTMLString: true,
+                    message: error.response.data.errors,
+                    center: true,
+                    type: 'error'
+                    });      
                 });                
             },
             /*
@@ -207,11 +210,14 @@
                         message:response.data.message
                       });
                 }).catch((error) => {
+                        let msgErr = errorMessage(error.response.data.errors);
                         this.$message({
-                        type: 'error',
+                        title: msgErr,
+                        dangerouslyUseHTMLString: true,
+                        message: error.response.data.errors,
                         center: true,
-                        message:error.response.data.errors                        
-                      }); 
+                        type: 'error'
+                        });
                     }); 
                 }).catch(() => {
                   this.$message({
