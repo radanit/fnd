@@ -18,7 +18,7 @@
                       { required: true, message: trans('reception.reception_date_required_error')}
                     ]"
                     >
-                    <date-picker format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="trans('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
+                    <date-picker tabindex=2 format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="trans('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
                    </el-form-item>                    
                   </el-col>
                   <el-col :span="12">
@@ -29,7 +29,7 @@
                       { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                     ]"
                     >
-                    <el-input :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
+                    <el-input tabindex=1 :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -42,7 +42,7 @@
                       { required: true, message: trans('reception.last_name_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="last_name" ref="last_name" type="text" v-model="form.patient.last_name" autocomplete="off"></el-input>
+                    <el-input tabindex=4 label="right" name="last_name" ref="last_name" type="text" v-model="form.patient.last_name" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -53,7 +53,7 @@
                       { required: true, message: trans('reception.first_name_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="first_name" ref="first_name" type="text"  v-model="form.patient.first_name" autocomplete="off"></el-input>
+                    <el-input tabindex=3 label="right" name="first_name" ref="first_name" type="text"  v-model="form.patient.first_name" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -66,7 +66,7 @@
                       { required: true, message: trans('reception.birth_year_required_error')}
                     ]"
                     >
-                    <date-picker v-model="form.patient.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
+                    <date-picker tabindex=6 v-model="form.patient.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -77,7 +77,7 @@
                       { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
-                    <el-input  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
+                    <el-input tabindex=5  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -89,7 +89,7 @@
                     :rules="[
                       { required: true, message: trans('reception.doctor_required_error')}
                     ]">
-                      <el-select
+                      <el-select tabindex=8
                         v-model.number="form.doctor_id"
                         filterable
                         default-first-option
@@ -111,7 +111,7 @@
                       { required: true, message: trans('reception.gender_required_error')}
                     ]"
                     >
-                    <el-radio-group v-model="form.patient.gender">
+                    <el-radio-group tabindex=7 v-model="form.patient.gender">
                       <el-radio-button :label="0">{{trans('reception.man')}}</el-radio-button>
                       <el-radio-button :label="1">{{trans('reception.women')}}</el-radio-button>
                     </el-radio-group>
@@ -124,9 +124,9 @@
                     :label="trans('reception.radio_type')"
                     prop="radio_type_id"
                     :rules="[
-                      { required: true, message: trans('reception.doctor_required_error')}
+                      { required: true, message: trans('reception.radio_type_required_error')}
                     ]">
-                      <el-select
+                      <el-select tabindex=9
                         v-model.number="form.radio_type_id"
                         filterable
                         default-first-option
