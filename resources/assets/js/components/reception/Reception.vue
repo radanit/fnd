@@ -95,28 +95,28 @@ import {errorMessage} from '../../utilities';
       props: ['currentuser'],
         data()
         {
-            return{
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText'),
-                warningAlert : trans('app.warningAlert'),
-                editMod :false,
-                receptions :{},
-                form: 
-                {
-                    id: '',
-                    first_name: '',
-                    last_name: '',
-                    structure:'',
-				},
-				tableData:[],
+          return{
+            cancelAlert : trans('app.cancelAlert'),
+            noticTxt : trans('app.noticTxt'),
+            cancelButtonText : trans('app.cancelButtonText'),
+            confirmButtonText : trans('app.confirmButtonText'),
+            warningAlert : trans('app.warningAlert'),
+            editMod :false,
+            receptions :{},
+            form: 
+            {
+              id: '',
+              first_name: '',
+              last_name: '',
+              structure:'',
+            },
+            tableData:[],
                 search: '',
                 page:0,
                 pagination:{},
                 list: [],
                 infiniteId: +new Date(),
-            }
+          }
         },
         methods :{
             /*
@@ -172,6 +172,7 @@ import {errorMessage} from '../../utilities';
                       title: '',
                       message: msgErr,
                       center: true,
+                      dangerouslyUseHTMLString: true,
                       type: 'error'
                     });               
                 });
@@ -230,6 +231,7 @@ import {errorMessage} from '../../utilities';
                         title: error.response.data.message,
                         type: 'error',
                         center: true,
+                        dangerouslyUseHTMLString: true,
                         message: msgErr,
                       }); 
                     }); 

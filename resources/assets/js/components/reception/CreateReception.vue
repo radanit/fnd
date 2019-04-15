@@ -272,6 +272,7 @@ import {errorMessage} from '../../utilities';
                 this.$message({
                   title: error.response.data.message,
                   message: msgErr,
+                  dangerouslyUseHTMLString: true,
                   center: true,
                   type: 'error'
                 });
@@ -322,6 +323,7 @@ import {errorMessage} from '../../utilities';
                   title: msgErr,
                   message: error.response.data.errors,
                   center: true,
+                  dangerouslyUseHTMLString: true,
                   type: 'error'
                 });
               });

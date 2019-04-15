@@ -186,6 +186,7 @@ import {errorMessage} from '../../utilities';
                 this.$message({
                   title: '',
                   message:msgErr,
+                  dangerouslyUseHTMLString: true,
                   center: true,
                   type: 'error'
                 });                
@@ -218,6 +219,7 @@ import {errorMessage} from '../../utilities';
               title: '',
               message: msgErr,
               center: true,
+              dangerouslyUseHTMLString: true,
               type: 'error'
             });                
           });
@@ -266,6 +268,7 @@ import {errorMessage} from '../../utilities';
               this.$message({
                 type: 'error',
                 center: true,
+                dangerouslyUseHTMLString: true,
                 message:msgErr
               });
           }); 
