@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+import {errorMessage} from '../../utilities';
   export default 
   {
     data(){
@@ -66,12 +67,14 @@
         loadSpeciality(){
           this.form.id=this.$route.params.radioTypeId;
           axios.get("../api/specialities/"+this.form.id).then(({data})=>(this.form = data.data)).catch((error)=>{
-              this.$message({
-                title: '',
-                message:error.response.data.errors,
-                center: true,
-                type: 'error'
-              });
+                let msgErr = errorMessage(error.response.data.errors);
+                this.$message({
+                  title: msgErr,
+                  dangerouslyUseHTMLString: true,
+                  message: error.response.data.errors,
+                  center: true,
+                  type: 'error'
+                });
               this.$router.push({name: 'edit_specialities'});                 
           });
         },
@@ -106,12 +109,14 @@
             message:response.data.message
           });          
             }).catch((error) => {              
-              this.$message({
-                title: error.response.data.message,
-                type: 'error',
-                center: true,
-                message:error.response.data.errors
-              });
+                let msgErr = errorMessage(error.response.data.errors);
+                this.$message({
+                  title: msgErr,
+                  dangerouslyUseHTMLString: true,
+                  message: error.response.data.errors,
+                  center: true,
+                  type: 'error'
+                });
           }); 
         },
         /*
