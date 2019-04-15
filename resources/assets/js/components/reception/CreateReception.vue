@@ -30,7 +30,15 @@
                      
                     ]"
                     >
-                    <el-input tabindex=1 name="national_id" ref="national_id" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>
+                    <!--<el-input @blur="loadPatientInfo()" tabindex=1 name="national_id" ref="national_id" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>-->
+                    <el-autocomplete
+                      class="inline-input"
+                      v-model="state2"
+                      :fetch-suggestions="loadPatientInfo"
+                      placeholder="Please Input"
+                      :trigger-on-focus="false"
+                      @select="handleSelect"
+                    ></el-autocomplete>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -73,12 +81,12 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.mobile_number')"
-                    prop="mobile_number"
+                    prop="mobile"
                     :rules="[
                       { required: true,pattern:/^(\+\d{0,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
-                    <el-input tabindex=5 label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.mobile_number" autocomplete="off"></el-input>
+                    <el-input tabindex=5 label="right" name="mobile" ref="mobile" type="text" v-model="form.mobile" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -171,7 +179,7 @@ import {errorMessage} from '../../utilities';
               national_id:'',              
               first_name: '',
               last_name: '',
-              mobile_number:'',          
+              mobile:'',          
               birth_year:'',
               gender:'',
               doctor_id:'',
@@ -194,6 +202,29 @@ import {errorMessage} from '../../utilities';
         backToReceptionList(){
           this.$router.push({ name: 'receptions'});
         },
+        handleSelect(item) {
+          console.log(item);
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Load Patient Info
+        | Added by e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method Load Patient Info
+        |
+        */    
+        loadPatientInfo(){
+          axios.get("../api/patients?national_id="+this.form.national_id).then(({data})=>(this.user= data.data[0])).catch((error)=>{
+            let msgErr = errorMessage(error.response.data.errors);
+            this.$message({
+              title: '',
+              message: msgErr,
+              center: true,
+              type: 'error'
+            });                
+          });
+        },        
         /*
         |--------------------------------------------------------------------------
         | Load Doctor List
@@ -251,7 +282,7 @@ import {errorMessage} from '../../utilities';
                 reception_date: this.form.reception_date,
                 first_name: this.form.first_name,
                 last_name:this.form.last_name,
-                mobile:this.form.mobile_number,
+                mobile:this.form.mobile,
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
@@ -301,7 +332,7 @@ import {errorMessage} from '../../utilities';
                 reception_date: this.form.reception_date,
                 first_name: this.form.first_name,
                 last_name:this.form.last_name,
-                mobile:this.form.mobile_number,
+                mobile:this.form.mobile,
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
