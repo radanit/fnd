@@ -15,8 +15,8 @@ use App\Radan\Auth\Models\User;
 use App\Radan\Auth\Models\Role;
 use App\Radan\Fundation\Exceptions\ResourceProtected;
 use App\Radan\Http\Resources\UserResource;
-use App\Radan\Requests\StoreUserRequest;
-use App\Radan\Requests\UpdateUserRequest;
+use App\Radan\Auth\Requests\StoreUserRequest;
+use App\Radan\Auth\Requests\UpdateUserRequest;
 
 class UserController extends APIController
 {    

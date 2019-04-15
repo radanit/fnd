@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Traits\RadanRestrictedRelationTrait;
 use App\Radan\Auth\Models\User;
 use App\Models\Speciality;
 use Profile;
 
 class Doctor extends User
-{         
+{             
+
     /**
      * The table associated with the model.
      *
@@ -29,18 +29,7 @@ class Doctor extends User
      *
      * @var string
      */
-	protected const ROLE_NAME='doctor';
-		
-	/**
-     * The attributes that are use for deleteing restricted
-     * come with RadanًRestrictedRelationTrait.
-     * On deleting this mode instance , check restricted array
-     * to have relation with this model.
-     * @var array
-     */
-    protected $restricteds = [
-        'receptions',
-    ];		
+	protected const ROLE_NAME='doctor';		
         
     /**
      * The "booting" method of the model.

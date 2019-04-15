@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Requests;
+namespace App\Radan\Auth\Requests;
 
 // Laravel Libraries
 use Illuminate\Foundation\Http\FormRequest;
@@ -59,7 +59,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'username' => 'required|string|max:255|unique:users',
-            'email' => 'string|email|max:255|unique:users',
+            'email' => 'nullable|email|max:255|unique:users',
             'password' => 'required|confirmed|'.PasswordPolicy::getValidation('default'),
             'active' => 'required|boolean',
             'profile_id' => 'required|exists:'.Profile::getTable().',id',

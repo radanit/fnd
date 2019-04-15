@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Traits\RadanRestrictedRelationTrait;
 use App\Radan\Auth\Models\User;
 use Profile;
 
 class Patient extends User
-{         
+{   
     /**
      * The table associated with the model.
      *
@@ -29,18 +28,7 @@ class Patient extends User
      * @var string
      */
 	protected const ROLE_NAME='patient';
-		
-	/**
-     * The attributes that are use for deleteing restricted
-     * come with RadanًRestrictedRelationTrait.
-     * On deleting this mode instance , check restricted array
-     * to have relation with this model.
-     * @var array
-     */
-    protected $restricteds = [
-        'receptions',
-    ];		
-        
+			
     /**
      * The "booting" method of the model.
      *
@@ -129,6 +117,10 @@ class Patient extends User
         return $this->hasMany(Reception::class,'national_id','username');
     }
 
+    /**
+     * Define Accessors
+     * 
+     */
     public function setNationalIdAttribute($value) 
     {
         $this->attributes['username'] = $value;

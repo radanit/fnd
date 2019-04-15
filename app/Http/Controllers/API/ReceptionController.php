@@ -93,5 +93,5 @@ class ReceptionController extends APIController
                 $this->httpForbidden
             );
         }
-    }
+    }    
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Radan\Requests;
+namespace App\Radan\Auth\Requests;
 
 // Laravel Libraries
 use Illuminate\Foundation\Http\FormRequest;
@@ -54,7 +54,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email|max:255|unique:users,email,'.$this->user.',id',                       
+            'email' => 'nullable|email|max:255|unique:users,email,'.$this->user.',id',                       
             'password' => 'nullable|confirmed|'.PasswordPolicy::getValidation('default'),
             'active' => 'boolean',
             'profile_id' => 'exists:'.Profile::getTable().',id',
