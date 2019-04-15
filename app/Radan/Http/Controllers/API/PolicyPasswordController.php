@@ -14,8 +14,7 @@ use App\Radan\Http\Controllers\APIController;
 
 // Radan modules classes
 use App\Radan\Http\Resources\PasswordPolicyResource;
-use App\Radan\Exceptions\ResourceProtected;
-use App\Radan\Exceptions\ResourceRestricted;
+use App\Radan\Fundation\Exceptions\ResourceProtected;
 
 // This Module classes
 use App\Radan\Policy\Password\Models\PasswordPolicy;

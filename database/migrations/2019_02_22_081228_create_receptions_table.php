@@ -28,6 +28,17 @@ class CreateReceptionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->index('national_id');
+            
+            // Patient Relation
+            $table->foreign('national_id')
+                ->references('username')->on('users')
+                ->onDelete('restrict')->onUpdate('cascade');
+
+            // Doctor Relation
+            $table->foreign('doctor_id')
+            ->references('id')->on('users')
+            ->onDelete('restrict')->onUpdate('cascade');
+
         });
 
         Schema::create('reception_status', function (Blueprint $table) {

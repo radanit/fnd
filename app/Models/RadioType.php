@@ -26,7 +26,7 @@ class RadioType extends Model
      * @var array
      */
     protected $restricteds = [
-        //'receptions',
+        'receptions',
     ];
 
     /**

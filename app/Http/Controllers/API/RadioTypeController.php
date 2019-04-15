@@ -53,7 +53,7 @@ class RadioTypeController extends APIController
         Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:radio_types',
             'description' => 'string|max:255',
-            'roles' => 'exists:roles,id',
+            'roles' => 'nullable|exists:roles,id',
 
         ])->validate();
 
