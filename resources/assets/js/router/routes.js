@@ -51,13 +51,7 @@ const routes = [
 	{ path: '/specialities',name:'specialities', component: require('../components/speciality/Speciality.vue').default },
 	{ path: '/create_specialities',name:'create_specialities', component: require('../components/speciality/CreateSpeciality.vue').default },
 	{ path: '/edit_specialities',name:'edit_specialities', component: require('../components/speciality/EditSpeciality.vue').default },
-	/*End Speciality Routes*/
-	
-	/*Begin Doctor Routes*/
-	{ path: '/doctors',name:'doctors', component: require('../components/doctor/Doctor.vue').default },
-	{ path: '/create_doctors',name:'create_doctors', component: require('../components/doctor/CreateDoctor.vue').default },
-	{ path: '/edit_doctors',name:'edit_doctors', component: require('../components/doctor/EditDoctor.vue').default },
-	/*End Doctor Routes*/		
+	/*End Speciality Routes*/		
 
 	{ path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
 	{ path: '/chats',name:'chats', component: require('../components/chat/chatMessage.vue').default },
