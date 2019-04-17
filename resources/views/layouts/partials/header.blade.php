@@ -6,3 +6,9 @@
 <title>سامانه یکپارچه سیستم های اطلاعاتی رادان |  @yield('title')</title>
 
 <link rel="stylesheet" href="/css/app.css">
+<!-- Scripts -->
+<script>
+    window.Laravel = {!! json_encode([
+        'csrfToken' => csrf_token(),
+    ]) !!};
+</script>

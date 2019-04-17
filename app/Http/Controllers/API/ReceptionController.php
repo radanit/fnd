@@ -10,6 +10,7 @@ use App\Models\ReceptionStatus;
 use App\Resources\ReceptionResource;
 use App\Requests\StoreReceptionRequest;
 use App\Requests\UpdateReceptionRequest;
+use App\Events\ReceptionRegistered;
 
 class ReceptionController extends APIController
 {
@@ -51,7 +52,9 @@ class ReceptionController extends APIController
         $status = ReceptionStatus::create([
             'reception_id' => $reception->id,
             'status' => ReceptionStatus::FIRST,
-        ]);        
+        ]);   
+        
+        event(new ReceptionRegistered($reception));
         
         // Return JSON response            
         return response()->json([
