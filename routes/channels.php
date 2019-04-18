@@ -16,5 +16,5 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('bahar.{userId}', function ($user, $userId) {
-    return $user->id =  $userId;
+    return $user->id ==  $userId;
 });
