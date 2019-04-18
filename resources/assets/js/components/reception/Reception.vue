@@ -76,7 +76,7 @@
                             next-text=">"
                             :page-size="pagination.per_page"                         
                             :total="pagination.total"
-                            @current-change="page"
+                            @current-change="loadReception"
                             :current-page.sync="page">
                         </el-pagination>             
                   </div>
@@ -164,7 +164,7 @@ import {errorMessage} from '../../utilities';
             | This method Load Profile Info
             |
             */
-            loadReception(page){                
+            loadReception(){                
                 axios.get("../api/receptions",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);

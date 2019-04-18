@@ -65,8 +65,8 @@
                             next-text=">"
                             :page-size="pagination.per_page"                         
                             :total="pagination.total"
-                            @current-change="loadPage"
-                            :current-page.sync="pagination.current_page">
+                            @current-change="loadProfileStructure"
+                            :current-page.sync="page">
                         </el-pagination>             
                   </div>
               </div>
@@ -103,6 +103,7 @@
                 search: '',
                 pagination:{},
                 list: [],
+                page:0,
                 infiniteId: +new Date(),
             }
         },
@@ -152,8 +153,8 @@
             | This method Load Profile Info
             |
             */
-            loadProfileStructure(page){                
-                axios.get("../api/profiles",{params:{page:page}}).then(({
+            loadProfileStructure(){                
+                axios.get("../api/profiles",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch((error)=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -175,7 +176,6 @@
             */            
             loadPage(){                
                 this.loadProfileStructure(this.page);
-                console.log(this.pagination);
             },
             /*
             |--------------------------------------------------------------------------
@@ -253,7 +253,7 @@
             }
         },           
         created() {
-            this.loadPage();
+            this.loadProfileStructure();
             Fire.$on('AfterCrud',() => {
                 //
             });
