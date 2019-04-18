@@ -35,8 +35,8 @@ class ReceptionRegistered implements ShouldBroadcast
         return new PrivateChannel('channel-name');
     }
 */
-    public function broadcastOn() {
-        return new PrivateChannel('bahar.'.$this->reception->lastStatus()->created_by);
+    public function broadcastOn() {       
+        return new PrivateChannel('bahar.'.$this->reception->lastStatus()->created_by);        
     }
     
       public function broadcastWith() {
