@@ -367,19 +367,18 @@ import {errorMessage} from '../../utilities';
         },
         //asasa
           listenForChanges() {
-          Echo.channel('bahar')
-            .listen('ReceptionRegistered', reception => {
-              if (! ('Notification' in window)) {
-                alert('Web Notification is not supported');
-                return;
-              }
-              Notification.requestPermission( permission => {
-                let notification = this.$notify.success({
-          title: 'Info',
-          message: 'This is a message without close button',
-          showClose: false
-        });
-
+            Echo.private('bahar.' + window.Laravel.user)
+              .listen('ReceptionRegistered', reception => {
+                if (! ('Notification' in window)) {
+                  alert('Web Notification is not supported');
+                  return;
+                }
+            Notification.requestPermission( permission => {
+              let notification = this.$notify.success({
+                  title: 'Info',
+                  message: 'This is a message without close button',
+                  showClose: false
+                });
                 // link to page on clicking the notification
                 notification.onclick = () => {
                   window.open(window.location.href);
