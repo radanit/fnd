@@ -43,69 +43,30 @@ class Patient extends User
         });
     }
 
-    /**
-     * Override create method
-     * 
-     * @return Model
-     */
-    public static function create(array $attributes = [])
+    public function updateMeta(array $attributes = []) 
     {
-        // Validate profile data
-        Profile::set(self::PROFILE_TYPE)->validate($attributes);
+        if (isset($attributes))
+        {
+            // Validate profile data
+            Profile::set(self::PROFILE_TYPE)->validate($attributes);
+            
+            // Update or create Profile data       
+            if (Profile::has($this)) {
+                Profile::update($this,$attributes);
+            }
+            else {
+                Profile::create($this,$attributes);
+            }
 
-        // Create Parent
-        $attributes['username'] = $attributes['national_id'];
-        $attributes['password'] = str_random(6);
-        $model = static::query()->create($attributes);
-        
-        // Create Profile data       
-        Profile::create($model,$attributes);
-        
-        // Attache role
-        $role = Role::where('name',self::ROLE_NAME);
-        $model->attachRoles($role);
-
-        return $model;
-    }
-
-    /**
-     * Override firstOrCreate method
-     * 
-     * @return Model
-     */
-    public static function firstOrCreate(array $attributes = [])
-    {
-        $model = static::query()->where('username',$attributes['national_id']);
-        
-        if ($model->get()->count())  {
-            return $model->first();
+            if (!$this->hasRole(self::ROLE_NAME))
+            {
+                $role = Role::where('name',self::ROLE_NAME);
+                $this->attachRoles($role);
+            }
         }
-        else {
-            return static::create($attributes);
-        }
-    }
 
-    /**
-     * Override update method
-     * 
-     * @return Model
-     */
-    public function update(array $attributes = [],array $options = [])
-    {
-        // Validate profile data
-        Profile::set(self::PROFILE_TYPE)->validate($attributes);
-
-        // Create Parent
-        if (isset($attributes['national_id'])) {
-            $attributes['username'] = $attributes['national_id'];
-        }
-        $model = $this->query()->update($attributes,$options);
-        
-        // Create Profile data       
-        Profile::update($model,$attributes);
-
-        return $model;
-    }
+        return $this;
+    }    
 
     /**
      * Relation with receptions

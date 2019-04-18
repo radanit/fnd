@@ -193,6 +193,32 @@ class Profile
         
         return $this;
     }
+
+    /**
+     * Check user has profile
+     * 
+     * @param array $user Elequent User model   
+     * @return boolean
+     */
+    public function has($user) 
+    {
+        if (is_null($user)) return false;
+        return !is_null($user->profile);
+    }
+
+    /**
+     * Check user has profile data
+     * 
+     * @param array $user Elequent User model   
+     * @return boolean
+     */
+    public function hasData($user) 
+    {
+       if (self::has($user)) {
+           return !is_null($user->profile->data);
+       } 
+       return false;
+    }
     
     /**
      * Create new profile data

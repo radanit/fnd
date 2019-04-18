@@ -90,7 +90,7 @@ abstract class RequestFilter
         {
             if ( $method = self::getMethod($rule))
             {
-                $newValue = self::$method($request,$key);                
+                $newValue = self::$method($request,$key,self::getParams($rule));
                 if (isset($newValue)) {                    
                     $request->replace(array_merge($request->all(), [$key => $newValue]));
                 }
@@ -104,7 +104,7 @@ abstract class RequestFilter
      * 
      */
 
-    protected static function toArray($request,$key)
+    protected static function toArray($request,$key,$params=null)
     {
         $value = $request->get($key);       
         if (!is_array($value)) {            
@@ -118,7 +118,7 @@ abstract class RequestFilter
         return $value;
     }
 
-    protected static function toJson($request,$key)
+    protected static function toJson($request,$key,$params=null)
     {
         $value = $request->get($key);
         if (is_array($value))
@@ -126,21 +126,21 @@ abstract class RequestFilter
         return $value;
     }
 
-    protected static function remove(&$request,$key)
+    protected static function remove(&$request,$key,$params=nulll)
     {
         if (isset($key)) {
             $request->remove($key); 
         }        
     }
 
-    protected static function unsetIfNull(&$request,$key)
+    protected static function unsetIfNull(&$request,$key,$params=null)
     {        
         if (empty($request->get($key))) {
             $request->remove($key); 
         }        
     }
 
-    protected static function toBoolean($request,$key)
+    protected static function toBoolean($request,$key,$params=null)
     {
         $value = $request->get($key);        
         if (is_string($value)) {             
@@ -156,26 +156,11 @@ abstract class RequestFilter
         }
     }
 
-    protected static function set($request,$key)
-    {
-        if (is_string($value)) {            
-            if (ucwords($value) == ucwords('TRUE')) {
-                return true;
-            } 
-            else {
-                return false;
-            }
-        }
-        else {
-            return (bool) $value;
-        }
+    protected static function set($request,$key,$params=null)
+    {       
+        $value = $request->get($key);
+        if (isset($params[0]))
+            $value = $request->get($params[0]);
+        return $value;
     }
 }
-
-/*
-const ToArrayRule='array';
-    const ToJsonRule='json';
-    const RemoveRule='remove';
-    const UnsetIfNullRule='unsetIfNull';
-    const ToBooleanRule='boolean';
-    */
