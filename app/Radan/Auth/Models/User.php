@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
 
-use App\Radan\Profile\Traits\SetPasswordAccessorTrait;
 use App\Radan\Profile\Traits\ProfileUserTrait;
 use App\Radan\Profile\Traits\ProfileUserScopeTrait;
 use App\Radan\Policy\Password\Traits\PasswordPolicyUserTrait;
@@ -19,7 +18,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, SoftDeletes;
     use LaratrustUserTrait;
-    use SetPasswordAccessorTrait; 
     use ProfileUserTrait;
     use ProfileUserScopeTrait;
     use PasswordPolicyUserTrait;
@@ -57,6 +55,12 @@ class User extends Authenticatable
      */
     public function findForPassport($identifier) {
         return $this->orWhere('email', $identifier)->orWhere('username', $identifier)->first();
+    }
+
+    
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
 }

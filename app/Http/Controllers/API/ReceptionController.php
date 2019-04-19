@@ -10,7 +10,7 @@ use App\Models\ReceptionStatus;
 use App\Resources\ReceptionResource;
 use App\Requests\StoreReceptionRequest;
 use App\Requests\UpdateReceptionRequest;
-use App\Events\ReceptionRegistered;
+use App\Events\ReceptionStatusEvent;
 use Profile;
 
 class ReceptionController extends APIController
@@ -46,59 +46,31 @@ class ReceptionController extends APIController
      */
     public function store(StoreReceptionRequest $request)
     {
-        $patient = Patient::firstOrCreate(array_merge(
-            $request->all(),
-            ['username' => $request->get('national_id')]
-        ));
+        // Check patient exists or create new
+        $patient = Patient::firstOrCreate([
+            'username' => $request->get('username')
+        ]);
 
-        $patient->updateMeta($request->all());
+        // Update patient user profile
+        $patient->syncProfile($request->all());
 
-        // Return JSON response            
-        return response()->json([
-            'message' => Profile::hasData($patient)],
-            500
-        ); 
-
-        $patient = Patient::updateOrCreate(
-            $request->all(),
-            ['username' => $request->get('national_id')]
-        );       
-        
-        $patient = Patient::create(array_merge(
-            $request->all(),
-            ['username' => $request->get('national_id')]
-        ));
-
-
-        // Return JSON response            
-        return response()->json([
-            'message' => $request->all()],
-            500
-        );  
-
-        // Create Profile data
-        // Validate profile data
-        Profile::set(self::PROFILE_TYPE)->validate($attributes);
-        Profile::create($model,$attributes);
-        
-        // Attache role
-        $role = Role::where('name',self::ROLE_NAME);
-        $model->attachRoles($role);
+        // Attache patient role
+        $patient->syncRole();         
                 
+        // Create reception 
         $reception = Reception::create($request->all());
-
-        $status = ReceptionStatus::create([
-            'reception_id' => $reception->id,
-            'status' => ReceptionStatus::FIRST,
-        ]);   
-        
-        event(new ReceptionRegistered($reception));
+        $status = $reception->status()->create(
+            ['status' => ReceptionStatus::FIRST]
+        );
+                
+        // Raise Reception Recepted event
+        event(new ReceptionStatusEvent($reception,$status));
         
         // Return JSON response            
         return response()->json([
             'message' => __('app.insertAlert')],
             $this->httpOk
-        );  
+        );
     }
 
     /**

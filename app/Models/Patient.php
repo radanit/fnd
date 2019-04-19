@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Auth\Models\User;
+use App\Radan\Auth\Models\User as BaseUser;
 use Profile;
 
-class Patient extends User
+class Patient extends BaseUser
 {   
     /**
      * The table associated with the model.
@@ -14,6 +14,15 @@ class Patient extends User
      * @var string
      */
     protected $table = 'users';
+
+    /**
+     * Default model attribute values
+     * 
+     * @var array
+     */
+    protected $attributes =[
+        'password' => 'password',
+    ];
     
     /**
      * The profile type name used in global scop
@@ -27,7 +36,7 @@ class Patient extends User
      *
      * @var string
      */
-	protected const ROLE_NAME='patient';
+	public const ROLE_NAME='patient';
 			
     /**
      * The "booting" method of the model.
@@ -43,10 +52,23 @@ class Patient extends User
         });
     }
 
-    public function updateMeta(array $attributes = []) 
+    /**
+     * Get parent object 
+     * 
+     */
+    public function user()
     {
-        if (isset($attributes))
-        {
+        return BaseUser::find();
+    }
+    
+    /**
+     * Update or create patient profile
+     * 
+     * @param array
+     */
+    public function syncProfile(array $attributes = []) 
+    {
+        if (isset($attributes)) {
             // Validate profile data
             Profile::set(self::PROFILE_TYPE)->validate($attributes);
             
@@ -57,17 +79,26 @@ class Patient extends User
             else {
                 Profile::create($this,$attributes);
             }
-
-            if (!$this->hasRole(self::ROLE_NAME))
-            {
-                $role = Role::where('name',self::ROLE_NAME);
-                $this->attachRoles($role);
-            }
         }
 
         return $this;
-    }    
+    }
+    
+    /**
+     * Attache patient role to user 
+     * 
+     * @param void
+     */
+    public function syncRole()
+    {
+        if (!$this->user()->hasRole(self::ROLE_NAME)) {
+            $role = Role::where('name',self::ROLE_NAME)->first();
+            $this->user()->roles()->attach($role);
+        }
 
+        return $this;
+    }
+    
     /**
      * Relation with receptions
      * 

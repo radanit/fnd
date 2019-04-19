@@ -20,14 +20,24 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             // Accessor attribute define if Profile\Traits\ProfileUserTrait
-            'fullname' => $this->fullname, 
+            'fullname' => $this->whenLoaded('profile' , function () {
+                return $this->fullname;
+            }),
             // Cast to boolean in Auth\Models\User
             'active' => $this->active,
-            'profile_id' => $this->type_id,
-            'profile_name' => $this->type,
-            'profile_description' => $this->type_description,
+            'profile_id' => $this->whenLoaded('profile' , function () {
+                return $this->type_id;
+            }),
+            'profile_name' => $this->whenLoaded('profile' , function () {
+                return $this->type;
+            }),                    
+            'profile_description' => $this->whenLoaded('profile' , function () {
+                return $this->type_description;
+            }),
             // Cast to array in Profile\Models\ProfileUser
-            'profile_data' => $this->profile->data,
+            'profile_data' => $this->whenLoaded('profile' , function () {
+                return $this->profile->data;
+            }),
             // Cast to array in Auth\Models\Role
             'roles' => $this->roles,
         ];

@@ -40,13 +40,17 @@ trait ProfileUserTrait
      */
     public function __get($key)    
     {        
-        if (!property_exists($this, $key) and !method_exists($this, $key) and !is_null($this->profile->data))
+        if (!property_exists($this, $key) and !method_exists($this, $key) and !is_null($this->profile))
         {            
-            $profileData = (is_array($this->profile->data)) ? $this->profile->data : json_decode($this->profile->data);            
-            if (array_key_exists($key,$profileData)) {
-                return $profileData[$key];
+            if (!is_null($this->profile->data))
+            {
+                $profileData = (is_array($this->profile->data)) ? $this->profile->data : json_decode($this->profile->data);            
+                if (array_key_exists($key,$profileData)) {
+                    return $profileData[$key];
+                }
             }
         }
+
                 
         return parent::__get($key);        
     }
@@ -58,7 +62,7 @@ trait ProfileUserTrait
      */
     public function getFullNameAttribute()
     {
-        $profileData = $this->profile->data;
+        $profileData = isset($this->profile) ? $this->profile->data:[];
         if (is_array($profileData)) {
             $first_name = (array_key_exists('first_name',$profileData)) ? $profileData['first_name'] : '';
             $last_name = (array_key_exists('last_name',$profileData)) ? $profileData['last_name'] : '';
@@ -70,17 +74,17 @@ trait ProfileUserTrait
     }
 
     public function getTypeAttribute()
-    {
-        return $this->profile->type->name;
+    {        
+        return $this->profile->type->name;        
     }
 
     public function getTypeIdAttribute()
-    {
+    {        
         return $this->profile->type->id;
     }
 
     public function getTypeDescriptionAttribute()
-    {
+    {        
         return $this->profile->type->description;
     }
 }
