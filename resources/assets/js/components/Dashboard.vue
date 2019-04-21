@@ -17,9 +17,9 @@
         </div>
         <!-- Load User Dashboard -->
         <admin-dashboard v-if="user.profile_name==='default'"></admin-dashboard>
-        <doctor-dashboard v-if="user.profile_name==='doctor'"></doctor-dashboard>
-        <radioadmin-dashboard v-if="user.profile_name==='doctor'"></radioadmin-dashboard>
-        <receptor-dashboard v-if="user.profile_name==='doctor'"></receptor-dashboard>
+        <doctor-dashboard  v-else-if="user.profile_name==='doctor'"></doctor-dashboard>
+        <radioadmin-dashboard  v-else-if="user.profile_name==='radioadmin'"></radioadmin-dashboard>
+        <receptor-dashboard  v-else-if="user.profile_name==='receptor'"></receptor-dashboard>
     </div>
 </template>
 

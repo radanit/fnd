@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="content-header">
-            <div class="container-fluid">
+            <div class="container-fluid text-justify">
                 <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark text-justify">{{trans('dashboard.cardTitle')}}</h1>
@@ -25,12 +25,12 @@
                         <div class="inner">
                             <h3>150</h3>
 
-                            <p>New Orders</p>
+                            <p>{{trans('dashboard.totalFileCount')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">{{trans('dashboard.view')}}<i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -38,14 +38,13 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                            <p>Bounce Rate</p>
+                            <h3>53<sup style="font-size: 20px"></sup></h3>
+                            <p>{{trans('dashboard.totalActiveDoctorCount')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">{{trans('dashboard.view')}} <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -55,12 +54,12 @@
                         <div class="inner">
                             <h3>44</h3>
 
-                            <p>User Registrations</p>
+                            <p>{{trans('dashboard.totalTodayFileCount')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">{{trans('dashboard.view')}} <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -70,12 +69,12 @@
                         <div class="inner">
                             <h3>65</h3>
 
-                            <p>Unique Visitors</p>
+                            <p>{{trans('dashboard.totalCompleteFileCount')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">{{trans('dashboard.view')}} <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->

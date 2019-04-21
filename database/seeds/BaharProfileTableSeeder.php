@@ -139,8 +139,110 @@ class DoctorProfileTableSeeder extends Seeder
 					"rules" => "required|digits:4",					
 				],
 			]												
-		));	
-		
+		));
+
+		// radio admin profile
+		Profile::create(array(
+			'name' => 'radioAdmin',
+			'description' => 'مدیر رادیولوژی',
+			'structure' => [
+				[
+					"id" => "1",
+					"name" => "first_name",
+					"item" => "el-input",
+					"type" => "text",
+					"required" => "true",
+					"label" => "profile.first_name",
+					"errorMsg" => "profile.first_nameError",
+					"rules" => "required|string|max:191",
+					
+				],
+				[
+					"id" => "2",
+					"name" => "last_name",
+					"item" => "el-input",
+					"type" => "text",
+					"required" => "true",
+					"label" => "profile.last_name",
+					"errorMsg" => "profile.last_nameError",
+					"rules" => "required|string|max:191",
+				],
+				[
+					"id" => "3",
+					"name" => "avatar",
+					"item" => "el-upload",
+					"type" => "file",
+					"required" => "false",
+					"label" => "profile.avatar",
+					"errorMsg" => "profile.avatarError",
+					"rules" => "bail|nullable|image|mimes:jpeg,jpg,png,gif|max:2048",
+					
+				],
+				[
+					"id" => "4",
+					"name" => "mobile",
+					"item" => "el-input",
+					"type" => "text",
+					"required" => "false",
+					"label" => "profile.mobile",
+					"errorMsg" => "profile.mobileError",
+					"rules" => "numeric|regex:/(0)[0-9]{10}/",
+					
+				]
+			]												
+		));
+
+		// receptor profile
+		Profile::create(array(
+			'name' => 'receptor',
+			'description' => 'کارشناس پذیرش',
+			'structure' => [
+				[
+					"id" => "1",
+					"name" => "first_name",
+					"item" => "el-input",
+					"type" => "text",
+					"required" => "true",
+					"label" => "profile.first_name",
+					"errorMsg" => "profile.first_nameError",
+					"rules" => "required|string|max:191",
+					
+				],
+				[
+					"id" => "2",
+					"name" => "last_name",
+					"item" => "el-input",
+					"type" => "text",
+					"required" => "true",
+					"label" => "profile.last_name",
+					"errorMsg" => "profile.last_nameError",
+					"rules" => "required|string|max:191",
+				],
+				[
+					"id" => "3",
+					"name" => "avatar",
+					"item" => "el-upload",
+					"type" => "file",
+					"required" => "false",
+					"label" => "profile.avatar",
+					"errorMsg" => "profile.avatarError",
+					"rules" => "bail|nullable|image|mimes:jpeg,jpg,png,gif|max:2048",
+					
+				],
+				[
+					"id" => "4",
+					"name" => "mobile",
+					"item" => "el-input",
+					"type" => "text",
+					"required" => "false",
+					"label" => "profile.mobile",
+					"errorMsg" => "profile.mobileError",
+					"rules" => "numeric|regex:/(0)[0-9]{10}/",
+					
+				]
+			]												
+		));
+
 		Role::create([            
                 'name' => 'doctor',
                 'display_name' => 'پزشک', 
