@@ -19,6 +19,10 @@ return [
         'completed' => 'تکمیل شد',
         'rejeted' => 'برگشت شد',
     ],
+    
+    'reception' => [
+        'protected' => 'امکان حذف یا تغییر پذیرش در وضعیت :status وجود ندارد',
+    ],
 
     'doctor' => [
         'specialities' => 'متخصص',

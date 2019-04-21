@@ -15,7 +15,7 @@ class StoreReceptionRequest extends FormRequest
      * @var array
      */
     protected $afterFilter = [
-        'username' => 'set:national_id',
+        //'username' => 'set:national_id',
     ];
 
     /**
@@ -40,6 +40,11 @@ class StoreReceptionRequest extends FormRequest
             'reception_date' => 'date',
             'doctor_id' => 'required|exists:users,id',
             'radio_type_id' => 'required|exists:radio_types,id',
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
+            'gender' => 'required|boolean',
+            'mobile' => 'numeric|regex:/(0)[0-9]{10}/',
+            'birth_year' => 'required|digits:4',
         ];
     }    
 }

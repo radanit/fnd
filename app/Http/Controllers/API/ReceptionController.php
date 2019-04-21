@@ -48,15 +48,16 @@ class ReceptionController extends APIController
     {
         // Check patient exists or create new
         $patient = Patient::firstOrCreate([
-            'username' => $request->get('username')
-        ]);
+            'username' => $request->get('national_id')
+        ]);        
 
-        // Update patient user profile
-        $patient->syncProfile($request->all());
-
-        // Attache patient role
-        $patient->syncRole();         
-                
+        if (isset($patient->wasRecentlyCreated) && !$patient->wasRecentlyCreated) {
+            $patient = Patient::find($patient->id);
+            $patient->update([
+                'username' => $request->get('national_id'),                
+            ]);
+        }        
+    
         // Create reception 
         $reception = Reception::create($request->all());
         $status = $reception->status()->create(
@@ -83,15 +84,28 @@ class ReceptionController extends APIController
     public function update(UpdateReceptionRequest $request, $id)
     {
         // Find resource or throw exception
-        $reception = Reception::findOrfail($id);
+        $reception = Reception::findOrfail($id);        
 
         // Check reception status, if in recepting
-        if ($reception->lastStatus()->status == ReceptionStatus::FIRST) {
+        if ($reception->lastStatus()->status !== ReceptionStatus::LAST) {
+            
             // update patinet
-            $reception->patient()->update($request);
+            $reception->patient()->update([
+                'username' => $request->get('national_id'),
+            ]);
 
             // update reception
-            $reception->update($request);
+            $reception->update($request->only(
+                'national_id',
+                'first_name',
+                'last_name',
+                'mobile',
+                'birth_year',
+                'gender',
+                'doctor_id',
+                'radio_type_id',
+                'reception_date'
+            ));
 
             // Return JSON response
             return response()->json([
@@ -100,11 +114,45 @@ class ReceptionController extends APIController
             );
         }
         else {
-            // Return JSON response            
+            // Return JSON response
             return response()->json([
                 'message' => __('app.failedAlert')],
                 $this->httpForbidden
             );
         }
-    }    
+    }
+    
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)    
+    {
+        // destroy profile
+        $reception = Reception::findOrFail($id);        
+
+        // Check reception status, if in recepting
+        if ($reception->lastStatus()->status !== ReceptionStatus::LAST) {
+
+            // Destory profile
+            $reception->delete();
+            
+            // Return
+            return response()->json([
+                'message' => __('app.deleteAlert')],
+                $this->httpOk
+            );
+        } else {
+            // Return JSON response
+            return response()->json([
+                'message' => __(
+                    'bahar.reception.protected',
+                    $reception->lastStatus()->status
+                )],
+                $this->httpForbidden
+            );
+        }
+    }
 }

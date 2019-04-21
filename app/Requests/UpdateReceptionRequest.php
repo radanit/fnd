@@ -23,10 +23,16 @@ class UpdateReceptionRequest extends FormRequest
      */
     public function rules()
     {       
-        return [            
-            'national_id' => 'required|digits:10|unique:users,username',
-            'reception_date' => 'date',            
+        return [
+            'national_id' => 'required|digits:10|unique:users,username,'.$this->national_id.',username',
+            'reception_date' => 'date',
+            'doctor_id' => 'required|exists:users,id',
             'radio_type_id' => 'required|exists:radio_types,id',
+            'first_name' => 'required|string|max:191',
+            'last_name' => 'required|string|max:191',
+            'gender' => 'required|boolean',
+            'mobile' => 'numeric|regex:/(0)[0-9]{10}/',
+            'birth_year' => 'required|digits:4',
         ];
     }    
 }

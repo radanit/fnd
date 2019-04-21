@@ -16,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);        
+
+        // Model Observers
+        \App\Models\Patient::observe(\App\Observers\PatientObserver::class);
     }
 
     /**

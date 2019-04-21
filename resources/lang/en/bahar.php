@@ -20,6 +20,10 @@ return [
         'rejeted' => 'Rejected',
     ],
 
+    'reception' => [
+        'protected' => 'Change or delete of the reception does not available',
+    ],
+
     'doctor' => [
         'specialities' => 'Specialist of',
     ]

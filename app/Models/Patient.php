@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Radan\Auth\Models\User as BaseUser;
-use Profile;
+use App\Radan\Auth\Models\User as AuthUser;
 
-class Patient extends BaseUser
+class Patient extends AuthUser
 {   
     /**
      * The table associated with the model.
@@ -22,7 +21,7 @@ class Patient extends BaseUser
      */
     protected $attributes =[
         'password' => 'password',
-    ];
+    ];    
     
     /**
      * The profile type name used in global scop
@@ -50,55 +49,8 @@ class Patient extends BaseUser
         static::addGlobalScope(function ($query) {
             $query->ofType(self::PROFILE_TYPE);
         });
-    }
-
-    /**
-     * Get parent object 
-     * 
-     */
-    public function user()
-    {
-        return BaseUser::find();
-    }
-    
-    /**
-     * Update or create patient profile
-     * 
-     * @param array
-     */
-    public function syncProfile(array $attributes = []) 
-    {
-        if (isset($attributes)) {
-            // Validate profile data
-            Profile::set(self::PROFILE_TYPE)->validate($attributes);
-            
-            // Update or create Profile data       
-            if (Profile::has($this)) {
-                Profile::update($this,$attributes);
-            }
-            else {
-                Profile::create($this,$attributes);
-            }
-        }
-
-        return $this;
-    }
-    
-    /**
-     * Attache patient role to user 
-     * 
-     * @param void
-     */
-    public function syncRole()
-    {
-        if (!$this->user()->hasRole(self::ROLE_NAME)) {
-            $role = Role::where('name',self::ROLE_NAME)->first();
-            $this->user()->roles()->attach($role);
-        }
-
-        return $this;
-    }
-    
+    }    
+        
     /**
      * Relation with receptions
      * 
@@ -110,11 +62,16 @@ class Patient extends BaseUser
     }
 
     /**
-     * Define Accessors
+     * Define Accessor and Matator
      * 
      */
     public function setNationalIdAttribute($value) 
     {
         $this->attributes['username'] = $value;
+    }
+
+    public function getNationalIdAttribute() 
+    {
+        return $this->attributes['username'];
     }
 }
