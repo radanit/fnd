@@ -15,5 +15,9 @@ return [
 
     'cardTitle' => 'Dashboard',
     'cardBody' => 'Dashboard Content.',
-
+    'totalCompleteFileCount' => 'Completed File Count',
+    'view' => 'View More',
+    'totalTodayFileCount' => 'Today File Count',
+    'totalActiveDoctorCount' => 'Active Doctors Count',
+    'totalFileCount' => 'Total File Count'
 ];

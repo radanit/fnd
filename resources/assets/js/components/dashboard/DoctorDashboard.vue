@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <div class="container-fluid">
+        <div class="container-fluid text-justify">
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6">
