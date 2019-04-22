@@ -47,6 +47,10 @@ const routes = [
 	{ path: '/edit_radio_types',name:'edit_radio_types', component: require('../components/radio_type/EditRadioType.vue').default },
 	/*End RadioType Routes*/
 
+	/*Begin Doctor Routes*/
+	{ path: '/doctors',name:'doctors', component: require('../components/doctor/Doctor.vue').default },
+	/*End Doctor Routes*/	
+	
 	/*Begin Speciality Routes*/
 	{ path: '/specialities',name:'specialities', component: require('../components/speciality/Speciality.vue').default },
 	{ path: '/create_specialities',name:'create_specialities', component: require('../components/speciality/CreateSpeciality.vue').default },
@@ -54,7 +58,7 @@ const routes = [
 	/*End Speciality Routes*/		
 
 	{ path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
-	{ path: '/chats',name:'chats', component: require('../components/chat/chatMessage.vue').default },
+	{ path: '/chats',name:'chats', component: require('../components/chat/ChatMessage.vue').default },
 ];
 
 export default routes;

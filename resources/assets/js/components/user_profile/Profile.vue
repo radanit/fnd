@@ -51,7 +51,7 @@
 						</el-tab-pane>
 						<el-tab-pane :label="trans('profile.setting')" name="third">
 							 <el-form id="update_form"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
-								 	 <user-profile :user='user'></user-profile>  
+								 	 <user-profile :user='user.profile_data'></user-profile>  
 									<el-form-item>
 										<el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>										
 									</el-form-item>									

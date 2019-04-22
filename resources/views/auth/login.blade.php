@@ -72,7 +72,7 @@
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
+						<img class="d-block w-100 h-100" src="{{URL::asset('/assets/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
 					</div>
 					<!--				
 					<div class="carousel-item">

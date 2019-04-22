@@ -35,6 +35,7 @@ return [
     'editBtnLbl' => 'Edit',
 	'deleteBtnLbl' =>' Delete',
     'submitBtnLbl' => ' Save',
+    'showBtnLbl' => 'View Info',
     'submitContinueBtnLbl' => 'Save & New',
 	'resetBtnLbl' => 'Reset',
 	'contact' => 'Contact',

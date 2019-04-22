@@ -16,7 +16,7 @@
             </div><!-- /.container-fluid -->
         </div>
         <section class="content">
-                <div class="container-fluid">
+                <div class="container-fluid text-justify">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
                     <div class="col-lg-3 col-6">
@@ -30,7 +30,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">{{trans('dashboard.view')}}<i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">{{trans('dashboard.view')}} <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
