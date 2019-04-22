@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="/home#/dashboard" class="brand-link">
-      <img src="../images/logo.png" alt="Radan Logo" class="brand-image img-circle elevation-3"
+      <img src="../assets/images/logo.png" alt="Radan Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">{{ __('app.app_name') }}</span>
     </a>
