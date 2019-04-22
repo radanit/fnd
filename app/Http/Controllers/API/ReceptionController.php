@@ -38,6 +38,10 @@ class ReceptionController extends APIController
      */
     protected $jsonResource = ReceptionResource::class;
 
+    protected $filterable = [
+        'national_id'
+    ];
+
     /**
      * Store a newly created resource in storage.
      *
@@ -154,5 +158,28 @@ class ReceptionController extends APIController
                 $this->httpForbidden
             );
         }
+    }
+
+    /**
+     * Apply query filters validation rules
+     * 
+     * 
+     * @return array of laravel validation rules
+     */
+    protected function filterRules() 
+    {
+        return ['national_id' => 'digits:10'];
+        //return [];
+    }
+
+    /**
+     * Set query filter
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    protected function filter($query)
+    {
+        return $query->where('national_id',$this->getFilter('national_id'));
     }
 }

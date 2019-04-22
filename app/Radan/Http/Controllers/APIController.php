@@ -2,14 +2,18 @@
 
 namespace App\Radan\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Config\Repository as Config;
 use App\Http\Controllers\Controller as BaseController;
 use App\Radan\Fundation\Traits\RadanResponseCodeTrait;
+use App\Radan\Fundation\Traits\RadanDataQueryFilterTrait;
 
-class APIController extends BaseController
+class APIController extends BaseController 
 {    
     use RadanResponseCodeTrait;
+    use RadanDataQueryFilterTrait;
 	
 	/**
      * Instance of config repository
@@ -24,21 +28,81 @@ class APIController extends BaseController
      * @var User
      */
     protected $user;
+
+    /**
+     * Instance of http request user
+     * 
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * Bind Model to Controller
+     * 
+     * @var Illuminate\Database\Eloquent\Model
+     */
+    protected $model;    
+
+    /**
+     * Relations for eger loading
+     * 
+     * @var array
+     */
+    protected $relations = [       
+    ];
+
+    /**
+     * Api resource class name
+     * 
+     * @var Illuminate\Http\Resources\Json\JsonResource
+     */
+    protected $jsonResource;
+
+    /**
+     * Instance of http request filter
+     * 
+     * @var array
+     */
+    protected $filters;
+
+    protected $requestFilterName;
+
+    protected $filterable = [        
+    ];
 	
 	/**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Config $config)
-    {        
+    public function __construct(Config $config,Request $request)
+    {
         $this->config = $config;
+        $this->request = $request;
+        $this->fetchFilters($request);         
 
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
             return $next($request);
-        });       
-    } 
+        });
+    }
+    
+    protected function getModel()
+    {        
+        if (class_exists($this->model))
+        {
+            $this->model = new $this->model();
+            if ($this->hasFilter() and method_exists($this,'filter'))
+            {               
+                if ($this->validateFilter()) {
+                    $this->model = $this->filter($this->model);
+                }
+            }
+            return $this->model;      
+        }
+        
+        return null;        
+    }
 
     /**
      * Return number of records return per page
@@ -56,7 +120,11 @@ class APIController extends BaseController
      * @return Model
      */
     protected function all($model)
-    {
+    {        
+        if (!$model->count())
+        {
+          throw(new ModelNotFoundException);
+        }
         // Determinde number of record to return
         $pgCount = $this->getPaginationCount();
         $records = ($pgCount) ? $model->paginate($pgCount) : $model->get();
@@ -69,9 +137,9 @@ class APIController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         // Get all resources
-        $model = new $this->model();
+        $model = $this->getModel();       
         $model = isset($this->relations) ? $model->with($this->relations):$model;
 
         // Return api resource
@@ -80,7 +148,6 @@ class APIController extends BaseController
         } else {
             return $this->all($model);
         }
-
     }
 
     /**
@@ -91,7 +158,7 @@ class APIController extends BaseController
      */
     public function show($id)
     {
-        $model = new $this->model();
+        $model = $this->getModel();
         if (isset($this->relations)) {
             $record = $model->with($this->relations)->findOrFail($id);
         }
@@ -101,5 +168,5 @@ class APIController extends BaseController
                 
         // Return JSON response
         return new $this->jsonResource($record);
-    }    
+    }
 }

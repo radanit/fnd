@@ -123,4 +123,26 @@ class RadioTypeController extends APIController
             $this->httpOk
         );
     }
+
+    /**
+     * Apply query filters validation rules
+     * 
+     * 
+     * @return array of laravel validation rules
+     */
+    protected function filterRules() 
+    {
+        return [];
+    }
+    
+    /**
+     * Apply query filters 
+     * 
+     * @param Eloquent $query
+     * @return Eloquent
+     */
+    protected function filter($query)
+    {                
+        return $query->where('name',$this->getFilter('name'));       
+    }
 }
