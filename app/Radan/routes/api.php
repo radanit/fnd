@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth:api','as' => 'users.me.'], function() {
     Route::put('users/me/password', 'UserPasswordController@update')->name('password');
     Route::apiResource('users/me/avatar', 'UserAvatarController')->except(['update','show','destroy']); 
     Route::get('users/me', 'UserMeController@index')->name('profile');
+    Route::put('users/me', 'UserMeController@update')->name('profile.update');
 });
 
 Route::group(['middleware' => 'auth:api','as' => 'users.batch.'], function() {    

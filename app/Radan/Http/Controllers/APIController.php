@@ -121,10 +121,9 @@ class APIController extends BaseController
      */
     protected function all($model)
     {        
-        if (!$model->count())
-        {
+        /*if (!$model->count()) {
           throw(new ModelNotFoundException);
-        }
+        }*/
         // Determinde number of record to return
         $pgCount = $this->getPaginationCount();
         $records = ($pgCount) ? $model->paginate($pgCount) : $model->get();
