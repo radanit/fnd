@@ -44,7 +44,7 @@
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>                        
-                            <router-link to="/doctors" class="small-box-footer">{{trans('dashboard.view')}} <i class="fa fa-arrow-circle-right"></i></router-link>
+                            <router-link :to="{ name: 'doctors'}" class="small-box-footer">{{trans('dashboard.view')}} <i class="fa fa-arrow-circle-right"></i></router-link>
                         </div>
                     </div>
                     <!-- ./col -->
