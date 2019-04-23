@@ -215,7 +215,20 @@ import {errorMessage} from '../../utilities';
         |
         */    
         loadPatientInfo(){
-          axios.get("../api/receptions?filter[national_id]="+this.form.national_id).then(({data})=>(this.form= data.data[0].patient)).catch((error)=>{
+          axios.get("../api/receptions?filter[national_id]="+this.form.national_id).then(({data})=>{
+            if (data.data.length>0)
+            {
+              (this.form = data.data[0].patient);
+            }
+            else{
+              this.form.first_name='';
+              this.form.last_name='';
+              this.form.birth_year='';
+              this.form.gender='';
+              this.form.mobile='';
+              this.$refs.form.clearValidate();
+            }
+            }).catch((error)=>{
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
