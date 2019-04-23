@@ -30,20 +30,18 @@ class UserMeController extends APIController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request)
     {
         // Populate Profile Data and validate it
         $profileData = Profile::set($this->user->type_id)->getData($request);        
         Profile::validate($profileData);
                 
         // Update profile
-        Profile::update($user,$profileData);		
+        Profile::update($this->user,$profileData);		
                                        
         return response()->json([
             'message' => __('app.updateAlert')],
             $this->httpOk
         );
-    }
-
-    
+    }    
 }
