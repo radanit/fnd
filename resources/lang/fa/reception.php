@@ -30,7 +30,7 @@ return [
     'update_card_title_lbl' => 'بروزرسانی اطلاعات پذیرش',
     'first_name_required_error' => 'نام اجباری است',
     'last_name_required_error' => 'نام خانوادگی اجباری است',
-    'national_id_number_error' => 'مقدار کد ملی وارد شده معتبر نمی باشد',
+    'national_id_number_error' => 'مقدار کد ملی بدرستی وارد نشده است',
     'mobile_number_required_error' => 'تلفن همراه اجباری است',
     'reception_date_required_error' => 'تاریخ پذیرش اجباری است',
     'birth_year_required_error' => 'سال تولد اجباری است',

@@ -203,7 +203,7 @@ import {errorMessage} from '../../utilities';
           this.$router.push({ name: 'receptions'});
         },
         handleSelect(item) {
-          console.log(item);
+          //console.log(item);
         },
         /*
         |--------------------------------------------------------------------------
@@ -226,10 +226,9 @@ import {errorMessage} from '../../utilities';
               this.form.birth_year='';
               this.form.gender='';
               this.form.mobile='';
-              this.$refs.form.clearValidate();
             }
             }).catch((error)=>{
-            let msgErr = errorMessage(error.response.data.errors);
+            let msgErr =errorMessage(error.response.data.errors);
             this.$message({
               title: '',
               message: msgErr,

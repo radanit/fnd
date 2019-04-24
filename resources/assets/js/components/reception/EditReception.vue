@@ -29,7 +29,7 @@
                       { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                     ]"
                     >
-                    <el-input tabindex=1 :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
+                    <el-input  tabindex=1 :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -97,7 +97,7 @@
                         <el-option
                           v-for="p_item in doctor_lists"
                           :key="p_item.id"
-                          :label="p_item.description"
+                          :label="p_item.fullname"
                           :value="p_item.id">
                         </el-option>
                       </el-select>
@@ -163,11 +163,21 @@ import {errorMessage} from '../../utilities';
         data(){
             return{
                 form:{
+                  id: '',
+                  doctor_id:'',
                   radio_type_id:'',
-                  patient:{}
+                  reception_date:'',
+                  patient:{
+                    national_id:'',              
+                    first_name: '',
+                    last_name: '',
+                    mobile:'',          
+                    birth_year:'',
+                    gender:'',
+                  }
                 },
                 doctor_lists:[],
-                radio_type_lists:[]
+                radio_type_lists:[],
             }
         },
         methods :{
@@ -191,7 +201,40 @@ import {errorMessage} from '../../utilities';
                   type: 'error'
                 });                
             });
-        },          
+        },
+        /*
+        |--------------------------------------------------------------------------
+        | Load Patient Info
+        | Added by e.bagherzadegan
+        |--------------------------------------------------------------------------
+        |
+        | This method Load Patient Info
+        |
+        */    
+        loadPatientInfo(){
+          axios.get("../api/receptions?filter[national_id]="+this.form.patient.national_id).then(({data})=>{
+            if (data.data.length>0)
+            {
+              (this.form = data.data[0].patient);
+            }
+            else{
+              this.form.patient.first_name='';
+              this.form.patient.last_name='';
+              this.form.patient.birth_year='';
+              this.form.patient.gender='';
+              this.form.patient.mobile='';
+            }
+            }).catch((error)=>{
+            let msgErr =errorMessage(error.response.data.errors);
+            this.$message({
+              title: '',
+              message: msgErr,
+              center: true,
+              type: 'error',
+              dangerouslyUseHTMLString: true
+            });                
+          });
+        },                        
         /*
         |--------------------------------------------------------------------------
         | Back to User Reception List
@@ -247,20 +290,20 @@ import {errorMessage} from '../../utilities';
         updateReception(){
         let receptionInfo = {
           national_id: this.form.patient.national_id,
-          reception_date: this.form.reception_date,
-          first_name: this.form.first_name,
-          last_name:this.form.last_name,
-          mobile_number:this.form.mobile_number,
-          birth_year:this.form.birth_year,
-          gender:this.form.gender,
-          doctor_id:this.doctor_id,
-          radio_type_id:this.radio_type_id
+          reception_date: this.form.patient.reception_date,
+          first_name: this.form.patient.first_name,
+          last_name:this.form.patient.last_name,
+          mobile_number:this.form.patient.mobile_number,
+          birth_year:this.form.patient.birth_year,
+          gender:this.form.patient.gender,
+          doctor_id:this.form.doctor_id,
+          radio_type_id:this.form.radio_type_id
         }
         axios.put('../api/receptions/'+this.form.id,receptionInfo).then(response => {
           this.$message({
             type: 'success',
             center: true,
-            message:this.updateAlert
+            message:response.data.message,
           });
           Fire.$emit('AfterCrud');                  
             }).catch((error) => {
