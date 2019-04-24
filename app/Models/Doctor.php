@@ -46,26 +46,13 @@ class Doctor extends User
     }
 
     /**
-     * Override create method
+     * Relation with receptions
      * 
-     * @return Model
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public static function create(array $attributes = [])
+    public function receptions()
     {
-        // Validate profile data
-        Profile::set(self::PROFILE_TYPE)->validate($attributes);
-
-        // Create Parent
-        $model = static::query()->create($attributes);
-        
-        // Create Profile data
-        Profile::create($model,$attributes);
-        
-        // Attache role
-        $role = Role::where('name',self::ROLE_NAME);
-        $model->attachRoles($role);
-
-        return $model;
+        return $this->hasMany(Reception::class,'doctor_id','id');
     }
 
     /**
