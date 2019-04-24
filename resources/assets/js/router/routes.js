@@ -39,6 +39,8 @@ const routes = [
 	{ path: '/receptions',name:'receptions', component: require('../components/reception/Reception.vue').default },
 	{ path: '/create_receptions',name:'create_receptions', component: require('../components/reception/CreateReception.vue').default },
 	{ path: '/edit_receptions',name:'edit_receptions', component: require('../components/reception/EditReception.vue').default },
+	{ path: '/recept_receptions',name:'recept_receptions', component: require('../components/reception/ReceptedReception.vue').default },
+
 	/*End receptions Routes*/
 
 	/*Begin RadioType Routes*/

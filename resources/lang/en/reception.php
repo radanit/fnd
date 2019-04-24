@@ -28,6 +28,7 @@ return [
     'card_title' => 'Receptions List',
     'add_card_title_lbl' => 'Insert Reception',
     'update_card_title_lbl' => 'Update reception',
+    'show_card_title_lbl' => 'Reception Information',
     'first_name_required_error' => 'first name is required!',
     'last_name_required_error' => 'last name is required!',
     'meli_code_required_error' => 'meli code is required!',

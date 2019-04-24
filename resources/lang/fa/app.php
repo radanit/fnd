@@ -62,5 +62,6 @@ return [
     'no_data_found' => 'اطلاعاتی یافت نشد!',
     'current_date' => 'تاریخ امروز',
     'last_login' => 'آخرین ورود',
-    'welcome_message' => 'خوش آمدید'
+    'welcome_message' => 'خوش آمدید',
+    'selectImages' =>'انتخاب تصاویر'
 ];
