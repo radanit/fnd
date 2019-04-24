@@ -164,7 +164,9 @@ import {errorMessage} from '../../utilities';
             return{
                 form:{
                   id: '',
-                  doctor_id:'',
+                  doctor:{
+                    id:''
+                  },
                   radio_type_id:'',
                   reception_date:'',
                   patient:{

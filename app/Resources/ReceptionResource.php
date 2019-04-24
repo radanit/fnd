@@ -28,6 +28,7 @@ class ReceptionResource extends JsonResource
                 'birth_year' => $this->birth_year,
             ],
             'doctor' => new DoctorResource($this->doctor),
+            'doctor_id' => $this->doctor_id,
             'radio_type_id' => $this->radioType->id,
             'radio_type_name' => $this->radioType->name,
             'status' => new ReceptionStatusResource($this->whenLoaded('status')->last()),
