@@ -30,7 +30,7 @@
                      
                     ]"
                     >
-                    <el-input tabindex=1 name="national_id" ref="national_id" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>
+                    <el-input tabindex=1 name="national_id" ref="national_id" @blur="loadPatientInfo" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>
                     <!--<el-autocomplete
                       class="inline-input"
                       v-model="state2"
@@ -96,7 +96,7 @@
                     :label="trans('reception.doctor')"
                     prop="doctor_id"
                     :rules="[
-                      { required: true, message: trans('reception.doctor_required_error')}
+                      { required: true, message: trans('reception.doctor_required_error'),trigger:'blur'}
                     ]">
                       <el-select tabindex=8
                         v-model.number="form.doctor_id"
@@ -104,7 +104,7 @@
                         default-first-option
                         :placeholder="trans('reception.doctor_choose')">
                         <el-option
-                          v-for="p_item in form.doctor_lists"
+                          v-for="p_item in doctor_lists"
                           :key="p_item.id"
                           :label="p_item.fullname"
                           :value="p_item.id">
@@ -133,7 +133,7 @@
                     :label="trans('reception.radio_type')"
                     prop="radio_type_id"
                     :rules="[
-                      { required: true, message: trans('reception.radio_type_required_error')}
+                      { required: true, message: trans('reception.radio_type_required_error'),trigger:'blur'}
                     ]">
                       <el-select tabindex=9
                         v-model.number="form.radio_type_id"
@@ -141,7 +141,7 @@
                         default-first-option
                         :placeholder="trans('reception.radio_type_choose')">
                         <el-option
-                          v-for="p_item in form.radio_type_lists"
+                          v-for="p_item in radio_type_lists"
                           :key="p_item.id"
                           :label="p_item.description"
                           :value="p_item.id">
@@ -185,9 +185,9 @@ import {errorMessage} from '../../utilities';
               doctor_id:'',
               radio_type_id:'',
               reception_date:'',
-              doctor_lists:[],
-              radio_type_lists:[],
             },
+            doctor_lists:[],
+            radio_type_lists:[],
           }
         },
  methods :{
@@ -215,13 +215,27 @@ import {errorMessage} from '../../utilities';
         |
         */    
         loadPatientInfo(){
-          axios.get("../api/patients?national_id="+this.form.national_id).then(({data})=>(this.user= data.data[0])).catch((error)=>{
+          axios.get("../api/receptions?filter[national_id]="+this.form.national_id).then(({data})=>{
+            if (data.data.length>0)
+            {
+              (this.form = data.data[0].patient);
+            }
+            else{
+              this.form.first_name='';
+              this.form.last_name='';
+              this.form.birth_year='';
+              this.form.gender='';
+              this.form.mobile='';
+              this.$refs.form.clearValidate();
+            }
+            }).catch((error)=>{
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
               message: msgErr,
               center: true,
-              type: 'error'
+              type: 'error',
+              dangerouslyUseHTMLString: true
             });                
           });
         },        
@@ -235,7 +249,7 @@ import {errorMessage} from '../../utilities';
         |
         */    
         loadDoctorList(){
-          axios.get("../api/doctors").then(({data})=>(this.form.doctor_lists = data.data)).catch((error)=>{
+          axios.get("../api/doctors").then(({data})=>(this.doctor_lists = data.data)).catch((error)=>{
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',
@@ -255,7 +269,7 @@ import {errorMessage} from '../../utilities';
         |
         */    
         loadRadioTypeList(){
-          axios.get("../api/radiotypes").then(({data})=>(this.form.radio_type_lists = data.data)).catch((error)=>{
+          axios.get("../api/radiotypes").then(({data})=>(this.radio_type_lists = data.data)).catch((error)=>{
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({
               title: '',

@@ -75,29 +75,6 @@
             <!-- /.card -->
           </div>
         </div>
-        <el-dialog
-        title="مشخصات تکمیلی"
-        :visible.sync="dialogVisible"
-        width="30%" class="text-justify">
-        <el-row v-if="trans('app.dir')==='rtl'" :gutter="20">
-                <el-row :gutter="20">
-                    <el-col :span="12" class="text-right">
-                        <img v-if="list[0].avatar" :src="list[0].avatar" class="profile-user-img img-fluid  el-icon-plus" alt="User profile picture">
-                    </el-col>
-                    <el-col :span="12">
-                    </el-col>
-                </el-row>
-                <el-row :gutter="20">
-                    <el-col :span="24">{{trans('userProfile.fullname')}} : {{list[0].fullname}}</el-col>
-                </el-row>
-                <el-row :gutter="20">
-                    <el-col :span="24">{{trans('userProfile.email')}} : {{list[0].email}}</el-col>
-                </el-row>
-                <el-row :gutter="20">
-                    <el-col :span="24">{{trans('userProfile.roles')}} : {{list[0].roles}}</el-col>
-                </el-row>																
-		</el-row>
-        </el-dialog>
     </div>
 </template>
 <script>
