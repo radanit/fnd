@@ -16,7 +16,7 @@ return [
 'speciality' => 'تخصص ها',
 'profile_structure' => 'مدیریت پروفایل ها',
 'reception_management' =>'مدیریت پذیرش ها',
-'reception' => 'پذیرش',
+'reception' => 'ثبت پذیرش',
 'password_policy' => 'سیاست های رمز عبور',
 'doctor_management' => 'پزشکان',
 'radio_type_management' => 'انواع عکسبرداری',
