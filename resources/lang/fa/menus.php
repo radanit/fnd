@@ -15,7 +15,7 @@ return [
 'publicTable' => 'جداول عمومی',
 'speciality' => 'تخصص ها',
 'profile_structure' => 'مدیریت پروفایل ها',
-'reception_management' =>'مدیریت پذیرش',
+'reception_management' =>'مدیریت پذیرش ها',
 'reception' => 'پذیرش',
 'password_policy' => 'سیاست های رمز عبور',
 'doctor_management' => 'پزشکان',
