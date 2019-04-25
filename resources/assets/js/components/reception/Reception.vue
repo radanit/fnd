@@ -53,10 +53,12 @@
                         <el-input first_name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
-                        <el-button
-                        size="mini"
-                        @click="editReception(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>
+            <el-button
+              :title="trans('app.editBtnLbl')"
+              size="mini"
+              @click="editReception(scope.row)">{{trans('app.editBtnLbl')}} <i class="fa fa-edit blue"></i></el-button>              
 						<el-button
+              :title="trans('app.deleteBtnLbl')"
 						  size="mini"
 						  type="danger"
 						  @click="deleteReception(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
@@ -177,6 +179,18 @@ import {errorMessage} from '../../utilities';
                     });               
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Go To Edit Profile Page
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Edit profile Component
+            |
+            */      
+            viewReception(record){
+              this.$router.push({ name: 'view_receptions', params: { receptionId: record.id } });
+            },            
             /*
             |--------------------------------------------------------------------------
             | Go To Create Profile Page

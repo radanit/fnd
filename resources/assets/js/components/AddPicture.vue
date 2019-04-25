@@ -61,7 +61,6 @@ export default {
       handleAvatarSuccess(res, file) {
         this.user.avatar = URL.createObjectURL(file.raw);
       },
-    },
     /*
     |--------------------------------------------------------------------------
     | Validate Avatar Befor Upload
@@ -87,6 +86,7 @@ export default {
     handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
-    }    
+    }
+  },  
 }
 </script>
