@@ -28,7 +28,7 @@ return [
     'card_title' => 'Receptions List',
     'add_card_title_lbl' => 'Insert Reception',
     'update_card_title_lbl' => 'Update reception',
-    'show_card_title_lbl' => 'Reception Information',
+    'registered_reception_info' => 'Reception Information',
     'first_name_required_error' => 'first name is required!',
     'last_name_required_error' => 'last name is required!',
     'meli_code_required_error' => 'meli code is required!',
@@ -39,4 +39,7 @@ return [
     'doctor_required_error' => 'doctor is required!',
     'radio_type_required_error' => 'radio type is required!',
     'fullname' => 'full name',
+    'reception_pictures' => 'reception pictures',
+    'select_pictures' => 'select images',
+    'select_dicom_picture' => 'select dicom image',
 ];

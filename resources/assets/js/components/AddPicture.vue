@@ -2,35 +2,33 @@
     <div class="container">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-                <span>{{trans('app.selectImages')}}</span>
+                <span>{{trans('reception.select_pictures')}}</span>
             </div>
             <el-upload
-                class="avatar-uploader"
+                class="dicom-uploader"
                 :headers="headerInfo"
-                ref="upload"
+                ref="dicom"
                 action=""
-                name="avatar"
-                :limit=5
+                name="dicomImage"
+                :limit=1
                 :on-success="handleAvatarSuccess"
                 :before-upload="onBeforeUpload"
             :auto-upload="false">           
-            <el-button slot="trigger" size="small" type="primary">انتخاب تصویر</el-button> 
+            <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
                 <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
             </el-upload>
             <br/>
             <el-upload
-                class="avatar-uploader"
-                :headers="headerInfo"
-                ref="upload"
-                action=""
-                name="avatar"
-                :limit=1
-                :on-success="handleAvatarSuccess"
-                :before-upload="onBeforeUpload"
-            :auto-upload="false">               
-            <el-button slot="trigger" size="small" type="primary">انتخاب تصویر Dicom</el-button> 
-                <img  v-if="dicomImageUrl" :src="dicomImageUrl" class="img-fluid img-circle" alt="User profile picture">               
+                action="https://jsonplaceholder.typicode.com/posts/"
+                list-type="picture-card"
+                :limit=5
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove">
+                <i class="el-icon-plus"></i>
             </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+                <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
         </el-card>
     </div>
 </template>
@@ -41,6 +39,8 @@
 export default {
     data() {
       return {
+        dialogImageUrl: '',
+        dialogVisible: false,
         imageUrl:'',
         dicomImageUrl:'',
         headerInfo: {
@@ -80,6 +80,13 @@ export default {
             this.$message.error('Avatar picture size can not exceed 2MB!');
         }
         return (isJPG & isLt2M);
-    },  
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+    }    
 }
 </script>

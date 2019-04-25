@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item :title="trans('reception.show_card_title_lbl')" name="receptionInfo">
+            <el-collapse-item :title="trans('reception.registered_reception_info')" name="receptionInfo">
                 <show-reception></show-reception>
             </el-collapse-item>
-            <el-collapse-item title="Feedback" name="2">
-                <add-picture></add-picture>
+            <el-collapse-item :title="trans('reception.reception_pictures')" name="2">
+                <add-picture v-if=""></add-picture>
             </el-collapse-item>
         </el-collapse>
     </div>

@@ -63,5 +63,4 @@ return [
     'current_date' => 'تاریخ امروز',
     'last_login' => 'آخرین ورود',
     'welcome_message' => 'خوش آمدید',
-    'selectImages' =>'انتخاب تصاویر'
 ];
