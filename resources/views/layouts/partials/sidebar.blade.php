@@ -24,7 +24,7 @@
           @role('admin')      
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shield-alt yellow"></i>
+              <i class="nav-icon fas fa-shield-alt orange"></i>
               <p>
               {{ __('menus.auth_managment') }}
                 @if(App::isLocale('fa'))
@@ -37,25 +37,25 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link">
-                  <i class="fas fa-users-cog nav-icon lighGray"></i>
+                  <i class="fas fa-users-cog nav-icon orange"></i>
                   <p>{{ __('menus.users') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
               <router-link to="/user_roles" class="nav-link">
-                  <i class="fas fa-users nav-icon lighGray"></i>
+                  <i class="fas fa-users nav-icon orange"></i>
                   <p>{{ __('menus.user_roles') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
               <router-link to="/user_permissions" class="nav-link">
-                  <i class="fas fa-user-lock  nav-icon lighGray"></i>
+                  <i class="fas fa-user-lock  nav-icon orange"></i>
                   <p>{{ __('menus.user_permissions') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/profile_structures" class="nav-link">
-                  <i class="nav-icon fas fa-table lighGray"></i>
+                  <i class="nav-icon fas fa-table orange"></i>
                   <p>
                   {{ __('menus.profile_structure') }}
                   </p>
@@ -63,7 +63,7 @@
               </li>
               <li class="nav-item">
                 <router-link to="/password_policies" class="nav-link">
-                  <i class="nav-icon  fas fa-lock lighGray"></i>
+                  <i class="nav-icon  fas fa-lock orange"></i>
                   <p>
                   {{ __('menus.password_policy') }}
                   </p>
@@ -72,19 +72,20 @@
             </ul>
           </li>
           @endrole
-             <!-- Begin Basic Info menu --->
-             <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-info lighGray"></i>
-              <p>
-              {{ __('menus.basic_information') }}
-                @if(App::isLocale('fa'))
-                <i class="right fa fa-angle-right"></i>
-                @elseif(App::isLocale('en'))
-                <i class="right fa fa-angle-left"></i>
-                @endif
-              </p>
-            </a>
+          <!-- Begin Basic Info menu --->
+          @role(['admin','radioadmin'])
+          <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-info cyan"></i>
+                <p>
+                {{ __('menus.basic_information') }}
+                  @if(App::isLocale('fa'))
+                  <i class="right fa fa-angle-right"></i>
+                  @elseif(App::isLocale('en'))
+                  <i class="right fa fa-angle-left"></i>
+                  @endif
+                </p>
+              </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/specialities" class="nav-link">
@@ -104,7 +105,7 @@
               </li>-->
               <li class="nav-item">
                 <router-link to="/radio_types" class="nav-link">
-                  <i class="nav-icon fas fa-images pink"></i>
+                  <i class="nav-icon fas fa-images cyan"></i>
                   <p>
                   {{ __('menus.radio_type_management') }}
                   </p>
@@ -112,6 +113,7 @@
               </li>                              
             </ul>
           </li>
+          @endrole
           <!-- End Basic Info menu --->
 
           <!-- Begin Radiology menu --->
@@ -128,12 +130,46 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @role(['admin','radioadmin','receptor'])
               <li class="nav-item">
                 <router-link to="/receptions" class="nav-link">
-                  <i class="fas fa-id-badge nav-icon indigo"></i>
+                  <i class="fas fa-id-badge nav-icon green"></i>
                   <p>{{ __('menus.reception') }}</p>
                 </router-link>
               </li>
+              @endrole
+              @role(['admin','radioadmin','expert'])
+              <li class="nav-item">
+                <router-link to="/registered_receptions" class="nav-link">
+                  <i class="fas fa-registered nav-icon green"></i>
+                  <p>{{ __('menus.registered_reception') }}</p>
+                </router-link>
+              </li>
+              @endrole
+              @role(['admin','radioadmin','doctor'])
+              <li class="nav-item">
+                <router-link to="/captured_receptions" class="nav-link">
+                  <i class="fas fa-camera-retro nav-icon green"></i>
+                  <p>{{ __('menus.captured_reception') }}</p>
+                </router-link>
+              </li>
+              @endrole
+              @role(['admin','radioadmin','doctor','patient'])
+              <li class="nav-item">
+                <router-link to="/completed_receptions" class="nav-link">
+                  <i class="fas fa-tasks nav-icon green"></i>
+                  <p>{{ __('menus.completed_reception') }}</p>
+                </router-link>
+              </li>
+              @endrole
+              @role(['admin','radioadmin','doctor','expert','receptor'])
+              <li class="nav-item">
+                <router-link to="/rejected_receptions" class="nav-link">
+                  <i class="fas fa-low-vision nav-icon green"></i>
+                  <p>{{ __('menus.rejected_reception') }}</p>
+                </router-link>
+              </li>
+              @endrole                                                
             </ul>
           </li>
           <!-- End Radiology menu --->

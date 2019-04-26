@@ -4,30 +4,24 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{trans('reception.show_card_title_lbl')}}</h3>
+                <h3 class="card-title">{{('reception.show_card_title_lbl')}}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-	            <el-form label-position="right" :disabled="true" :model="form" ref="form" @keyup.enter.native="updateReception" label-width="100px" class="demo-ruleForm mt-3" >
+	            <el-form label-position="right" disabled  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.reception_date')"
+                    :label="('reception.reception_date')"
                     prop="reception_date"
-                    :rules="[
-                      { required: true, message: trans('reception.reception_date_required_error')}
-                    ]"
                     >
-                    <date-picker tabindex=2 disabled="true" format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="trans('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
+                    <date-picker disabled tabindex=2 format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
                    </el-form-item>                    
                   </el-col>
                   <el-col :span="12">
                     <el-form-item 
-                    :label="trans('reception.national_id')"
+                    :label="('reception.national_id')"
                     prop="patient.national_id"
-                    :rules="[
-                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
-                    ]"
                     >
                     <el-input  tabindex=1 :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
                     </el-form-item>                    
@@ -36,22 +30,16 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.last_name')"
+                    :label="('reception.last_name')"
                     prop="patient.last_name"
-                    :rules="[
-                      { required: true, message: trans('reception.last_name_required_error')}
-                    ]"
                     >
                     <el-input tabindex=4 label="right" name="last_name" ref="last_name" type="text" v-model="form.patient.last_name" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.first_name')"
+                    :label="('reception.first_name')"
                     prop="patient.first_name"
-                    :rules="[
-                      { required: true, message: trans('reception.first_name_required_error')}
-                    ]"
                     >
                     <el-input tabindex=3 label="right" name="first_name" ref="first_name" type="text"  v-model="form.patient.first_name" autocomplete="off"></el-input>
                     </el-form-item>
@@ -60,22 +48,16 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.birth_year')"
+                    :label="('reception.birth_year')"
                     prop="patient.birth_year"
-                    :rules="[
-                      { required: true, message: trans('reception.birth_year_required_error')}
-                    ]"
                     >
-                    <date-picker tabindex=6 disabled="true" v-model="form.patient.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
+                    <date-picker disabled tabindex=6  v-model="form.patient.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.mobile_number')"
+                    :label="('reception.mobile_number')"
                     prop="patient.mobile"
-                    :rules="[
-                      { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
-                    ]"
                     >
                     <el-input tabindex=5  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
                     </el-form-item>
@@ -84,16 +66,13 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.doctor')"
-                    prop="doctor_id"
-                    :rules="[
-                      { required: true, message: trans('reception.doctor_required_error')}
-                    ]">
+                    :label="('reception.doctor')"
+                    prop="doctor_id">
                       <el-select tabindex=8
                         v-model.number="form.doctor_id"
                         filterable
                         default-first-option
-                        :placeholder="trans('reception.doctor_choose')">
+                        :placeholder="('reception.doctor_choose')">
                         <el-option
                           v-for="p_item in doctor_lists"
                           :key="p_item.id"
@@ -105,15 +84,12 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.gender')"
+                    :label="('reception.gender')"
                     prop="patient.gender"
-                    :rules="[
-                      { required: true, message: trans('reception.gender_required_error')}
-                    ]"
                     >
                     <el-radio-group tabindex=7 v-model="form.patient.gender">
-                      <el-radio-button :label="0">{{trans('reception.man')}}</el-radio-button>
-                      <el-radio-button :label="1">{{trans('reception.women')}}</el-radio-button>
+                      <el-radio-button :label="0">{{('reception.man')}}</el-radio-button>
+                      <el-radio-button :label="1">{{('reception.women')}}</el-radio-button>
                     </el-radio-group>
                     </el-form-item>
                   </el-col>                
@@ -121,11 +97,8 @@
                 <el-row :gutter="20">
                   <el-col :span="24">
                     <el-form-item
-                    :label="trans('reception.radio_type')"
-                    prop="radio_type_id"
-                    :rules="[
-                      { required: true, message: trans('reception.radio_type_required_error')}
-                    ]">
+                    :label="('reception.radio_type')"
+                    prop="radio_type_id">
                       <el-select tabindex=9
                         v-model.number="form.radio_type_id"
                         filterable

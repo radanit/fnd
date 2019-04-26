@@ -37,9 +37,10 @@ const routes = [
 	/*End Permission Routes*/
 	/*Begin receptions Routes*/
 	{ path: '/receptions',name:'receptions', component: require('../components/reception/Reception.vue').default },
+	{ path: '/registered_receptions',name:'registered_receptions', component: require('../components/reception/RegisteredReception.vue').default },
 	{ path: '/create_receptions',name:'create_receptions', component: require('../components/reception/CreateReception.vue').default },
 	{ path: '/edit_receptions',name:'edit_receptions', component: require('../components/reception/EditReception.vue').default },
-	{ path: '/recept_receptions',name:'recept_receptions', component: require('../components/reception/ReceptedReception.vue').default },
+	{ path: '/view_receptions',name:'view_receptions', component: require('../components/reception/ViewReception.vue').default },
 
 	/*End receptions Routes*/
 
