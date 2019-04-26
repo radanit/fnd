@@ -55,7 +55,7 @@ return [
   |
   */
   'routeMiddleware' => [
-	// 'sample' => \App\Radan\Http\Middleware\Sample::class,
+	 'owner' => \App\Radan\Http\Middleware\OwnerMiddleware::class,
   ],
     
   /*
