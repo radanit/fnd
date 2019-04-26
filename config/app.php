@@ -161,7 +161,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Radan Providers
         App\Providers\TelescopeServiceProvider::class,
-		\InfyOm\RoutesExplorer\RoutesExplorerServiceProvider::class,
         App\Radan\Providers\RadanServiceProvider::class,
     ],
 
