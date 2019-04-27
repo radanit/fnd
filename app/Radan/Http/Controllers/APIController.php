@@ -88,10 +88,14 @@ class APIController extends BaseController
     }
     
     protected function getModel()
-    {        
+    {
         if (class_exists($this->model))
         {
             $this->model = new $this->model();
+            if (method_exists($this,'where'))
+            {                              
+                $this->model = $this->where($this->model);
+            }
             if ($this->hasFilter() and method_exists($this,'filter'))
             {               
                 if ($this->validateFilter()) {
