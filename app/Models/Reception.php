@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Plank\Mediable\Mediable;
 use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
 class Reception extends Model
 {         
-    
+    use Mediable;
     use RadanRestrictedRelationTrait;
 
     /**

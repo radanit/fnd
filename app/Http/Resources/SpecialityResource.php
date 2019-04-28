@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RadioTypeResource extends JsonResource
+class SpecialityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +19,6 @@ class RadioTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,        
             'description' => $this->description,
-            'role_id' => $this->role_id,
-            'role_description' => $this->whenLoaded('role',function() {
-                return $this->role->description;
-            }),
         ];
     }
 }

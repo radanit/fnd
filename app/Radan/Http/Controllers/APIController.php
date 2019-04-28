@@ -59,6 +59,13 @@ class APIController extends BaseController
     protected $jsonResource;
 
     /**
+     * Api resource collection class name
+     * 
+     * @var Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    protected $resourceCollection;
+
+    /**
      * Instance of http request filter
      * 
      * @var array
@@ -143,10 +150,12 @@ class APIController extends BaseController
     {
         // Get all resources
         $model = $this->getModel();       
-        $model = isset($this->relations) ? $model->with($this->relations):$model;
+        $model = isset($this->relations) ? $model->with($this->relations):$model;        
 
-        // Return api resource
-        if (isset($this->jsonResource)) {
+        // Return json response
+        if (isset($this->resourceCollection)) {
+            return $this->resourceCollection($this->all($model));
+        } else if (isset($this->jsonResource)) {
             return $this->jsonResource::collection($this->all($model));
         } else {
             return $this->all($model);

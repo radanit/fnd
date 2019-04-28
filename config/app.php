@@ -162,6 +162,7 @@ return [
         // Radan Providers
         App\Providers\TelescopeServiceProvider::class,
         App\Radan\Providers\RadanServiceProvider::class,
+        App\Providers\BaharServiceProvider::class,
     ],
 
     /*

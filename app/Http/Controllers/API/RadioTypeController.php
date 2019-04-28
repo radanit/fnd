@@ -12,7 +12,7 @@ use App\Radan\Http\Controllers\APIController;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 use App\Models\RadioType;
-use App\Resources\RadioTypeResource;
+use App\Http\Resources\RadioTypeResource;
 
 class RadioTypeController extends APIController
 {

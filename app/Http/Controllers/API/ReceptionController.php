@@ -7,9 +7,9 @@ use App\Radan\Http\Controllers\APIController;
 use App\Models\Reception;
 use App\Models\Patient;
 use App\Models\ReceptionStatus;
-use App\Resources\ReceptionResource;
-use App\Requests\StoreReceptionRequest;
-use App\Requests\UpdateReceptionRequest;
+use App\Http\Resources\ReceptionResource;
+use App\Http\Requests\StoreReceptionRequest;
+use App\Http\Requests\UpdateReceptionRequest;
 use App\Events\ReceptionStatusEvent;
 use Profile;
 

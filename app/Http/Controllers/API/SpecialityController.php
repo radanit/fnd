@@ -12,7 +12,7 @@ use App\Radan\Http\Controllers\APIController;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 use App\Models\Speciality;
-use App\Resources\SpecialityResource;
+use App\Http\Resources\SpecialityResource;
 
 class SpecialityController extends APIController
 {

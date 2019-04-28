@@ -12,7 +12,7 @@ use App\Radan\Http\Controllers\APIController;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 use App\Models\Doctor;
-use App\Resources\DoctorResource;
+use App\Http\Resources\DoctorResource;
 
 class DoctorController extends APIController
 {

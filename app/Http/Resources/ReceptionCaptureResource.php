@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReceptionResource extends JsonResource
+class ReceptionCaptureResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

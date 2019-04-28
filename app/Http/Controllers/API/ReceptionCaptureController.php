@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Radan\Http\Controllers\APIController;
 use App\Models\Reception;
 use App\Models\RadioType;
-use App\Resources\ReceptionCaptureResource;
-use App\Requests\UpdateReceptionCaptureRequest;
+use App\Http\Resources\ReceptionCaptureResource;
+use App\Http\Resources\ReceptionCollection;
+use App\Http\Requests\UpdateReceptionCaptureRequest;
 use App\Events\ReceptionStatusEvent;
-use Profile;
+use MediaUploader;
+use Plank\Mediable\MediaUploadException;
 
 class ReceptionCaptureController extends APIController
 {
@@ -36,10 +38,66 @@ class ReceptionCaptureController extends APIController
      */
     protected $jsonResource = ReceptionCaptureResource::class;
 
+    /**
+     * Api resource collection class name
+     * 
+     * @var Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    protected $resourceCollection = ReceptionCollection::class;
+
+    /**
+     * Allow query string parameters for filter
+     * 
+     * @var array
+     */
     protected $filterable = [
         'national_id'
     ];
 
+    protected function upload($file)
+    {
+        try {
+
+            $media = MediaUploader::fromSource($file)
+            
+            // specify a disk to use instead of the default
+            ->toDisk('reception_disk')
+
+            // place the file in a directory relative to the disk root
+            ->toDirectory('captures')
+
+            //->useFilename('graphy')
+
+            ->useHashForFilename()    
+
+            // maximum filesize in bytes
+            ->setMaximumSize(2*1024*1024) // 2 MB
+
+            // whether the aggregate type must match both the MIME type and extension
+            ->setStrictTypeChecking(true)
+
+            // whether to allow the 'other' aggregate type
+            ->setAllowUnrecognizedTypes(false)
+
+            // only allow files of specific MIME types
+            ->setAllowedMimeTypes(['image/jpeg'])
+
+            // only allow files of specific extensions
+            ->setAllowedExtensions(['jpg', 'jpeg'])
+
+            // only allow files of specific aggregate types
+            ->setAllowedAggregateTypes(['image'])
+
+            ->upload();
+
+        } catch(MediaUploadException $e) {
+            return response()->json([
+                'message' => __('app.failedAlert')],
+                $this->httpNotAcceptable
+            );
+        }        
+        return $media;
+    }
     
     /**
      * Update the specified resource in storage.
@@ -53,7 +111,19 @@ class ReceptionCaptureController extends APIController
         // Find resource or throw exception
         $reception = Reception::findOrfail($id);
 
-        $reception->attach($request);
+        // Read all Radiography jpg type
+        $graphyJpg = Request::file('graphy-jpg');    
+        $graphyJpgMedia = [];
+        foreach ($graphyJpg as $file) {
+            $graphyJpgMedia = $this->upload($file);            
+        }
+
+        // Read all Radiography jpg type
+        $graphyDicom = Request::file('graphy-dicom');    
+        $graphyDicomMedia = $this->upload($graphyDicom);
+
+        $reception->syncMedia($graphyJpgMedia,'graphy-jpg');
+        $reception->syncMedia($graphyDicomMedia,'graphy-dicom');
 
         // Return JSON response
         return response()->json([

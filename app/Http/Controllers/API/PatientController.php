@@ -12,7 +12,7 @@ use App\Radan\Http\Controllers\APIController;
 use App\Radan\Exceptions\ResourceProtected;
 use App\Radan\Exceptions\ResourceRestricted;
 use App\Models\Patient;
-use App\Resources\PatientResource;
+use App\Http\Resources\PatientResource;
 
 class PatientController extends APIController
 {
