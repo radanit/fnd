@@ -125,7 +125,7 @@ import {errorMessage} from '../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/radiotype/1", {
+                axios.get("../api/receptions/capture", {
                     params: {
                     page: this.page,
                     },
