@@ -16,7 +16,7 @@
                         :headers="headerInfo"
                         ref="dicom"
                         action=""
-                        name="graphy_dicom_img"
+                        name="graphy_dicom"
                         :limit=1
                         :on-success="handleAvatarSuccess"
                         :before-upload="onBeforeUpload"
@@ -33,7 +33,7 @@
                 >
                     <el-upload
                         action="https://jsonplaceholder.typicode.com/posts/"
-                        name="graphy_jpg_img"
+                        name="graphy_jpg"
                         list-type="picture-card"
                         :limit=5                        
                         :auto-upload="false"
@@ -71,7 +71,6 @@ export default {
         form:{
             graphy_dicom:'',
             graphy_jpg:''
-
         },
       }
     },
@@ -127,6 +126,7 @@ export default {
       {
         this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
+        console.log(this.formData)
         axios.post('../api/receptions/'+this.form.id+'/capture?_method=put',this.formData).then(response => {
          this.$message({
             type: 'success',
