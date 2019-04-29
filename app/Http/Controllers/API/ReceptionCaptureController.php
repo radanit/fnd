@@ -116,7 +116,7 @@ class ReceptionCaptureController extends APIController
         $graphyJpg = $request->file('graphy_jpg');    
         $graphyJpgMedia = [];
         foreach ($graphyJpg as $file) {
-            $graphyJpgMedia = $this->upload($file);            
+            $graphyJpgMedia[] = $this->upload($file);            
         }
 
         // Read all Radiography jpg type
