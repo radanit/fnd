@@ -4,31 +4,51 @@
             <div slot="header" class="clearfix">
                 <span>{{trans('reception.select_pictures')}}</span>
             </div>
-            <el-upload
-                class="dicom-uploader"
-                :headers="headerInfo"
-                ref="dicom"
-                action=""
-                name="dicomImage"
-                :limit=1
-                :on-success="handleAvatarSuccess"
-                :before-upload="onBeforeUpload"
-            :auto-upload="false">           
-            <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
-                <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
-            </el-upload>
-            <br/>
-            <el-upload
-                action="https://jsonplaceholder.typicode.com/posts/"
-                list-type="picture-card"
-                :limit=5
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
-                <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
+            <el-form id="update_form"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+                <el-form-item
+                prop="dicom"
+                :rules="[
+                { required: true, message: trans('reception.dicomRequierdError')}
+                ]"
+                >
+                    <el-upload
+                        class="dicom-uploader"
+                        :headers="headerInfo"
+                        ref="dicom"
+                        action=""
+                        name="dicomImage"
+                        :limit=1
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="onBeforeUpload"
+                    :auto-upload="false">           
+                    <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
+                        <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
+                    </el-upload>
+                </el-form-item>
+                <el-form-item
+                prop="dicom"
+                :rules="[
+                { required: true, message: trans('reception.imgsRequierdError')}
+                ]"
+                >
+                    <el-upload
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        list-type="picture-card"
+                        :limit=5
+                        :auto-upload="false"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove">
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>
+                </el-form-item>
+                <el-form-item>
+                <el-button  size="mini" type="success" @click="submitForm('form')" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+                <el-button size="mini" type="info" @click="backToUserList" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+                </el-form-item>                
+            </el-form>
         </el-card>
     </div>
 </template>
