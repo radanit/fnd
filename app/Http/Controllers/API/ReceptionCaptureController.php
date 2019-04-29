@@ -108,21 +108,19 @@ class ReceptionCaptureController extends APIController
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateReceptionCaptureRequest $request, $id)
-    {
-        dd($request);
-        
+    {        
         // Find resource or throw exception
         $reception = Reception::findOrfail($id);
 
         // Read all Radiography jpg type
-        $graphyJpg = Request::file('graphy_jpg');    
+        $graphyJpg = $request->file('graphy_jpg');    
         $graphyJpgMedia = [];
         foreach ($graphyJpg as $file) {
             $graphyJpgMedia = $this->upload($file);            
         }
 
         // Read all Radiography jpg type
-        $graphyDicom = Request::file('graphy_dicom');    
+        $graphyDicom = $request->file('graphy_dicom');    
         $graphyDicomMedia = $this->upload($graphyDicom);
 
         $reception->syncMedia($graphyJpgMedia,'graphy_jpg');
