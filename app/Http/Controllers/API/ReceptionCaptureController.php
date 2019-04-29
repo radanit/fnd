@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Radan\Http\Controllers\APIController;
 use App\Models\Reception;
+use App\Models\ReceptionStatus;
 use App\Models\RadioType;
 use App\Http\Resources\ReceptionCaptureResource;
 use App\Http\Resources\ReceptionCollection;
@@ -108,22 +109,24 @@ class ReceptionCaptureController extends APIController
      */
     public function update(UpdateReceptionCaptureRequest $request, $id)
     {
+        dd($request);
+        
         // Find resource or throw exception
         $reception = Reception::findOrfail($id);
 
         // Read all Radiography jpg type
-        $graphyJpg = Request::file('graphy-jpg');    
+        $graphyJpg = Request::file('graphy_jpg');    
         $graphyJpgMedia = [];
         foreach ($graphyJpg as $file) {
             $graphyJpgMedia = $this->upload($file);            
         }
 
         // Read all Radiography jpg type
-        $graphyDicom = Request::file('graphy-dicom');    
+        $graphyDicom = Request::file('graphy_dicom');    
         $graphyDicomMedia = $this->upload($graphyDicom);
 
-        $reception->syncMedia($graphyJpgMedia,'graphy-jpg');
-        $reception->syncMedia($graphyDicomMedia,'graphy-dicom');
+        $reception->syncMedia($graphyJpgMedia,'graphy_jpg');
+        $reception->syncMedia($graphyDicomMedia,'graphy_dicom');
 
         // Return JSON response
         return response()->json([
@@ -206,6 +209,10 @@ class ReceptionCaptureController extends APIController
      */
     protected function where($query)
     {        
+        $query = $query->whereHas('status', function ($query) {
+            $query->where('status',ReceptionStatus::FIRST);
+        });
+
         if ($this->user->hasRole('admin')) {
             return $query;
         }
