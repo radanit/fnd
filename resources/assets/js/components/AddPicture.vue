@@ -11,19 +11,19 @@
                 { required: false, message: trans('reception.dicomRequierdError')}
                 ]"
                 >
-                    <el-upload
-                        class="dicom-uploader"
-                        :headers="headerInfo"
-                        ref="dicom"
-                        action=""
-                        name="graphy_dicom"
-                        :limit=1
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="onBeforeUpload"
-                    :auto-upload="false">           
-                    <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
-                        <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
-                    </el-upload>
+                  <el-upload
+                      class="dicom-uploader"
+                      :headers="headerInfo"
+                      ref="dicom"
+                      action=""
+                      name="graphy_dicom"
+                      :limit=1
+                      :on-success="handleAvatarSuccess"
+                      :before-upload="onBeforeUpload"
+                  :auto-upload="false">           
+                  <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
+                      <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
+                  </el-upload>
                 </el-form-item>
                 <el-form-item
                 prop="graphy_jpg"
@@ -31,19 +31,20 @@
                 { required: false, message: trans('reception.imgsRequierdError')}
                 ]"
                 >
-                    <el-upload
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        name="graphy_jpg"
-                        list-type="picture-card"
-                        :limit=5                        
-                        :auto-upload="false"
-                        :on-preview="handlePictureCardPreview"
-                        :on-remove="handleRemove">
-                        <i class="el-icon-plus"></i>
-                    </el-upload>
-                    <el-dialog :visible.sync="dialogVisible">
-                        <img width="100%" :src="dialogImageUrl" alt="">
-                    </el-dialog>
+                  <el-upload
+                      action="https://jsonplaceholder.typicode.com/posts/"
+                      name="graphy_jpg"
+                      list-type="picture-card"
+                      :limit=5
+                      :multiple="true"                 
+                      :auto-upload="false"
+                      :on-preview="handlePictureCardPreview"
+                      :on-remove="handleRemove">
+                      <i class="el-icon-plus"></i>
+                  </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                      <img width="100%" :src="dialogImageUrl" alt="">
+                  </el-dialog>
                 </el-form-item>
                 <el-form-item>
                 <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
@@ -70,8 +71,9 @@ export default {
         formData:'',
         form:{
             graphy_dicom:'',
-            graphy_jpg:''
+            graphy_jpg1:''
         },
+        graphy_jpg:[]
       }
     },
     methods:{
@@ -107,6 +109,7 @@ export default {
     },
     handleRemove(file, fileList) {
         console.log(file, fileList);
+        this.graphy_jpg = fileList;
     },
     handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
@@ -126,7 +129,7 @@ export default {
       {
         this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
-        console.log(this.formData)
+        console.log(this.graphy_jpg);
         axios.post('../api/receptions/'+this.form.id+'/capture?_method=put',this.formData).then(response => {
          this.$message({
             type: 'success',
