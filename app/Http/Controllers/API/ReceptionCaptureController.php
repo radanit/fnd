@@ -55,6 +55,10 @@ class ReceptionCaptureController extends APIController
         'national_id'
     ];
 
+    private $oldGraphyDelete = true;
+    private $graphyJpgTag = 'graphy_jpg';
+    private $graphyDicomTag = 'graphy_dicom';
+
     protected function upload($file)
     {
         try {
@@ -99,6 +103,15 @@ class ReceptionCaptureController extends APIController
         }        
         return $media;
     }
+
+    protected function deleteMedia($reception)
+    {
+        $oldMedia = $reception->getAllMediaByTag(); 
+        foreach($oldMedia as $media)        
+        {           
+            $media->first()->delete();
+        }        
+    }
     
     /**
      * Update the specified resource in storage.
@@ -108,23 +121,29 @@ class ReceptionCaptureController extends APIController
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateReceptionCaptureRequest $request, $id)
-    {        
+    {
         // Find resource or throw exception
         $reception = Reception::findOrfail($id);
 
         // Read all Radiography jpg type
-        $graphyJpg = $request->file('graphy_jpg');    
+        $graphyJpg = $request->file($this->graphyJpgTag);        
         $graphyJpgMedia = [];
         foreach ($graphyJpg as $file) {
             $graphyJpgMedia[] = $this->upload($file);            
         }
 
         // Read all Radiography jpg type
-        $graphyDicom = $request->file('graphy_dicom');    
+        $graphyDicom = $request->file($this->graphyDicomTag);    
         $graphyDicomMedia = $this->upload($graphyDicom);
+       
+        // Delete old media
+        if ($this->oldGraphyDelete) {
+            $this->deleteMedia($reception);
+        }
 
-        $reception->syncMedia($graphyJpgMedia,'graphy_jpg');
-        $reception->syncMedia($graphyDicomMedia,'graphy_dicom');
+        // Attache graphy to reception
+        $reception->syncMedia($graphyJpgMedia,$this->graphyJpgTag);        
+        $reception->syncMedia($graphyDicomMedia,$this->graphyDicomTag);
 
         // Return JSON response
         return response()->json([
@@ -141,18 +160,14 @@ class ReceptionCaptureController extends APIController
      * @return \Illuminate\Http\Response
      */
     public function updateCapture(Request $request,$reception,$capture)
-    {
-        // Find resource or throw exception
-        $reception = Reception::findOrfail($id);
-
-        $reception->attach($request);
-
+    {       
         // Return JSON response
         return response()->json([
             'message' => __('app.updateAlert')],
             $this->httpOk
         );
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -163,6 +178,14 @@ class ReceptionCaptureController extends APIController
     {
         // destroy profile
         $reception = Reception::findOrFail($id);
+
+        // Delete old media
+        if ($this->oldGraphyDelete) {
+            $this->deleteMedia($reception);
+        }
+
+        // Deattache media
+        $reception->syncMedia([]);
     }
 
     /**
