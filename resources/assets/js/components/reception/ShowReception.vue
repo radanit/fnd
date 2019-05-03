@@ -3,9 +3,6 @@
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">{{trans('reception.show_card_title_lbl')}}</h3>
-              </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 	            <el-form label-position="right" disabled  :model="form" ref="form" label-width="100px" class="demo-ruleForm mt-3" >

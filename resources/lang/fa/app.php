@@ -47,7 +47,7 @@ return [
     'editBtnLbl' => 'ویرایش',
 	'deleteBtnLbl' =>' حذف',
     'submitBtnLbl' => ' ثبت',
-    'showBtnLbl' => 'مشاهده اطلاعات',
+    'showBtnLbl' => 'مشاهده',
     'submitContinueBtnLbl' => ' ثبت و جدید',
 	'resetBtnLbl' => ' پاک کردن',
     'protectedResourceAlert' => 'امکان حذف رکورد انتخابی وجود ندارد',
