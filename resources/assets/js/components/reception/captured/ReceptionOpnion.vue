@@ -3,6 +3,11 @@
      <vue-editor v-model="content" :editorToolbar="customToolbar"></vue-editor>
    </div>
  </template>
+ <style>
+ .ql-snow .ql-picker-label{
+     padding-right: 15px !important;
+ }
+ </style>
  
  <script>
    import { VueEditor } from 'vue2-editor'

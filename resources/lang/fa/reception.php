@@ -41,5 +41,6 @@ return [
     'fullname' => 'نام و نام خانوادگی',
     'reception_pictures' => 'تصاویر پذیرش',
     'select_pictures' => 'انتخاب تصاویر',
-    'select_dicom_picture' => 'انتخاب تصویر dicom'
+    'select_dicom_picture' => 'انتخاب تصویر dicom',
+    'reception_opinion' => 'نظر پزشک'
 ];

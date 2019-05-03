@@ -42,4 +42,5 @@ return [
     'reception_pictures' => 'reception pictures',
     'select_pictures' => 'select images',
     'select_dicom_picture' => 'select dicom image',
+    'reception_opinion' => 'Doctor Opnion,
 ];
