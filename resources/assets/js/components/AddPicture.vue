@@ -14,13 +14,13 @@
                   <el-upload
                       class="dicom-uploader"
                       :headers="headerInfo"
-                      ref="dicom"
-                      action=""
-                      name="graphy_dicom"
+                       ref="dicom"
+                       action=""
+                       name="graphy_dicom"
                       :limit=1
                       :on-success="handleAvatarSuccess"
                       :before-upload="onBeforeUpload"
-                  :auto-upload="false">           
+                      :auto-upload="false">           
                   <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
                       <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
                   </el-upload>
@@ -31,13 +31,17 @@
                 { required: false, message: trans('reception.imgsRequierdError')}
                 ]"
                 >
-                  <el-upload
-                      action="https://jsonplaceholder.typicode.com/posts/"
+                  <el-upload                     
+                      :headers="headerInfo"
+                      ref="jpg"
+                      id="jpg"
+                      action=""
                       name="graphy_jpg"
                       list-type="picture-card"
                       :limit=5
                       :multiple="true"                 
                       :auto-upload="false"
+                      :on-change="handleUploadJpg"
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove">
                       <i class="el-icon-plus"></i>
@@ -71,12 +75,16 @@ export default {
         formData:'',
         form:{
             graphy_dicom:'',
-            graphy_jpg1:''
-        },
-        graphy_jpg:[]
+            graphy_jpg:[]
+        }
       }
     },
     methods:{
+      handleUploadJpg(file,fileList){
+      if (!fileList.length) return;
+        this.form.graphy_jpg = this.$refs.jpg.$data.uploadFiles;
+        console.log(this.form.graphy_jpg);
+      },
       /*
       |--------------------------------------------------------------------------
       | handleAvatarSuccess
@@ -129,7 +137,11 @@ export default {
       {
         this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
-        console.log(this.graphy_jpg);
+        for(var i = 0; i<this.form.graphy_jpg.length; i++){
+          console.log(this.form.graphy_jpg[i]);
+          this.formData.append('graphy_jpg['+ i +']',this.form.graphy_jpg[i]);
+        }        
+        console.log(this.$refs.jpg.fileList);
         axios.post('../api/receptions/'+this.form.id+'/capture?_method=put',this.formData).then(response => {
          this.$message({
             type: 'success',
