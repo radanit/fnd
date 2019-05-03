@@ -49,6 +49,14 @@ class CreateReceptionsTable extends Migration
             $table->timestamps();            
         });
 
+        Schema::create('reception_results', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('reception_id')->comment('FK: receptions');
+            $table->unsignedInteger('created_by')->comment('FK: users');
+            $table->text('result')->nullable();
+            $table->timestamps();            
+        });
+
     }
 
     /**
@@ -60,6 +68,7 @@ class CreateReceptionsTable extends Migration
     {
         Schema::dropIfExists('receptions');
         Schema::dropIfExists('reception_status');
+        Schema::dropIfExists('reception_results');
         
     }
 }

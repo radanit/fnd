@@ -187,10 +187,13 @@ class ReceptionCaptureController extends APIController
         }
 
         // Deattache media
-        $reception->syncMedia([]);
-
-        // Soft delete reception
-        $reception->delete();
+        $reception->syncMedia([]);   
+        
+        // Return JSON response
+        return response()->json([
+            'message' => __('app.deleteAlert')],
+            $this->httpOk
+        );
     }
 
     /**

@@ -27,6 +27,16 @@ Route::group(['middleware' => ['auth:api','ability:admin,can-capture-reception']
     Route::delete('receptions/{reception}/capture', 'API\ReceptionCaptureController@destroy');    
 });
 
+Route::group(['middleware' => ['auth:api','ability:admin,can-result-reception']], function() {
+    Route::get('receptions/results', 'API\ReceptionResultController@index');   
+    Route::get('receptions/{reception}/result', 'API\ReceptionResultController@show');
+    Route::put('receptions/{reception}/result', 'API\ReceptionResultController@update');    
+    Route::delete('receptions/{reception}/result', 'API\ReceptionResultController@destroy');    
+
+    Route::get('receptions/{reception}/votes', 'API\ReceptionResultController@getVotes');
+    Route::put('receptions/{reception}/votes', 'API\ReceptionResultController@setVotes');    
+});
+
 Route::group(['middleware' => ['auth:api','role:admin|receptor,can-register-reception']], function() {    
     Route::apiResource('receptions', 'API\ReceptionController');   
 });

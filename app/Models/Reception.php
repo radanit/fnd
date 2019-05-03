@@ -7,7 +7,7 @@ use Plank\Mediable\Mediable;
 use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
 class Reception extends Model
-{         
+{
     use Mediable;
     use RadanRestrictedRelationTrait;
 
@@ -73,12 +73,27 @@ class Reception extends Model
     }
 
     /**
+     * Relation with reception status
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function results()
+    {
+        return $this->hasMany(ReceptionResult::class);
+    }
+
+    /**
      * Accessor and Mataurs
      * 
      */
     public function lastStatus()
     {
         return $this->status->last();
+    }    
+   
+    public function lastResult()
+    {
+        return $this->results->last();
     }
 
     public function getLastStatusAttribute()
