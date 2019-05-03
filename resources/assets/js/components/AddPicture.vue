@@ -76,7 +76,6 @@ export default {
         formData:'',
         form:{
             graphy_dicom:'',
-            graphy_jpg:[]
         },
         files:''
       }
