@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateReceptionCaptureRequest;
 use App\Events\ReceptionStatusEvent;
 use MediaUploader;
 use Plank\Mediable\MediaUploadException;
+use Plank\Mediable\Media;
 
 class ReceptionCaptureController extends APIController
 {
@@ -194,6 +195,21 @@ class ReceptionCaptureController extends APIController
             'message' => __('app.deleteAlert')],
             $this->httpOk
         );
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($reception,$capture)    
+    {
+        // destroy profile
+        $media = Media::findOrFail($capture);
+        
+        return \Storage::disk('reception_disk')->download($media->getDiskPath());
+
     }
 
     /**
