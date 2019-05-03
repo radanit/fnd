@@ -153,8 +153,8 @@ class APIController extends BaseController
         $model = isset($this->relations) ? $model->with($this->relations):$model;        
 
         // Return json response
-        if (isset($this->resourceCollection)) {
-            return $this->resourceCollection($this->all($model));
+        if (isset($this->resourceCollection)) {            
+            return $this->resourceCollection::collection($this->all($model));
         } else if (isset($this->jsonResource)) {
             return $this->jsonResource::collection($this->all($model));
         } else {

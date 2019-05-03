@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Radan\Profile\Models\Profile;
 use App\Radan\Auth\Models\Role;
+use App\Radan\Auth\Models\Permission;
 
 class DoctorProfileTableSeeder extends Seeder 
 {
@@ -13,7 +14,7 @@ class DoctorProfileTableSeeder extends Seeder
      * @return void
      */
 	public function run()
-	{		
+	{
 		// doctor profile
 		Profile::create(array(
 			'name' => 'doctor',
@@ -243,18 +244,49 @@ class DoctorProfileTableSeeder extends Seeder
 			]												
 		));
 
-		Role::create([            
+		Role::create([
                 'name' => 'doctor',
                 'display_name' => 'پزشک', 
                 'description'=> 'پزشک',                
             ]
 		);
 		
-		Role::create([            
+		Role::create([
                 'name' => 'patient',
                 'display_name' => 'بیمار', 
                 'description'=> 'بیمار',                
             ]
-        );
+		);
+
+		Role::create([
+			'name' => 'receptor',
+			'display_name' => 'مسئول پذیرش', 
+			'description'=> 'مسئول پذیرش',                
+		]);
+		
+		Permission::create([
+			'name' => 'can-manage-radiology',
+			'display_name' => 'مدیریت رادیولوژی', 
+			'description'=> 'امکان مدیریت اطلاعات پایه',
+		]);
+
+		Permission::create([
+			'name' => 'can-capture-reception',
+			'display_name' => 'امکان افزودن رادیوگرافی', 
+			'description'=> 'امکان افزودن رادیوگرافی',
+		]);
+
+		Permission::create([
+			'name' => 'can-result-reception',
+			'display_name' => 'امکان ثبت نتیجه', 
+			'description'=> 'امکان ثبت نتیجه برای یک پرونده',
+		]);
+
+		Permission::create([
+			'name' => 'can-register-reception',
+			'display_name' => 'امکان ثبت پذیرش', 
+			'description'=> 'امکان ثبت پذیرش',
+		]);
+
 	}
 }
