@@ -31,7 +31,7 @@
                 { required: false, message: trans('reception.imgsRequierdError')}
                 ]"
                 >
-                  <el-upload                     
+                  <!--<el-upload                     
                       :headers="headerInfo"
                       ref="jpg"
                       id="jpg"
@@ -45,7 +45,8 @@
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove">
                       <i class="el-icon-plus"></i>
-                  </el-upload>
+                  </el-upload>!-->
+                  <input type="file" id="files" ref="files" multiple @change="handleUploadJpg">
                   <el-dialog :visible.sync="dialogVisible">
                       <img width="100%" :src="dialogImageUrl" alt="">
                   </el-dialog>
@@ -76,14 +77,13 @@ export default {
         form:{
             graphy_dicom:'',
             graphy_jpg:[]
-        }
+        },
+        files:''
       }
     },
     methods:{
-      handleUploadJpg(file,fileList){
-      if (!fileList.length) return;
-        this.form.graphy_jpg = this.$refs.jpg.$data.uploadFiles;
-        console.log(this.form.graphy_jpg);
+      handleUploadJpg(){
+        this.files = this.$refs.files.files;
       },
       /*
       |--------------------------------------------------------------------------
@@ -137,11 +137,10 @@ export default {
       {
         this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
-        for(var i = 0; i<this.form.graphy_jpg.length; i++){
-          console.log(this.form.graphy_jpg[i]);
-          this.formData.append('graphy_jpg['+ i +']',this.form.graphy_jpg[i]);
-        }        
-        console.log(this.$refs.jpg.fileList);
+        for(var i = 0; i<this.files.length; i++){
+          let file = this.files[i];
+          this.formData.append('graphy_jpg['+ i +']',file);
+        }
         axios.post('../api/receptions/'+this.form.id+'/capture?_method=put',this.formData).then(response => {
          this.$message({
             type: 'success',

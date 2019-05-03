@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{('reception.show_card_title_lbl')}}</h3>
+                <h3 class="card-title">{{trans('reception.show_card_title_lbl')}}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -12,7 +12,7 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.reception_date')"
+                    :label="trans('reception.reception_date')"
                     prop="reception_date"
                     >
                     <date-picker disabled tabindex=2 format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
@@ -20,7 +20,7 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item 
-                    :label="('reception.national_id')"
+                    :label="trans('reception.national_id')"
                     prop="patient.national_id"
                     >
                     <el-input  tabindex=1 :minlength="11" :maxlength="11" name="national_id" ref="national_id" type="number"  v-model="form.patient.national_id" autocomplete="off"></el-input>
@@ -30,7 +30,7 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.last_name')"
+                    :label="trans('reception.last_name')"
                     prop="patient.last_name"
                     >
                     <el-input tabindex=4 label="right" name="last_name" ref="last_name" type="text" v-model="form.patient.last_name" autocomplete="off"></el-input>
@@ -38,7 +38,7 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.first_name')"
+                    :label="trans('reception.first_name')"
                     prop="patient.first_name"
                     >
                     <el-input tabindex=3 label="right" name="first_name" ref="first_name" type="text"  v-model="form.patient.first_name" autocomplete="off"></el-input>
@@ -48,7 +48,7 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.birth_year')"
+                    :label="trans('reception.birth_year')"
                     prop="patient.birth_year"
                     >
                     <date-picker disabled tabindex=6  v-model="form.patient.birth_year" type="year" :auto-submit="true" :editable="true" max="1397"></date-picker>
@@ -56,7 +56,7 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.mobile_number')"
+                    :label="trans('reception.mobile_number')"
                     prop="patient.mobile"
                     >
                     <el-input tabindex=5  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
@@ -66,13 +66,13 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.doctor')"
+                    :label="trans('reception.doctor')"
                     prop="doctor_id">
                       <el-select tabindex=8
                         v-model.number="form.doctor_id"
                         filterable
                         default-first-option
-                        :placeholder="('reception.doctor_choose')">
+                        :placeholder="trans('reception.doctor_choose')">
                         <el-option
                           v-for="p_item in doctor_lists"
                           :key="p_item.id"
@@ -84,12 +84,12 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="('reception.gender')"
+                    :label="trans('reception.gender')"
                     prop="patient.gender"
                     >
                     <el-radio-group tabindex=7 v-model="form.patient.gender">
-                      <el-radio-button :label="0">{{('reception.man')}}</el-radio-button>
-                      <el-radio-button :label="1">{{('reception.women')}}</el-radio-button>
+                      <el-radio-button :label="0">{{trans('reception.man')}}</el-radio-button>
+                      <el-radio-button :label="1">{{trans('reception.women')}}</el-radio-button>
                     </el-radio-group>
                     </el-form-item>
                   </el-col>                
@@ -97,7 +97,7 @@
                 <el-row :gutter="20">
                   <el-col :span="24">
                     <el-form-item
-                    :label="('reception.radio_type')"
+                    :label="trans('reception.radio_type')"
                     prop="radio_type_id">
                       <el-select tabindex=9
                         v-model.number="form.radio_type_id"
