@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth:api','ability:admin,can-capture-reception']
 });
 
 Route::group(['middleware' => ['auth:api','ability:admin,can-result-reception']], function() {
-    Route::get('receptions/results', 'API\ReceptionResultController@index');   
+    Route::get('receptions/result', 'API\ReceptionResultController@index');   
     Route::get('receptions/{reception}/result', 'API\ReceptionResultController@show');
     Route::put('receptions/{reception}/result', 'API\ReceptionResultController@update');    
     Route::delete('receptions/{reception}/result', 'API\ReceptionResultController@destroy');    
