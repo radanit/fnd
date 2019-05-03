@@ -134,7 +134,8 @@ export default {
       this.$refs['form'].validate((valid) => {
       if (valid) 
       {
-        this.form.id = 1;
+        this.form.id=this.$route.params.receptionId;
+        //this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
         for(var i = 0; i<this.files.length; i++){
           let file = this.files[i];
