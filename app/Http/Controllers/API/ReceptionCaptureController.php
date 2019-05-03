@@ -59,6 +59,12 @@ class ReceptionCaptureController extends APIController
     private $graphyJpgTag = 'graphy_jpg';
     private $graphyDicomTag = 'graphy_dicom';
 
+    /**
+     * Upload file with Media Managment
+     * 
+     * @param $file Symfony\Component\HttpFoundation\UploadedFile
+     * @return boolean
+     */
     protected function upload($file)
     {
         try {
@@ -104,6 +110,12 @@ class ReceptionCaptureController extends APIController
         return $media;
     }
 
+    /**
+     * Delete related uploaded filesize
+     * 
+     * @param $reception App\Models\Reception
+     * @return boolean
+     */
     protected function deleteMedia($reception)
     {
         $oldMedia = $reception->getAllMediaByTag(); 
@@ -123,13 +135,13 @@ class ReceptionCaptureController extends APIController
     public function update(UpdateReceptionCaptureRequest $request, $id)
     {
         // Find resource or throw exception
-        $reception = Reception::findOrfail($id);
+        $reception = $this->getModel()->findOrfail($id);
 
         // Read all Radiography jpg type
         $graphyJpg = $request->file($this->graphyJpgTag);        
         $graphyJpgMedia = [];
         foreach ($graphyJpg as $file) {
-            $graphyJpgMedia[] = $this->upload($file);            
+            $graphyJpgMedia[] = $this->upload($file)->getKey();            
         }
 
         // Read all Radiography jpg type
@@ -141,9 +153,15 @@ class ReceptionCaptureController extends APIController
             $this->deleteMedia($reception);
         }
 
-        // Attache graphy to reception
-        $reception->syncMedia($graphyJpgMedia,$this->graphyJpgTag);        
+        // Attache graphy to reception        
+        $reception->syncMedia($graphyJpgMedia,$this->graphyJpgTag);      
         $reception->syncMedia($graphyDicomMedia,$this->graphyDicomTag);
+
+         // Raise Reception Recepted event
+        $status = $reception->status()->create(
+            ['status' => ReceptionStatus::CAPTURED]
+        );
+        event(new ReceptionStatusEvent($reception, $status));
 
         // Return JSON response
         return response()->json([
@@ -153,22 +171,6 @@ class ReceptionCaptureController extends APIController
     }
     
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Integer  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateCapture(Request $request,$reception,$capture)
-    {       
-        // Return JSON response
-        return response()->json([
-            'message' => __('app.updateAlert')],
-            $this->httpOk
-        );
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -177,7 +179,7 @@ class ReceptionCaptureController extends APIController
     public function destroy($id)    
     {
         // destroy profile
-        $reception = Reception::findOrFail($id);
+        $reception = $this->getModel()->findOrFail($id);
 
         // Delete old media
         if ($this->oldGraphyDelete) {
@@ -186,18 +188,9 @@ class ReceptionCaptureController extends APIController
 
         // Deattache media
         $reception->syncMedia([]);
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroyCapture($id,$reception,$capture)    
-    {
-        // destroy profile
-        $reception = Reception::findOrFail($id);
+        // Soft delete reception
+        $reception->delete();
     }
 
     /**

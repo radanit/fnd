@@ -23,10 +23,8 @@ Route::group(['middleware' => ['auth:api','ability:admin,can-manage-radiology']]
 Route::group(['middleware' => ['auth:api','ability:admin,can-capture-reception']], function() {
     Route::get('receptions/capture', 'API\ReceptionCaptureController@index');   
     Route::get('receptions/{reception}/capture', 'API\ReceptionCaptureController@show');
-    Route::put('receptions/{reception}/capture', 'API\ReceptionCaptureController@update');
-    Route::put('receptions/{reception}/capture/{capture}', 'API\ReceptionCaptureController@updateCapture');
-    Route::delete('receptions/{reception}/capture', 'API\ReceptionCaptureController@destroy');
-    Route::delete('receptions/{reception}/capture/{capture}', 'API\ReceptionCaptureController@destroyCapture');
+    Route::put('receptions/{reception}/capture', 'API\ReceptionCaptureController@update');    
+    Route::delete('receptions/{reception}/capture', 'API\ReceptionCaptureController@destroy');    
 });
 
 Route::group(['middleware' => ['auth:api','role:admin|receptor,can-register-reception']], function() {    
