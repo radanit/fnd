@@ -232,6 +232,7 @@ import userProfile from './userProfile';
         }
       });
       var jsonData = {};
+      
       for (var i=0 ;i<this.structure.length;i++)
       {
           var columnName = this.structure[i].name;
