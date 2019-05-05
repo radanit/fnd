@@ -15,7 +15,7 @@ class ReceptionResultResource extends JsonResource
     public function toArray($request)
     {
         //return parent::toArray($request);
-        return [
+        return [ 
             'id' => $this->id,
             'reception_date' => $this->reception_date,
             'patient' => [
@@ -32,6 +32,10 @@ class ReceptionResultResource extends JsonResource
             'radio_type_id' => $this->radioType->id,
             'radio_type_name' => $this->radioType->name,
             'status' => new ReceptionStatusResource($this->whenLoaded('status')->last()),
+            'votes' => $this->votes,
+            'graphy_dicom' => $this->getMedia('graphy_dicom'),
+            'graphy_jpg' => $this->getMedia('graphy_jpg'),
+            'result' => $this->whenLoaded('results'),
         ];
     }
 }

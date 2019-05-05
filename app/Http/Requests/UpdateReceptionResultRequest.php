@@ -24,7 +24,7 @@ class UpdateReceptionResultRequest extends FormRequest
     public function rules()
     {
         return [
-            'result' => 'required|text',
+            'result' => 'required|min:3|max:1000',
             'votes' => 'nullable|integer|between:0,5',
         ];
     }    
