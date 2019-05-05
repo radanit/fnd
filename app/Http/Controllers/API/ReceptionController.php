@@ -8,6 +8,7 @@ use App\Models\Reception;
 use App\Models\Patient;
 use App\Models\ReceptionStatus;
 use App\Http\Resources\ReceptionResource;
+use App\Http\Resources\ReceptionCollection;
 use App\Http\Requests\StoreReceptionRequest;
 use App\Http\Requests\UpdateReceptionRequest;
 use App\Events\ReceptionStatusEvent;
@@ -37,6 +38,13 @@ class ReceptionController extends APIController
      * @var Illuminate\Http\Resources\Json\JsonResource
      */
     protected $jsonResource = ReceptionResource::class;
+	
+	    /**
+     * Api resource collection class name
+     * 
+     * @var Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    protected $resourceCollection = ReceptionCollection::class;
 
     protected $filterable = [
         'national_id'

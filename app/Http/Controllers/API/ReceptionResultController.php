@@ -13,8 +13,6 @@ use App\Http\Resources\ReceptionCollection;
 use App\Http\Requests\UpdateReceptionResultRequest;
 use App\Events\ReceptionStatusEvent;
 use App\Events\ReceptionSetVotesEvent;
-use MediaUploader;
-use Plank\Mediable\MediaUploadException;
 
 class ReceptionResultController extends APIController
 {

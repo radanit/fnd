@@ -31,6 +31,21 @@ class Reception extends Model
      */
     protected $hidden = [    
     ];
+	
+	/**
+     * Scope a query to include reception when last status.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $status
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+	public function scopeWhereStatus($query, $status)
+	{
+		return $query->with('lastStatus')->get()->where('lastStatus.status',$status);		
+		/*return $query->whereHas('status', function ($q) use ($status) {
+			$q->latest()->where('status',$status);
+		});*/
+    }
    
     /**
      * Relation with patient
@@ -71,6 +86,11 @@ class Reception extends Model
     {
         return $this->hasMany(ReceptionStatus::class);
     }
+	
+	public function lastStatus()
+    {
+        return $this->hasOne(ReceptionStatus::class)->latest();
+    }        
 
     /**
      * Relation with reception status
@@ -82,27 +102,8 @@ class Reception extends Model
         return $this->hasMany(ReceptionResult::class);
     }
 
-    /**
-     * Accessor and Mataurs
-     * 
-     */
-    public function lastStatus()
-    {
-        return $this->status->last();
-    }    
-   
     public function lastResult()
     {
-        return $this->results->last();
-    }
-
-    public function getLastStatusAttribute()
-    {
-        return $this->lastStatus()->status;
-    }
-    
-    public function getLastStatusIdAttribute()
-    {
-        return $this->lastStatus()->id;
+        return $this->hasOne(ReceptionResult::class)->latest();
     }
 }

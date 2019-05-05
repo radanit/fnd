@@ -13,8 +13,7 @@ class ReceptionCollection extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {
-        //return parent::toArray($request);
+    {        
         return [
             'id' => $this->id,
             'reception_date' => $this->reception_date,

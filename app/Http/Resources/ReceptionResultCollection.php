@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReceptionStatusResource extends JsonResource
+class ReceptionResultCollection extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -13,11 +13,10 @@ class ReceptionStatusResource extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {        
-        return [
+    {  
+        return [ 
             'id' => $this->id,
-            'name' => $this->status,
-            'description' => __('bahar.reception_status.'.$this->status),
+            'result' => $this->result,
         ];
     }
 }
