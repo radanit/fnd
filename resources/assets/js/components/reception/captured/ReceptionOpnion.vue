@@ -40,6 +40,7 @@
    data() {
        return {
          rate:null,
+         receptId:'',
          colors: ['#99A9BF', '#F7BA2A', '#FF9900'], // same as { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
          result: '',
          customToolbar: [
@@ -53,7 +54,7 @@
           ] 
        }
      },
-     methods:{
+     methods :{
     /*
     |--------------------------------------------------------------------------
     | Create User Method
@@ -67,8 +68,8 @@
             result : this.result,
             votes :this.rate
           }
-          this.form.id=this.$route.params.receptionId;
-          axios.post('../api/receptions/'+this.form.id+'/result?_method=put',receptionInfo).then(response => {
+          this.receptId=this.$route.params.receptionId;
+          axios.post('../api/receptions/'+this.receptId+'/result?_method=put',receptionInfo).then(response => {
           this.$message({
               type: 'success',
               center: true,
