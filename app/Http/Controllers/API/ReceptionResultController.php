@@ -72,11 +72,18 @@ class ReceptionResultController extends APIController
         $reception->results()->create(
             $request->only('result')    
         );
+
+        if ($request->fill('votes')) {
+            $reception->update(
+                $request->only('votes')    
+            );
+        }
         
         // Raise Reception Recepted event
         $status = $reception->status()->create([
             'status' => ReceptionStatus::VISITED
         ]);
+        
         event(new ReceptionStatusEvent($reception, $status));
 
         // Return JSON response

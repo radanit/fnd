@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Radan\Http\Controllers\APIController;
 use App\Models\Reception;
 use App\Models\ReceptionStatus;
@@ -59,6 +60,7 @@ class ReceptionCaptureController extends APIController
     private $oldGraphyDelete = true;
     private $graphyJpgTag = 'graphy_jpg';
     private $graphyDicomTag = 'graphy_dicom';
+    private $graphyDisk = 'reception_disk';
 
     /**
      * Upload file with Media Managment
@@ -73,7 +75,7 @@ class ReceptionCaptureController extends APIController
             $media = MediaUploader::fromSource($file)
             
             // specify a disk to use instead of the default
-            ->toDisk('reception_disk')
+            ->toDisk($this->graphyDisk)
 
             // place the file in a directory relative to the disk root
             ->toDirectory('captures')
@@ -205,11 +207,16 @@ class ReceptionCaptureController extends APIController
      */
     public function download($reception,$capture)    
     {
-        // destroy profile
-        $media = Media::findOrFail($capture);
-        
-        return \Storage::disk('reception_disk')->download($media->getDiskPath());
+        // Find reception
+        $reception = $this->getModel()->findOrFail($reception);  
+        foreach($reception->media as $media)
+        {            
+            if ($media->getKey() == $capture) {
+                return \Storage::disk($this->graphyDisk)->download($media->getDiskPath());
+            }
+        }
 
+        throw(new ModelNotFoundException());
     }
 
     /**
