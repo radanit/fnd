@@ -2,23 +2,27 @@
    <div id="container">
      <el-form>
        <el-form-item>
-         <vue-editor v-model="result" :editorToolbar="customToolbar"></vue-editor>
+          <vue-editor v-model="result" :editorToolbar="customToolbar"></vue-editor>
        </el-form-item>        
         <el-form-item :label="trans('app.graphy_rate')">
           <el-rate
               v-model="rate"
               :colors="colors">
-            </el-rate>
+          </el-rate>
         </el-form-item>
+        <el-form-item>
+          <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+          <el-button size="mini" type="info" @click="backToReceptionList()" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+        </el-form-item>          
      </el-form>
-
-   </div>
-   
+   </div>   
  </template>
  <style>
  .ql-snow .ql-picker-label{
      padding-right: 15px !important;
+     display:inline-grid !important;
  }
+ 
  .ql-container{
    font-family: Vazir, Tahoma, sans-serif !important;
  }
@@ -48,6 +52,40 @@
             [{ 'direction': 'rtl' }],
           ] 
        }
-     }
+     },
+     methods:{
+    /*
+    |--------------------------------------------------------------------------
+    | Create User Method
+    |--------------------------------------------------------------------------
+    |
+    | This method Add User Info To Database
+    |
+    */
+      updateReception() {
+          let receptionInfo={
+            result : this.result,
+            votes :this.rate
+          }
+          this.form.id=this.$route.params.receptionId;
+          axios.post('../api/receptions/'+this.form.id+'/result?_method=put',receptionInfo).then(response => {
+          this.$message({
+              type: 'success',
+              center: true,
+              message:response.data.message
+            });
+            this.backToUserList();
+          })
+          .catch((error) => {
+            let msgErr = errorMessage(error.response.data.errors);
+            this.$message({
+              message: msgErr,
+              center: true,
+              type: 'error',
+              dangerouslyUseHTMLString: true
+            });
+          });     
+        }
+      },
    }
  </script> 
