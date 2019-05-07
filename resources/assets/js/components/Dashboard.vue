@@ -5,7 +5,7 @@
         <doctor-dashboard  v-else-if="user.profile_name==='doctor'"></doctor-dashboard>
         <radioadmin-dashboard  v-else-if="user.profile_name==='radioadmin'"></radioadmin-dashboard>
         <receptor-dashboard  v-else-if="user.profile_name==='receptor'"></receptor-dashboard>
-         <chat-message></chat-message>
+         <!--<chat-message></chat-message>-->
     </div>
 </template>
 

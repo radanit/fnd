@@ -73,7 +73,7 @@
           </li>
           @endrole
           <!-- Begin Basic Info menu --->
-          @role(['admin','radioadmin'])
+          @ability(['admin','can-manage-radiology,can-register-reception'])
           <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-info cyan"></i>
@@ -130,7 +130,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              @role(['admin','radioadmin','receptor'])
+              @role(['admin','can-register-reception'])
               <li class="nav-item">
                 <router-link to="/receptions" class="nav-link">
                   <i class="fas fa-id-badge nav-icon green"></i>
@@ -138,7 +138,7 @@
                 </router-link>
               </li>
               @endrole
-              @role(['admin','radioadmin','expert'])
+              @role(['admin','can-capture-reception'])
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
                   <i class="fas fa-registered nav-icon green"></i>
@@ -146,7 +146,7 @@
                 </router-link>
               </li>
               @endrole
-              @role(['admin','radioadmin','doctor'])
+              @role(['admin','can-result-reception'])
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
@@ -154,7 +154,7 @@
                 </router-link>
               </li>
               @endrole
-              @role(['admin','radioadmin','doctor','patient'])
+              @role(['admin','can-capture-reception'])
               <li class="nav-item">
                 <router-link to="/completed_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
@@ -162,7 +162,7 @@
                 </router-link>
               </li>
               @endrole
-              @role(['admin','radioadmin','doctor','expert','receptor'])
+              @role(['admin','can-capture-reception'])
               <li class="nav-item">
                 <router-link to="/rejected_receptions" class="nav-link">
                   <i class="fas fa-low-vision nav-icon green"></i>
