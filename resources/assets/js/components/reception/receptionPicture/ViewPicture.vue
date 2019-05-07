@@ -1,9 +1,9 @@
 <template>
     <div class="container">
         <el-card class="box-card">
-            <el-form id="update_form"  :model="form" @keyup.enter.native="updateReception" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form id="update_form" :model="form"  ref="form" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
-                prop="graphy_dicom"
+                prop="form.graphy_dicom"
                 :rules="[
                 { required: false, message: trans('reception.dicomRequierdError')}
                 ]"
@@ -23,7 +23,7 @@
                   </el-upload>
                 </el-form-item>
                 <el-form-item
-                prop="graphy_jpg"
+                prop="from.graphy_jpg"
                 :rules="[
                 { required: false, message: trans('reception.imgsRequierdError')}
                 ]"
@@ -69,11 +69,11 @@ export default {
         headerInfo: {
             'Accept': 'application/json'
         },
-        formData:'',
         form:{
             graphy_dicom:'',
-        },
-        files:''
+            graphy_jpg:'',
+        },        
+        receptionId:'',
       }
     },
     methods:{
@@ -129,39 +129,23 @@ export default {
     | This method Add User Info To Database
     |
     */
-    updateReception() {
-      this.$refs['form'].validate((valid) => {
-      if (valid) 
-      {
-        this.form.id = 1;
-        this.formData = new FormData( document.getElementById("update_form") );
-        for(var i = 0; i<this.files.length; i++){
-          let file = this.files[i];
-          this.formData.append('graphy_jpg['+ i +']',file);
-        }
-        axios.post('../api/receptions/'+this.form.id+'/capture?_method=put',this.formData).then(response => {
-         this.$message({
-            type: 'success',
-            center: true,
-            message:response.data.message
-          });
-          this.backToUserList();
-        })
-        .catch((error) => {
-          let msgErr = errorMessage(error.response.data.errors);
-          this.$message({
-            message: msgErr,
-            center: true,
-            type: 'error',
-            dangerouslyUseHTMLString: true
-          });
-        });     
-      }
-      else {
-            return false;
-        }
-      });
+    getReceptionInfo() {
+        this.receptionId=this.$route.params.receptionId;
+        axios.get("../api/receptions/"+this.receptionId+"/result").then(({
+            data})=>{(this.form = data.data)}).catch(()=>{
+            let msgErr = errorMessage(error.response.data.errors);
+            this.$message({
+                title: '',
+                message: msgErr,
+                center: true,
+                dangerouslyUseHTMLString: true,
+                type: 'error'
+            });               
+        });
     },    
-  },  
+  },
+  created(){
+      //this.getReceptionInfo();
+  }
 }
 </script>

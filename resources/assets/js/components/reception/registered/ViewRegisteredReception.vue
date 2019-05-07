@@ -2,7 +2,7 @@
     <div class="container">
         <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item :title="trans('reception.registered_reception_info')" name="receptionInfo">
-                <show-reception></show-reception>
+                <show-reception :apiUrl="apiUrl"></show-reception>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_pictures')" name="receptionPicture">
                 <add-pictures></add-pictures>
@@ -29,7 +29,8 @@ import AddPictures from '../receptionPicture/AddPicture.vue';
   export default {
     data() {
       return {
-        activeNames: ['receptionPicture']
+        activeNames: ['receptionPicture'],
+         apiUrl:"../api/receptions/"+this.$route.params.receptionId+"/capture",
       };
     },
     methods: {

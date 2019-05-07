@@ -2,7 +2,7 @@
     <div class="container">
         <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item :title="trans('reception.registered_reception_info')" name="receptionInfo">
-                <show-reception></show-reception>
+                <show-reception :apiUrl="apiUrl"></show-reception>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_pictures')" name="receptionPictures">
                 <view-pictures></view-pictures>
@@ -33,7 +33,8 @@ import ReceptionOpnion from './ReceptionOpnion.vue';
   export default {
     data() {
       return {
-        activeNames: ['receptionOpinion']
+        activeNames: ['receptionOpinion'],
+        apiUrl:"../api/receptions/"+this.$route.params.receptionId+"/result",
       };
     },
     methods: {

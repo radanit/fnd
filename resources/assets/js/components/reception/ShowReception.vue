@@ -124,6 +124,7 @@
 <script>
 import {errorMessage} from '../../utilities';
     export default {
+      props:['apiUrl'],
         data(){
             return{
                 form:{
@@ -157,7 +158,7 @@ import {errorMessage} from '../../utilities';
         */
         loadReception(){
             this.form.id=this.$route.params.receptionId;
-            axios.get("../api/receptions/"+this.form.id).then(({data})=>(this.form = data.data)).catch(()=>{
+            axios.get(this.apiUrl).then(({data})=>(this.form = data.data)).catch(()=>{
                 let msgErr = errorMessage(error.response.data.errors);
                 this.$message({
                   title: '',
