@@ -21,7 +21,7 @@
               </p>
             </router-link>
           </li>
-          @role('admin')      
+          @ability('admin')      
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shield-alt orange"></i>
@@ -71,9 +71,9 @@
               </li>              
             </ul>
           </li>
-          @endrole
+          @endability
           <!-- Begin Basic Info menu --->
-          @ability(['admin','can-manage-radiology,can-register-reception'])
+          @ability('admin','can-manage-radiology,can-register-reception')
           <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-info cyan"></i>
@@ -113,7 +113,7 @@
               </li>                              
             </ul>
           </li>
-          @endrole
+          @endability
           <!-- End Basic Info menu --->
 
           <!-- Begin Radiology menu --->
@@ -130,46 +130,46 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              @role(['admin','can-register-reception'])
+              @ability('admin','can-register-reception')
               <li class="nav-item">
                 <router-link to="/receptions" class="nav-link">
                   <i class="fas fa-id-badge nav-icon green"></i>
                   <p>{{ __('menus.reception') }}</p>
                 </router-link>
               </li>
-              @endrole
-              @role(['admin','can-capture-reception'])
+              @endability
+              @ability('admin','can-capture-reception')
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
                   <i class="fas fa-registered nav-icon green"></i>
                   <p>{{ __('menus.registered_reception') }}</p>
                 </router-link>
               </li>
-              @endrole
-              @role(['admin','can-result-reception'])
+              @endability
+              @ability('admin','can-result-reception')
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
                   <p>{{ __('menus.captured_reception') }}</p>
                 </router-link>
               </li>
-              @endrole
-              @role(['admin','can-capture-reception'])
+              @endability
+              @ability('admin','can-capture-reception')
               <li class="nav-item">
                 <router-link to="/completed_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
                   <p>{{ __('menus.completed_reception') }}</p>
                 </router-link>
               </li>
-              @endrole
-              @role(['admin','can-capture-reception'])
+              @endability
+              @ability('admin','can-capture-reception')
               <li class="nav-item">
                 <router-link to="/rejected_receptions" class="nav-link">
                   <i class="fas fa-low-vision nav-icon green"></i>
                   <p>{{ __('menus.rejected_reception') }}</p>
                 </router-link>
               </li>
-              @endrole                                                
+              @endability                                                
             </ul>
           </li>
           <!-- End Radiology menu --->
