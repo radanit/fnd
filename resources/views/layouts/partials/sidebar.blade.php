@@ -73,7 +73,11 @@
           </li>
           @endability
           <!-- Begin Basic Info menu --->
+<<<<<<< HEAD
           @ability('admin','can-manage-radiology,can-register-reception')
+=======
+          @role(['admin','radioadmin'])
+>>>>>>> 77c031e34396b2e59cfc0059da9631a7a1bf3327
           <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-info cyan"></i>
@@ -130,39 +134,63 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+<<<<<<< HEAD
               @ability('admin','can-register-reception')
+=======
+              @role(['admin','radioadmin','receptor'])
+>>>>>>> 77c031e34396b2e59cfc0059da9631a7a1bf3327
               <li class="nav-item">
                 <router-link to="/receptions" class="nav-link">
                   <i class="fas fa-id-badge nav-icon green"></i>
                   <p>{{ __('menus.reception') }}</p>
                 </router-link>
               </li>
+<<<<<<< HEAD
               @endability
               @ability('admin','can-capture-reception')
+=======
+              @endrole
+              @role(['admin','radioadmin','expert'])
+>>>>>>> 77c031e34396b2e59cfc0059da9631a7a1bf3327
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
                   <i class="fas fa-registered nav-icon green"></i>
                   <p>{{ __('menus.registered_reception') }}</p>
                 </router-link>
               </li>
+<<<<<<< HEAD
               @endability
               @ability('admin','can-result-reception')
+=======
+              @endrole
+              @role(['admin','radioadmin','doctor'])
+>>>>>>> 77c031e34396b2e59cfc0059da9631a7a1bf3327
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
                   <p>{{ __('menus.captured_reception') }}</p>
                 </router-link>
               </li>
+<<<<<<< HEAD
               @endability
               @ability('admin','can-capture-reception')
+=======
+              @endrole
+              @role(['admin','radioadmin','doctor','patient'])
+>>>>>>> 77c031e34396b2e59cfc0059da9631a7a1bf3327
               <li class="nav-item">
                 <router-link to="/completed_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
                   <p>{{ __('menus.completed_reception') }}</p>
                 </router-link>
               </li>
+<<<<<<< HEAD
               @endability
               @ability('admin','can-capture-reception')
+=======
+              @endrole
+              @role(['admin','radioadmin','doctor','expert','receptor'])
+>>>>>>> 77c031e34396b2e59cfc0059da9631a7a1bf3327
               <li class="nav-item">
                 <router-link to="/rejected_receptions" class="nav-link">
                   <i class="fas fa-low-vision nav-icon green"></i>
