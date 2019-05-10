@@ -25,7 +25,7 @@
 </style>
 <script>
 import ShowReception from '../ShowReception.vue';
-import AddPictures from '../receptionPicture/AddPicture.vue';
+import AddPictures from '../reception_picture/AddPicture.vue';
   export default {
     data() {
       return {

@@ -28,7 +28,7 @@
                 { required: false, message: trans('reception.imgsRequierdError')}
                 ]"
                 >
-                  <!--<el-upload                     
+                  <el-upload                     
                       :headers="headerInfo"
                       ref="jpg"
                       id="jpg"
@@ -36,14 +36,15 @@
                       name="graphy_jpg"
                       list-type="picture-card"
                       :limit=5
-                      :multiple="true"                 
+                      :multiple="true"
+                      :file-list="attachments"                
                       :auto-upload="false"
                       :on-change="handleUploadJpg"
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove">
                       <i class="el-icon-plus"></i>
-                  </el-upload>!-->
-                  <input type="file" id="files" ref="files" multiple @change="handleUploadJpg">
+                  </el-upload>
+                  <!--<input type="file" id="files" ref="files" multiple @change="handleUploadJpg">-->
                   <el-dialog :visible.sync="dialogVisible">
                       <img width="100%" :src="dialogImageUrl" alt="">
                   </el-dialog>
@@ -63,6 +64,7 @@
 export default {
     data() {
       return {
+        attachments:[],
         dialogImageUrl: '',
         dialogVisible: false,
         imageUrl:'',
@@ -81,8 +83,9 @@ export default {
       backToReceptionList(){
         this.$router.go(-1);
       },
-      handleUploadJpg(){
-        this.files = this.$refs.files.files;
+      handleUploadJpg(file,fileList){
+       //this.files = this.$refs.files.files;
+        this.attachments.push(file);
       },
       /*
       |--------------------------------------------------------------------------
@@ -137,10 +140,11 @@ export default {
         this.form.id=this.$route.params.receptionId;
         //this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
-        for(var i = 0; i<this.files.length; i++){
-          let file = this.files[i];
-          this.formData.append('graphy_jpg['+ i +']',file);
-        }
+        for(var i = 0; i<this.attachments.length; i++){
+          //let file = this.files[i];
+          //this.formData.append('graphy_jpg['+ i +']',file);
+          this.formData.append('graphy_jpg['+ i +']', this.attachments[i] ? this.attachments[i].raw : '');
+        }        
         axios.post('../api/receptions/'+this.form.id+'/capture?_method=put',this.formData).then(response => {
          this.$message({
             type: 'success',
