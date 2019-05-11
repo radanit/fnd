@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['auth:api','ability:admin,can-manage-radiology']], function() {    
+Route::group(['middleware' => ['auth:api','ability:admin,can-manage-radiology,can-register-reception']], function() {    
     Route::apiResource('radiotypes', 'API\RadioTypeController');
     Route::apiResource('specialities', 'API\SpecialityController');
     Route::apiResource('doctors', 'API\DoctorController');
