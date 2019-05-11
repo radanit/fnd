@@ -254,7 +254,8 @@ import {errorMessage} from '../../utilities';
               title: '',
               message: msgErr,
               center: true,
-              type: 'error'
+              type: 'error',
+              dangerouslyUseHTMLString: true
             });                
           });
         },
@@ -274,7 +275,8 @@ import {errorMessage} from '../../utilities';
               title: '',
               message: msgErr,
               center: true,
-              type: 'error'
+              type: 'error',
+              dangerouslyUseHTMLString: true
             });                
           });
         },  
@@ -318,7 +320,8 @@ import {errorMessage} from '../../utilities';
                   message: msgErr,
                   dangerouslyUseHTMLString: true,
                   center: true,
-                  type: 'error'
+                  type: 'error',
+                  dangerouslyUseHTMLString: true
                 });
               });
             }
