@@ -19,6 +19,7 @@ return [
     'view' => 'مشاهده',
     'totalTodayFileCount' => 'تعداد پرونده های امروز',
     'totalActiveDoctorCount' => 'تعداد پزشکان فعال',
-    'totalFileCount' => 'تعداد کل پرونده ها'
+    'totalFileCount' => 'تعداد کل پرونده ها',
+    'totalRejectFileCount' => 'تعداد پرونده های رد شده'
 
 ];

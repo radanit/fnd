@@ -43,13 +43,10 @@
 			<el-col :span="24">
 				<template>
 					<el-tabs v-model="activeName" type="border-card">
-						<el-tab-pane :label="trans('profile.activities')" name="first">
-
-						</el-tab-pane>
-						<el-tab-pane :label="trans('profile.changePass')" name="two">
+						<el-tab-pane :label="trans('profile.changePass')" name="first">
 							<change-pass></change-pass>
 						</el-tab-pane>
-						<el-tab-pane :label="trans('profile.setting')" name="third">
+						<el-tab-pane :label="trans('profile.my_profile')" name="two">
 							 <el-form id="update_form"  :model="form" @keyup.enter.native="updateUser" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
 								 	 <user-profile :user='user.profile_data'></user-profile>  
 									<el-form-item>
@@ -189,7 +186,7 @@
 						jsonData[columnName] = this.form.data[this.structure[i].name];
 				};
 				this.formData = new FormData( document.getElementById("update_form") );
-				axios.post('../api/profile/user/?_method=put',this.formData).then(response => {      
+				axios.post('../api/users/me?_method=put',this.formData).then(response => {      
 						this.$message({
 							type: 'success',
 							center: true,

@@ -8,14 +8,14 @@
               { type:item.type,required:item.required, message: trans(item.errorMsg)}
             ]">
         <el-input v-if="item.item=='el-input' " v-model="form[item.name]" :name="item.name" type="text"></el-input>
-        <el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
+        <!--<el-select @focus="loadList(item.apiUrl)" v-if="item.item=='el-select' " v-model="form[item.name]" :name="item.name" >
           <el-option
             v-for="option in lists"
             :key="option.id"
             :label="option.description"
             :value="option.id">
           </el-option>
-        </el-select>
+        </el-select>-->
         <el-upload action="" v-if="item.item=='el-upload' " type="text"><i class="el-icon-plus"></i></el-upload>        
       </el-form-item>
       <el-form-item>
@@ -73,7 +73,7 @@ export default
       | This method Load RadioType Info
       |
       */
-      loadList(apiUrl){
+      /*loadList(apiUrl){
           axios.get(apiUrl).then(({data})=>(this.lists = data.data)).catch((error)=>{
               let msgErr = errorMessage(error.response.data.errors);
               this.$message({
@@ -83,7 +83,7 @@ export default
                 type: 'error'
               });         
           });
-      },     
+      },*/    
       onValidated(isValid, errors) {
         //console.log("Validation result: ", isValid, ", Errors:", errors);
       },

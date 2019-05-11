@@ -149,7 +149,7 @@ export default {
     },
     created() {
       this.loadProfileSructure();
-      this.loadList("../api/specialities");            
+      //this.loadList("../api/specialities");            
     },
     mounted(){
         this.bus.$on('loadProfileSructure', this.loadProfileSructure);

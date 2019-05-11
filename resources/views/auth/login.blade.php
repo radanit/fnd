@@ -33,7 +33,11 @@
                                 @endif
                             </div>
                         </div>
-
+												@if($errors->any())
+														@foreach ($errors->all() as $error)
+															<small><h6 class="red text-justify">{{ $error }}</h6></small>
+														@endforeach
+												@endif
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -202,7 +206,7 @@
 		<!-- Footer Links -->
 		<!-- Copyright -->
 		<div class="footer-copyright text-center text-black-50 py-2">
-			<small><strong>{{ __('app.designDate') }}&copy; {{ __('app.footerMsg') }}<i class="fa fa-heart heart red"></i><a href="http://radanit.ir">{{ __('app.companyName') }}</a> </strong>.</small>
+			<!--<small><strong>{{ __('app.designDate') }}&copy; {{ __('app.footerMsg') }}<i class="fa fa-heart heart red"></i><a href="http://radanit.ir">{{ __('app.companyName') }}</a> </strong>.</small>-->
 		</div>
 		<!-- Copyright -->
 	  </footer>

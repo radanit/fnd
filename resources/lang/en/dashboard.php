@@ -19,5 +19,6 @@ return [
     'view' => 'View More',
     'totalTodayFileCount' => 'Today File Count',
     'totalActiveDoctorCount' => 'Active Doctors Count',
-    'totalFileCount' => 'Total File Count'
+    'totalFileCount' => 'Total File Count',
+    'totalRejectFileCount' => 'Total Rejected File Count'
 ];

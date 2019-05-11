@@ -24,5 +24,6 @@ return [
     'password' => 'Password',
     'confirmPass' => 'Confirm Password',
     'btnSubmitLbl' => 'Submit',
-    'changePass' => 'Change Password'
+    'changePass' => 'Change Password',
+    'my_profile' => 'My Profile'
 ];

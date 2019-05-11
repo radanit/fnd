@@ -20,8 +20,8 @@ return [
 'password_policy' => 'سیاست های رمز عبور',
 'doctor_management' => 'پزشکان',
 'radio_type_management' => 'انواع عکسبرداری',
-'registered_reception' => 'پذیرش های ثبت شده',
-'captured_reception' => 'پذیرش های عکسبرداری شده',
-'completed_reception' => 'پذیرش های تکمیل شده',
-'rejected_reception' => 'پذیرش های رد شده',
+'registered_reception' => 'در انتظار تصویربرداری',
+'captured_reception' => 'تصویربرداری شده',
+'completed_reception' => 'تکمیل شده',
+'rejected_reception' => 'رد شده',
 ];

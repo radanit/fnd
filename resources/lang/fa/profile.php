@@ -32,6 +32,7 @@ return [
     'female' => 'زن',
     'birthYear' => 'سال تولد',
     'gender' => 'جنسیت',
-    'mobile' => 'تلفن همراه'
+    'mobile' => 'تلفن همراه',
+    'my_profile' => 'پروفایل من'
 
 ];

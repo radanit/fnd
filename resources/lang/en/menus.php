@@ -22,7 +22,7 @@ return [
     'reception_management' =>'Reception Management',
     'doctor_management' => 'Doctor Management',
     'radio_type_management' => 'RadioType Management',
-    'registered_reception' => 'Registered Reception',
+    'registered_reception' => 'Wait For Capture',
     'captured_reception' => 'Captured Reception',
     'completed_reception' => 'Completed Reception',
     'rejected_reception' => 'Rejected Reception',
