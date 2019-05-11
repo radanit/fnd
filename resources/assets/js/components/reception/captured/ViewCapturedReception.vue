@@ -28,7 +28,7 @@
 </style>
 <script>
 import ShowReception from '../ShowReception.vue';
-import ViewPictures from '../receptionPicture/ViewPicture.vue';
+import ViewPictures from '../reception_picture/ViewPicture.vue';
 import ReceptionOpnion from './ReceptionOpnion.vue';
   export default {
     data() {
