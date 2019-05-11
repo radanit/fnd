@@ -19,7 +19,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table
-					:data="list.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.profile_name.toLowerCase().includes(search.toLowerCase())|| data.roles[0].description.toLowerCase().includes(search.toLowerCase()))"
+					:data="list.filter(data => !search || data.username.toLowerCase().includes(search.toLowerCase())|| data.profile_name.toLowerCase().includes(search.toLowerCase())|| data.fullname.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'username', order: 'descending'}"
                     :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
@@ -37,7 +37,9 @@
                       sortable
 					  prop="profile_description">
 					</el-table-column>
-                    <el-table-column prop="roles[0].description" :label="trans('user.roles')" sortable>                        
+                    <!--<el-table-column prop="roles[0].description" :label="trans('user.roles')" sortable>                        
+                    </el-table-column>-->
+                    <el-table-column prop="fullname" :label="trans('userProfile.fullname')" sortable>                        
                     </el-table-column>
                     <el-table-column
                         prop="active"
