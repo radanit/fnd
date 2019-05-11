@@ -13,11 +13,29 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['auth:api','ability:admin,can-manage-radiology,can-register-reception']], function() {    
-    Route::apiResource('radiotypes', 'API\RadioTypeController');
-    Route::apiResource('specialities', 'API\SpecialityController');
+Route::group(['middleware' => 'auth:api'], function() {
     Route::apiResource('doctors', 'API\DoctorController');
     Route::apiResource('patients', 'API\PatientController');
+});
+
+Route::group(['middleware' => 'auth:api'], function() {
+	Route::get('specialities', 'API\SpecialityController@index');
+	Route::group(['middleware' => 'ability:admin,can-manage-radiology|can-register-reception'],function() {
+		Route::get('specialities/{id}', 'API\SpecialityController@show');
+		Route::post('specialities', 'API\SpecialityController@store');
+		Route::put('specialities/{id}', 'API\SpecialityController@update');
+		Route::delete('specialities/{id}', 'API\SpecialityController@destroy');
+	});	
+});
+
+Route::group(['middleware' => 'auth:api'], function() {
+	Route::get('radiotypes', 'API\RadioTypeController@index');
+	Route::group(['middleware' => 'ability:admin,can-manage-radiology|can-register-reception'],function() {
+		Route::get('radiotypes/{id}', 'API\RadioTypeController@show');
+		Route::post('radiotypes', 'API\RadioTypeController@store');
+		Route::put('radiotypes/{id}', 'API\RadioTypeController@update');
+		Route::delete('radiotypes/{id}', 'API\RadioTypeController@destroy');
+	});	
 });
 
 Route::group(['middleware' => ['auth:api','ability:admin,can-capture-reception']], function() {
