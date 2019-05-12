@@ -1,8 +1,5 @@
 <template>
     <ul class="navbar-nav mr-auto">
-      <li class="mt-2 pr-2">
-        <a :title="trans('menus.logout')" :alt="trans('menus.logout')" href="/logout" @click="logout()" id="user-logout"><i class="nav-icon fas fa-power-off red"></i></a>
-      </li>
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
