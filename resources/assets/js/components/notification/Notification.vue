@@ -1,5 +1,17 @@
 <template>
     <ul class="navbar-nav mr-auto">
+       <el-header style="text-align: right; font-size: 12px">
+          <el-dropdown>
+            <i class="el-icon-setting"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <a href="#" @click="editProfile()" id="profile-link" class="lighGray">پروفایل من <i class="fa fa-ellipsis-v mr-1" aria-hidden="true"></i></a>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <a :title="trans('menus.logout')" :alt="trans('menus.logout')" href="/logout" @click="logout()" id="user-logout" class="lighGray">خروج <i class="fas fa-power-off red" aria-hidden="true"></i></a></el-dropdown-item>
+              </el-dropdown-menu>
+          </el-dropdown>
+       </el-header>
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
@@ -56,6 +68,11 @@
       </li>      
     </ul>
 </template>
+<style>
+.el-header{
+  padding: 9px 10px !important;
+}
+</style>
 
 <script>
   export default {
@@ -63,6 +80,7 @@
       return {
         eventCnt:0,
         receptionCnt:0,
+        user:{}
       }
     },
     created() {
@@ -101,6 +119,9 @@
             });
           })
         },
+        editProfile(){
+            this.$router.push({ name: 'profiles', params: { profile_id: this.user.profile_id}});
+        }
       } 
     }
 </script>

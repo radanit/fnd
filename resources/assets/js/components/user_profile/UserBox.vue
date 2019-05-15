@@ -15,9 +15,6 @@
                 </el-upload>
             </el-col>
             <el-col :span="18" class="info text-white">{{user.fullname}}</el-col>
-            <el-col>
-                <a :title="trans('menus.logout')" :alt="trans('menus.logout')" href="/logout" @click="logout()" id="user-logout"><i class="nav-icon fas fa-power-off red"></i></a>
-            </el-col>
             <el-col :span="1" class="mt-2">
                 <a href="#" @click="editProfile()" id="profile-link">
                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
