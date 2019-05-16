@@ -26,7 +26,7 @@ trait ProfileUserTrait
             Config::get('profile.models.profile_user'),
             Config::get('profile.foreign_keys.user'),
             $this->primaryKey
-        );
+        )->withTrashed();
 
         return $profile;
     }    

@@ -19,7 +19,7 @@ use App\Radan\Auth\Requests\StoreUserRequest;
 use App\Radan\Auth\Requests\UpdateUserRequest;
 
 class UserController extends APIController
-{    
+{
     
     /**
      * Display a listing of the resource.
@@ -30,6 +30,23 @@ class UserController extends APIController
     {
         // Get all resources
         $userModel = User::with(['profile','roles']);
+
+        // Determinde number of record to return
+        $pgCount = $this->getPaginationCount();
+        $users = ($pgCount) ? $userModel->paginate($pgCount) : $userModel->get();
+        
+        return UserResource::collection($users);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexTrashed()
+    {
+        // Get all resources
+        $userModel = User::withTrashed('profile')->onlyTrashed();
 
         // Determinde number of record to return
         $pgCount = $this->getPaginationCount();
