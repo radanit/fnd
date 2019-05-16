@@ -114,6 +114,7 @@ class ReceptionController extends APIController
                 'mobile',
                 'birth_year',
                 'gender',
+                'description',
                 'doctor_id',
                 'radio_type_id',
                 'reception_date'
