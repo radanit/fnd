@@ -99,12 +99,12 @@ class ReceptionController extends APIController
         $reception = Reception::findOrfail($id);        
 
         // Check reception status, if in recepting
-        if ($reception->lastStatus()->status !== ReceptionStatus::LAST) {
+        if ($reception->lastStatus->status !== ReceptionStatus::LAST) {
             
             // update patinet
             $reception->patient()->update([
                 'username' => $request->get('national_id'),
-            ]);
+            ]);            
 
             // update reception
             $reception->update($request->only(
@@ -146,7 +146,7 @@ class ReceptionController extends APIController
         $reception = Reception::findOrFail($id);        
 
         // Check reception status, if in recepting
-        if ($reception->lastStatus()->status !== ReceptionStatus::LAST) {
+        if ($reception->lastStatus->status !== ReceptionStatus::LAST) {
 
             // Destory profile
             $reception->delete();
