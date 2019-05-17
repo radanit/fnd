@@ -23,5 +23,13 @@ class ProfileUserTableSeeder extends Seeder
 					"last_name" => "سیستم"
 				]
 			));
+		ProfileUser::create(array(
+			'profile_id' => 2,
+			'user_id' => 2,
+			'data' => [
+				"first_name" => "پزشک",
+				"last_name" => "پزشک"
+			]
+		));			
 	}
 }

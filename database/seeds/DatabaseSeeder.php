@@ -38,5 +38,11 @@ class DatabaseSeeder extends Seeder
 	
 		$this->call('DoctorProfileTableSeeder');
 		$this->command->info('Doctor profile table seeded!');
+		
+		$this->call('SpecialitiesTableSeeder');
+		$this->command->info('Specialities table seeded!');
+
+		$this->call('RadioTypesTableSeeder');
+		$this->command->info('Radio Types table seeded!');		
 	}
 }

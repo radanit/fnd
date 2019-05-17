@@ -18,7 +18,7 @@
                         { required: true,pattern:/^([0-9]{11})$/, message: trans('reception.mobile_number_required_error')}                      
                       ]"
                       >
-                    <el-input tabindex=2 label="right" name="mobile" ref="mobile" type="دعپذثق" v-model="form.mobile" autocomplete="off"></el-input>
+                    <el-input tabindex=2 label="right" name="mobile" ref="mobile" type="text" v-model="form.mobile" autocomplete="off"></el-input>
                     </el-form-item>              
                   </el-col>
                   <el-col :span="12">
@@ -305,7 +305,8 @@ import {errorMessage} from '../../utilities';
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
-                radio_type_id:this.form.radio_type_id
+                radio_type_id:this.form.radio_type_id,
+                description:this.form.radtoTypeDes
               }
               axios.post('../api/receptions',newReception).then((response) =>{
                 Fire.$emit('AfterCrud');
@@ -356,7 +357,8 @@ import {errorMessage} from '../../utilities';
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
-                radio_type_id:this.form.radio_type_id
+                radio_type_id:this.form.radio_type_id,
+                descrption:this.radtoTypeDes
               }
               axios.post('../api/receptions',newReception).then((response) =>{
                 Fire.$emit('AfterCrud');

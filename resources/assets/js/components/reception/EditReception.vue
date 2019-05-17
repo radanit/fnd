@@ -122,12 +122,12 @@
                   <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.radtoTypeDes')"
-                    prop="radtoTypeDes"
+                    prop="description"
                     :rules="[
                       { required: true, message: trans('reception.radtoTypeDes_required_error')}
                     ]"
                     >
-                    <el-input tabindex=10 label="right" name="radtoTypeDes" ref="radtoTypeDes" type="text" v-model="form.radtoTypeDes" autocomplete="off"></el-input>
+                    <el-input tabindex=10 label="right" name="description" ref="description" type="text" v-model="form.description" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                   <el-col :span="12">
@@ -180,6 +180,7 @@ import {errorMessage} from '../../utilities';
                   },
                   radio_type_id:'',
                   reception_date:'',
+                  description:'',
                   patient:{
                     national_id:'',              
                     first_name: '',
@@ -310,7 +311,8 @@ import {errorMessage} from '../../utilities';
           birth_year:this.form.patient.birth_year,
           gender:this.form.patient.gender,
           doctor_id:this.form.doctor_id,
-          radio_type_id:this.form.radio_type_id
+          radio_type_id:this.form.radio_type_id,
+          description:this.form.description,
         }
         axios.put('../api/receptions/'+this.form.id,receptionInfo).then(response => {
           this.$message({

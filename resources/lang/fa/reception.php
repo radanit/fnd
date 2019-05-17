@@ -44,5 +44,6 @@ return [
     'select_pictures' => 'انتخاب تصاویر',
     'select_dicom_picture' => 'انتخاب تصویر dicom',
     'reception_opinion' => 'نظر پزشک',
-    'radtoTypeDes' => 'توضیحات تصویر'
+    'radtoTypeDes' => 'توضیحات تصویر',
+    'graphy_result' => 'توضیحات عکسبرداری'
 ];

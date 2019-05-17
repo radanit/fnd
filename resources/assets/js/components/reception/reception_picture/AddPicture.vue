@@ -49,6 +49,12 @@
                       <img width="100%" :src="dialogImageUrl" alt="">
                   </el-dialog>
                 </el-form-item>
+                <el-form-item 
+                 :label="trans('reception.graphy_result')"
+                  prop="graphy_result" 
+                >
+                  <el-input tabindex=2 label="right" name="graphy_result" ref="graphy_result" type="text" v-model="graphy_result" autocomplete="off"></el-input>
+                </el-form-item>
                 <el-form-item>
                 <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                 <el-button size="mini" type="info" @click="backToReceptionList()" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
@@ -76,6 +82,7 @@ export default {
         form:{
             graphy_dicom:'',
         },
+        graphy_result:'',
         files:''
       }
     },

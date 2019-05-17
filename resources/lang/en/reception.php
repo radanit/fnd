@@ -44,5 +44,6 @@ return [
     'select_pictures' => 'select images',
     'select_dicom_picture' => 'select dicom image',
     'reception_opinion' => 'Doctor Opnion',
-    'radtoTypeDes' =>'radto Type Des'
+    'radtoTypeDes' =>'radto Type Des',
+    'graphy_result' => 'Graphy Result'
 ];
