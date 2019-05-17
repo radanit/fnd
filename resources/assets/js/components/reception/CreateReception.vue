@@ -83,10 +83,10 @@
                     :label="trans('reception.mobile_number')"
                     prop="mobile"
                     :rules="[
-                      { required: true,pattern:/^(\+\d{0,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
+                      { required: true,pattern:/^([0-9]{11})$/, message: trans('reception.mobile_number_required_error')}                      
                     ]"
                     >
-                    <el-input tabindex=5 label="right" name="mobile" ref="mobile" type="text" v-model="form.mobile" autocomplete="off"></el-input>
+                    <el-input tabindex=5 label="right" name="mobile" ref="mobile" type="دعپذثق" v-model="form.mobile" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                 </el-row>
@@ -184,7 +184,7 @@ import {errorMessage} from '../../utilities';
               gender:'',
               doctor_id:'',
               radio_type_id:'',
-              reception_date:'',
+              reception_date:new Date().toISOString().slice(0,10),
             },
             doctor_lists:[],
             radio_type_lists:[],
@@ -404,8 +404,7 @@ import {errorMessage} from '../../utilities';
       },       
       created() {
         this.loadDoctorList();
-        this.loadRadioTypeList();        
-        
+        this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {
           //
         });

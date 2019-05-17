@@ -23,7 +23,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>{{form.reception_counts}}</h3>
 
                                 <p>{{trans('dashboard.totalFileCount')}}</p>
                             </div>
@@ -38,7 +38,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px"></sup></h3>
+                                <h3>{{form.doctor_counts}}<sup style="font-size: 20px"></sup></h3>
                                 <p>{{trans('dashboard.totalActiveDoctorCount')}}</p>
                             </div>
                             <div class="icon">
@@ -52,7 +52,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{form.today_receptions}}</h3>
 
                             <p>{{trans('dashboard.totalTodayFileCount')}}</p>
                         </div>
@@ -67,7 +67,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{form.complete_receptions}}</h3>
 
                             <p>{{trans('dashboard.totalCompleteFileCount')}}</p>
                         </div>
@@ -88,8 +88,34 @@
 <script>
     import {errorMessage} from '../../utilities';    
     export default {
+        data(){
+            return{
+                form:{}
+            }
+        },
+        methods:{
+            /*
+            |--------------------------------------------------------------------------
+            | Load Staticties Method
+            | Added By e.bagherzadegan        
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Staticties
+            |
+            */ 
+            loadStatistics(){
+                axios.get("../api/receptions/statistics").then(({data})=>(this.form = data)).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
+                    this.$message({                                           
+                      message:msgErr,
+                      center: true,
+                      type: 'error'
+                    }); 
+                });
+            }
+        },
         created() {
-            console.log('Component mounted.')
+            this.loadStatistics();
         }
     }
 </script>

@@ -14,6 +14,9 @@
                         <el-button type="primary"
                         size="mini"
                         @click="activeUser">{{trans('app.activeBtnLbl')}} <i class="fa fa-lightbulb"></i></el-button>
+                        <el-button type="warning"
+                        size="mini"
+                        @click="loadDeletedUser">{{trans('app.deletedBtnLbl')}} <i class="fas fa-user-times"></i></el-button>
                     </div>                
                 </div>
               <!-- /.card-header -->
@@ -208,6 +211,25 @@
             },
             /*
             |--------------------------------------------------------------------------
+            | Load User Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Users Info
+            |
+            */    
+            loadDeletedUser(){
+                axios.get("../api/users/trashed").then(({data})=>(this.list = data.data)).catch((error)=>{
+                    let msgErr = errorMessage(error.response.data.errors);
+                    this.$message({                                           
+                      message:msgErr,
+                      center: true,
+                      type: 'error'
+                    }); 
+                });
+            },
+            /*
+            |--------------------------------------------------------------------------
             | Active User Method
             | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
@@ -226,7 +248,7 @@
                         }
                     });
                 let userIds={ids:user_ids}
-                axios.post('../api/auth/users/batch/active',userIds).then(response => {
+                axios.put('../api/users/batch/active/',userIds).then(response => {
                     this.$message({
                     type: 'success',
                     center: true,

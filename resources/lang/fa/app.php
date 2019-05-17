@@ -63,5 +63,6 @@ return [
     'current_date' => 'تاریخ امروز',
     'last_login' => 'آخرین ورود',
     'welcome_message' => 'خوش آمدید',
-    'graphy_rate' => 'امتیاز تصاویر'
+    'graphy_rate' => 'امتیاز تصاویر',
+    'deletedBtnLbl' => 'کاربران حذف شده'
 ];

@@ -63,5 +63,6 @@ return [
     'current_date' => 'Today',
     'last_login' => 'Last Login',
     'welcome_message' => 'Welcome',
-    'graphy_rate' => 'Graphy Rate'
+    'graphy_rate' => 'Graphy Rate',
+    'deletedBtnLbl' => 'Deleted Users'
 ];

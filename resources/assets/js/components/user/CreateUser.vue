@@ -339,49 +339,63 @@ import userProfile from './userProfile';
     |
     */
     createContinueUser() {
-      this.$refs['form'].validate((valid) => {
-      if (valid) 
-      {
-      var jsonData = {};
-      for (var i=0 ;i<this.structure.length;i++)
-      {
-          var columnName = this.structure[i].name;
-          jsonData[columnName] = this.form[this.structure[i].name];
-      };
-      let newUser ={            
-        username: this.form.username,
-        email: this.form.email,
-        password: this.form.password,
-        password_confirmation:  this.form.confirmPassword,
-        profile_id: this.form.profile_id,
-        roles:  this.form.roles,
-        active: this.form.active,
-        profile_data :JSON.stringify(jsonData)
-      }
-      axios.post('../api/users',newUser).then((response) =>{
-      Fire.$emit('AfterCrud');
-      this.$message({
-            type: 'success',
-            center: true,
-            message:response.data.message
+        this.$refs['form'].validate((valid) => {
+        if (valid) 
+        {
+        var jsonData = {};
+        for (var i=0 ;i<this.structure.length;i++)
+        {
+            var columnName = this.structure[i].name;
+            jsonData[columnName] = this.form[this.structure[i].name];
+        };
+        var roles_id=[];
+        this.form.roles.forEach((role, index) => {
+          if (role){
+            roles_id.push({
+            id: role.id,
           });
-          this.resetForm('form');
-        })
-        .catch((error) => {
-          let msgErr = errorMessage(error.response.data.errors);
-          this.$message({
-            message: msgErr,
-            center: true,
-            type: 'error'
-          });
-        });     
-      }
-      else 
-      {
-        return false;
-      }
-      });
-    },        
+          }
+        });
+        this.formData = new FormData( document.getElementById("insert_form") );
+        this.formData.append('active',this.form.active);
+        this.formData.append('password',this.form.password);
+        this.formData.append('password_confirmation',this.form.confirmPassword);
+        this.formData.append('profile_id',this.form.profile_id);
+        this.formData.append('roles',JSON.stringify(roles_id));
+        let newUser ={            
+          username: this.form.username,
+          email: this.form.email,
+          password: this.form.password,
+          password_confirmation:  this.form.confirmPassword,
+          profile_id: this.form.profile_id,
+          roles:  this.form.roles,
+          active: this.form.active,
+          profile_data :JSON.stringify(jsonData)
+        }
+        axios.post('../api/users',this.formData).then((response) =>{
+        Fire.$emit('AfterCrud');
+        this.$message({
+              type: 'success',
+              center: true,
+              message:response.data.message
+            });
+            this.resetForm('form')
+          })
+          .catch((error) => {
+            let msgErr = errorMessage(error.response.data.errors);
+            this.$message({
+              message: msgErr,
+              center: true,
+              type: 'error',
+              dangerouslyUseHTMLString: true
+            });
+          });     
+        }
+        else {
+                return false;
+              }
+        });
+      },        
     /*
     |--------------------------------------------------------------------------
     | Reset Form Method
@@ -391,7 +405,7 @@ import userProfile from './userProfile';
     |
     */        
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+       this.$refs[formName].resetFields();
       }            
     },
     directives: {
