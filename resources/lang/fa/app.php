@@ -64,5 +64,6 @@ return [
     'last_login' => 'آخرین ورود',
     'welcome_message' => 'خوش آمدید',
     'graphy_rate' => 'امتیاز تصاویر',
-    'deletedBtnLbl' => 'کاربران حذف شده'
+    'deletedBtnLbl' => 'کاربران حذف شده',
+    'usersListBtnLbl' => 'کاربران موجود'
 ];
