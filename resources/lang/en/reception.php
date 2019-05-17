@@ -35,6 +35,7 @@ return [
     'mobile_number_required_error' => 'mobile number is required!',
     'reception_date_required_error' => 'reception date is required!',
     'birth_year_required_error' => 'birth year is required!',
+    'radtoTypeDes_required_error' => 'Rasio Type Description Is Required!',
     'gender_required_error' => 'gender is required!',
     'doctor_required_error' => 'doctor is required!',
     'radio_type_required_error' => 'radio type is required!',
@@ -42,5 +43,6 @@ return [
     'reception_pictures' => 'reception pictures',
     'select_pictures' => 'select images',
     'select_dicom_picture' => 'select dicom image',
-    'reception_opinion' => 'Doctor Opnion,
+    'reception_opinion' => 'Doctor Opnion',
+    'radtoTypeDes' =>'radto Type Des'
 ];

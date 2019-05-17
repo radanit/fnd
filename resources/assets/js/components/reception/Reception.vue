@@ -269,7 +269,7 @@ import {errorMessage} from '../../utilities';
         created() {
           this.loadReception();
             Fire.$on('AfterCrud',() => {
-                //
+                this.loadReception();
             });
         }
     }

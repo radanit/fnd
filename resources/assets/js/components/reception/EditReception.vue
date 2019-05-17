@@ -12,14 +12,14 @@
                 <el-row :gutter="20">
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.reception_date')"
-                    prop="reception_date"
+                    :label="trans('reception.mobile_number')"
+                    prop="patient.mobile"
                     :rules="[
-                      { required: true, message: trans('reception.reception_date_required_error')}
+                      { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
                     ]"
                     >
-                    <date-picker tabindex=2 format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="trans('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
-                   </el-form-item>                    
+                    <el-input tabindex=2 label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
+                    </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item 
@@ -71,14 +71,14 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.mobile_number')"
-                    prop="patient.mobile"
-                    :rules="[
-                      { required: true,pattern:/^(\+\d{1,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
-                    ]"
-                    >
-                    <el-input tabindex=5  label="right" name="mobile_number" ref="mobile_number" type="text" v-model="form.patient.mobile" autocomplete="off"></el-input>
-                    </el-form-item>
+                      :label="trans('reception.reception_date')"
+                      prop="reception_date"
+                      :rules="[
+                        { required: true, message: trans('reception.reception_date_required_error')}
+                      ]"
+                      >
+                      <date-picker tabindex=5 format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" :locale="trans('reception.locale')" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>
+                   </el-form-item>
                   </el-col>                  
                 </el-row>
                 <el-row :gutter="20">
@@ -119,7 +119,18 @@
                   </el-col>                
                 </el-row>
                 <el-row :gutter="20">
-                  <el-col :span="24">
+                  <el-col :span="12">
+                    <el-form-item
+                    :label="trans('reception.radtoTypeDes')"
+                    prop="radtoTypeDes"
+                    :rules="[
+                      { required: true, message: trans('reception.radtoTypeDes_required_error')}
+                    ]"
+                    >
+                    <el-input tabindex=10 label="right" name="radtoTypeDes" ref="radtoTypeDes" type="text" v-model="form.radtoTypeDes" autocomplete="off"></el-input>
+                    </el-form-item>
+                  </el-col>                  
+                  <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.radio_type')"
                     prop="radio_type_id"
