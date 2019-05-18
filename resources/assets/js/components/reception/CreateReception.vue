@@ -11,15 +11,15 @@
 	              <el-form label-position="right" :model="form" ref="form" @keyup.enter.native="updateReception" label-width="100px" class="demo-ruleForm mt-3" >
                 <el-row :gutter="20">
                   <el-col :span="12">
-                    <el-form-item
-                    :label="trans('reception.reception_date')"
-                    prop="reception_date"
-                    :rules="[
-                      { required: true, message: trans('reception.reception_date_required_error')}
-                    ]"
-                    >
-                    <date-picker tabindex=2 :locale="trans('reception.locale')" format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
-                   </el-form-item>                    
+                      <el-form-item
+                      :label="trans('reception.mobile_number')"
+                      prop="mobile"
+                      :rules="[
+                        { required: true,pattern:/^([0-9]{11})$/, message: trans('reception.mobile_number_required_error')}                      
+                      ]"
+                      >
+                    <el-input tabindex=2 label="right" name="mobile" ref="mobile" type="text" v-model="form.mobile" autocomplete="off"></el-input>
+                    </el-form-item>              
                   </el-col>
                   <el-col :span="12">
                     <el-form-item 
@@ -31,14 +31,6 @@
                     ]"
                     >
                     <el-input tabindex=1 name="national_id" ref="national_id" @blur="loadPatientInfo" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>
-                    <!--<el-autocomplete
-                      class="inline-input"
-                      v-model="state2"
-                      :fetch-suggestions="loadPatientInfo"
-                      placeholder="Please Input"
-                      :trigger-on-focus="false"
-                      @select="handleSelect"
-                    ></el-autocomplete>-->
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
@@ -80,14 +72,14 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item
-                    :label="trans('reception.mobile_number')"
-                    prop="mobile"
+                    :label="trans('reception.reception_date')"
+                    prop="reception_date"
                     :rules="[
-                      { required: true,pattern:/^(\+\d{0,3}[- ]?)?\d{11}$/, message: trans('reception.mobile_number_required_error')}
+                      { required: true, message: trans('reception.reception_date_required_error')}
                     ]"
                     >
-                    <el-input tabindex=5 label="right" name="mobile" ref="mobile" type="text" v-model="form.mobile" autocomplete="off"></el-input>
-                    </el-form-item>
+                    <date-picker tabindex=5 :locale="trans('reception.locale')" format="YYYY-MM-DD" display-format="jDD jMMMM jYYYY" v-model="form.reception_date" :auto-submit="true" :editable="true"></date-picker>                    
+                   </el-form-item>
                   </el-col>                  
                 </el-row>
                 <el-row :gutter="20">
@@ -128,7 +120,18 @@
                   </el-col>                
                 </el-row>
                 <el-row :gutter="20">
-                  <el-col :span="24">
+                  <el-col :span="12">
+                    <el-form-item
+                    :label="trans('reception.radtoTypeDes')"
+                    prop="radtoTypeDes"
+                    :rules="[
+                      { required: true, message: trans('reception.radtoTypeDes_required_error')}
+                    ]"
+                    >
+                    <el-input tabindex=10 label="right" name="radtoTypeDes" ref="radtoTypeDes" type="text" v-model="form.radtoTypeDes" autocomplete="off"></el-input>
+                    </el-form-item>
+                  </el-col>                  
+                  <el-col :span="12">
                     <el-form-item
                     :label="trans('reception.radio_type')"
                     prop="radio_type_id"
@@ -148,7 +151,7 @@
                         </el-option>
                       </el-select>
                     </el-form-item>
-                  </el-col>            
+                  </el-col>       
                 </el-row>                 
                 <el-row :gutter="20">                                          
                   <el-form-item>
@@ -184,7 +187,8 @@ import {errorMessage} from '../../utilities';
               gender:'',
               doctor_id:'',
               radio_type_id:'',
-              reception_date:'',
+              radtoTypeDes:'',
+              reception_date:new Date().toISOString().slice(0,10),
             },
             doctor_lists:[],
             radio_type_lists:[],
@@ -301,7 +305,8 @@ import {errorMessage} from '../../utilities';
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
-                radio_type_id:this.form.radio_type_id
+                radio_type_id:this.form.radio_type_id,
+                description:this.form.radtoTypeDes
               }
               axios.post('../api/receptions',newReception).then((response) =>{
                 Fire.$emit('AfterCrud');
@@ -352,7 +357,8 @@ import {errorMessage} from '../../utilities';
                 birth_year:this.form.birth_year,
                 gender:this.form.gender,
                 doctor_id:this.form.doctor_id,
-                radio_type_id:this.form.radio_type_id
+                radio_type_id:this.form.radio_type_id,
+                descrption:this.radtoTypeDes
               }
               axios.post('../api/receptions',newReception).then((response) =>{
                 Fire.$emit('AfterCrud');
@@ -404,8 +410,7 @@ import {errorMessage} from '../../utilities';
       },       
       created() {
         this.loadDoctorList();
-        this.loadRadioTypeList();        
-        
+        this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {
           //
         });

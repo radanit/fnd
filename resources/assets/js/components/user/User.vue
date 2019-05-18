@@ -14,6 +14,9 @@
                         <el-button type="primary"
                         size="mini"
                         @click="activeUser">{{trans('app.activeBtnLbl')}} <i class="fa fa-lightbulb"></i></el-button>
+                        <el-button :type="btnType"
+                        size="mini"
+                        @click="loadDeletedUser">{{deletedBtnLbl}} <i :class="btnIcon"></i></el-button>
                     </div>                
                 </div>
               <!-- /.card-header -->
@@ -105,11 +108,6 @@
     {
         data(){
             return{
-                warningAlert : trans('app.warningAlert'),
-                cancelAlert : trans('app.cancelAlert'),
-                noticTxt : trans('app.noticTxt'),
-                cancelButtonText : trans('app.cancelButtonText'),
-                confirmButtonText : trans('app.confirmButtonText'),
 				form: {
                     id: '',
                     active:'',
@@ -124,6 +122,10 @@
                 list: [],
                 infiniteId: +new Date(),
                 multipleSelection:[],
+                showDeleted:0,
+                deletedBtnLbl:trans('app.deletedBtnLbl'),
+                btnType:'warning',
+                btnIcon:'fas fa-user-times'
             }
         },
         methods :{
@@ -208,6 +210,39 @@
             },
             /*
             |--------------------------------------------------------------------------
+            | Load User Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Users Info
+            |
+            */    
+            loadDeletedUser(){
+                if (this.showDeleted==0){
+                        this.btnType ='primary';
+                        this.showDeleted = 1;
+                        this.btnIcon = 'fas fa-users';
+                        this.deletedBtnLbl =trans('app.usersListBtnLbl');
+                        axios.get("../api/users/trashed").then(({data})=>(this.list = data.data)).catch((error)=>{
+                        let msgErr = errorMessage(error.response.data.errors);
+                        this.$message({                                           
+                        message:msgErr,
+                        center: true,
+                        type: 'error'
+                        }); 
+                    });
+                }
+                else{
+                    this.showDeleted = 0;
+                    this.btnType ='warning';
+                    this.btnIcon = 'fas fa-user-times';
+                    this.deletedBtnLbl =trans('app.deletedBtnLbl');
+                    this.loadUser();
+                }
+
+            },
+            /*
+            |--------------------------------------------------------------------------
             | Active User Method
             | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
@@ -226,7 +261,7 @@
                         }
                     });
                 let userIds={ids:user_ids}
-                axios.post('../api/auth/users/batch/active',userIds).then(response => {
+                axios.put('../api/users/batch/active/',userIds).then(response => {
                     this.$message({
                     type: 'success',
                     center: true,

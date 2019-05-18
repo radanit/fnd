@@ -21,5 +21,6 @@ class RoleTableSeeder extends Seeder
                 'description'=> 'مدیریت سیستم',                
             ]
         )->attachPermissions([1,2,3,4]);
+    
     }
 }

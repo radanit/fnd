@@ -38,9 +38,12 @@ return [
     'gender_required_error' => 'جنسیت اجباری است',
     'doctor_required_error' => 'پزشک معالج اجباری است',
     'radio_type_required_error' => 'نوع تصویر اجباری است',
+    'radtoTypeDes_required_error' => 'توضیحات تصویر اجباری است',
     'fullname' => 'نام و نام خانوادگی',
     'reception_pictures' => 'تصاویر پذیرش',
     'select_pictures' => 'انتخاب تصاویر',
     'select_dicom_picture' => 'انتخاب تصویر dicom',
-    'reception_opinion' => 'نظر پزشک'
+    'reception_opinion' => 'نظر پزشک',
+    'radtoTypeDes' => 'توضیحات تصویر',
+    'graphy_result' => 'توضیحات عکسبرداری'
 ];

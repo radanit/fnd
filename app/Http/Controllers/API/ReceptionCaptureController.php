@@ -160,7 +160,12 @@ class ReceptionCaptureController extends APIController
         $reception->syncMedia($graphyJpgMedia,$this->graphyJpgTag);      
         $reception->syncMedia($graphyDicomMedia,$this->graphyDicomTag);
 
-         // Raise Reception Recepted event
+        // Graphy result        
+        if ($request->filled('graphy_result')) {
+            $reception->update($request->only('graphy_result'));
+        }
+
+        // Raise Reception Recepted event
         $status = $reception->status()->create(
             ['status' => ReceptionStatus::CAPTURED]
         );

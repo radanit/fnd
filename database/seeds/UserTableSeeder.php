@@ -23,5 +23,14 @@ class UserTableSeeder extends Seeder
                 'active' => 1
             ]
         )->attachRole(1);
+
+        factory(App\Radan\Auth\Models\User::class)->create(
+            [
+                'email' => 'doctor@radanit.ir',
+                'username' => 'doctor', 
+                'password'=>'doctor@123',
+                'active' => 1
+            ]
+        )->attachRole(1);
     }
 }

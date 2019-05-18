@@ -26,6 +26,8 @@ class ReceptionResource extends JsonResource
                 'gender' => $this->gender,
                 'birth_year' => $this->birth_year,
             ],
+            'description' => $this->description,
+            'graphy_result' => $this->graphy_result,
             'doctor' => new DoctorResource($this->doctor),
             'doctor_id' => $this->doctor_id,
             'radio_type_id' => $this->radioType->id,

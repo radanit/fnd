@@ -33,7 +33,8 @@ Route::group(['middleware' => 'auth:api','as' => 'users.batch.'], function() {
 });
 
 Route::group(['middleware' => 'auth:api'], function() {    
-    Route::apiResource('users', 'UserController');
+    Route::get('users/trashed', 'UserController@indexTrashed');
+    Route::apiResource('users', 'UserController');    
 });
        
 // Profile Module

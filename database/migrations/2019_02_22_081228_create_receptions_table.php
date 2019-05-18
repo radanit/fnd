@@ -21,6 +21,8 @@ class CreateReceptionsTable extends Migration
             $table->string('mobile',11);
             $table->string('birth_year',4);
             $table->boolean('gender');
+            $table->string('description')->nullable();
+            $table->mediumText('graphy_result')->nullable();            
             $table->unsignedInteger('doctor_id')->comment('FK: users of type doctor');
             $table->unsignedInteger('radio_type_id')->comment('FK: radio_types');
             $table->datetime('reception_date')->default(DB::raw('CURRENT_TIMESTAMP'));
