@@ -125,7 +125,7 @@
                     :label="trans('reception.radtoTypeDes')"
                     prop="radtoTypeDes"
                     :rules="[
-                      { required: true, message: trans('reception.radtoTypeDes_required_error')}
+                      { required: false, message: trans('reception.radtoTypeDes_required_error')}
                     ]"
                     >
                     <el-input tabindex=10 label="right" name="radtoTypeDes" ref="radtoTypeDes" type="text" v-model="form.radtoTypeDes" autocomplete="off"></el-input>
