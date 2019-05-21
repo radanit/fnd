@@ -12,10 +12,10 @@
     "devDependencies": {
         "axios": "^0.18.0",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.4.1",
         "laravel-mix": "^4.0.14",
         "lodash": "^4.17.5",
-        "popper.js": "^1.12",
+        "popper.js": "^1.15.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.16.1",
         "sass-loader": "^7.1.0",
@@ -24,19 +24,19 @@
         "webpack": "^4.29.0"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.6.3",
+        "@fortawesome/fontawesome-free": "^5.8.2",
         "admin-lte": "^3.0.0-alpha.2",
-        "element-ui": "^2.5.1",
+        "element-ui": "^2.8.2",
         "font-awesome-animation": "^0.2.1",
         "jalali-moment": "^3.3.0",
         "laravel-echo": "^1.5.3",
         "moment": "^2.24.0",
         "pusher-js": "^4.4.0",
-        "vue-i18n": "^8.8.2",
-        "vue-infinite-loading": "^2.4.3",
+        "vue-i18n": "^8.11.2",
+        "vue-infinite-loading": "^2.4.4",
         "vue-moment-jalaali": "^2.0.0",
         "vue-persian-datetime-picker": "^1.1.7",
-        "vue-router": "^3.0.2",
+        "vue-router": "^3.0.6",
         "vue2-editor": "^2.6.6"
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <el-card class="box-card">
-            <el-form id="update_form"  :model="form" @keyup.enter.native="updateReception" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form v-loading="loading" id="update_form"  :model="form" @keyup.enter.native="updateReception" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
                 <el-form-item
                 prop="graphy_dicom"
                 :rules="[
@@ -70,6 +70,7 @@
 export default {
     data() {
       return {
+        loading:false,
         attachments:[],
         dialogImageUrl: '',
         dialogVisible: false,
@@ -144,6 +145,7 @@ export default {
       this.$refs['form'].validate((valid) => {
       if (valid) 
       {
+        this.loading=true;
         this.form.id=this.$route.params.receptionId;
         //this.form.id = 1;
         this.formData = new FormData( document.getElementById("update_form") );
@@ -158,7 +160,8 @@ export default {
             center: true,
             message:response.data.message
           });
-          this.backToUserList();
+          //this.backToUserList();
+          this.loading = false;
         })
         .catch((error) => {
           let msgErr = errorMessage(error.response.data.errors);
