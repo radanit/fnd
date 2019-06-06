@@ -39,7 +39,7 @@ import ReceptionOpnion from './ReceptionOpnion.vue';
     },
     methods: {
       handleChange(val) {
-        console.log(val);
+        //console.log(val);
       }
     },
     created(){

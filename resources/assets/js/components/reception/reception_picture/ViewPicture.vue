@@ -2,16 +2,10 @@
     <div class="container">
         <el-card class="box-card">
             <el-form id="update_form" :model="form"  ref="form" label-width="130px" class="demo-ruleForm mt-3" >
-                <el-form-item
-                prop="form.graphy_dicom"
-                :rules="[
-                { required: false, message: trans('reception.dicomRequierdError')}
-                ]"
-                >
                   <el-upload
                       class="dicom-uploader"
                       :headers="headerInfo"
-                       ref="dicom"
+                       ref="form.graphy_dicom"
                        action=""
                        name="graphy_dicom"
                       :limit=1
@@ -21,36 +15,23 @@
                   <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
                       <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
                   </el-upload>
-                </el-form-item>
-                <el-form-item
-                prop="from.graphy_jpg"
-                :rules="[
-                { required: false, message: trans('reception.imgsRequierdError')}
-                ]"
-                >
                   <el-upload                     
                       :headers="headerInfo"
-                      ref="jpg"
-                      id="jpg"
-                      action=""
+                      ref="form.graphy_jpg"
+                      :action="actionUrl"
+                     :file-list="form.graphy_jpg"
                       name="graphy_jpg"
                       list-type="picture-card"
                       :limit=5
                       :multiple="true"                 
-                      :auto-upload="false"
-                      :on-change="handleUploadJpg"
-                      :on-preview="handlePictureCardPreview"
-                      :on-remove="handleRemove">
+                      >
                       <i class="el-icon-plus"></i>
                   </el-upload>
                   <el-dialog :visible.sync="dialogVisible">
                       <img width="100%" :src="dialogImageUrl" alt="">
                   </el-dialog>
-                </el-form-item>
-                <el-form-item>
                 <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-                <el-button size="mini" type="info" @click="backToReceptionList()"  plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
-                </el-form-item>                
+                <el-button size="mini" type="info" @click="backToReceptionList()"  plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>             
             </el-form>
         </el-card>
     </div>
@@ -74,6 +55,8 @@ export default {
             graphy_jpg:'',
         },        
         receptionId:'',
+        actionUrl:"../api/receptions/1/capture/1",
+        fileList:''
       }
     },
     methods:{
@@ -145,7 +128,8 @@ export default {
     },    
   },
   created(){
-      //this.getReceptionInfo();
+      this.getReceptionInfo();
+      console.log(this.form);
   }
 }
 </script>
