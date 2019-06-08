@@ -73,15 +73,16 @@
                     </infinite-loading>
 				  </el-table>
                   <div class="block">
-                       <!-- <el-pagination
+                        <el-pagination
                             background
                             layout="prev, pager, next"
                             prev-text="<"
                             next-text=">"
-                            :page-size="1"
-                            :total="10"
-                            :data="tableData">
-                        </el-pagination>-->              
+                             :page-size="pagination.per_page"                         
+                            :total="pagination.total"
+                            @current-change="loadRadioTypes"
+                            :current-page.sync="page">
+                        </el-pagination>             
                   </div>
               </div>
               <!-- /.card-body -->
@@ -110,7 +111,8 @@
 				},
 				tableData:[],
                 search: '',
-                page: 1,
+                page: 0,
+                pagination:{},
                 list: [],
                 infiniteId: +new Date(),
             }
@@ -131,7 +133,7 @@
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (data.data.length>0) {
+                    if (data.data.length) {
                         this.page += 1;
                         this.list.unshift(...data.data.reverse());
                         $state.loaded();
@@ -175,7 +177,7 @@
             |
             */
             loadRadioTypes(){
-                axios.get("../api/radiotypes").then(({data})=>(this.list = data.data)).catch((error)=>{
+                axios.get("../api/radiotypes").then(({data})=>(this.list = data.data),(this.pagination= data.meta)).catch((error)=>{
                     this.$message({
                       title: '',
                       message: error.response.data.errors,
