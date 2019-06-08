@@ -20,6 +20,7 @@ class RadioTypeResource extends JsonResource
             'name' => $this->name,        
             'description' => $this->description,
             'role_id' => $this->role_id,
+            'category' => $this->radio_cat_id,
             'role_description' => $this->whenLoaded('role',function() {
                 return $this->role->description;
             }),

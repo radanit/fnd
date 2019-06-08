@@ -4,11 +4,32 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">{{trans('radioTypelblUpdateRadioTypeCardTitle')}}</h3>
+            <h3 class="card-title">{{trans('radioType.lblUpdateCardTitle')}}</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <el-form  :model="form" @keyup.enter.native="updateRadioType" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+            <el-form-item
+              :label="trans('radioType.category')"
+              prop="category"
+              :rules="[
+                { required: true, message: trans('radioType.radioTypeCategoryRequierdError')}
+              ]"
+              >
+                <el-select
+                  v-model.number="form.category"
+                  filterable
+                  default-first-option
+                  :placeholder="trans('radioType.category_choose_lbl')">
+                  <el-option
+                    v-for="category in categories"
+                    :key="category.value"
+                    :label="category.label"
+                    :value="category.value"
+                  >
+                </el-option>
+              </el-select>
+            </el-form-item>                 
             <el-form-item
             :label="trans('radioType.name')"
             prop="name"
@@ -66,8 +87,16 @@
               id: '',
               name: '',
               description: '',
-              role_id:'',                 
+              role_id:'',
+              category:''            
             },
+            categories:[{
+              value: 1,
+              label: 'عکسبرداری'
+            }, {
+              value: 2,
+              label: 'سونوگرافی'
+            }],
             role_options:[],
         }
     },
@@ -118,7 +147,8 @@
         updateRadioType(){
           let radioTypeInfo={
             description:this.form.description,          
-            roles:this.form.role_id
+            roles:this.form.role_id,
+            radio_cat_id :this.form.category
           }
           axios.put('../api/radiotypes/'+this.form.id,radioTypeInfo).then(response => {
           this.$message({

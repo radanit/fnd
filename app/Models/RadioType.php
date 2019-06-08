@@ -15,7 +15,7 @@ class RadioType extends Model
      * @var array
      */
     protected $fillable = [
-        'description','name','role_id'
+        'description','name','role_id','radio_cat_id'
     ];
 
     /**

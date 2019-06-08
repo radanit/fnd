@@ -4,11 +4,32 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">{{trans('radioTypeCardTitle')}}</h3>
+                <h3 class="card-title">{{trans('radioType.lblAddCardTitle')}}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 	              <el-form @submit.native.prevent @keyup.enter.native="createUserRadioType" :model="form" ref="form" label-width="130px" class="demo-ruleForm mt-3" >
+                <el-form-item
+                  :label="trans('radioType.category')"
+                  prop="radioCategory"
+                  :rules="[
+                    { required: true, message: trans('radioType.radioTypeCategoryRequierdError')}
+                  ]"
+                  >
+                    <el-select
+                      v-model.number="form.radioCategory"
+                      filterable
+                      default-first-option
+                      :placeholder="trans('radioType.category_choose_lbl')">
+                      <el-option
+                       v-for="category in categories"
+                       :key="category.value"
+                       :label="category.label"
+                       :value="category.value"
+                      >
+                    </el-option>
+                  </el-select>
+                </el-form-item>                 
                 <el-form-item
                 :label="trans('radioType.name')"
                 prop="name"
@@ -43,7 +64,7 @@
                       :value="item.id">
                     </el-option>
                   </el-select>
-                </el-form-item>                
+                </el-form-item>              
                 <el-form-item>
                   <el-button  size="mini" type="success" @click="createUserRadioType()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
                   <el-button  size="mini" type="primary" @click="createContinueUserRadioType()" plain>{{trans('app.submitContinueBtnLbl')}} <i class="fas fa-check-double"></i></el-button>
@@ -65,6 +86,13 @@ import {errorMessage} from '../../utilities';
     {
       data(){
           return{
+              categories:[{
+                  value: 1,
+                  label: 'عکسبرداری'
+                }, {
+                  value: 2,
+                  label: 'سونوگرافی'
+                }],
               form: 
               {
                 id: '',
@@ -72,6 +100,7 @@ import {errorMessage} from '../../utilities';
                 description: '',
                 roles:'',
                 role_options:[],
+                radioCategory:''
               },
           }
       },
@@ -102,7 +131,8 @@ import {errorMessage} from '../../utilities';
                     let newRadioType ={
                     name: this.form.name,
                     description: this.form.description,
-                    roles: this.form.roles
+                    roles: this.form.roles,
+                    radio_cat_id:this.form.radioCategory
                   }
                   axios.post('../api/radiotypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');
@@ -145,7 +175,8 @@ import {errorMessage} from '../../utilities';
                 let newRadioType ={
                 name: this.form.name,
                 description: this.form.description,
-                roles:this.form.roles
+                roles:this.form.roles,
+                radio_cat_id:this.form.radioCategory                
               }
                   axios.post('../api/radiotypes',newRadioType).then((response) =>{
                   Fire.$emit('AfterCrud');

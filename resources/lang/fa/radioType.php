@@ -24,5 +24,10 @@ return [
     'status' => 'وضعیت',
     'radioType_lbl' => 'نوع عکسبرداری',
     'roles' => 'نقش کاربری',
-    'roles_choose_lbl' => 'انتخاب نقش'
+    'roles_choose_lbl' => 'انتخاب نقش',
+    'radioCategory' =>'نوع گروه ',
+    'category' => 'گروه تصویربرداری',
+    'radioTypeCategoryRequierdError' => 'گروه تصویربرداری اجباری است',
+    'sonography' => 'سونوگرافی',
+    'photography' => 'عکسبرداری'
 ];

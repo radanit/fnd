@@ -24,5 +24,8 @@ return [
     'status' => 'Status',
     'radioType_lbl' => 'RadioType',
     'roles' => 'Role',
-    'roles_choose_lbl' => 'Choose Role'
+    'roles_choose_lbl' => 'Choose Role',
+    'radioCategory' =>'Category',
+    'category' => 'Categories',
+    'radioTypeCategoryRequierdError' => 'Category Is required!'
 ];

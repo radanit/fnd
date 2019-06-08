@@ -54,6 +54,7 @@ class RadioTypeController extends APIController
             'name' => 'required|string|max:255|unique:radio_types',
             'description' => 'string|max:255',
             'roles' => 'nullable|exists:roles,id',
+            'radio_cat_id' => 'required|max:1'
 
         ])->validate();
 
@@ -61,7 +62,8 @@ class RadioTypeController extends APIController
         $radioType = RadioType::create([
             'name' => $request->name,
             'description' => $request->description,
-            'role_id' => $request->roles
+            'role_id' => $request->roles,
+            'radio_cat_id' =>$request->radio_cat_id
         ]);
             
         // Return JSON response    

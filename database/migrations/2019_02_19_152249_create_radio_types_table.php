@@ -19,6 +19,7 @@ class CreateRadioTypesTable extends Migration
             $table->string('name')->unique();           
             $table->string('description')->nullable();
             $table->unsignedInteger('role_id')->nullable();
+            $table->unsignedInteger('radio_cat_id')->nullable();
             $table->timestamps();
         });
     }

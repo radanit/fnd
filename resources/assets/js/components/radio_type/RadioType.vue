@@ -23,6 +23,18 @@
                         type="selection"
                         width="55">
                     </el-table-column>
+                    <el-table-column
+                        prop="category"
+                        :label="trans('radioType.category')"
+                        width="150"
+                        :filters="[{ text:trans('radioType.sonography'), value:2 }, { text: trans('radioType.photography'), value:1 }]"
+                        :filter-method="filterCategory"
+                        filter-placement="bottom-end">
+                        <template slot-scope="scope">
+                            <el-tag
+                            disable-transitions><span v-if="scope.row.category==2">{{trans('radioType.sonography')}}</span><span v-else>{{trans('radioType.photography')}}</span></el-tag>
+                        </template>
+                    </el-table-column>                    
 					<el-table-column
 					  :label="trans('radioType.name')"
                       ref="name"
@@ -94,6 +106,7 @@
                     id: '',
                     name: '',
                     description: '',
+                    category:'',
 				},
 				tableData:[],
                 search: '',
@@ -127,6 +140,19 @@
                     }
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Filter Active user Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Filter Active Users
+            |
+            */  
+            filterCategory(value, row) {
+                return row.category === value;
+            },
+            /*            
             /*
             |--------------------------------------------------------------------------
             | handleSelectionChange Method
