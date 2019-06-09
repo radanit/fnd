@@ -83,8 +83,9 @@ class RadioTypeController extends APIController
     public function update(Request $request, $id)
     {
         //
-        // Validation Request   
-        Validator::make($request->only('description','roles'), [
+        // Validation Request 
+        //dd($request->all());
+        Validator::make($request->only('description','roles','radio_cat_id'), [
             'description' => 'string|max:255',
             'roles' => 'exists:roles,id',
             'radio_cat_id' => 'required|max:1'
@@ -96,7 +97,7 @@ class RadioTypeController extends APIController
         $radioType->update([
             'description' => $request->description,
             'role_id' => $request->roles,
-            'radio_cat_id' =>$request->radio_cat_id
+            'radio_cat_id' => $request->radio_cat_id
         ]);
             
         // Return JSON response            
