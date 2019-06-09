@@ -55,14 +55,17 @@
        }
      },
      methods :{
-    /*
-    |--------------------------------------------------------------------------
-    | Create User Method
-    |--------------------------------------------------------------------------
-    |
-    | This method Add User Info To Database
-    |
-    */
+      backToReceptionList(){
+        this.$router.go(-1);
+      },
+      /*
+      |--------------------------------------------------------------------------
+      | update User Method
+      |--------------------------------------------------------------------------
+      |
+      | This method Add User Info To Database
+      |
+      */
       updateReception() {
           let receptionInfo={
             result : this.result,

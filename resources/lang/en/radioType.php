@@ -27,5 +27,8 @@ return [
     'roles_choose_lbl' => 'Choose Role',
     'radioCategory' =>'Category',
     'category' => 'Categories',
-    'radioTypeCategoryRequierdError' => 'Category Is required!'
+    'radioTypeCategoryRequierdError' => 'Category Is required!',
+    'sonography' => 'Sonography',
+    'medical_radiology' => 'Medical Radiology',
+    'dental_radiology' => 'Dental Radiology'
 ];

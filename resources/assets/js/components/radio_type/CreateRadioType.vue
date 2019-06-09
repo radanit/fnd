@@ -88,9 +88,12 @@ import {errorMessage} from '../../utilities';
           return{
               categories:[{
                   value: 1,
-                  label: 'عکسبرداری'
+                  label: 'رادیولوژی دندانی'
                 }, {
                   value: 2,
+                  label: 'رادیولوژی پزشکی'
+                }, {
+                  value: 3,
                   label: 'سونوگرافی'
                 }],
               form: 

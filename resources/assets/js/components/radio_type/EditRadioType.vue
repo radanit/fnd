@@ -91,12 +91,15 @@
               category:''            
             },
             categories:[{
-              value: 1,
-              label: 'عکسبرداری'
-            }, {
-              value: 2,
-              label: 'سونوگرافی'
-            }],
+                value: 1,
+                label: 'رادیولوژی دندانی'
+              }, {
+                value: 2,
+                label: 'رادیولوژی پزشکی'
+              }, {
+                value: 3,
+                label: 'سونوگرافی'
+              }],
             role_options:[],
         }
     },

@@ -27,12 +27,12 @@
                         prop="category"
                         :label="trans('radioType.category')"
                         width="150"
-                        :filters="[{ text:trans('radioType.sonography'), value:2 }, { text: trans('radioType.photography'), value:1 }]"
+                        :filters="[{ text:trans('radioType.sonography'), value:3 }, { text: trans('radioType.dental_radiology'), value:1 },{ text: trans('radioType.medical_radiology'), value:2 }]"
                         :filter-method="filterCategory"
                         filter-placement="bottom-end">
                         <template slot-scope="scope">
                             <el-tag
-                            disable-transitions><span v-if="scope.row.category==2">{{trans('radioType.sonography')}}</span><span v-else>{{trans('radioType.photography')}}</span></el-tag>
+                            disable-transitions><span v-if="scope.row.category==3">{{trans('radioType.sonography')}}</span><span v-if="scope.row.category==1">{{trans('radioType.dental_radiology')}}</span><span v-if="scope.row.category==2">{{trans('radioType.medical_radiology')}}</span></el-tag>
                         </template>
                     </el-table-column>                    
 					<el-table-column

@@ -29,5 +29,6 @@ return [
     'category' => 'گروه تصویربرداری',
     'radioTypeCategoryRequierdError' => 'گروه تصویربرداری اجباری است',
     'sonography' => 'سونوگرافی',
-    'photography' => 'عکسبرداری'
+    'medical_radiology' => 'رادیولوژی پزشکی',
+    'dental_radiology' => 'رادیولوژی دندانی'
 ];
