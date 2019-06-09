@@ -11,7 +11,7 @@
             <!-- Main content -->
             <div class="content">
             <!-- container-fluid -->
-            <div class="container-fluid" style="margin-top:10%;">
+            <div class="container-fluid" style="margin-top:15%;">
                 <router-view></router-view>
             </div>
             <!-- /.container-fluid -->
