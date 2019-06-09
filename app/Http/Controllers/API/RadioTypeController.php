@@ -86,7 +86,8 @@ class RadioTypeController extends APIController
         // Validation Request   
         Validator::make($request->only('description','roles'), [
             'description' => 'string|max:255',
-            'roles' => 'exists:roles,id'
+            'roles' => 'exists:roles,id',
+            'radio_cat_id' => 'required|max:1'
         ])->validate();
         
         // Find Resource and update it
@@ -94,7 +95,8 @@ class RadioTypeController extends APIController
         $radioType = RadioType::findOrFail($id);
         $radioType->update([
             'description' => $request->description,
-            'role_id' => $request->roles
+            'role_id' => $request->roles,
+            'radio_cat_id' =>$request->radio_cat_id
         ]);
             
         // Return JSON response            
