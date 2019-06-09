@@ -189,9 +189,7 @@ class ReceptionResultController extends APIController
      */
     protected function where($query)
     {
-        $query = $query->whereHas('status', function ($query) {
-            $query->where('status',ReceptionStatus::CAPTURED);
-        });
+        $query = $query->whereStatus(ReceptionStatus::CAPTURED);
 
         if ($this->user->hasRole('admin')) {
             return $query;

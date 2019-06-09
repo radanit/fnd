@@ -253,10 +253,8 @@ class ReceptionCaptureController extends APIController
      * @return \Illuminate\Http\Response
      */
     protected function where($query)
-    {        
-        $query = $query->whereHas('status', function ($query) {
-            $query->where('status',ReceptionStatus::FIRST);
-        });
+    {
+        $query = $query->whereStatus(ReceptionStatus::FIRST);
 
         if ($this->user->hasRole('admin')) {
             return $query;

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Plank\Mediable\Mediable;
 use App\Radan\Fundation\Traits\RadanRestrictedRelationTrait;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\DB;
+
 class Reception extends Model
 {
     use Mediable;
@@ -39,12 +43,24 @@ class Reception extends Model
      * @param  mixed  $status
      * @return \Illuminate\Database\Eloquent\Builder
      */
-	public function scopeWhereStatus($query, $status)
+	public function scopeWhereStatus(Builder $builder, $names)
 	{
-		return $query->with('lastStatus')->get()->where('lastStatus.status',$status);		
-		/*return $query->whereHas('status', function ($q) use ($status) {
-			$q->latest()->where('status',$status);
-		});*/
+        //return $query->with('lastStatus')->get()->where('lastStatus.status',$status);
+        $builder->whereHas('status', function (Builder $query) use ($names) {
+            $query
+                ->where('status', $names)
+                ->whereIn(
+                    'id',
+                    function (QueryBuilder $query) {
+                        $query
+                            ->select(DB::raw('max(id)'))
+                            ->from('reception_status')                                
+                            ->groupBy('reception_id');
+                    }
+                );
+            }
+        );		
+		
     }
    
     /**

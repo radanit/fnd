@@ -191,4 +191,15 @@ class ReceptionController extends APIController
     {
         return $query->where('national_id',$this->getFilter('national_id'));
     }
+
+    /**
+     * Set data query
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    protected function where($query) 
+    {
+        return $query->whereStatus(ReceptionStatus::FIRST);
+    }
 }
