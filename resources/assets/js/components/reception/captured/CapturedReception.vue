@@ -98,11 +98,11 @@ import {errorMessage} from '../../../utilities';
               structure:'',
             },
             tableData:[],
-                search: '',
-                page:0,
-                pagination:{},
-                list: [],
-                infiniteId: +new Date(),
+            search: '',
+            page:0,
+            pagination:{},
+            list: [],
+            infiniteId: +new Date(),
           }
         },
         methods :{

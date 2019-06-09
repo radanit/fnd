@@ -15,7 +15,7 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
 				<el-table 
-					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'descending'}"
                     :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
@@ -64,13 +64,13 @@
 						  @click="deleteUserRadioTypes(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <infinite-loading
+                    <!--<infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
                       <div slot="no-more"></div>
                       <div slot="no-results"></div>                      
-                    </infinite-loading>
+                    </infinite-loading>-->
 				  </el-table>
                   <div class="block">
                         <el-pagination
@@ -176,16 +176,19 @@
             | This method Load RadioType Info
             |
             */
-            loadRadioTypes(){
-                axios.get("../api/radiotypes").then(({data})=>(this.list = data.data),(this.pagination= data.meta)).catch((error)=>{
+            loadRadioTypes(){                
+                axios.get("../api/radiotypes",{params:{page:this.page}}).then(({
+                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
-                      message: error.response.data.errors,
+                      message: msgErr,
                       center: true,
+                      dangerouslyUseHTMLString: true,
                       type: 'error'
-                    });         
-                });                
-            },
+                    });               
+                });
+            },            
             /*
             |--------------------------------------------------------------------------
             | Go To Create RadioType Page
@@ -258,9 +261,10 @@
                 }
             }
         },
-        created() {              
+        created() {
+            this.loadRadioTypes();             
             Fire.$on('AfterCrud',() => {
-                //this.loadRadioTypes();
+                //
             });
         }
     }
