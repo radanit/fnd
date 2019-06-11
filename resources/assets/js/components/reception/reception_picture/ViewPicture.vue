@@ -30,7 +30,7 @@
                   <el-dialog :visible.sync="dialogVisible">
                       <img width="100%" :src="form.graphy_jpg" alt="">
                   </el-dialog>
-                <img width="100%" :src="form" alt="">           
+                <img id="graphy_jpg" width="100%" :src="form" alt="">           
             </el-form>
         </el-card>
     </div>
@@ -83,11 +83,16 @@ export default {
                 type: 'error'
             });               
         });
-    },    
+    },
+    hexToBase64(str) {
+        return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+    }
   },
   created(){
       this.getReceptionInfo();
+      document.getElementById("graphy_jpg").src ='data:image/jpeg;base64,' + this.hexToBase64(this.form);
       console.log(this.form);
-  }
+  },
+
 }
 </script>
