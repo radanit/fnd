@@ -93393,6 +93393,10 @@ a.text-muted:hover {
   margin: -1rem auto -1rem -1rem;
 }
 
+.fixed-top {
+  height: 55px;
+}
+
 /* Custom CSS */
 
 @media screen and (min-width: 992px) {

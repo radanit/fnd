@@ -6,6 +6,11 @@
               <div class="card-header">
                 <h3 class="card-title">{{trans('reception.card_title')}}</h3>
                 <div class="card-tools">
+                  <el-steps :space="300" :active="2" finish-status="success">
+                    <el-step title="پذیرش"></el-step>
+                    <el-step title="تصویربرداری"></el-step>
+                    <el-step title="تکمیل"></el-step>                                                   
+                  </el-steps>
                 </div>
               </div>
               <!-- /.card-header -->

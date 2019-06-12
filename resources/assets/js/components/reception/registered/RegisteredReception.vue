@@ -6,6 +6,11 @@
               <div class="card-header">
                 <h3 class="card-title">{{trans('reception.card_title')}}</h3>
                 <div class="card-tools">
+                  <el-steps :space="300" :active="1" finish-status="success">
+                    <el-step title="پذیرش"></el-step>
+                    <el-step title="تصویربرداری"></el-step>
+                    <el-step title="تکمیل"></el-step>                                                   
+                  </el-steps>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -322,4 +327,24 @@ import {errorMessage} from '../../../utilities';
   .el-button + .el-button{
     margin-left: 0px !important;
   }
+  .card-tools{
+    top: 1.3rem !important;
+  }
+  .el-step__title:lang(fa) {
+    font-size: 10px;
+    text-align: justify;
+    direction: rtl;
+  }
+.card-header {
+    padding: 1.75rem 1.25rem;
+  }
+  @media (max-width:629px) {
+  .el-steps {
+    display: none;
+  }
+}
+.el-steps{
+  width:600px;
+  float: right;
+}
 </style>
