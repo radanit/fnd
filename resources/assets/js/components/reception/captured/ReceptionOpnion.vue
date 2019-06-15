@@ -56,6 +56,7 @@
      },
      methods :{
       backToReceptionList(){
+        alert(2);
         this.$router.go(-1);
       },
       /*
@@ -78,8 +79,8 @@
               center: true,
               message:response.data.message
             });
-            this.backToUserList();
-          })
+           this.backToUserList();
+          })          
           .catch((error) => {
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({

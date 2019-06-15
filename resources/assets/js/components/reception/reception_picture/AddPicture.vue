@@ -160,7 +160,7 @@ export default {
             center: true,
             message:response.data.message
           });
-          //this.backToUserList();
+          this.backToUserList();
           this.loading = false;
         })
         .catch((error) => {
