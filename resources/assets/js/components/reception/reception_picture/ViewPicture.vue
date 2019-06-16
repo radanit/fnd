@@ -90,7 +90,7 @@ export default {
   },
   created(){
       this.getReceptionInfo();
-      document.getElementById("graphy_jpg").src ='data:image/jpeg;base64,' + this.hexToBase64(this.form);
+      document.getElementById("graphy_jpg").src ='data:image/jpeg;base64,' + this.form;
       console.log(this.form);
   },
 
