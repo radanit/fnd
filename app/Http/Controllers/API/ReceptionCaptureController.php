@@ -213,7 +213,7 @@ class ReceptionCaptureController extends APIController
     public function download($reception,$capture)    
     {
         // Find reception
-        $reception = $this->getModel()->findOrFail($reception);  
+        $reception = $this->getModel(false)->findOrFail($reception);  
         foreach($reception->media as $media)
         {            
             if ($media->getKey() == $capture) {
