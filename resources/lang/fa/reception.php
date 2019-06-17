@@ -45,5 +45,6 @@ return [
     'select_dicom_picture' => 'انتخاب تصویر dicom',
     'reception_opinion' => 'نظر پزشک',
     'radtoTypeDes' => 'توضیحات تصویر',
-    'graphy_result' => 'توضیحات عکسبرداری'
+    'graphy_result' => 'توضیحات عکسبرداری',
+    'download_dicom' => 'دانلود فایل Dicom',
 ];

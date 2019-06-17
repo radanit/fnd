@@ -45,5 +45,6 @@ return [
     'select_dicom_picture' => 'select dicom image',
     'reception_opinion' => 'Doctor Opnion',
     'radtoTypeDes' =>'radto Type Des',
-    'graphy_result' => 'Graphy Result'
+    'graphy_result' => 'Graphy Result',
+    'download_dicom' => 'Download Dicom',
 ];

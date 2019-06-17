@@ -39,6 +39,7 @@
                       :multiple="true"
                       :file-list="attachments"                
                       :auto-upload="false"
+                      :on-before-upload="onBeforeUpload"
                       :on-change="handleUploadJpg"
                       :on-preview="handlePictureCardPreview"
                       :on-remove="handleRemove">
@@ -159,9 +160,9 @@ export default {
             type: 'success',
             center: true,
             message:response.data.message
-          });
-          this.backToUserList();
+          });          
           this.loading = false;
+          this.backToReceptionList();
         })
         .catch((error) => {
           let msgErr = errorMessage(error.response.data.errors);
