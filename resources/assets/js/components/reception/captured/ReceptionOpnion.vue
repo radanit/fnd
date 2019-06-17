@@ -56,7 +56,6 @@
      },
      methods :{
       backToReceptionList(){
-        alert(2);
         this.$router.go(-1);
       },
       /*

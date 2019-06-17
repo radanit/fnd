@@ -124,27 +124,11 @@
 <script>
 import {errorMessage} from '../../utilities';
     export default {
-      props:['apiUrl'],
+      props:['apiUrl','form'],
         data(){
             return{
-                form:{
-                  id: '',
-                  doctor:{
-                    id:''
-                  },
-                  radio_type_id:'',
-                  reception_date:'',
-                  patient:{
-                    national_id:'',              
-                    first_name: '',
-                    last_name: '',
-                    mobile:'',          
-                    birth_year:'',
-                    gender:'',
-                  }
-                },
-                doctor_lists:[],
-                radio_type_lists:[],
+              doctor_lists:[],
+              radio_type_lists:[],
             }
         },
         methods :{
@@ -296,7 +280,7 @@ import {errorMessage} from '../../utilities';
         },
     },        
     created() {
-        this.loadReception();
+        //this.loadReception();
         this.loadDoctorList();
         this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {

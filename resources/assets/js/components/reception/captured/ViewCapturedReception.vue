@@ -2,10 +2,10 @@
     <div class="container">
         <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item :title="trans('reception.registered_reception_info')" name="receptionInfo">
-                <show-reception :apiUrl="apiUrl"></show-reception>
+                <show-reception :form = form></show-reception>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_pictures')" name="receptionPictures">
-                <view-pictures></view-pictures>
+                <view-pictures :form = form></view-pictures>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_opinion')" name="receptionOpinion">
                 <opinion-reception></opinion-reception>
@@ -35,15 +35,54 @@ import ReceptionOpnion from './ReceptionOpnion.vue';
       return {
         activeNames: ['receptionOpinion'],
         apiUrl:"../api/receptions/"+this.$route.params.receptionId+"/result",
+        form:{
+          id: '',
+          doctor:{
+            id:''
+          },
+          radio_type_id:'',
+          reception_date:'',
+          patient:{
+            national_id:'',              
+            first_name: '',
+            last_name: '',
+            mobile:'',          
+            birth_year:'',
+            gender:'',
+          }
+        },
+        doctor_lists:[],
+        radio_type_lists:[],
       };
     },
     methods: {
-      handleChange(val) {
-        //console.log(val);
-      }
+        handleChange(val) {
+          //console.log(val);
+        },
+       /*
+        |--------------------------------------------------------------------------
+        | Load Selected Reception Info
+        |--------------------------------------------------------------------------
+        |
+        | This method load profile info for edit
+        |
+        */
+        loadReception(){
+            this.form.id=this.$route.params.receptionId;
+            axios.get(this.apiUrl).then(({data})=>(this.form = data.data)).catch(()=>{
+                let msgErr = errorMessage(error.response.data.errors);
+                this.$message({
+                  title: '',
+                  message:msgErr,
+                  dangerouslyUseHTMLString: true,
+                  center: true,
+                  type: 'error'
+                });                
+            });
+        },
     },
     created(){
-      
+      this.loadReception();
     },
     components: {
         'show-reception' : ShowReception,

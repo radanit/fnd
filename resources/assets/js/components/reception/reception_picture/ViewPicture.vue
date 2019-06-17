@@ -1,47 +1,22 @@
 <template>
     <div class="container">
         <el-card class="box-card">
-            <el-form id="update_form" :model="form"  ref="form" label-width="130px" class="demo-ruleForm mt-3" >
-                  <el-upload
-                      class="dicom-uploader"
-                      :headers="headerInfo"
-                       ref="form.graphy_dicom"
-                       action=""
-                       name="graphy_dicom"
-                      :limit=1
-                      :on-success="handleAvatarSuccess"
-                      :before-upload="onBeforeUpload"
-                      :auto-upload="false">           
-                  <el-button slot="trigger" size="small" type="primary">{{trans('reception.select_dicom_picture')}}</el-button> 
-                      <img  v-if="imageUrl" :src="imageUrl" class="img-fluid img-circle" alt="User profile picture">               
-                  </el-upload>
-                  <el-upload                     
-                      :headers="headerInfo"
-                      ref="form"
-                      action=""
-                     :file-list="form"
-                      name="graphy_jpg"
-                      list-type="picture-card"
-                      :limit=5
-                      :multiple="true"                 
-                      >
-                      <i class="el-icon-plus"></i>
-                  </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                      <img width="100%" :src="form.graphy_jpg" alt="">
-                  </el-dialog>
-                <img id="graphy_jpg" width="100%" :src="form" alt="">           
-            </el-form>
+                <div style="display:inline-block" v-for="item in form.graphy_jpg" :key="item.id">
+                    {{getReceptionPics(item.id)}}
+                    <img :id="item.id" @click="open(item.id)" style="width: 100px; height: 100px;padding-left:10px;" class="pointer" />
+                </div> 
+                
+
         </el-card>
     </div>
 </template>
-<style>
-
-</style>
 <script>
+import {errorMessage} from '../../../utilities';
 export default {
+    props:['form'],
     data() {
       return {
+        src: [],
         dialogImageUrl: '',
         dialogVisible: false,
         imageUrl:'',
@@ -49,13 +24,10 @@ export default {
         headerInfo: {
             'Accept': 'application/json'
         },
-        form:{
-            graphy_dicom:'',
-            graphy_jpg:'',
-        },        
+        viewPicForm:[],        
         receptionId:'',
         actionUrl:"../api/receptions/1/capture/1",
-        fileList:''
+        fileList:[{}]
       }
     },
     methods:{
@@ -70,10 +42,14 @@ export default {
     | This method Add User Info To Database
     |
     */
-    getReceptionInfo() {
+    getReceptionPics(id) {
         this.receptionId=this.$route.params.receptionId;
-        axios.get("../api/receptions/"+this.receptionId+"/capture/1").then(({
-            data})=>{(this.form = data)}).catch(()=>{
+        axios.get("../api/receptions/"+this.receptionId+"/capture/"+id,{responseType: 'arraybuffer'}).then((response) => {
+              var bytes = new Uint8Array(response.data);
+              var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
+              this.src[id] = "data:image/jpeg;base64," + btoa(binary);
+              document.getElementById(id).src=this.src[id];
+          }).catch(()=>{
             let msgErr = errorMessage(error.response.data.errors);
             this.$message({
                 title: '',
@@ -84,15 +60,30 @@ export default {
             });               
         });
     },
-    hexToBase64(str) {
-        return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
-    }
+     handlePreview(file) {
+        console.log(file);
+      },
+      showOrginalImage(id){
+          this.dialogVisible = true;
+                    
+      },
+      open(id) {
+            this.imageUrl= document.getElementById(id).src;
+            this.$alert('<img id="orginImage" src="'+this.imageUrl+'"/>', '', {
+            confirmButtonText:trans('app.closeBtnLbl'),
+            dangerouslyUseHTMLString: true
+        });
+      }
   },
   created(){
-      this.getReceptionInfo();
-      document.getElementById("graphy_jpg").src ='data:image/jpeg;base64,' + this.form;
-      console.log(this.form);
+      
   },
 
 }
 </script>
+<style>
+.el-message-box{
+    width:auto !important;
+}
+.pointer { cursor: pointer; }
+</style>
