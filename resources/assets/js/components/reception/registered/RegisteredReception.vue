@@ -346,5 +346,6 @@ import {errorMessage} from '../../../utilities';
 .el-steps{
   width:600px;
   float: right;
+  padding-right: 80px !important;
 }
 </style>
