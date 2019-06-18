@@ -24,6 +24,7 @@
 }
 </style>
 <script>
+import {errorMessage} from '../../../utilities';
 import ShowReception from '../ShowReception.vue';
 import AddPictures from '../reception_picture/AddPicture.vue';
   export default {
