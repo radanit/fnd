@@ -11,7 +11,8 @@
           </el-rate>
         </el-form-item>
         <el-form-item>
-          <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.submitBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+          <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.completeBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+          <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.rejectBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
           <el-button size="mini" type="info" @click="backToReceptionList()" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
         </el-form-item>          
      </el-form>
@@ -60,10 +61,10 @@
       },
       /*
       |--------------------------------------------------------------------------
-      | update User Method
+      | update Reception Method
       |--------------------------------------------------------------------------
       |
-      | This method Add User Info To Database
+      | This method Update Reception Info To Database
       |
       */
       updateReception() {
@@ -78,7 +79,7 @@
               center: true,
               message:response.data.message
             });
-           this.backToUserList();
+           this.backToReceptionList();
           })          
           .catch((error) => {
             let msgErr = errorMessage(error.response.data.errors);

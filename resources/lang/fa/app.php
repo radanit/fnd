@@ -65,5 +65,7 @@ return [
     'welcome_message' => 'خوش آمدید',
     'graphy_rate' => 'امتیاز تصاویر',
     'deletedBtnLbl' => 'کاربران حذف شده',
-    'usersListBtnLbl' => 'کاربران موجود'
+    'usersListBtnLbl' => 'کاربران موجود',
+    'rejectBtnLbl' => 'عدم تایید',
+    'completeBtnLbl' => 'تایید'
 ];
