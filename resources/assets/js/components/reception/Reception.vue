@@ -136,7 +136,7 @@ import {errorMessage} from '../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions", {
+                axios.get("../api/receptions?filter[status]=recepted", {
                     params: {
                     page: this.page,
                     },
@@ -172,7 +172,7 @@ import {errorMessage} from '../../utilities';
             |
             */
             loadReception(){                
-                axios.get("../api/receptions",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions?filter[status]=recepted",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
