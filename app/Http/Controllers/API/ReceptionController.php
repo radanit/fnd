@@ -47,7 +47,7 @@ class ReceptionController extends APIController
     protected $resourceCollection = ReceptionCollection::class;
 
     protected $filterable = [
-        'national_id'
+        'national_id', 'status',
     ];
 
     /**
@@ -177,8 +177,10 @@ class ReceptionController extends APIController
      */
     protected function filterRules() 
     {
-        return ['national_id' => 'digits:10'];
-        //return [];
+        return [
+            'national_id' => 'digits:10',
+            'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
+        ];       
     }
 
     /**
@@ -188,8 +190,20 @@ class ReceptionController extends APIController
      * @return \Illuminate\Http\Response
      */
     protected function filter($query)
-    {
-        return $query->where('national_id',$this->getFilter('national_id'));
+    {        
+        foreach($this->getFilter() as $key => $filter)
+        {
+            switch ($key) {
+                case 'national_id': 
+                    $quesy = $query->where('national_id',$this->getFilter('national_id'));
+                    break;
+                case 'status':                    
+                    $query = $query->whereStatus($this->getFilter('status'));
+                    break;
+            }            
+        }
+
+        return $query;
     }
 
     /**
@@ -200,6 +214,7 @@ class ReceptionController extends APIController
      */
     protected function where($query) 
     {
-        return $query->whereStatus(ReceptionStatus::FIRST);
-    }
+       // return $query;
+        // return $query->whereStatus(ReceptionStatus::FIRST);
+    }    
 }
