@@ -11,6 +11,7 @@ use App\Models\ReceptionResult;
 use App\Http\Resources\ReceptionResultResource;
 use App\Http\Resources\ReceptionCollection;
 use App\Http\Requests\UpdateReceptionResultRequest;
+use App\Http\Requests\RejectReceptionResultRequest;
 use App\Events\ReceptionStatusEvent;
 use App\Events\ReceptionSetVotesEvent;
 
@@ -53,20 +54,10 @@ class ReceptionResultController extends APIController
      */
     protected $filterable = [
         'national_id'
-    ];    
+    ];   
     
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Integer  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateReceptionResultRequest $request, $id)
+    private function doReceptionResult($request,$reception,$status)    
     {
-        // Find resource or throw exception
-        $reception = $this->getModel()->findOrfail($id);
-
         // Add doctor recepton result
         $reception->results()->create(
             $request->only('result')    
@@ -81,10 +72,26 @@ class ReceptionResultController extends APIController
         
         // Raise Reception Recepted event
         $status = $reception->status()->create([
-            'status' => ReceptionStatus::VISITED
+            'status' => $status
         ]);
         
-        event(new ReceptionStatusEvent($reception, $status));
+        event(new ReceptionStatusEvent($reception, $status));        
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Integer  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateReceptionResultRequest $request, $id)
+    {
+        // Find resource or throw exception
+        $reception = $this->getModel()->findOrfail($id);
+
+        // Set result for reception
+        $this->doReceptionResult($request,$reception,ReceptionStatus::VISITED);
 
         // Return JSON response
         return response()->json([
@@ -119,24 +126,21 @@ class ReceptionResultController extends APIController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function reject($id)    
+    public function reject(RejectReceptionResultRequest $request, $id)
     {
         // Find resource or throw exception
         $reception = $this->getModel()->findOrfail($id);
-        
-        // Raise Reception Recepted event
-        $status = $reception->status()->create([
-            'status' => ReceptionStatus::REJECTED
-        ]);
-        
-        event(new ReceptionStatusEvent($reception, $status));
+
+        // Set result for reception
+        $this->doReceptionResult($request,$reception,ReceptionStatus::REJECTED);
 
         // Return JSON response
         return response()->json([
             'message' => __('app.updateAlert')],
             $this->httpOk
-        );
+        );        
     }
+    
     /**
      * Update the specified resource in storage.
      *
