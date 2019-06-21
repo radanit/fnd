@@ -1,147 +1,29 @@
 <template>
   <div class="card direct-chat direct-chat-primary">
     <div class="card-header ui-sortable-handle" style="cursor: move;">
-      <h3 class="card-title">{{trans('chat.directChats')}}</h3>
-      <div class="card-tools">
-        <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
-        <button type="button" data-widget="collapse" class="btn btn-tool">
-          <i class="fa fa-minus"></i>
-        </button>
-        <button
-          type="button"
-          data-toggle="tooltip"
-          title="Contacts"
-          data-widget="chat-pane-toggle"
-          class="btn btn-tool"
-        >
-          <i class="fa fa-comments"></i>
-        </button>
-        <button type="button" data-widget="remove" class="btn btn-tool">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
+      <h3 class="card-title">{{trans('chat.recivedFile')}}</h3>
     </div>
-    <div class="card-body">
-      <div class="direct-chat-messages">
+    <div class="card-body" v-for="file in list" :key="file.id">
+      <div v-if="trans('app.dir')=='rtl'" class="direct-chat-messages right">
         <div class="direct-chat-msg">
           <div class="direct-chat-info clearfix">
-            <span class="direct-chat-name float-left">Alexander Pierce</span>
-            <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+            <span class="direct-chat-name float-right">رادیولوژی بهار</span>
+            <span class="direct-chat-timestamp float-left">{{ file.reception_date | moment("jYYYY/jM/jD") }}</span>
           </div>
           <img src="assets/images/user1-128x128.jpg" alt="message user image" class="direct-chat-img">
-          <div class="direct-chat-text">Is this template really for free? That's unbelievable!</div>
+          <div class="direct-chat-text">{{trans('chat.fileDes')}}<a href="#" @click="viewReception(file.id)">{{file.id}}</a>{{trans('chat.patientName')}}{{file.patient.fullname}}{{trans('chat.receivedMsg')}}</div>
         </div>
-        <div class="direct-chat-msg right">
-          <div class="direct-chat-info clearfix">
-            <span class="direct-chat-name float-right">Sarah Bullock</span>
-            <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-          </div>
-          <img src="assets/images/user3-128x128.jpg" alt="message user image" class="direct-chat-img">
-          <div class="direct-chat-text">You better believe it!</div>
-        </div>
+      </div>
+      <div v-if="trans('app.dir')=='ltr'" class="direct-chat-messages left">
         <div class="direct-chat-msg">
           <div class="direct-chat-info clearfix">
-            <span class="direct-chat-name float-left">Alexander Pierce</span>
-            <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+            <span class="direct-chat-name float-left">‌Bahar Radiology</span>
+            <span class="direct-chat-timestamp float-right">{{ file.reception_date }}</span>
           </div>
           <img src="assets/images/user1-128x128.jpg" alt="message user image" class="direct-chat-img">
-          <div class="direct-chat-text">Working with AdminLTE on a great new app! Wanna join?</div>
+          <div class="direct-chat-text">{{trans('chat.fileDes')}}<a href="#" @click="viewReception(file.id)">{{file.id}}</a>{{trans('chat.patientName')}}{{file.patient.fullname}}{{trans('chat.receivedMsg')}}</div>
         </div>
-        <div class="direct-chat-msg right">
-          <div class="direct-chat-info clearfix">
-            <span class="direct-chat-name float-right">Sarah Bullock</span>
-            <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
-          </div>
-          <img src="assets/images/user3-128x128.jpg" alt="message user image" class="direct-chat-img">
-          <div class="direct-chat-text">I would love to.</div>
-        </div>
-      </div>
-      <div class="direct-chat-contacts">
-        <ul class="contacts-list">
-          <li>
-            <a href="#">
-              <img src="assets/images/user1-128x128.jpg" class="contacts-list-img">
-              <div class="contacts-list-info">
-                <span class="contacts-list-name">
-                  Count Dracula
-                  <small class="contacts-list-date float-right">2/28/2015</small>
-                </span>
-                <span class="contacts-list-msg">How have you been? I was...</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/user7-128x128.jpg" class="contacts-list-img">
-              <div class="contacts-list-info">
-                <span class="contacts-list-name">
-                  Sarah Doe
-                  <small class="contacts-list-date float-right">2/23/2015</small>
-                </span>
-                <span class="contacts-list-msg">I will be waiting for...</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/user3-128x128.jpg" class="contacts-list-img">
-              <div class="contacts-list-info">
-                <span class="contacts-list-name">
-                  Nadia Jolie
-                  <small class="contacts-list-date float-right">2/20/2015</small>
-                </span>
-                <span class="contacts-list-msg">I'll call you back at...</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/user5-128x128.jpg" class="contacts-list-img">
-              <div class="contacts-list-info">
-                <span class="contacts-list-name">
-                  Nora S. Vans
-                  <small class="contacts-list-date float-right">2/10/2015</small>
-                </span>
-                <span class="contacts-list-msg">Where is your new...</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/user6-128x128.jpg" class="contacts-list-img">
-              <div class="contacts-list-info">
-                <span class="contacts-list-name">
-                  John K.
-                  <small class="contacts-list-date float-right">1/27/2015</small>
-                </span>
-                <span class="contacts-list-msg">Can I take a look at...</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="assets/images/user8-128x128.jpg" class="contacts-list-img">
-              <div class="contacts-list-info">
-                <span class="contacts-list-name">
-                  Kenneth M.
-                  <small class="contacts-list-date float-right">1/4/2015</small>
-                </span>
-                <span class="contacts-list-msg">Never mind I found...</span>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="card-footer">
-      <form action="#" method="post">
-        <div class="input-group">
-          <input name="message" placeholder="Type Message ..." type="text" class="form-control">
-          <span class="input-group-append">
-            <button type="button" class="btn btn-primary">Send</button>
-          </span>
-        </div>
-      </form>
+      </div>      
     </div>
   </div>
 </template>
@@ -181,8 +63,32 @@
     border-bottom-right-radius: 0;
 
 }
+.direct-chat-messages{
+  height: auto !important;
+}
 </style>
 <script>
 import {errorMessage} from '../../utilities';
-export default {};
+export default {
+  props: ['list'],
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    /*
+    |--------------------------------------------------------------------------
+    | Go To Edit Profile Page
+    | Added By e.bagherzadegan            
+    |--------------------------------------------------------------------------
+    |
+    | This method Load Edit profile Component
+    |
+    */      
+    viewReception(id){
+      this.$router.push({ name: 'view_captured_reception', params: { receptionId: id } });
+    },  
+  }
+};
 </script>
