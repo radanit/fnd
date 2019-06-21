@@ -12,7 +12,7 @@
         </el-form-item>
         <el-form-item>
           <el-button  size="mini" type="success" @click="updateReception()" plain>{{trans('app.completeBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
-          <el-button  size="mini" type="warning" @click="updateReception()" plain>{{trans('app.rejectBtnLbl')}} <i class="fas fa-times-circle"></i></el-button>
+          <el-button  size="mini" type="warning" @click="RejectReception()" plain>{{trans('app.rejectBtnLbl')}} <i class="fas fa-times-circle"></i></el-button>
           <el-button size="mini" type="info" @click="backToReceptionList()" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
         </el-form-item>          
      </el-form>
@@ -91,7 +91,39 @@
               dangerouslyUseHTMLString: true
             });
           });     
-        }
+        },
+      /*
+      |--------------------------------------------------------------------------
+      | Reject Reception Method
+      |--------------------------------------------------------------------------
+      |
+      | This method Reject Reception Info To Database
+      |
+      */
+      RejectReception() {
+          let receptionInfo={
+            result : this.result,
+            votes :this.rate
+          }
+          this.receptId=this.$route.params.receptionId;
+          axios.patch('../api/receptions/'+this.receptId+'/result',receptionInfo).then(response => {
+          this.$message({
+              type: 'success',
+              center: true,
+              message:response.data.message
+            });
+           this.backToReceptionList();
+          })          
+          .catch((error) => {
+            let msgErr = errorMessage(error.response.data.errors);
+            this.$message({
+              message: msgErr,
+              center: true,
+              type: 'error',
+              dangerouslyUseHTMLString: true
+            });
+          });     
+        }        
       },
    }
  </script> 
