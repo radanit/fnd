@@ -44,7 +44,7 @@ trait RadanDataQueryFilterTrait
                     ARRAY_FILTER_USE_KEY
                 );
             }            
-        }        
+        }            
     }
 
     /**

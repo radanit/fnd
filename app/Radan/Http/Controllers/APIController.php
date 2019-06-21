@@ -101,12 +101,14 @@ class APIController extends BaseController
             $this->model = new $this->model();            
             if (method_exists($this,'where') and $scopes)
             {                              
-                $this->model = $this->where($this->model);
+                $whereModel = $this->where($this->model);
+                $this->model = is_null($whereModel) ? $this->model: $whereModel; 
             }
             if ($this->hasFilter() and method_exists($this,'filter') and $scopes)
             {               
                 if ($this->validateFilter()) {
-                    $this->model = $this->filter($this->model);
+                    $filterModel = $this->filter($this->model);
+                    $this->model = is_null($filterModel) ? $this->model: $filterModel; 
                 }
             }
             return $this->model;      
