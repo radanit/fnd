@@ -6,17 +6,21 @@
                     <a :id="dicom_item.id">{{trans('reception.download_dicom')}}</a>
                 </div>
                 <br>
-                <div style="display:inline-block" v-for="item in form.graphy_jpg" :key="item.id">
-                    {{getReceptionPics(item.id)}}
-                    <img :id="item.id" @click="open(item.id)" style="width: 100px; height: 100px;padding-left:10px;" class="pointer" />
-                </div> 
-                
-
+                <div class="images" v-viewer>
+                  <span v-for="item in form.graphy_jpg" :key="item.id">
+                      {{getReceptionPics(item.id)}}
+                      <img :id="item.id"  style="width: 100px; height: 100px;padding-left:10px;" class="pointer" />
+                  </span>
+                </div>
         </el-card>
     </div>
 </template>
 <script>
 import {errorMessage} from '../../../utilities';
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
+import Vue from 'vue'
+Vue.use(Viewer)
 export default {
     props:['form'],
     data() {
@@ -95,14 +99,6 @@ export default {
       },
       showOrginalImage(id){
           this.dialogVisible = true;
-                    
-      },
-      open(id) {
-            this.imageUrl= document.getElementById(id).src;
-            this.$alert('<img id="orginImage" src="'+this.imageUrl+'"/>', '', {
-            confirmButtonText:trans('app.closeBtnLbl'),
-            dangerouslyUseHTMLString: true
-        });
       }
   },
   created(){

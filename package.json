@@ -17,11 +17,11 @@
         "lodash": "^4.17.5",
         "popper.js": "^1.15.0",
         "resolve-url-loader": "^2.3.2",
-        "sass": "^1.20.3",
+        "sass": "^1.21.0",
         "sass-loader": "^7.1.0",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10",
-        "webpack": "^4.33.0"
+        "webpack": "^4.35.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.8.2",
@@ -29,14 +29,15 @@
         "element-ui": "^2.8.2",
         "font-awesome-animation": "^0.2.1",
         "jalali-moment": "^3.3.2",
-        "laravel-echo": "^1.5.3",
+        "laravel-echo": "^1.5.4",
         "moment": "^2.24.0",
         "pusher-js": "^4.4.0",
+        "v-viewer": "^1.4.1",
         "vue-i18n": "^8.11.2",
         "vue-infinite-loading": "^2.4.4",
         "vue-moment-jalaali": "^2.0.0",
         "vue-persian-datetime-picker": "^1.1.7",
         "vue-router": "^3.0.6",
-        "vue2-editor": "^2.6.6"
+        "vue2-editor": "^2.8.1"
     }
 }
