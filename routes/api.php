@@ -81,6 +81,6 @@ Route::group(['middleware' => ['auth:api','ability:admin,can-result-reception']]
 /**
  * Reception APIs
  */
-Route::group(['middleware' => ['auth:api','role:admin|receptor,can-register-reception']], function() {    
+Route::group(['middleware' => ['auth:api','ability:admin|receptor,can-register-reception']], function() {    
     Route::apiResource('receptions', 'API\ReceptionController');   
 });
