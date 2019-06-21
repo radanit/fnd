@@ -73,7 +73,8 @@
           </li>
           @endrole
           <!-- Begin Basic Info menu --->
-          @role(['admin','radioadmin'])
+          <!--@role(['admin','radioadmin'])-->
+          @ability('admin|radioadmin','can-manage-radiology',['validate_all' => false])
           <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-info cyan"></i>
@@ -113,7 +114,8 @@
               </li>                              
             </ul>
           </li>
-          @endrole
+          @endability
+          <!--@endrole -->
           <!-- End Basic Info menu --->
 
           <!-- Begin Radiology menu --->
