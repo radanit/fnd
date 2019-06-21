@@ -6,7 +6,7 @@ return [
      * The output path for the generated documentation.
      * This path should be relative to the root of your application.
      */
-    'output' => 'public/docs',
+    'output' => 'public/api/docs',
 
     /*
      * The router to be used (Laravel or Dingo).
@@ -207,6 +207,7 @@ return [
     'example_languages' => [
         'bash',
         'javascript',
+        'php',
     ],
 
     /*

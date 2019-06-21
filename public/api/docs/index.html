@@ -12,7 +12,7 @@
 
           <script>
         $(function() {
-            setupLanguages(["bash","javascript"]);
+            setupLanguages(["bash","javascript","php"]);
         });
       </script>
       </head>
@@ -29,6 +29,7 @@
                     <div class="lang-selector">
                                   <a href="#" data-language-name="bash">bash</a>
                                   <a href="#" data-language-name="javascript">javascript</a>
+                                  <a href="#" data-language-name="php">php</a>
                             </div>
                             <div class="search">
               <input type="text" class="search" id="input-search" placeholder="Search">
@@ -45,696 +46,26 @@
       <div class="content">
           <!-- START_INFO -->
 <h1>Info</h1>
-<p>Welcome to the generated API reference.
-<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<h2>Welcome to the baharmic.ir API reference.</h2>
+<p>This is integrated Radiology system management.
+This guide is for developers who may want create application different <strong>UI</strong> with this functionality.
+<strong>This is the best way</strong>.</p>
+<p><em>@CopyRight  2019/KarinIT Office,RadanIT Team,Esfahan, Iran</em></p>
+<p><a href="http://localhost/api/docs/collection.json">Get Postman Collection</a></p>
 <!-- END_INFO -->
-<h1>general</h1>
-<!-- START_774744abc65e28e4368f69ef4798a8f7 -->
-<h2>Display a listing of the resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/doctors" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/doctors");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/doctors</code></p>
-<!-- END_774744abc65e28e4368f69ef4798a8f7 -->
-<!-- START_d2e6f599a5874844f4a0830deeeaef34 -->
-<h2>Display the specified resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/doctors/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/doctors/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/doctors/{doctor}</code></p>
-<!-- END_d2e6f599a5874844f4a0830deeeaef34 -->
-<!-- START_cdf5e02e9b913556f9304546d59e6c56 -->
-<h2>Display a listing of the resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/patients" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/patients");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/patients</code></p>
-<!-- END_cdf5e02e9b913556f9304546d59e6c56 -->
-<!-- START_e21961238df73c8544f00766ed069000 -->
-<h2>Display the specified resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/patients/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/patients/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/patients/{patient}</code></p>
-<!-- END_e21961238df73c8544f00766ed069000 -->
-<!-- START_f2c1d0906ccfd7d596316f0dc6175082 -->
-<h2>Display a listing of the resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/specialities" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/specialities");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/specialities</code></p>
-<!-- END_f2c1d0906ccfd7d596316f0dc6175082 -->
-<!-- START_da1a4c0f7c1e76468960296549dd1003 -->
-<h2>Display the specified resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/specialities/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/specialities/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/specialities/{id}</code></p>
-<!-- END_da1a4c0f7c1e76468960296549dd1003 -->
-<!-- START_4738f777cbefabcb4080bdad81ad48b2 -->
-<h2>Store a newly created resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST "/api/specialities" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/specialities");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/specialities</code></p>
-<!-- END_4738f777cbefabcb4080bdad81ad48b2 -->
-<!-- START_e4dc4667306172899792bdf944d41026 -->
-<h2>Update the specified resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PUT "/api/specialities/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/specialities/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>PUT api/specialities/{id}</code></p>
-<!-- END_e4dc4667306172899792bdf944d41026 -->
-<!-- START_ae10e4855d4e4ed75e1b1ad9de01e319 -->
-<h2>Remove the specified resource from storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X DELETE "/api/specialities/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/specialities/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>DELETE api/specialities/{id}</code></p>
-<!-- END_ae10e4855d4e4ed75e1b1ad9de01e319 -->
-<!-- START_03155bf6fa71dfd4bafd67c72264c210 -->
-<h2>Display a listing of the resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/radiotypes" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/radiotypes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/radiotypes</code></p>
-<!-- END_03155bf6fa71dfd4bafd67c72264c210 -->
-<!-- START_f5bce077d0521fd9b3cd4f38b8813a6a -->
-<h2>Display the specified resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/radiotypes/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/radiotypes/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/radiotypes/{id}</code></p>
-<!-- END_f5bce077d0521fd9b3cd4f38b8813a6a -->
-<!-- START_c5eb88b77a47a4bdaef676c31ad0213f -->
-<h2>Store a newly created resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST "/api/radiotypes" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/radiotypes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/radiotypes</code></p>
-<!-- END_c5eb88b77a47a4bdaef676c31ad0213f -->
-<!-- START_eb9703073973d8d146b06c1293fb884d -->
-<h2>Update the specified resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PUT "/api/radiotypes/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/radiotypes/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>PUT api/radiotypes/{id}</code></p>
-<!-- END_eb9703073973d8d146b06c1293fb884d -->
-<!-- START_172cacd2e40f3fcfc9a21846fc93c0b0 -->
-<h2>Remove the specified resource from storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X DELETE "/api/radiotypes/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/radiotypes/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>DELETE api/radiotypes/{id}</code></p>
-<!-- END_172cacd2e40f3fcfc9a21846fc93c0b0 -->
-<!-- START_28393d33008b0fcc531ea6be6dc69a81 -->
-<h2>api/receptions/statistics</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/statistics" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/statistics");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/statistics</code></p>
-<!-- END_28393d33008b0fcc531ea6be6dc69a81 -->
-<!-- START_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
-<h2>Display a listing of the resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/capture" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/capture</code></p>
-<!-- END_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
-<!-- START_68bd5d918a09052bb99bc14552ca1457 -->
-<h2>Display the specified resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/capture" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/{reception}/capture</code></p>
-<!-- END_68bd5d918a09052bb99bc14552ca1457 -->
-<!-- START_39cf96b6d46852846b45a98db0108b4a -->
-<h2>Remove the specified resource from storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/capture/1" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/{reception}/capture/{capture}</code></p>
-<!-- END_39cf96b6d46852846b45a98db0108b4a -->
-<!-- START_9cd93116219b5f3182b659431c42d758 -->
-<h2>Update the specified resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PUT "/api/receptions/1/capture" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>PUT api/receptions/{reception}/capture</code></p>
-<!-- END_9cd93116219b5f3182b659431c42d758 -->
-<!-- START_563770685297f10a16e0ac975d2521e8 -->
-<h2>Remove the specified resource from storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X DELETE "/api/receptions/1/capture" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>DELETE api/receptions/{reception}/capture</code></p>
-<!-- END_563770685297f10a16e0ac975d2521e8 -->
-<!-- START_40472692884947df201eda32fb0311cc -->
-<h2>Display a listing of the resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/result" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/result</code></p>
-<!-- END_40472692884947df201eda32fb0311cc -->
-<!-- START_7da6a59f90c8f2f1d5651607e1d7680e -->
-<h2>Display the specified resource.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/result" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/{reception}/result</code></p>
-<!-- END_7da6a59f90c8f2f1d5651607e1d7680e -->
-<!-- START_94b6faf634e9270dbe1baca468d18ba8 -->
-<h2>Update the specified resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PUT "/api/receptions/1/result" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>PUT api/receptions/{reception}/result</code></p>
-<!-- END_94b6faf634e9270dbe1baca468d18ba8 -->
-<!-- START_aa1d428276d8e989106b2b508f07e617 -->
-<h2>Remove the specified resource from storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X DELETE "/api/receptions/1/result" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>DELETE api/receptions/{reception}/result</code></p>
-<!-- END_aa1d428276d8e989106b2b508f07e617 -->
-<!-- START_cbce2782386d3ae75a4995212a5c6b74 -->
-<h2>Reject the specified reception.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PATCH "/api/receptions/1/result" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PATCH",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>PATCH api/receptions/{reception}/result</code></p>
-<!-- END_cbce2782386d3ae75a4995212a5c6b74 -->
-<!-- START_bc400bcfcd5e5fa059f3d550f4cf3917 -->
-<h2>Update the specified resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/votes" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/votes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "Unauthenticated."
-}</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/receptions/{reception}/votes</code></p>
-<!-- END_bc400bcfcd5e5fa059f3d550f4cf3917 -->
-<!-- START_8299cfe632b8cd48e58e69e27a18f1ed -->
-<h2>Update the specified resource in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PUT "/api/receptions/1/votes" </code></pre>
-<pre><code class="language-javascript">const url = new URL("/api/receptions/1/votes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>PUT api/receptions/{reception}/votes</code></p>
-<!-- END_8299cfe632b8cd48e58e69e27a18f1ed -->
+<h1>Reception</h1>
+<h2>APIs for managing receptions</h2>
+<p>This group of APIs,help you register receptions and
+search by status, patient national id or recepted date.</p>
+<aside class="notice"> 
+  Access: @role admin OR @permission can-manage-radiology,can-register-reception
+</aside>
+<aside class="notice"> 
+  Filterable: status,national_id
+</aside>
 <!-- START_0c0387efd735bd5f9cee23084ef4e53e -->
-<h2>Display a listing of the resource.</h2>
+<h2>api/receptions</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -752,6 +83,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -763,28 +100,84 @@ fetch(url, {
 <!-- END_0c0387efd735bd5f9cee23084ef4e53e -->
 <!-- START_2cd93dad74d5d1c4cce15f4ebef1e5e3 -->
 <h2>Store a newly created resource in storage.</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "/api/receptions" </code></pre>
+<pre><code class="language-bash">curl -X POST "/api/receptions" \
+    -H "Content-Type: application/json" \
+    -d '{"national_id":4,"reception_date":"minus"}'
+</code></pre>
 <pre><code class="language-javascript">const url = new URL("/api/receptions");
 
 let headers = {
-    "Accept": "application/json",
     "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "national_id": 4,
+    "reception_date": "minus"
 }
 
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/receptions", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'json' =&gt; [
+            "national_id" =&gt; "4",
+            "reception_date" =&gt; "minus",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "update successfuly",
+    "code": 200
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/receptions</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>national_id</td>
+<td>integer</td>
+<td>required</td>
+<td>National id of patients</td>
+</tr>
+<tr>
+<td>reception_date</td>
+<td>date</td>
+<td>required</td>
+<td>Reception register</td>
+</tr>
+</tbody>
+</table>
 <!-- END_2cd93dad74d5d1c4cce15f4ebef1e5e3 -->
 <!-- START_6a9feb85dd1bde13006f57ef5e3fc4fb -->
-<h2>Display the specified resource.</h2>
+<h2>api/receptions/{reception}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -802,6 +195,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -830,6 +229,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/receptions/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/receptions/{reception}</code></p>
 <p><code>PATCH api/receptions/{reception}</code></p>
@@ -853,9 +258,872 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/receptions/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/receptions/{reception}</code></p>
 <!-- END_37aa381c605935d5a45c506ff3c23ae5 -->
+<h1>general</h1>
+<!-- START_774744abc65e28e4368f69ef4798a8f7 -->
+<h2>api/doctors</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/doctors" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/doctors");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/doctors", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/doctors</code></p>
+<!-- END_774744abc65e28e4368f69ef4798a8f7 -->
+<!-- START_d2e6f599a5874844f4a0830deeeaef34 -->
+<h2>api/doctors/{doctor}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/doctors/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/doctors/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/doctors/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/doctors/{doctor}</code></p>
+<!-- END_d2e6f599a5874844f4a0830deeeaef34 -->
+<!-- START_cdf5e02e9b913556f9304546d59e6c56 -->
+<h2>api/patients</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/patients" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/patients");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/patients", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/patients</code></p>
+<!-- END_cdf5e02e9b913556f9304546d59e6c56 -->
+<!-- START_e21961238df73c8544f00766ed069000 -->
+<h2>api/patients/{patient}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/patients/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/patients/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/patients/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/patients/{patient}</code></p>
+<!-- END_e21961238df73c8544f00766ed069000 -->
+<!-- START_f2c1d0906ccfd7d596316f0dc6175082 -->
+<h2>Display a listing of the resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/specialities" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/specialities");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/specialities", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/specialities</code></p>
+<!-- END_f2c1d0906ccfd7d596316f0dc6175082 -->
+<!-- START_da1a4c0f7c1e76468960296549dd1003 -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/specialities/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/specialities/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/specialities/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/specialities/{id}</code></p>
+<!-- END_da1a4c0f7c1e76468960296549dd1003 -->
+<!-- START_4738f777cbefabcb4080bdad81ad48b2 -->
+<h2>Store a newly created resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/api/specialities" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/specialities");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/specialities", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/specialities</code></p>
+<!-- END_4738f777cbefabcb4080bdad81ad48b2 -->
+<!-- START_e4dc4667306172899792bdf944d41026 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/api/specialities/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/specialities/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/specialities/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/specialities/{id}</code></p>
+<!-- END_e4dc4667306172899792bdf944d41026 -->
+<!-- START_ae10e4855d4e4ed75e1b1ad9de01e319 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/api/specialities/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/specialities/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/specialities/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/specialities/{id}</code></p>
+<!-- END_ae10e4855d4e4ed75e1b1ad9de01e319 -->
+<!-- START_03155bf6fa71dfd4bafd67c72264c210 -->
+<h2>api/radiotypes</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/radiotypes" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/radiotypes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/radiotypes", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/radiotypes</code></p>
+<!-- END_03155bf6fa71dfd4bafd67c72264c210 -->
+<!-- START_f5bce077d0521fd9b3cd4f38b8813a6a -->
+<h2>api/radiotypes/{id}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/radiotypes/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/radiotypes/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/radiotypes/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/radiotypes/{id}</code></p>
+<!-- END_f5bce077d0521fd9b3cd4f38b8813a6a -->
+<!-- START_c5eb88b77a47a4bdaef676c31ad0213f -->
+<h2>Store a newly created resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/api/radiotypes" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/radiotypes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/radiotypes", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/radiotypes</code></p>
+<!-- END_c5eb88b77a47a4bdaef676c31ad0213f -->
+<!-- START_eb9703073973d8d146b06c1293fb884d -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/api/radiotypes/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/radiotypes/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/radiotypes/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/radiotypes/{id}</code></p>
+<!-- END_eb9703073973d8d146b06c1293fb884d -->
+<!-- START_172cacd2e40f3fcfc9a21846fc93c0b0 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/api/radiotypes/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/radiotypes/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/radiotypes/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/radiotypes/{id}</code></p>
+<!-- END_172cacd2e40f3fcfc9a21846fc93c0b0 -->
+<!-- START_28393d33008b0fcc531ea6be6dc69a81 -->
+<h2>api/receptions/statistics</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/statistics" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/statistics");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/statistics", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/statistics</code></p>
+<!-- END_28393d33008b0fcc531ea6be6dc69a81 -->
+<!-- START_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
+<h2>api/receptions/capture</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/capture" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/capture", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/capture</code></p>
+<!-- END_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
+<!-- START_68bd5d918a09052bb99bc14552ca1457 -->
+<h2>api/receptions/{reception}/capture</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/capture" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/1/capture", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/{reception}/capture</code></p>
+<!-- END_68bd5d918a09052bb99bc14552ca1457 -->
+<!-- START_9cd93116219b5f3182b659431c42d758 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/api/receptions/1/capture" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/receptions/1/capture", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/receptions/{reception}/capture</code></p>
+<!-- END_9cd93116219b5f3182b659431c42d758 -->
+<!-- START_563770685297f10a16e0ac975d2521e8 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/api/receptions/1/capture" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/receptions/1/capture", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/receptions/{reception}/capture</code></p>
+<!-- END_563770685297f10a16e0ac975d2521e8 -->
+<!-- START_39cf96b6d46852846b45a98db0108b4a -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/capture/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/capture/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/1/capture/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/{reception}/capture/{capture}</code></p>
+<!-- END_39cf96b6d46852846b45a98db0108b4a -->
+<!-- START_40472692884947df201eda32fb0311cc -->
+<h2>api/receptions/result</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/result" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/result", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/result</code></p>
+<!-- END_40472692884947df201eda32fb0311cc -->
+<!-- START_7da6a59f90c8f2f1d5651607e1d7680e -->
+<h2>api/receptions/{reception}/result</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/result" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/1/result", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/{reception}/result</code></p>
+<!-- END_7da6a59f90c8f2f1d5651607e1d7680e -->
+<!-- START_94b6faf634e9270dbe1baca468d18ba8 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/api/receptions/1/result" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/receptions/1/result", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/receptions/{reception}/result</code></p>
+<!-- END_94b6faf634e9270dbe1baca468d18ba8 -->
+<!-- START_aa1d428276d8e989106b2b508f07e617 -->
+<h2>Remove the specified resource from storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/api/receptions/1/result" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/receptions/1/result", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/receptions/{reception}/result</code></p>
+<!-- END_aa1d428276d8e989106b2b508f07e617 -->
+<!-- START_cbce2782386d3ae75a4995212a5c6b74 -->
+<h2>Reject the specified reception.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PATCH "/api/receptions/1/result" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;patch("/api/receptions/1/result", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PATCH api/receptions/{reception}/result</code></p>
+<!-- END_cbce2782386d3ae75a4995212a5c6b74 -->
+<!-- START_bc400bcfcd5e5fa059f3d550f4cf3917 -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/api/receptions/1/votes" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/votes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/receptions/1/votes", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "Unauthenticated."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/receptions/{reception}/votes</code></p>
+<!-- END_bc400bcfcd5e5fa059f3d550f4cf3917 -->
+<!-- START_8299cfe632b8cd48e58e69e27a18f1ed -->
+<h2>Update the specified resource in storage.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/api/receptions/1/votes" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/api/receptions/1/votes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/receptions/1/votes", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/receptions/{reception}/votes</code></p>
+<!-- END_8299cfe632b8cd48e58e69e27a18f1ed -->
 <!-- START_a925a8d22b3615f12fca79456d286859 -->
 <h2>Login user and create token</h2>
 <blockquote>
@@ -875,6 +1143,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/auth/login", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/auth/login</code></p>
 <!-- END_a925a8d22b3615f12fca79456d286859 -->
@@ -897,6 +1171,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/auth/logout", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -925,6 +1205,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/auth/roles", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -953,6 +1239,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/auth/roles", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/auth/roles</code></p>
 <!-- END_dbb9179c4af037ea76bd0c429f589edd -->
@@ -975,6 +1267,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/auth/roles/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1003,6 +1301,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/auth/roles/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/auth/roles/{role}</code></p>
 <p><code>PATCH api/auth/roles/{role}</code></p>
@@ -1026,6 +1330,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/auth/roles/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/auth/roles/{role}</code></p>
 <!-- END_bdbf4418356bd518ffe12ef7dd4f8ad6 -->
@@ -1048,6 +1358,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/auth/permissions", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1076,6 +1392,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/auth/permissions", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/auth/permissions</code></p>
 <!-- END_821850b3722cf0177c0a216e1e475151 -->
@@ -1098,6 +1420,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/auth/permissions/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1126,6 +1454,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/auth/permissions/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/auth/permissions/{permission}</code></p>
 <p><code>PATCH api/auth/permissions/{permission}</code></p>
@@ -1149,6 +1483,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/auth/permissions/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/auth/permissions/{permission}</code></p>
 <!-- END_227850c3513ff4e1aab8c00a6602af53 -->
@@ -1171,6 +1511,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/users/me/password", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/users/me/password</code></p>
 <!-- END_e375ff0452feb130adcd66e7504890ce -->
@@ -1193,6 +1539,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/users/me/avatar", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1221,6 +1573,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/users/me/avatar", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/users/me/avatar</code></p>
 <!-- END_22cac4e428316b498ee7155193eda3b4 -->
@@ -1243,6 +1601,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/users/me", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1271,6 +1635,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/users/me", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/users/me</code></p>
 <!-- END_973a5ca8eb9c7f03bf3c48555b49ba3c -->
@@ -1293,6 +1663,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/users/batch/active/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1321,6 +1697,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/users/batch/active/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/users/batch/active/{active}</code></p>
 <p><code>PATCH api/users/batch/active/{active}</code></p>
@@ -1344,6 +1726,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/users/trashed", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1372,6 +1760,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/users", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1400,6 +1794,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/users", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/users</code></p>
 <!-- END_12e37982cc5398c7100e59625ebb5514 -->
@@ -1422,6 +1822,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/users/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1450,6 +1856,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/users/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/users/{user}</code></p>
 <p><code>PATCH api/users/{user}</code></p>
@@ -1473,6 +1885,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/users/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/users/{user}</code></p>
 <!-- END_d2db7a9fe3abd141d5adbc367a88e969 -->
@@ -1495,6 +1913,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/profiles", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1523,6 +1947,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/profiles", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/profiles</code></p>
 <!-- END_40818362204069c5411256a196e75ebe -->
@@ -1545,6 +1975,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/profiles/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1573,6 +2009,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/profiles/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/profiles/{profile}</code></p>
 <p><code>PATCH api/profiles/{profile}</code></p>
@@ -1596,6 +2038,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/profiles/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/profiles/{profile}</code></p>
 <!-- END_a84b1a1e5f6535ad6731d9ec6ad47634 -->
@@ -1618,6 +2066,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/settings", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1628,7 +2082,8 @@ fetch(url, {
 <p><code>GET api/settings</code></p>
 <!-- END_10633908636252dc838d3a5bd392f07c -->
 <!-- START_8cc4caf985da492764905dc92521c0e8 -->
-<h2>Display the specified resource.</h2>
+<h2>api/settings/{setting}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -1646,6 +2101,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/settings/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1674,6 +2135,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/policy/password", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1702,6 +2169,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post("/api/policy/password", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/policy/password</code></p>
 <!-- END_3caeacd41ba611bf5f976fb9824fdea3 -->
@@ -1724,6 +2197,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get("/api/policy/password/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (401):</p>
 </blockquote>
@@ -1752,6 +2231,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("/api/policy/password/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>PUT api/policy/password/{password}</code></p>
 <p><code>PATCH api/policy/password/{password}</code></p>
@@ -1775,6 +2260,12 @@ fetch(url, {
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete("/api/policy/password/1", [
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>DELETE api/policy/password/{password}</code></p>
 <!-- END_945a8e53b7194d88f48bc56fe0483b4d -->
@@ -1783,6 +2274,7 @@ fetch(url, {
                         <div class="lang-selector">
                                     <a href="#" data-language-name="bash">bash</a>
                                     <a href="#" data-language-name="javascript">javascript</a>
+                                    <a href="#" data-language-name="php">php</a>
                               </div>
                 </div>
     </div>

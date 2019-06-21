@@ -5,6 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Radan\Fundation\Traits\RadanRequestFilterTrait;
 
+/**
+ * @bodyParam  national_id int required National id of patients
+ * @bodyParam  reception_date date required Reception register     
+ */
 class StoreReceptionRequest extends FormRequest
 {
     use RadanRequestFilterTrait;

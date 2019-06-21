@@ -144,6 +144,7 @@ class APIController extends BaseController
     }
 
     /**
+     * @authenticated 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -165,6 +166,7 @@ class APIController extends BaseController
     }
 
     /**
+     * @authenticated  
      * Display the specified resource.
      *
      * @param  Integer    $id

@@ -14,6 +14,22 @@ use App\Http\Requests\UpdateReceptionRequest;
 use App\Events\ReceptionStatusEvent;
 use Profile;
 
+/**
+ * @group Reception
+ * 
+ * ## APIs for managing receptions
+ * 
+ * This group of APIs,help you register receptions and 
+ * search by status, patient national id or recepted date.
+ * 
+ * <aside class="notice"> 
+ *   Access: @role admin OR @permission can-manage-radiology,can-register-reception
+ * </aside>
+ * <aside class="notice"> 
+ *   Filterable: status,national_id
+ * </aside>
+ * 
+ */
 class ReceptionController extends APIController
 {
     /**
@@ -39,7 +55,7 @@ class ReceptionController extends APIController
      */
     protected $jsonResource = ReceptionResource::class;
 	
-	    /**
+	/**
      * Api resource collection class name
      * 
      * @var Illuminate\Http\Resources\Json\ResourceCollection
@@ -52,7 +68,13 @@ class ReceptionController extends APIController
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @authenticated 
+     *     
+     * @response {
+     *  "message": "update successfuly",
+     *  "code": 200
+     * }
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */

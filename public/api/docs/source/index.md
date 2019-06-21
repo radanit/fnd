@@ -4,6 +4,7 @@ title: API Reference
 language_tabs:
 - bash
 - javascript
+- php
 
 includes:
 
@@ -15,956 +16,33 @@ toc_footers:
 <!-- START_INFO -->
 # Info
 
-Welcome to the generated API reference.
-[Get Postman Collection](http://localhost/docs/collection.json)
+## Welcome to the baharmic.ir API reference.
+This is integrated Radiology system management.
+This guide is for developers who may want create application different **UI** with this functionality.
+**This is the best way**.
+
+*@CopyRight  2019/KarinIT Office,RadanIT Team,Esfahan, Iran*
+
+[Get Postman Collection](http://localhost/api/docs/collection.json)
 
 <!-- END_INFO -->
 
-#general
-<!-- START_774744abc65e28e4368f69ef4798a8f7 -->
-## Display a listing of the resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/doctors" 
-```
-```javascript
-const url = new URL("/api/doctors");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/doctors`
-
-
-<!-- END_774744abc65e28e4368f69ef4798a8f7 -->
-
-<!-- START_d2e6f599a5874844f4a0830deeeaef34 -->
-## Display the specified resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/doctors/1" 
-```
-```javascript
-const url = new URL("/api/doctors/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/doctors/{doctor}`
-
-
-<!-- END_d2e6f599a5874844f4a0830deeeaef34 -->
-
-<!-- START_cdf5e02e9b913556f9304546d59e6c56 -->
-## Display a listing of the resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/patients" 
-```
-```javascript
-const url = new URL("/api/patients");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/patients`
-
-
-<!-- END_cdf5e02e9b913556f9304546d59e6c56 -->
-
-<!-- START_e21961238df73c8544f00766ed069000 -->
-## Display the specified resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/patients/1" 
-```
-```javascript
-const url = new URL("/api/patients/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/patients/{patient}`
-
-
-<!-- END_e21961238df73c8544f00766ed069000 -->
-
-<!-- START_f2c1d0906ccfd7d596316f0dc6175082 -->
-## Display a listing of the resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/specialities" 
-```
-```javascript
-const url = new URL("/api/specialities");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/specialities`
-
-
-<!-- END_f2c1d0906ccfd7d596316f0dc6175082 -->
-
-<!-- START_da1a4c0f7c1e76468960296549dd1003 -->
-## Display the specified resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/specialities/1" 
-```
-```javascript
-const url = new URL("/api/specialities/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/specialities/{id}`
-
-
-<!-- END_da1a4c0f7c1e76468960296549dd1003 -->
-
-<!-- START_4738f777cbefabcb4080bdad81ad48b2 -->
-## Store a newly created resource in storage.
-
-> Example request:
-
-```bash
-curl -X POST "/api/specialities" 
-```
-```javascript
-const url = new URL("/api/specialities");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`POST api/specialities`
-
-
-<!-- END_4738f777cbefabcb4080bdad81ad48b2 -->
-
-<!-- START_e4dc4667306172899792bdf944d41026 -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X PUT "/api/specialities/1" 
-```
-```javascript
-const url = new URL("/api/specialities/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`PUT api/specialities/{id}`
-
-
-<!-- END_e4dc4667306172899792bdf944d41026 -->
-
-<!-- START_ae10e4855d4e4ed75e1b1ad9de01e319 -->
-## Remove the specified resource from storage.
-
-> Example request:
-
-```bash
-curl -X DELETE "/api/specialities/1" 
-```
-```javascript
-const url = new URL("/api/specialities/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`DELETE api/specialities/{id}`
-
-
-<!-- END_ae10e4855d4e4ed75e1b1ad9de01e319 -->
-
-<!-- START_03155bf6fa71dfd4bafd67c72264c210 -->
-## Display a listing of the resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/radiotypes" 
-```
-```javascript
-const url = new URL("/api/radiotypes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/radiotypes`
-
-
-<!-- END_03155bf6fa71dfd4bafd67c72264c210 -->
-
-<!-- START_f5bce077d0521fd9b3cd4f38b8813a6a -->
-## Display the specified resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/radiotypes/1" 
-```
-```javascript
-const url = new URL("/api/radiotypes/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/radiotypes/{id}`
-
-
-<!-- END_f5bce077d0521fd9b3cd4f38b8813a6a -->
-
-<!-- START_c5eb88b77a47a4bdaef676c31ad0213f -->
-## Store a newly created resource in storage.
-
-> Example request:
-
-```bash
-curl -X POST "/api/radiotypes" 
-```
-```javascript
-const url = new URL("/api/radiotypes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`POST api/radiotypes`
-
-
-<!-- END_c5eb88b77a47a4bdaef676c31ad0213f -->
-
-<!-- START_eb9703073973d8d146b06c1293fb884d -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X PUT "/api/radiotypes/1" 
-```
-```javascript
-const url = new URL("/api/radiotypes/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`PUT api/radiotypes/{id}`
-
-
-<!-- END_eb9703073973d8d146b06c1293fb884d -->
-
-<!-- START_172cacd2e40f3fcfc9a21846fc93c0b0 -->
-## Remove the specified resource from storage.
-
-> Example request:
-
-```bash
-curl -X DELETE "/api/radiotypes/1" 
-```
-```javascript
-const url = new URL("/api/radiotypes/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`DELETE api/radiotypes/{id}`
-
-
-<!-- END_172cacd2e40f3fcfc9a21846fc93c0b0 -->
-
-<!-- START_28393d33008b0fcc531ea6be6dc69a81 -->
-## api/receptions/statistics
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/statistics" 
-```
-```javascript
-const url = new URL("/api/receptions/statistics");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/statistics`
-
-
-<!-- END_28393d33008b0fcc531ea6be6dc69a81 -->
-
-<!-- START_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
-## Display a listing of the resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/capture" 
-```
-```javascript
-const url = new URL("/api/receptions/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/capture`
-
-
-<!-- END_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
-
-<!-- START_68bd5d918a09052bb99bc14552ca1457 -->
-## Display the specified resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/1/capture" 
-```
-```javascript
-const url = new URL("/api/receptions/1/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/{reception}/capture`
-
-
-<!-- END_68bd5d918a09052bb99bc14552ca1457 -->
-
-<!-- START_39cf96b6d46852846b45a98db0108b4a -->
-## Remove the specified resource from storage.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/1/capture/1" 
-```
-```javascript
-const url = new URL("/api/receptions/1/capture/1");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/{reception}/capture/{capture}`
-
-
-<!-- END_39cf96b6d46852846b45a98db0108b4a -->
-
-<!-- START_9cd93116219b5f3182b659431c42d758 -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X PUT "/api/receptions/1/capture" 
-```
-```javascript
-const url = new URL("/api/receptions/1/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`PUT api/receptions/{reception}/capture`
-
-
-<!-- END_9cd93116219b5f3182b659431c42d758 -->
-
-<!-- START_563770685297f10a16e0ac975d2521e8 -->
-## Remove the specified resource from storage.
-
-> Example request:
-
-```bash
-curl -X DELETE "/api/receptions/1/capture" 
-```
-```javascript
-const url = new URL("/api/receptions/1/capture");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`DELETE api/receptions/{reception}/capture`
-
-
-<!-- END_563770685297f10a16e0ac975d2521e8 -->
-
-<!-- START_40472692884947df201eda32fb0311cc -->
-## Display a listing of the resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/result" 
-```
-```javascript
-const url = new URL("/api/receptions/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/result`
-
-
-<!-- END_40472692884947df201eda32fb0311cc -->
-
-<!-- START_7da6a59f90c8f2f1d5651607e1d7680e -->
-## Display the specified resource.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/1/result" 
-```
-```javascript
-const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/{reception}/result`
-
-
-<!-- END_7da6a59f90c8f2f1d5651607e1d7680e -->
-
-<!-- START_94b6faf634e9270dbe1baca468d18ba8 -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X PUT "/api/receptions/1/result" 
-```
-```javascript
-const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`PUT api/receptions/{reception}/result`
-
-
-<!-- END_94b6faf634e9270dbe1baca468d18ba8 -->
-
-<!-- START_aa1d428276d8e989106b2b508f07e617 -->
-## Remove the specified resource from storage.
-
-> Example request:
-
-```bash
-curl -X DELETE "/api/receptions/1/result" 
-```
-```javascript
-const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`DELETE api/receptions/{reception}/result`
-
-
-<!-- END_aa1d428276d8e989106b2b508f07e617 -->
-
-<!-- START_cbce2782386d3ae75a4995212a5c6b74 -->
-## Reject the specified reception.
-
-> Example request:
-
-```bash
-curl -X PATCH "/api/receptions/1/result" 
-```
-```javascript
-const url = new URL("/api/receptions/1/result");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PATCH",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`PATCH api/receptions/{reception}/result`
-
-
-<!-- END_cbce2782386d3ae75a4995212a5c6b74 -->
-
-<!-- START_bc400bcfcd5e5fa059f3d550f4cf3917 -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X GET -G "/api/receptions/1/votes" 
-```
-```javascript
-const url = new URL("/api/receptions/1/votes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-> Example response (401):
-
-```json
-{
-    "message": "Unauthenticated."
-}
-```
-
-### HTTP Request
-`GET api/receptions/{reception}/votes`
-
-
-<!-- END_bc400bcfcd5e5fa059f3d550f4cf3917 -->
-
-<!-- START_8299cfe632b8cd48e58e69e27a18f1ed -->
-## Update the specified resource in storage.
-
-> Example request:
-
-```bash
-curl -X PUT "/api/receptions/1/votes" 
-```
-```javascript
-const url = new URL("/api/receptions/1/votes");
-
-let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-### HTTP Request
-`PUT api/receptions/{reception}/votes`
-
-
-<!-- END_8299cfe632b8cd48e58e69e27a18f1ed -->
-
+#Reception
+
+## APIs for managing receptions
+
+This group of APIs,help you register receptions and 
+search by status, patient national id or recepted date.
+
+<aside class="notice"> 
+  Access: @role admin OR @permission can-manage-radiology,can-register-reception
+</aside>
+<aside class="notice"> 
+  Filterable: status,national_id
+</aside>
 <!-- START_0c0387efd735bd5f9cee23084ef4e53e -->
-## Display a listing of the resource.
-
+## api/receptions
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
 > Example request:
 
 ```bash
@@ -985,6 +63,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1003,37 +90,77 @@ fetch(url, {
 <!-- START_2cd93dad74d5d1c4cce15f4ebef1e5e3 -->
 ## Store a newly created resource in storage.
 
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
 > Example request:
 
 ```bash
-curl -X POST "/api/receptions" 
+curl -X POST "/api/receptions" \
+    -H "Content-Type: application/json" \
+    -d '{"national_id":4,"reception_date":"minus"}'
+
 ```
 ```javascript
 const url = new URL("/api/receptions");
 
 let headers = {
-    "Accept": "application/json",
     "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "national_id": 4,
+    "reception_date": "minus"
 }
 
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
 
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/receptions", [
+    'headers' => [
+            "Content-Type" => "application/json",
+        ],
+    'json' => [
+            "national_id" => "4",
+            "reception_date" => "minus",
+        ],
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "message": "update successfuly",
+    "code": 200
+}
+```
 
 ### HTTP Request
 `POST api/receptions`
 
+#### Body Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    national_id | integer |  required  | National id of patients
+    reception_date | date |  required  | Reception register
 
 <!-- END_2cd93dad74d5d1c4cce15f4ebef1e5e3 -->
 
 <!-- START_6a9feb85dd1bde13006f57ef5e3fc4fb -->
-## Display the specified resource.
-
+## api/receptions/{reception}
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
 > Example request:
 
 ```bash
@@ -1054,6 +181,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1092,6 +228,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/receptions/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1125,6 +270,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/receptions/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1132,6 +286,1191 @@ fetch(url, {
 
 
 <!-- END_37aa381c605935d5a45c506ff3c23ae5 -->
+
+#general
+<!-- START_774744abc65e28e4368f69ef4798a8f7 -->
+## api/doctors
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/doctors" 
+```
+```javascript
+const url = new URL("/api/doctors");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/doctors", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/doctors`
+
+
+<!-- END_774744abc65e28e4368f69ef4798a8f7 -->
+
+<!-- START_d2e6f599a5874844f4a0830deeeaef34 -->
+## api/doctors/{doctor}
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/doctors/1" 
+```
+```javascript
+const url = new URL("/api/doctors/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/doctors/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/doctors/{doctor}`
+
+
+<!-- END_d2e6f599a5874844f4a0830deeeaef34 -->
+
+<!-- START_cdf5e02e9b913556f9304546d59e6c56 -->
+## api/patients
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/patients" 
+```
+```javascript
+const url = new URL("/api/patients");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/patients", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/patients`
+
+
+<!-- END_cdf5e02e9b913556f9304546d59e6c56 -->
+
+<!-- START_e21961238df73c8544f00766ed069000 -->
+## api/patients/{patient}
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/patients/1" 
+```
+```javascript
+const url = new URL("/api/patients/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/patients/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/patients/{patient}`
+
+
+<!-- END_e21961238df73c8544f00766ed069000 -->
+
+<!-- START_f2c1d0906ccfd7d596316f0dc6175082 -->
+## Display a listing of the resource.
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/specialities" 
+```
+```javascript
+const url = new URL("/api/specialities");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/specialities", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/specialities`
+
+
+<!-- END_f2c1d0906ccfd7d596316f0dc6175082 -->
+
+<!-- START_da1a4c0f7c1e76468960296549dd1003 -->
+## Display the specified resource.
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/specialities/1" 
+```
+```javascript
+const url = new URL("/api/specialities/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/specialities/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/specialities/{id}`
+
+
+<!-- END_da1a4c0f7c1e76468960296549dd1003 -->
+
+<!-- START_4738f777cbefabcb4080bdad81ad48b2 -->
+## Store a newly created resource in storage.
+
+> Example request:
+
+```bash
+curl -X POST "/api/specialities" 
+```
+```javascript
+const url = new URL("/api/specialities");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/specialities", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`POST api/specialities`
+
+
+<!-- END_4738f777cbefabcb4080bdad81ad48b2 -->
+
+<!-- START_e4dc4667306172899792bdf944d41026 -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "/api/specialities/1" 
+```
+```javascript
+const url = new URL("/api/specialities/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/specialities/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`PUT api/specialities/{id}`
+
+
+<!-- END_e4dc4667306172899792bdf944d41026 -->
+
+<!-- START_ae10e4855d4e4ed75e1b1ad9de01e319 -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X DELETE "/api/specialities/1" 
+```
+```javascript
+const url = new URL("/api/specialities/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/specialities/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`DELETE api/specialities/{id}`
+
+
+<!-- END_ae10e4855d4e4ed75e1b1ad9de01e319 -->
+
+<!-- START_03155bf6fa71dfd4bafd67c72264c210 -->
+## api/radiotypes
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/radiotypes" 
+```
+```javascript
+const url = new URL("/api/radiotypes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/radiotypes", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/radiotypes`
+
+
+<!-- END_03155bf6fa71dfd4bafd67c72264c210 -->
+
+<!-- START_f5bce077d0521fd9b3cd4f38b8813a6a -->
+## api/radiotypes/{id}
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/radiotypes/1" 
+```
+```javascript
+const url = new URL("/api/radiotypes/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/radiotypes/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/radiotypes/{id}`
+
+
+<!-- END_f5bce077d0521fd9b3cd4f38b8813a6a -->
+
+<!-- START_c5eb88b77a47a4bdaef676c31ad0213f -->
+## Store a newly created resource in storage.
+
+> Example request:
+
+```bash
+curl -X POST "/api/radiotypes" 
+```
+```javascript
+const url = new URL("/api/radiotypes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/radiotypes", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`POST api/radiotypes`
+
+
+<!-- END_c5eb88b77a47a4bdaef676c31ad0213f -->
+
+<!-- START_eb9703073973d8d146b06c1293fb884d -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "/api/radiotypes/1" 
+```
+```javascript
+const url = new URL("/api/radiotypes/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/radiotypes/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`PUT api/radiotypes/{id}`
+
+
+<!-- END_eb9703073973d8d146b06c1293fb884d -->
+
+<!-- START_172cacd2e40f3fcfc9a21846fc93c0b0 -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X DELETE "/api/radiotypes/1" 
+```
+```javascript
+const url = new URL("/api/radiotypes/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/radiotypes/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`DELETE api/radiotypes/{id}`
+
+
+<!-- END_172cacd2e40f3fcfc9a21846fc93c0b0 -->
+
+<!-- START_28393d33008b0fcc531ea6be6dc69a81 -->
+## api/receptions/statistics
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/statistics" 
+```
+```javascript
+const url = new URL("/api/receptions/statistics");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/statistics", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/statistics`
+
+
+<!-- END_28393d33008b0fcc531ea6be6dc69a81 -->
+
+<!-- START_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
+## api/receptions/capture
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/capture" 
+```
+```javascript
+const url = new URL("/api/receptions/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/capture", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/capture`
+
+
+<!-- END_80a0a35ab69e1c9ec9c0ced5add5e2d2 -->
+
+<!-- START_68bd5d918a09052bb99bc14552ca1457 -->
+## api/receptions/{reception}/capture
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/1/capture" 
+```
+```javascript
+const url = new URL("/api/receptions/1/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/1/capture", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/{reception}/capture`
+
+
+<!-- END_68bd5d918a09052bb99bc14552ca1457 -->
+
+<!-- START_9cd93116219b5f3182b659431c42d758 -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "/api/receptions/1/capture" 
+```
+```javascript
+const url = new URL("/api/receptions/1/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/receptions/1/capture", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`PUT api/receptions/{reception}/capture`
+
+
+<!-- END_9cd93116219b5f3182b659431c42d758 -->
+
+<!-- START_563770685297f10a16e0ac975d2521e8 -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X DELETE "/api/receptions/1/capture" 
+```
+```javascript
+const url = new URL("/api/receptions/1/capture");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/receptions/1/capture", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`DELETE api/receptions/{reception}/capture`
+
+
+<!-- END_563770685297f10a16e0ac975d2521e8 -->
+
+<!-- START_39cf96b6d46852846b45a98db0108b4a -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/1/capture/1" 
+```
+```javascript
+const url = new URL("/api/receptions/1/capture/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/1/capture/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/{reception}/capture/{capture}`
+
+
+<!-- END_39cf96b6d46852846b45a98db0108b4a -->
+
+<!-- START_40472692884947df201eda32fb0311cc -->
+## api/receptions/result
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/result" 
+```
+```javascript
+const url = new URL("/api/receptions/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/result", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/result`
+
+
+<!-- END_40472692884947df201eda32fb0311cc -->
+
+<!-- START_7da6a59f90c8f2f1d5651607e1d7680e -->
+## api/receptions/{reception}/result
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/1/result" 
+```
+```javascript
+const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/1/result", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/{reception}/result`
+
+
+<!-- END_7da6a59f90c8f2f1d5651607e1d7680e -->
+
+<!-- START_94b6faf634e9270dbe1baca468d18ba8 -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "/api/receptions/1/result" 
+```
+```javascript
+const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/receptions/1/result", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`PUT api/receptions/{reception}/result`
+
+
+<!-- END_94b6faf634e9270dbe1baca468d18ba8 -->
+
+<!-- START_aa1d428276d8e989106b2b508f07e617 -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X DELETE "/api/receptions/1/result" 
+```
+```javascript
+const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/receptions/1/result", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`DELETE api/receptions/{reception}/result`
+
+
+<!-- END_aa1d428276d8e989106b2b508f07e617 -->
+
+<!-- START_cbce2782386d3ae75a4995212a5c6b74 -->
+## Reject the specified reception.
+
+> Example request:
+
+```bash
+curl -X PATCH "/api/receptions/1/result" 
+```
+```javascript
+const url = new URL("/api/receptions/1/result");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->patch("/api/receptions/1/result", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`PATCH api/receptions/{reception}/result`
+
+
+<!-- END_cbce2782386d3ae75a4995212a5c6b74 -->
+
+<!-- START_bc400bcfcd5e5fa059f3d550f4cf3917 -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X GET -G "/api/receptions/1/votes" 
+```
+```javascript
+const url = new URL("/api/receptions/1/votes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/receptions/1/votes", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/receptions/{reception}/votes`
+
+
+<!-- END_bc400bcfcd5e5fa059f3d550f4cf3917 -->
+
+<!-- START_8299cfe632b8cd48e58e69e27a18f1ed -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "/api/receptions/1/votes" 
+```
+```javascript
+const url = new URL("/api/receptions/1/votes");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/receptions/1/votes", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+
+### HTTP Request
+`PUT api/receptions/{reception}/votes`
+
+
+<!-- END_8299cfe632b8cd48e58e69e27a18f1ed -->
 
 <!-- START_a925a8d22b3615f12fca79456d286859 -->
 ## Login user and create token
@@ -1156,6 +1495,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/auth/login", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1187,6 +1535,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/auth/logout", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1225,6 +1582,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/auth/roles", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1263,6 +1629,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/auth/roles", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1294,6 +1669,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/auth/roles/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1332,6 +1716,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/auth/roles/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1365,6 +1758,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/auth/roles/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1396,6 +1798,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/auth/permissions", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1434,6 +1845,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/auth/permissions", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1465,6 +1885,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/auth/permissions/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1503,6 +1932,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/auth/permissions/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1536,6 +1974,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/auth/permissions/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1567,6 +2014,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/users/me/password", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1598,6 +2054,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/me/avatar", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1636,6 +2101,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/users/me/avatar", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1667,6 +2141,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/me", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1705,6 +2188,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/users/me", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1736,6 +2228,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/batch/active/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1774,6 +2275,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/users/batch/active/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1807,6 +2317,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/trashed", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1845,6 +2364,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1883,6 +2411,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/users", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1914,6 +2451,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -1952,6 +2498,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/users/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -1985,6 +2540,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/users/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -2016,6 +2580,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/profiles", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -2054,6 +2627,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/profiles", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -2085,6 +2667,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/profiles/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -2123,6 +2714,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/profiles/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -2156,6 +2756,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/profiles/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -2186,6 +2795,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/settings", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -2202,8 +2820,8 @@ fetch(url, {
 <!-- END_10633908636252dc838d3a5bd392f07c -->
 
 <!-- START_8cc4caf985da492764905dc92521c0e8 -->
-## Display the specified resource.
-
+## api/settings/{setting}
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
 > Example request:
 
 ```bash
@@ -2224,6 +2842,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/settings/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -2262,6 +2889,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/policy/password", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -2300,6 +2936,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post("/api/policy/password", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -2331,6 +2976,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/policy/password/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 > Example response (401):
 
@@ -2369,6 +3023,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->put("/api/policy/password/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
@@ -2402,6 +3065,15 @@ fetch(url, {
     .then(response => response.json())
     .then(json => console.log(json));
 ```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete("/api/policy/password/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
 
 
 ### HTTP Request
