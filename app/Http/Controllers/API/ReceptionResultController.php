@@ -114,6 +114,30 @@ class ReceptionResultController extends APIController
     }
 
     /**
+     * Reject the specified reception.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reject($id)    
+    {
+        // Find resource or throw exception
+        $reception = $this->getModel()->findOrfail($id);
+        
+        // Raise Reception Recepted event
+        $status = $reception->status()->create([
+            'status' => ReceptionStatus::REJECTED
+        ]);
+        
+        event(new ReceptionStatusEvent($reception, $status));
+
+        // Return JSON response
+        return response()->json([
+            'message' => __('app.updateAlert')],
+            $this->httpOk
+        );
+    }
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
