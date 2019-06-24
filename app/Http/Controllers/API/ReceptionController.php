@@ -216,8 +216,8 @@ class ReceptionController extends APIController
         foreach($this->getFilter() as $key => $filter)
         {
             switch ($key) {
-                case 'national_id': 
-                    $quesy = $query->where('national_id',$this->getFilter('national_id'));
+                case 'national_id':                     
+                    $query = $query->where('national_id',$this->getFilter('national_id'));                    
                     break;
                 case 'status':                    
                     $query = $query->whereStatus($this->getFilter('status'));
