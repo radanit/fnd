@@ -6,7 +6,7 @@
                     <a :id="dicom_item.id">{{trans('reception.download_dicom')}}</a>
                 </div>
                 <br>
-                <div class="images" v-viewer>
+                <div class="images" v-viewer v-loading="loading">
                   <span v-for="item in form.graphy_jpg" :key="item.id">
                       {{getReceptionPics(item.id)}}
                       <img :id="item.id"  style="width: 100px; height: 100px;padding-left:10px;" class="pointer" />
@@ -25,6 +25,7 @@ export default {
     props:['form'],
     data() {
       return {
+        loading:true,
         src: [],
         DicomSrc:[],
         dialogImageUrl: '',
@@ -56,6 +57,7 @@ export default {
                 var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
                 this.src[id] = "data:image/jpeg;base64," + btoa(binary);
                 document.getElementById(id).src=this.src[id];
+                this.loading = false;
             }).catch(()=>{
               let msgErr = errorMessage(error.response.data.errors);
               this.$message({
