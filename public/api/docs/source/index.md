@@ -16,13 +16,7 @@ toc_footers:
 <!-- START_INFO -->
 # Info
 
-## Welcome to the baharmic.ir API reference.
-This is integrated Radiology system management.
-This guide is for developers who may want create application different **UI** with this functionality.
-**This is the best way**.
-
-*@CopyRight  2019/KarinIT Office,RadanIT Team,Esfahan, Iran*
-
+Welcome to the generated API reference.
 [Get Postman Collection](http://localhost/api/docs/collection.json)
 
 <!-- END_INFO -->
@@ -96,7 +90,7 @@ print_r(json_decode((string) $body));
 ```bash
 curl -X POST "/api/receptions" \
     -H "Content-Type: application/json" \
-    -d '{"national_id":4,"reception_date":"minus"}'
+    -d '{"national_id":5,"reception_date":"voluptas"}'
 
 ```
 ```javascript
@@ -108,8 +102,8 @@ let headers = {
 }
 
 let body = {
-    "national_id": 4,
-    "reception_date": "minus"
+    "national_id": 5,
+    "reception_date": "voluptas"
 }
 
 fetch(url, {
@@ -128,8 +122,8 @@ $response = $client->post("/api/receptions", [
             "Content-Type" => "application/json",
         ],
     'json' => [
-            "national_id" => "4",
-            "reception_date" => "minus",
+            "national_id" => "5",
+            "reception_date" => "voluptas",
         ],
 ]);
 $body = $response->getBody();
@@ -286,6 +280,115 @@ print_r(json_decode((string) $body));
 
 
 <!-- END_37aa381c605935d5a45c506ff3c23ae5 -->
+
+#Users Me
+
+APIs for managing athenticated users
+<!-- START_9283036de635fde6b85e3b7f2eeddee1 -->
+## Return user all and new notifications count
+
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/users/me/notify" 
+```
+```javascript
+const url = new URL("/api/users/me/notify");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/me/notify", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "all": 100,
+    "new": 4
+}
+```
+
+### HTTP Request
+`GET api/users/me/notify`
+
+
+<!-- END_9283036de635fde6b85e3b7f2eeddee1 -->
+
+<!-- START_c872096b9d292271482ff1a24fd89ff2 -->
+## Return specific user notification data
+
+<br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+> Example request:
+
+```bash
+curl -X GET -G "/api/users/me/notify/1" 
+```
+```javascript
+const url = new URL("/api/users/me/notify/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get("/api/users/me/notify/1", [
+]);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "type": "App\\Notifications\\UserLogedIn",
+    "data": "User loged in at 19:45",
+    "created_at": "2019-11-12 19:45"
+}
+```
+> Example response (404):
+
+```json
+{
+    "message": "Resource not found"
+}
+```
+
+### HTTP Request
+`GET api/users/me/notify/{notify}`
+
+
+<!-- END_c872096b9d292271482ff1a24fd89ff2 -->
 
 #general
 <!-- START_774744abc65e28e4368f69ef4798a8f7 -->

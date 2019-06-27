@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f921cbc794c6b6a4a214086d6db2a028",
+    "content-hash": "7278f4ae4ae0df5d583b1229ca74e5de",
     "packages": [
+        {
+            "name": "artisanry/commentable",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artisanry/commentable.git",
+                "reference": "57376a694a5028acf47ddce522762f26231f3f3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artisanry/commentable/zipball/57376a694a5028acf47ddce522762f26231f3f3d",
+                "reference": "57376a694a5028acf47ddce522762f26231f3f3d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.8",
+                "illuminate/support": "^5.8",
+                "kalnoy/nestedset": "^4.1",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "graham-campbell/testbench": "^5.0",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Artisanry\\Commentable\\CommentableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Artisanry\\Commentable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Faust",
+                    "email": "hello@basecode.sh",
+                    "homepage": "https://basecode.sh"
+                }
+            ],
+            "description": "Commentable Polymorphic Eloquent Models for for Laravel 5",
+            "keywords": [
+                "Laravel Commentable",
+                "framework",
+                "laravel",
+                "laravel-commentable"
+            ],
+            "time": "2019-06-04T07:17:27+00:00"
+        },
         {
             "name": "defuse/php-encryption",
             "version": "v2.2.1",
@@ -876,6 +937,65 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "kalnoy/nestedset",
+            "version": "v4.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lazychaser/laravel-nestedset.git",
+                "reference": "351fab2eaab95f885a0e52b01985301e93c4d7e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/351fab2eaab95f885a0e52b01985301e93c4d7e7",
+                "reference": "351fab2eaab95f885a0e52b01985301e93c4d7e7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.2 - 5.8",
+                "illuminate/events": "5.2 - 5.8",
+                "illuminate/support": "5.2 - 5.8",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v4.2.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Kalnoy\\Nestedset\\NestedSetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kalnoy\\Nestedset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kalnoy",
+                    "email": "lazychaser@gmail.com"
+                }
+            ],
+            "description": "Nested Set Model for Laravel 4-5",
+            "keywords": [
+                "database",
+                "hierarchy",
+                "laravel",
+                "nested sets",
+                "nsm"
+            ],
+            "time": "2019-02-27T15:22:30+00:00"
         },
         {
             "name": "kkszymanowski/traitor",
