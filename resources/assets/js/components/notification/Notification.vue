@@ -40,7 +40,12 @@
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+        <a class="nav-link" href="#/all_notify" aria-expanded="false">
+          <i class="fas fa-bell" v-if="this.eventCnt==0"></i>
+          <i class="fa fa-bell faa-ring animated" v-else></i>
+          <span class="badge badge-warning navbar-badge">{{this.eventCnt}}</span>
+        </a>        
+        <!--<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
           <i class="fas fa-bell" v-if="this.eventCnt==0"></i>
           <i class="fa fa-bell faa-ring animated" v-else></i>
           <span class="badge badge-warning navbar-badge">{{this.eventCnt}}</span>
@@ -64,7 +69,7 @@
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">مشاهده همه ی رویدادها</a>
-        </div>
+        </div>-->
       </li>      
     </ul>
 </template>
@@ -79,7 +84,6 @@
     data() {
       return {
         eventCnt:0,
-        receptionCnt:0,
         user:{}
       }
     },
@@ -88,6 +92,7 @@
     },
     methods: {
       listenForChanges() {
+        this.getNotify();
         Echo.private('bahar.' + window.Laravel.user)
           .listen('ReceptionRegistered', reception => {
             if (! ('Notification' in window)) {
@@ -111,7 +116,6 @@
                 icon: "https://pusher.com/static_logos/320x320.png" // optional image url
               });
               this.eventCnt +=1;
-              this.receptionCnt+=1;
               // link to page on clicking the notification
               notification.onclick = () => {
                 window.open(window.location.href);
@@ -121,6 +125,19 @@
         },
         editProfile(){
             this.$router.push({ name: 'profiles', params: { profile_id: this.user.profile_id}});
+        },
+        getNotify(){
+              axios.get("../api/users/me/notify").then(({
+              data})=>{(this.eventCnt = data.new)}).catch(()=>{
+              let msgErr = errorMessage(error.response.data.errors);
+              this.$message({
+                title: '',
+                message: msgErr,
+                center: true,
+                dangerouslyUseHTMLString: true,
+                type: 'error'
+              });               
+          });
         }
       } 
     }
