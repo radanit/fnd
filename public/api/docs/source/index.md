@@ -90,7 +90,7 @@ print_r(json_decode((string) $body));
 ```bash
 curl -X POST "/api/receptions" \
     -H "Content-Type: application/json" \
-    -d '{"national_id":5,"reception_date":"voluptas"}'
+    -d '{"national_id":8,"reception_date":"distinctio"}'
 
 ```
 ```javascript
@@ -102,8 +102,8 @@ let headers = {
 }
 
 let body = {
-    "national_id": 5,
-    "reception_date": "voluptas"
+    "national_id": 8,
+    "reception_date": "distinctio"
 }
 
 fetch(url, {
@@ -122,8 +122,8 @@ $response = $client->post("/api/receptions", [
             "Content-Type" => "application/json",
         ],
     'json' => [
-            "national_id" => "5",
-            "reception_date" => "voluptas",
+            "national_id" => "8",
+            "reception_date" => "distinctio",
         ],
 ]);
 $body = $response->getBody();
@@ -335,6 +335,7 @@ print_r(json_decode((string) $body));
 
 <!-- START_c872096b9d292271482ff1a24fd89ff2 -->
 ## Return specific user notification data
+If pass &#039;all&#039; as {notify} parameter, thern return all user notifications
 
 <br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
 > Example request:
@@ -370,11 +371,7 @@ print_r(json_decode((string) $body));
 > Example response (200):
 
 ```json
-{
-    "type": "App\\Notifications\\UserLogedIn",
-    "data": "User loged in at 19:45",
-    "created_at": "2019-11-12 19:45"
-}
+{}
 ```
 > Example response (404):
 
@@ -2477,11 +2474,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -2564,11 +2562,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -2693,11 +2692,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -2780,11 +2780,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -2908,11 +2909,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -2955,11 +2957,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -3002,11 +3005,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 
@@ -3089,11 +3093,12 @@ print_r(json_decode((string) $body));
 ```
 
 
-> Example response (401):
+> Example response (429):
 
 ```json
 {
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }
 ```
 

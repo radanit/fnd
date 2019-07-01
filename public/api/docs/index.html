@@ -102,7 +102,7 @@ print_r(json_decode((string) $body));</code></pre>
 </blockquote>
 <pre><code class="language-bash">curl -X POST "/api/receptions" \
     -H "Content-Type: application/json" \
-    -d '{"national_id":5,"reception_date":"voluptas"}'
+    -d '{"national_id":8,"reception_date":"distinctio"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL("/api/receptions");
 
@@ -112,8 +112,8 @@ let headers = {
 }
 
 let body = {
-    "national_id": 5,
-    "reception_date": "voluptas"
+    "national_id": 8,
+    "reception_date": "distinctio"
 }
 
 fetch(url, {
@@ -130,8 +130,8 @@ $response = $client-&gt;post("/api/receptions", [
             "Content-Type" =&gt; "application/json",
         ],
     'json' =&gt; [
-            "national_id" =&gt; "5",
-            "reception_date" =&gt; "voluptas",
+            "national_id" =&gt; "8",
+            "reception_date" =&gt; "distinctio",
         ],
 ]);
 $body = $response-&gt;getBody();
@@ -303,6 +303,7 @@ print_r(json_decode((string) $body));</code></pre>
 <!-- END_9283036de635fde6b85e3b7f2eeddee1 -->
 <!-- START_c872096b9d292271482ff1a24fd89ff2 -->
 <h2>Return specific user notification data</h2>
+<p>If pass &#039;all&#039; as {notify} parameter, thern return all user notifications</p>
 <p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
 <blockquote>
 <p>Example request:</p>
@@ -330,11 +331,7 @@ print_r(json_decode((string) $body));</code></pre>
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">{
-    "type": "App\\Notifications\\UserLogedIn",
-    "data": "User loged in at 19:45",
-    "created_at": "2019-11-12 19:45"
-}</code></pre>
+<pre><code class="language-json">{}</code></pre>
 <blockquote>
 <p>Example response (404):</p>
 </blockquote>
@@ -1844,10 +1841,11 @@ $response = $client-&gt;get("/api/users", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/users</code></p>
@@ -1906,10 +1904,11 @@ $response = $client-&gt;get("/api/users/1", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/users/{user}</code></p>
@@ -1997,10 +1996,11 @@ $response = $client-&gt;get("/api/profiles", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/profiles</code></p>
@@ -2059,10 +2059,11 @@ $response = $client-&gt;get("/api/profiles/1", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/profiles/{profile}</code></p>
@@ -2150,10 +2151,11 @@ $response = $client-&gt;get("/api/settings", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/settings</code></p>
@@ -2185,10 +2187,11 @@ $response = $client-&gt;get("/api/settings/1", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/settings/{setting}</code></p>
@@ -2219,10 +2222,11 @@ $response = $client-&gt;get("/api/policy/password", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/policy/password</code></p>
@@ -2281,10 +2285,11 @@ $response = $client-&gt;get("/api/policy/password/1", [
 $body = $response-&gt;getBody();
 print_r(json_decode((string) $body));</code></pre>
 <blockquote>
-<p>Example response (401):</p>
+<p>Example response (429):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Unauthenticated."
+    "message": "Http exception",
+    "errors": "خطای دسترسی"
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/policy/password/{password}</code></p>
