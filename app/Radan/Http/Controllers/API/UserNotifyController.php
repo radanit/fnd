@@ -61,10 +61,10 @@ class UserNotifyController extends APIController
         $result = [];
         
         // Get all notification count of authenticated user
-        $result['all'] = $this->user->unreadNotifications->count();
+        $result['new'] = $this->user->unreadNotifications->count();
 
         // Get count notification count of authenticated user
-        $result['new'] = $this->user->notifications->count();
+        $result['all'] = $this->user->notifications->count();
 
         // Return response
         return response()->json(
