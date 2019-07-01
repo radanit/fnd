@@ -20,6 +20,7 @@ class UserNotificationResource extends JsonResource
             'type' => $this->type,
             'data' => $this->data,
             'created_at' => $this->created_at,
+            'read_at' => $this->read_at,
         ];
     }
 }

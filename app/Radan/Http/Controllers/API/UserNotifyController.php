@@ -30,8 +30,7 @@ class UserNotifyController extends APIController
      * 
      * @var array
      */
-    protected $relations = [
-        'users',
+    protected $relations = [        
     ];
 
     /**
@@ -46,11 +45,7 @@ class UserNotifyController extends APIController
      * 
      * @var Illuminate\Http\Resources\Json\ResourceCollection
      */
-    protected $resourceCollection = UserNotificationResource::class;
-
-    protected $filterable = [
-        'from', 'take',
-    ];
+    protected $resourceCollection = UserNotificationResource::class;    
 
     /**
      * Return user all and new notifications count
@@ -63,9 +58,15 @@ class UserNotifyController extends APIController
 	 */
     public function index()
     {
-        $result['all'] = $this->user->unreadNotifications->count();
-        $result['new'] = $this->user->notifications->count();
+        $result = [];
+        
+        // Get all notification count of authenticated user
+        $result['new'] = $this->user->unreadNotifications->count();
 
+        // Get count notification count of authenticated user
+        $result['all'] = $this->user->notifications->count();
+
+        // Return response
         return response()->json(
             $result,
             $this->httpOk
@@ -74,12 +75,14 @@ class UserNotifyController extends APIController
 
     /**
      * Return specific user notification data
+     * If pass 'all' as {notify} parameter, thern return all user notifications
      * @authenticated
      * 
 	 * @response {
      *  "type" : "App\\Notifications\\UserLogedIn",
      *  "data" : "User loged in at 19:45",
      *  "created_at" : "2019-11-12 19:45"
+     *  "read_at" : NULL
      * }
      * @response 404 {
      *  "message": "Resource not found"
@@ -87,7 +90,21 @@ class UserNotifyController extends APIController
 	 */
     public function show($id)
     {
-        $notify = DatabaseNotification::findOrFail($id);        
-        return new UserNotificationResourc($notify);
+        // If id=all then return all user notifications
+        if ($id == 'all') {
+
+            // Call APIController parrent index method
+            return parent::index(); 
+        }
+        else {                    
+            // Find notification by id (Notifications id is UUID)
+            $notify = $this->user->notifications()->findOrFail($id);            
+
+            // If found any notification,check as read
+            $notify->markAsRead();
+
+            // Return user notification resource
+            return new UserNotificationResource($notify);
+        }
     }
 }
