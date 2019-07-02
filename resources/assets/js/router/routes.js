@@ -66,6 +66,10 @@ const routes = [
 
 	{ path: '/profiles',name:'profiles', component: require('../components/user_profile/Profile.vue').default },
 	{ path: '/chats',name:'chats', component: require('../components/chat/ChatMessage.vue').default },
+
+	/* Begin Notify */
+	{ path: '/all_notify',name:'all_notify', component: require('../components/notification/AllNotification.vue').default },
+	/* End Notify */
 ];
 
 export default routes;

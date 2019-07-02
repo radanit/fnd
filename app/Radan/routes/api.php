@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api','as' => 'users.me.'], function() {
     Route::apiResource('users/me/avatar', 'UserAvatarController')->except(['update','show','destroy']); 
     Route::get('users/me', 'UserMeController@index')->name('profile');
     Route::put('users/me', 'UserMeController@update')->name('profile.update');
+    Route::apiResource('users/me/notify', 'UserNotifyController')->except(['update','store','destroy']); 
 });
 
 Route::group(['middleware' => 'auth:api','as' => 'users.batch.'], function() {    
