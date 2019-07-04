@@ -89,28 +89,12 @@
     },
     created() {
       this.listenForChanges();
+      this.getNotify();
     },
     methods: {
-      listenForChanges() {
-        //this.getNotify();
-        alert('Web Notification is not supported');
-        Echo.private('bahar.' + window.Laravel.user)
-          .listen('ReceptionRegisterd', reception => {
-            if (! ('Notification' in window)) {
-              alert('Web Notification is not supported');
-              return;
-            }
-          /*Notification.requestPermission( permission => {
-            let notification = this.$notify.success({
-                title: 'Info',
-                message: 'This is a message without close button',
-                showClose: false
-              });
-              // link to page on clicking the notification
-              notification.onclick = () => {
-                window.open(window.location.href);
-              };
-            });*/
+      listenForChanges() {        
+        Echo.private('bahar.' + window.Laravel.user)
+            .notification((notification) => {
             Notification.requestPermission( permission => {
               let notification = new Notification('یک رویداد جدید ثبت گردید', {
                 body: '', // content for the alert
