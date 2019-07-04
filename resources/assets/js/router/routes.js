@@ -68,7 +68,7 @@ const routes = [
 	{ path: '/chats',name:'chats', component: require('../components/chat/ChatMessage.vue').default },
 
 	/* Begin Notify */
-	{ path: '/all_notify',name:'all_notify', component: require('../components/notification/AllNotification.vue').default },
+	{ path: '/all_notify',name:'all_notify', component: require('../components/notification/Notification.vue').default },
 	/* End Notify */
 ];
 

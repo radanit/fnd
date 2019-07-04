@@ -206,7 +206,7 @@ import InfiniteLoading from 'vue-infinite-loading';
 
 Vue.use(InfiniteLoading, { /* options */ });
 Vue.component('user-box',require('./components/user_profile/UserBox.vue').default);
-Vue.component('notification-box',require('./components/notification/Notification.vue').default);
+Vue.component('notification-box',require('./components/notification/NotificationBar.vue').default);
 const app = new Vue({
     el: '#app',
     router

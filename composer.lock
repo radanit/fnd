@@ -715,16 +715,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "dc784032a3f6f4e7a4b882e272b771f6fe4c37cf"
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/dc784032a3f6f4e7a4b882e272b771f6fe4c37cf",
-                "reference": "dc784032a3f6f4e7a4b882e272b771f6fe4c37cf",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
+                "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
                 "shasum": ""
             },
             "require": {
@@ -782,7 +782,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2019-06-30T00:37:05+00:00"
+            "time": "2019-07-01T23:21:34+00:00"
         },
         {
             "name": "intervention/image",
@@ -1048,18 +1048,6 @@
         },
         {
             "name": "laravel/framework",
-<<<<<<< HEAD
-            "version": "v5.8.24",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "bb2a0afef35f508f77c049c51f04087a14de0055"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/bb2a0afef35f508f77c049c51f04087a14de0055",
-                "reference": "bb2a0afef35f508f77c049c51f04087a14de0055",
-=======
             "version": "v5.8.26",
             "source": {
                 "type": "git",
@@ -1070,7 +1058,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/1d8ec9afdedc79314c18715056b8143d7e1fac31",
                 "reference": "1d8ec9afdedc79314c18715056b8143d7e1fac31",
->>>>>>> 23258024ed156638b1ef7104ffcece6287bf1dae
                 "shasum": ""
             },
             "require": {
@@ -1204,11 +1191,7 @@
                 "framework",
                 "laravel"
             ],
-<<<<<<< HEAD
-            "time": "2019-06-19T16:40:24+00:00"
-=======
             "time": "2019-06-25T16:20:51+00:00"
->>>>>>> 23258024ed156638b1ef7104ffcece6287bf1dae
         },
         {
             "name": "laravel/passport",
@@ -4749,11 +4732,7 @@
         },
         {
             "name": "windwalker/renderer",
-<<<<<<< HEAD
-            "version": "3.5.7",
-=======
             "version": "3.5.8",
->>>>>>> 23258024ed156638b1ef7104ffcece6287bf1dae
             "source": {
                 "type": "git",
                 "url": "https://github.com/ventoviro/windwalker-renderer.git",
@@ -4810,11 +4789,7 @@
         },
         {
             "name": "windwalker/structure",
-<<<<<<< HEAD
-            "version": "3.5.7",
-=======
             "version": "3.5.8",
->>>>>>> 23258024ed156638b1ef7104ffcece6287bf1dae
             "source": {
                 "type": "git",
                 "url": "https://github.com/ventoviro/windwalker-structure.git",

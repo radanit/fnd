@@ -1,77 +1,37 @@
 <template>
-    <ul class="navbar-nav mr-auto">
-       <el-header style="text-align: right; font-size: 12px">
-          <el-dropdown>
-            <i class="el-icon-setting"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <a href="#" @click="editProfile()" id="profile-link" class="lighGray">پروفایل من <i class="fa fa-ellipsis-v mr-1" aria-hidden="true"></i></a>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <a :title="trans('menus.logout')" :alt="trans('menus.logout')" href="/logout" @click="logout()" id="user-logout" class="lighGray">خروج <i class="fas fa-power-off red" aria-hidden="true"></i></a></el-dropdown-item>
-              </el-dropdown-menu>
-          </el-dropdown>
-       </el-header>
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-          <i class="fa fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="#" alt="User Avatar" class="img-size-50 ml-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  test
-                  <span class="float-left text-sm text-danger"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">test....</p>
-                <p class="text-sm text-muted"><i class="fas fa-clock mr-1"></i> 2 ساعت پیش</p>
-              </div>
+    <div class="box box-primary text-justify">
+        <div class="box-header with-border">
+            <h3 class="box-title pt-3">کلیه رویدادها</h3>
+
+            <div class="box-tools pull-right">
             </div>
-            <!-- Message End -->
-          </a>          
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">مشاهده تمام پیغام ها</a>
+            <!-- /.box-tools -->
         </div>
-      </li>
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" href="#/all_notify" aria-expanded="false">
-          <i class="fas fa-bell" v-if="this.eventCnt==0"></i>
-          <i class="fa fa-bell faa-ring animated" v-else></i>
-          <span class="badge badge-warning navbar-badge">{{this.eventCnt}}</span>
-        </a>        
-        <!--<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-          <i class="fas fa-bell" v-if="this.eventCnt==0"></i>
-          <i class="fa fa-bell faa-ring animated" v-else></i>
-          <span class="badge badge-warning navbar-badge">{{this.eventCnt}}</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
-          <span class="dropdown-item dropdown-header">{{this.eventCnt}} رویداد جدید</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-envelope mr-2"></i> 0 پیغام جدید دارید
-            <span class="float-left text-muted text-sm">3 دقیقه پیش</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-users mr-2"></i> 0 درخواست مشورت دارید
-            <span class="float-left text-muted text-sm">12 ساعت پیش</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-file mr-2"></i> {{this.receptionCnt}} پرونده بیمار جدید
-            <span class="float-left text-muted text-sm">2 روز پیش</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">مشاهده همه ی رویدادها</a>
-        </div>-->
-      </li>      
-    </ul>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <div class="table-responsive mailbox-messages">
+            <table class="table table-hover table-striped">
+                <tbody>
+                    <tr v-for="notify in notification " :key="notify.id">
+                        <td><div class="icheckbox_flat-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
+                        <td class="mailbox-star"><a href="#"><i class="fa fa-star yellow"></i></a></td>
+                        <td class="mailbox-name"><a href="read-mail.html">دکتر کمال امینی</a></td>
+                        <td class="mailbox-subject"><b>با توجه به عکس ارسالی</b> - نیاز به جراحی سریع ریشه دندان دارد...
+                        </td>
+                        <td class="mailbox-attachment"></td>
+                        <td class="mailbox-date">5 دقیقه قبل</td>
+                    </tr>               
+                </tbody>
+            </table>
+            <!-- /.table -->
+            </div>
+            <!-- /.mail-box-messages -->
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer pt-3 text-center" >
+            <a href="#" @click="loadMore">موارد بیشتر ...</a>
+        </div>
+    </div>
 </template>
 <style>
 .el-header{
@@ -83,52 +43,16 @@
   export default {
     data() {
       return {
-        eventCnt:0,
-        user:{}
+        notification :{}
       }
     },
     created() {
-      this.listenForChanges();
+      this.getAllNotification();
     },
     methods: {
-      listenForChanges() {
-        this.getNotify();
-        Echo.private('bahar.' + window.Laravel.user)
-          .listen('ReceptionRegistered', reception => {
-            if (! ('Notification' in window)) {
-              alert('Web Notification is not supported');
-              return;
-            }
-          /*Notification.requestPermission( permission => {
-            let notification = this.$notify.success({
-                title: 'Info',
-                message: 'This is a message without close button',
-                showClose: false
-              });
-              // link to page on clicking the notification
-              notification.onclick = () => {
-                window.open(window.location.href);
-              };
-            });*/
-            Notification.requestPermission( permission => {
-              let notification = new Notification('یک رویداد جدید ثبت گردید', {
-                body: '', // content for the alert
-                icon: "https://pusher.com/static_logos/320x320.png" // optional image url
-              });
-              this.eventCnt +=1;
-              // link to page on clicking the notification
-              notification.onclick = () => {
-                window.open(window.location.href);
-              };
-            });
-          })
-        },
-        editProfile(){
-            this.$router.push({ name: 'profiles', params: { profile_id: this.user.profile_id}});
-        },
-        getNotify(){
-              axios.get("../api/users/me/notify").then(({
-              data})=>{(this.eventCnt = data.new)}).catch(()=>{
+        getAllNotification(){
+              axios.get("../api/users/me/notify/all").then(({
+              data})=>{(this.notification = data.data)}).catch(()=>{
               let msgErr = errorMessage(error.response.data.errors);
               this.$message({
                 title: '',
@@ -138,6 +62,9 @@
                 type: 'error'
               });               
           });
+        },
+        loadMore(){
+            alert('loadMore');
         }
       } 
     }
