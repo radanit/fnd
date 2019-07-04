@@ -63,4 +63,14 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
+    /**
+     * The channels the user receives notification broadcasts on.
+     *
+     * @return string
+     */
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'bahar.'.$this->id;
+    }
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class ReceptionRegisterd extends Notification
 {
@@ -46,7 +47,7 @@ class ReceptionRegisterd extends Notification
         return [
             'type' => $notifiable->type,
             'id' => $notifiable->id,
-            'reception_id' => $this->reception->id,
+            //'reception_id' => $this->reception->id,
         ];
     }
 }
