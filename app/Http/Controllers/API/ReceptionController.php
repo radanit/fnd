@@ -12,6 +12,8 @@ use App\Http\Resources\ReceptionCollection;
 use App\Http\Requests\StoreReceptionRequest;
 use App\Http\Requests\UpdateReceptionRequest;
 use App\Events\ReceptionStatusEvent;
+use App\Notifications\ReceptionRegisterd;
+use App\Radan\Auth\Models\User;
 use Profile;
 
 /**
@@ -100,7 +102,8 @@ class ReceptionController extends APIController
                 
         // Raise Reception Recepted event
         event(new ReceptionStatusEvent($reception,$status));
-        
+        $user = User::find(1);
+        $user->notify(new ReceptionRegisterd($reception));
         // Return JSON response            
         return response()->json([
             'message' => __('app.insertAlert')],

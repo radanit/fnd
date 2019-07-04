@@ -92,9 +92,10 @@
     },
     methods: {
       listenForChanges() {
-        this.getNotify();
+        //this.getNotify();
+        alert('Web Notification is not supported');
         Echo.private('bahar.' + window.Laravel.user)
-          .listen('ReceptionRegistered', reception => {
+          .listen('ReceptionRegisterd', reception => {
             if (! ('Notification' in window)) {
               alert('Web Notification is not supported');
               return;

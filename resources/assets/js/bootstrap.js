@@ -54,5 +54,5 @@ import Echo from 'laravel-echo'
      broadcaster: 'pusher',
      key:'a0144640ce249493f43e',
      cluster: 'ap2',
-     encrypted: true
+     encrypted: false
  });
