@@ -32,7 +32,7 @@ class ReceptionRegisterd extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database' , 'broadcast'];
     }
 
     /**
@@ -44,7 +44,9 @@ class ReceptionRegisterd extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'type' => $notifiable->type,
+            'id' => $notifiable->id,
+            'reception_id' => $this->reception->id,
         ];
     }
 }
