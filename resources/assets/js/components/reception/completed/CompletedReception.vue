@@ -121,7 +121,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/capture", {
+                axios.get("../api/receptions?filter[status]=complited", {
                     params: {
                     page: this.page,
                     },
@@ -157,7 +157,7 @@ import {errorMessage} from '../../../utilities';
             |
             */
             loadReception(){                
-                axios.get("../api/receptions/result",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions?filter[status]=completed",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -179,7 +179,7 @@ import {errorMessage} from '../../../utilities';
             |
             */      
             viewReception(record){
-              this.$router.push({ name: 'view_registered_receptions', params: { receptionId: record.id } });
+              this.$router.push({ name: 'view_completed_receptions', params: { receptionId: record.id } });
             },            
             /*
             |--------------------------------------------------------------------------
