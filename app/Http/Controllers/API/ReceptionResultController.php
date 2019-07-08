@@ -47,17 +47,20 @@ class ReceptionResultController extends APIController
      */
     protected $resourceCollection = ReceptionCollection::class;
 
-    /**
-     * Allow query string parameters for filter
-     * 
-     * @var array
-     */
     protected $filterable = [
-        'national_id'
-    ];   
+        'national_id', 'status',
+    ];    
     
     private function doReceptionResult($request,$reception,$status)    
     {
+        if (!$reception->whereStatus(ReceptionStatus::CAPTURED)) {
+            // Return JSON response
+            return response()->json([
+                'message' => __('app.accessAlert')],
+                $this->httpForbidden
+            );
+        }
+
         // Add doctor recepton result
         $reception->results()->create(
             $request->only('result')    
@@ -91,7 +94,7 @@ class ReceptionResultController extends APIController
         $reception = $this->getModel()->findOrfail($id);
 
         // Set result for reception
-        $this->doReceptionResult($request,$reception,ReceptionStatus::VISITED);
+        $this->doReceptionResult($request,$reception,ReceptionStatus::COMPLETED);
 
         // Return JSON response
         return response()->json([
@@ -106,6 +109,7 @@ class ReceptionResultController extends APIController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function destroy($id)    
     {
         // destroy profile
@@ -118,7 +122,7 @@ class ReceptionResultController extends APIController
             'message' => __('app.deleteAlert')],
             $this->httpOk
         );
-    }
+    }*/
 
     /**
      * Reject the specified reception.
@@ -195,7 +199,10 @@ class ReceptionResultController extends APIController
      */
     protected function filterRules() 
     {
-        return ['national_id' => 'digits:10'];       
+        return [
+            'national_id' => 'digits:10',
+            'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
+        ];       
     }
 
     /**
@@ -205,8 +212,20 @@ class ReceptionResultController extends APIController
      * @return \Illuminate\Http\Response
      */
     protected function filter($query)
-    {
-        return $query->where('national_id',$this->getFilter('national_id'));
+    {        
+        foreach($this->getFilter() as $key => $filter)
+        {
+            switch ($key) {
+                case 'national_id':                     
+                    $query = $query->where('national_id',$this->getFilter('national_id'));                    
+                    break;
+                case 'status':                    
+                    $query = $query->whereStatus($this->getFilter('status'));
+                    break;
+            }            
+        }
+
+        return $query;
     }
 
     /**
@@ -217,8 +236,6 @@ class ReceptionResultController extends APIController
      */
     protected function where($query)
     {
-        $query = $query->whereStatus(ReceptionStatus::CAPTURED);
-
         if ($this->user->hasRole('admin')) {
             return $query;
         }

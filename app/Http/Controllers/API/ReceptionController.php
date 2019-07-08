@@ -101,9 +101,8 @@ class ReceptionController extends APIController
         );
                 
         // Raise Reception Recepted event
-        event(new ReceptionStatusEvent($reception,$status));
-        $user = User::find(1);
-        $user->notify(new ReceptionRegisterd($reception));
+        event(new ReceptionStatusEvent($reception,$status));    
+
         // Return JSON response            
         return response()->json([
             'message' => __('app.insertAlert')],
