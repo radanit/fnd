@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth:api','ability:admin,can-result-reception']]
     Route::get('receptions/result', 'API\ReceptionResultController@index');   
     Route::get('receptions/{reception}/result', 'API\ReceptionResultController@show');
     Route::put('receptions/{reception}/result', 'API\ReceptionResultController@update');    
-    Route::delete('receptions/{reception}/result', 'API\ReceptionResultController@destroy');    
+   // Route::delete('receptions/{reception}/result', 'API\ReceptionResultController@destroy');    
     Route::patch('receptions/{reception}/result', 'API\ReceptionResultController@reject');
     Route::get('receptions/{reception}/votes', 'API\ReceptionResultController@getVotes');
     Route::put('receptions/{reception}/votes', 'API\ReceptionResultController@setVotes');    
