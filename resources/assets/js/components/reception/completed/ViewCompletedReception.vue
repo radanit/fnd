@@ -8,7 +8,7 @@
                 <view-pictures :form = form></view-pictures>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_opinion')" name="receptionOpinion">
-                <opinion-reception></opinion-reception>
+                <opinion-reception :results = form.results></opinion-reception>
             </el-collapse-item>
         </el-collapse>
     </div>
@@ -30,7 +30,7 @@
 import {errorMessage} from '../../../utilities';
 import ShowReception from '../ShowReception.vue';
 import ViewPictures from '../reception_picture/ViewPicture.vue';
-import ReceptionOpnion from '../captured/ReceptionOpnion.vue';
+import ReceptionOpinion from './ReceptionDoctorOpinion.vue';
   export default {
     data() {
       return {
@@ -88,7 +88,7 @@ import ReceptionOpnion from '../captured/ReceptionOpnion.vue';
     components: {
         'show-reception' : ShowReception,
         'view-pictures' : ViewPictures,
-        'opinion-reception' : ReceptionOpnion,
+        'opinion-reception' : ReceptionOpinion,
     }
   }
 </script>

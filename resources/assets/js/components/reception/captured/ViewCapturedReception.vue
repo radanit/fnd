@@ -30,7 +30,7 @@
 import {errorMessage} from '../../../utilities';
 import ShowReception from '../ShowReception.vue';
 import ViewPictures from '../reception_picture/ViewPicture.vue';
-import ReceptionOpnion from './ReceptionOpnion.vue';
+import ReceptionOpinion from './ReceptionOpinion.vue';
   export default {
     data() {
       return {
@@ -88,7 +88,7 @@ import ReceptionOpnion from './ReceptionOpnion.vue';
     components: {
         'show-reception' : ShowReception,
         'view-pictures' : ViewPictures,
-        'opinion-reception' : ReceptionOpnion,
+        'opinion-reception' : ReceptionOpinion,
     }
   }
 </script>
