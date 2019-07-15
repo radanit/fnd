@@ -17,6 +17,7 @@ class ReceptionResultCollection extends JsonResource
         return [ 
             'id' => $this->id,
             'result' => $this->result,
+            'created_at' => $this->created_at,
         ];
     }
 }
