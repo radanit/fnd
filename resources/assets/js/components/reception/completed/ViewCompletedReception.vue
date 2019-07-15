@@ -8,7 +8,7 @@
                 <view-pictures :form = form></view-pictures>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_opinion')" name="receptionOpinion">
-                <opinion-reception :results = form.results></opinion-reception>
+                <opinion-reception :results = form.results :doctor = form.doctor ></opinion-reception>
             </el-collapse-item>
         </el-collapse>
     </div>
