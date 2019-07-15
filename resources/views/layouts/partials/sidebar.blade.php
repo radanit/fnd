@@ -21,7 +21,8 @@
               </p>
             </router-link>
           </li>
-          @role('admin')      
+          <!-- Begin Security Menu -->
+          @ability('admin',['validate_all' => false])      
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shield-alt orange"></i>
@@ -71,9 +72,9 @@
               </li>              
             </ul>
           </li>
-          @endrole
+          @endability
+          <!-- End Security Menu -->
           <!-- Begin Basic Info menu --->
-          <!--@role(['admin','radioadmin'])-->
           @ability('admin|radioadmin','can-manage-radiology',['validate_all' => false])
           <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -96,14 +97,6 @@
                   </p>
                 </router-link>
               </li>
-              <!--<li class="nav-item">
-                <router-link to="/doctors" class="nav-link">
-                  <i class=" nav-icon fas fa-user-md teal"></i>
-                  <p>
-                  {{ __('menus.doctor_management') }}
-                  </p>
-                </router-link>
-              </li>-->
               <li class="nav-item">
                 <router-link to="/radio_types" class="nav-link">
                   <i class="nav-icon fas fa-images cyan"></i>
@@ -115,9 +108,7 @@
             </ul>
           </li>
           @endability
-          <!--@endrole -->
           <!-- End Basic Info menu --->
-
           <!-- Begin Radiology menu --->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -132,14 +123,15 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              @role(['admin','radioadmin','receptor'])
+            @ability('admin|radioadmin','can-register-reception',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/receptions" class="nav-link">
                   <i class="fas fa-id-badge nav-icon green"></i>
                   <p>{{ __('menus.reception') }}</p>
                 </router-link>
               </li>
-              @endrole
+              @endability
+              <!-- Begin Tech menu -->
               @ability('admin|radioadmin','can-capture-reception',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
@@ -147,31 +139,46 @@
                   <p>{{ __('menus.registered_reception') }}</p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/all_receptions" class="nav-link">
+                  <i class="fas fa-tasks nav-icon green"></i>
+                  <p>{{ __('menus.all_receptions') }}</p>
+                </router-link>
+              </li>
               @endability
-              @ability('admin|radioadmin|doctor',['validate_all' => false])
+              <!-- end Tech Menu -->
+              <!-- Begin Doctor Menu -->
+              @ability('admin|radioadmin|doctor','can-result-reception	',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
                   <p>{{ __('menus.captured_reception') }}</p>
                 </router-link>
               </li>
-              @endability
-              @role(['admin','radioadmin','doctor','patient'])
               <li class="nav-item">
-                <router-link to="/completed_receptions" class="nav-link">
+                <router-link to="/all_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
-                  <p>{{ __('menus.completed_reception') }}</p>
+                  <p>{{ __('menus.all_doctor_receptions') }}</p>
+                </router-link>
+              </li>           
+              @endability
+              <!-- End Doctor Menu -->
+              <!-- Begin Receptor Menu -->
+              @ability('admin|radioadmin','can-register-reception',['validate_all' => false])
+              <li class="nav-item">
+                <router-link to="/all_receptions" class="nav-link">
+                  <i class="fas fa-tasks nav-icon green"></i>
+                  <p>{{ __('menus.all_receptions') }}</p>
                 </router-link>
               </li>
-              @endrole
-              @role(['admin','radioadmin','doctor','expert','receptor'])
               <li class="nav-item">
                 <router-link to="/rejected_receptions" class="nav-link">
                   <i class="fas fa-low-vision nav-icon green"></i>
                   <p>{{ __('menus.rejected_reception') }}</p>
                 </router-link>
               </li>
-              @endrole                                                
+              @endability
+              <!-- End Receptor Menu -->                                            
             </ul>
           </li>
           <!-- End Radiology menu --->
