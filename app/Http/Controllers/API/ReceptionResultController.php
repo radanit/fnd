@@ -91,7 +91,7 @@ class ReceptionResultController extends APIController
     public function update(UpdateReceptionResultRequest $request, $id)
     {
         // Find resource or throw exception
-        $reception = $this->getModel()->findOrfail($id);
+        $reception = $this->getModel()->whereStatus(ReceptionStatus::CAPTURED)->findOrfail($id);
 
         // Set result for reception
         $this->doReceptionResult($request,$reception,ReceptionStatus::COMPLETED);
@@ -133,7 +133,7 @@ class ReceptionResultController extends APIController
     public function reject(RejectReceptionResultRequest $request, $id)
     {
         // Find resource or throw exception
-        $reception = $this->getModel()->findOrfail($id);
+        $reception = $this->getModel()->whereStatus(ReceptionStatus::CAPTURED)->findOrfail($id);
 
         // Set result for reception
         $this->doReceptionResult($request,$reception,ReceptionStatus::REJECTED);
