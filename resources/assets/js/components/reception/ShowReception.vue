@@ -127,7 +127,9 @@ import {errorMessage} from '../../utilities';
       props:['apiUrl'],
         data(){
             return{
-              form :{},
+              form :{
+                patient:{}
+              },
               doctor_lists:[],
               radio_type_lists:[],
             }
