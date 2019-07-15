@@ -22,6 +22,7 @@ return [
 'radio_type_management' => 'انواع عکسبرداری',
 'registered_reception' => 'در انتظار تصویربرداری',
 'captured_reception' => 'تصویربرداری شده',
-'completed_reception' => 'تکمیل شده',
+'all_user_receptions' => 'کلیه ی پرونده های من',
+'all_receptions' => 'کلیه ی پرونده ها',
 'rejected_reception' => 'رد شده',
 ];

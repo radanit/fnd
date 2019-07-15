@@ -24,6 +24,7 @@ return [
     'radio_type_management' => 'RadioType Management',
     'registered_reception' => 'Wait For Capture',
     'captured_reception' => 'Captured Reception',
-    'completed_reception' => 'Completed Reception',
+    'all_user_receptions' => 'All My Receptions',
+    'all_receptions' => 'All Receptions',
     'rejected_reception' => 'Rejected Reception',
 ];

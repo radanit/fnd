@@ -142,7 +142,7 @@
               <li class="nav-item">
                 <router-link to="/all_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
-                  <p>{{ __('menus.all_receptions') }}</p>
+                  <p>{{ __('menus.all_user_receptions') }}</p>
                 </router-link>
               </li>
               @endability
@@ -158,7 +158,7 @@
               <li class="nav-item">
                 <router-link to="/all_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
-                  <p>{{ __('menus.all_doctor_receptions') }}</p>
+                  <p>{{ __('menus.all_user_receptions') }}</p>
                 </router-link>
               </li>           
               @endability
