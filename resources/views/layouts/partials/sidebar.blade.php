@@ -163,8 +163,20 @@
               </li>           
               @endability
               <!-- End Doctor Menu -->
-              <!-- Begin Receptor Menu -->
+              <!-- Begin Admins & Receptors Menu -->
               @ability('admin|radioadmin','can-register-reception',['validate_all' => false])
+              <li class="nav-item">
+                <router-link to="/registered_receptions" class="nav-link">
+                  <i class="fas fa-registered nav-icon green"></i>
+                  <p>{{ __('menus.registered_reception') }}</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/captured_receptions" class="nav-link">
+                  <i class="fas fa-camera-retro nav-icon green"></i>
+                  <p>{{ __('menus.captured_reception') }}</p>
+                </router-link>
+              </li>
               <li class="nav-item">
                 <router-link to="/all_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
@@ -178,7 +190,7 @@
                 </router-link>
               </li>
               @endability
-              <!-- End Receptor Menu -->                                            
+              <!-- End Admins & Receptors Menu -->                                           
             </ul>
           </li>
           <!-- End Radiology menu --->
