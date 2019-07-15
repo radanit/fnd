@@ -132,7 +132,7 @@
               </li>
               @endability
               <!-- Begin Tech menu -->
-              @ability('admin|radioadmin','can-capture-reception',['validate_all' => false])
+              @ability('can-capture-reception',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
                   <i class="fas fa-registered nav-icon green"></i>
@@ -148,7 +148,7 @@
               @endability
               <!-- end Tech Menu -->
               <!-- Begin Doctor Menu -->
-              @ability('admin|radioadmin|doctor','can-result-reception	',['validate_all' => false])
+              @ability('doctor','can-result-reception	',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
