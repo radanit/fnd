@@ -2,7 +2,7 @@
     <div class="container">
         <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item :title="trans('reception.registered_reception_info')" name="receptionInfo">
-                <show-reception :form = form></show-reception>
+                <show-reception :apiUrl="apiUrl"></show-reception>
             </el-collapse-item>
             <el-collapse-item :title="trans('reception.reception_pictures')" name="receptionPictures">
                 <view-pictures :form = form></view-pictures>
