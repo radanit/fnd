@@ -163,7 +163,7 @@ import {errorMessage} from '../../utilities';
         | This method Load Patient Info
         |
         */    
-        loadPatientInfo(){
+        /*loadPatientInfo(){
           axios.get("../api/receptions?filter[national_id]="+this.form.patient.national_id).then(({data})=>{
             if (data.data.length>0)
             {
@@ -186,7 +186,7 @@ import {errorMessage} from '../../utilities';
               dangerouslyUseHTMLString: true
             });                
           });
-        },                        
+        },*/                       
         /*
         |--------------------------------------------------------------------------
         | Back to User Reception List
