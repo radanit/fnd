@@ -140,7 +140,7 @@
                 </router-link>
               </li>
               @endrole
-              @ability('admin|radioadmin','can-manage-radiology',['validate_all' => false])
+              @ability('admin|radioadmin','can-capture-reception',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
                   <i class="fas fa-registered nav-icon green"></i>
@@ -148,7 +148,7 @@
                 </router-link>
               </li>
               @endability
-              @ability('admin|radioadmin','can-capture-reception',['validate_all' => false])
+              @ability('admin|radioadmin|doctor',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
