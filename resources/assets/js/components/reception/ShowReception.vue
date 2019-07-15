@@ -124,9 +124,10 @@
 <script>
 import {errorMessage} from '../../utilities';
     export default {
-      props:['apiUrl','form'],
+      props:['apiUrl'],
         data(){
             return{
+              form :{},
               doctor_lists:[],
               radio_type_lists:[],
             }
@@ -280,7 +281,7 @@ import {errorMessage} from '../../utilities';
         },
     },        
     created() {
-        //this.loadReception();
+        this.loadReception();
         this.loadDoctorList();
         this.loadRadioTypeList();
         Fire.$on('AfterCrud',() => {
