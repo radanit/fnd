@@ -54,7 +54,7 @@ class ReceptionCaptureController extends APIController
      * @var array
      */
     protected $filterable = [
-        'national_id'
+        'national_id', 'status',
     ];
 
     private $oldGraphyDelete = true;
@@ -232,7 +232,10 @@ class ReceptionCaptureController extends APIController
      */
     protected function filterRules() 
     {
-        return ['national_id' => 'digits:10'];       
+        return [
+            'national_id' => 'digits:10',
+            'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
+        ];
     }
 
     /**
@@ -243,7 +246,17 @@ class ReceptionCaptureController extends APIController
      */
     protected function filter($query)
     {
-        return $query->where('national_id',$this->getFilter('national_id'));
+        foreach($this->getFilter() as $key => $filter)
+        {
+            switch ($key) {
+                case 'national_id':                     
+                    $query = $query->where('national_id',$this->getFilter('national_id'));                    
+                    break;
+                case 'status':                    
+                    $query = $query->whereStatus($this->getFilter('status'));
+                    break;
+            }            
+        }
     }
 
     /**
@@ -254,13 +267,17 @@ class ReceptionCaptureController extends APIController
      */
     protected function where($query)
     {
-        $query = $query->whereStatus(ReceptionStatus::FIRST);
-
         if ($this->user->hasRole('admin')) {
             return $query;
         }
         else {
-            $radioType = RadioType::whereIn('role_id',$this->user->roles)->get()->toArray();
+            // Get user roles id in array format
+            $userRoles = $this->user->roles->pluck('id')->all();
+
+            // Get RadioTypes id witch assigne to specific role
+            $radioType = RadioType::whereIn('role_id',$userRoles)->pluck('id')->all();
+
+            // Return receptions with specific type
             return $query->whereIn('radio_type_id',$radioType);
         }
     }

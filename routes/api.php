@@ -85,6 +85,20 @@ Route::group(['middleware' => ['auth:api','ability:admin,can-result-reception']]
 });
 
 /**
+ * Reception Comment APIs
+ */
+Route::group(['middleware' => ['auth:api','ability:admin,can-comment-reception']], function() {
+    Route::get('receptions/comments', 'API\ReceptionCommentController@index');   
+    Route::get('receptions/{reception}/comments', 'API\ReceptionCommentController@show');
+    Route::get('receptions/{reception}/comments/{comment}', 'API\ReceptionCommentController@showComment');
+    Route::put('receptions/{reception}/comments', 'API\ReceptionCommentController@update');    
+    Route::delete('receptions/{reception}/comments', 'API\ReceptionCommentController@destroy');    
+    Route::delete('receptions/{reception}/comments/{comment}', 'API\ReceptionCommentController@destroyComment');
+    Route::get('receptions/{reception}/comments/votes', 'API\ReceptionCommentController@getVotes');
+    Route::put('receptions/{reception}/comments/votes', 'API\ReceptionCommentController@setVotes');    
+});
+
+/**
  * Reception APIs
  */
 Route::group(['middleware' => ['auth:api','ability:admin|receptor,can-register-reception']], function() {    
