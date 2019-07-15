@@ -132,7 +132,7 @@
               </li>
               @endability
               <!-- Begin Tech menu -->
-              @ability('can-capture-reception',['validate_all' => false])
+              @ability('','can-capture-reception',['validate_all' => false])
               <li class="nav-item">
                 <router-link to="/registered_receptions" class="nav-link">
                   <i class="fas fa-registered nav-icon green"></i>
