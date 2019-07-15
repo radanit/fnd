@@ -121,7 +121,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/result", {
+                axios.get("../api/receptions/result?filter[status]=captured", {
                     params: {
                     page: this.page,
                     },
@@ -157,7 +157,7 @@ import {errorMessage} from '../../../utilities';
             |
             */
             loadReception(){                
-                axios.get("../api/receptions/result",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/result?filter[status]=captured",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
