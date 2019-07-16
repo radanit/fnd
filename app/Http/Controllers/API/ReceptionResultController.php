@@ -201,7 +201,7 @@ class ReceptionResultController extends APIController
     {
         return [
             'national_id' => 'digits:10',
-            'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
+            //'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
         ];       
     }
 
