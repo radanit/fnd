@@ -253,10 +253,13 @@ class ReceptionCaptureController extends APIController
                     $query = $query->where('national_id',$this->getFilter('national_id'));                    
                     break;
                 case 'status':                    
-                    $query = $query->whereStatus($this->getFilter('status'));
+                    $status = explode('|', $this->getFilter('status'));                    
+                    $query = $query->whereStatus($status);
                     break;
             }            
         }
+
+        return $query;
     }
 
     /**

@@ -203,7 +203,7 @@ class ReceptionController extends APIController
     {
         return [
             'national_id' => 'digits:10',
-            'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
+           // 'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
         ];       
     }
 
@@ -222,7 +222,8 @@ class ReceptionController extends APIController
                     $query = $query->where('national_id',$this->getFilter('national_id'));                    
                     break;
                 case 'status':                    
-                    $query = $query->whereStatus($this->getFilter('status'));
+                    $status = explode('|', $this->getFilter('status'));                    
+                    $query = $query->whereStatus($status);
                     break;
             }            
         }

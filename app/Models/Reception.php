@@ -46,9 +46,10 @@ class Reception extends Model
 	public function scopeWhereStatus(Builder $builder, $names)
 	{
         //return $query->with('lastStatus')->get()->where('lastStatus.status',$status);
+        $names = is_array($names) ? $names: [$names];
         $builder->whereHas('status', function (Builder $query) use ($names) {
             $query
-                ->where('status', $names)
+                ->whereIn('status', $names)
                 ->whereIn(
                     'id',
                     function (QueryBuilder $query) {
