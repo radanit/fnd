@@ -100,7 +100,7 @@ return [
     'required_with'        => 'The :attribute field is required when :values is present.',
     'required_with_all'    => 'The :attribute field is required when :values is present.',
     'required_without'     => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
+    'required_without_all' => 'فیلد :attribute زمانی که :values وجود ندارد، الزامی است',    
     'same'                 => 'فیلد :attribute و :other باید برابر باشند',
     'size'                 => [
         'numeric' => 'The :attribute must be :size.',
@@ -177,7 +177,10 @@ return [
         'lower_case' => 'تعداد حروف کوچک',
         'digits' => 'تعداد عدد',
         'special_chars' =>  'تعداد کارکترهای خاص',
-        'does_not_contain' => 'رشته غیر مجاز'
+        'does_not_contain' => 'رشته غیر مجاز',
+        'graphy_jpg' => 'گرافی',
+        'graphy_dicom' => 'گرافی دایکام',
+        'graphy_result' => 'نتیجه گرافی',
     ],
 
 ];

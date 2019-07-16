@@ -24,8 +24,8 @@ class UpdateReceptionCaptureRequest extends FormRequest
     public function rules()
     {       
         return [
-            'graphy_jpg.*' => 'nullable|image',            
-            'graphy_dicom' => 'nullable|image',
+            'graphy_jpg.*' => 'required_without_all:graphy_dicom',            
+            'graphy_dicom' => 'required_without_all:graphy_jpg',
             'graphy_result' => 'nullable|string'
         ];
     }    

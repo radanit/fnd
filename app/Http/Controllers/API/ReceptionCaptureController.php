@@ -57,7 +57,7 @@ class ReceptionCaptureController extends APIController
         'national_id', 'status',
     ];
 
-    private $oldGraphyDelete = true;
+    private $oldGraphyDelete = false;
     private $graphyJpgTag = 'graphy_jpg';
     private $graphyDicomTag = 'graphy_dicom';
     private $graphyDisk = 'reception_disk';
@@ -94,10 +94,10 @@ class ReceptionCaptureController extends APIController
             ->setAllowUnrecognizedTypes(false)
 
             // only allow files of specific MIME types
-            ->setAllowedMimeTypes(['image/jpeg'])
+            ->setAllowedMimeTypes(['image/jpeg','image/png'])
 
             // only allow files of specific extensions
-            ->setAllowedExtensions(['jpg', 'jpeg'])
+            ->setAllowedExtensions(['jpg', 'jpeg','png'])
 
             // only allow files of specific aggregate types
             ->setAllowedAggregateTypes(['image'])
@@ -140,35 +140,43 @@ class ReceptionCaptureController extends APIController
         // Find resource or throw exception
         $reception = $this->getModel()->findOrfail($id);
 
-        // Read all Radiography jpg type
-        $graphyJpg = $request->file($this->graphyJpgTag);        
-        $graphyJpgMedia = [];
-        foreach ($graphyJpg as $file) {
-            $graphyJpgMedia[] = $this->upload($file)->getKey();            
-        }
-
-        // Read all Radiography jpg type
-        $graphyDicom = $request->file($this->graphyDicomTag);    
-        $graphyDicomMedia = $this->upload($graphyDicom);
-       
         // Delete old media
         if ($this->oldGraphyDelete) {
             $this->deleteMedia($reception);
         }
 
-        // Attache graphy to reception        
-        $reception->syncMedia($graphyJpgMedia,$this->graphyJpgTag);      
-        $reception->syncMedia($graphyDicomMedia,$this->graphyDicomTag);
+        // Read all Radiography jpg type
+        if ($request->hasFile($this->graphyJpgTag)) {
+            $graphyJpg = $request->file($this->graphyJpgTag);        
+            $graphyJpgMedia = [];
+            foreach ($graphyJpg as $file) {
+                $graphyJpgMedia[] = $this->upload($file)->getKey();            
+            }
+            
+            // Attache graphy to reception
+            $reception->syncMedia($graphyJpgMedia,$this->graphyJpgTag); 
+        }        
 
+        // Read all Radiography dicom type
+        if ($request->hasFile($this->graphyDicomTag)) {
+            $graphyDicom = $request->file($this->graphyDicomTag);    
+            $graphyDicomMedia = $this->upload($graphyDicom);
+
+            // Attache graphy to reception        
+            $reception->syncMedia($graphyDicomMedia,$this->graphyDicomTag);
+        }
+                       
         // Graphy result        
         if ($request->filled('graphy_result')) {
             $reception->update($request->only('graphy_result'));
         }
 
-        // Raise Reception Recepted event
+        // Change reception status
         $status = $reception->status()->create(
             ['status' => ReceptionStatus::CAPTURED]
         );
+
+        // Raise Reception Recepted event
         event(new ReceptionStatusEvent($reception, $status));
 
         // Return JSON response

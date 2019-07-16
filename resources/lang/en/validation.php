@@ -160,7 +160,11 @@ return [
         'permissions.*' => 'one of role permission',
         'structure' => 'structure',
         'password_policy_id' => 'password policy',
-        'new_password' => 'new password'
+        'new_password' => 'new password',
+        'graphy_jpg' => 'graphy',
+        'graphy_dicom' => 'dicom graphy ',
+        'graphy_result' => 'graphy result',
+
     ],
 
 ];
