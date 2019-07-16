@@ -38,7 +38,13 @@
 					  :label="trans('reception.national_id')"
                       sortable
 					  prop="patient.national_id">
-					</el-table-column>                             
+					</el-table-column>
+          <el-table-column
+					  :label="trans('reception.reception_date')"
+                      sortable
+            :formatter="dateFormat"
+					  prop="reception_date">
+					</el-table-column>                              
 					<el-table-column
 					  :label="trans('reception.fullname')"
                       sortable
@@ -126,6 +132,22 @@ import {errorMessage} from '../../utilities';
           }
         },
         methods :{
+            /*
+            |--------------------------------------------------------------------------
+            | Persian Date Format
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Is Persian Date Format
+            |
+            */   
+            dateFormat(row, column) {  
+              var date = row[column.property];  
+              if (date == undefined) {  
+                return "";  
+              }                    
+              return Vue.moment(date).locale('fa').format('jYYYY/jM/jD');
+            }, 
             /*
             |--------------------------------------------------------------------------
             | Lazy Load Method

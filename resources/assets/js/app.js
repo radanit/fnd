@@ -178,6 +178,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 //begin  moment & moment jallali config
 import moment from 'moment';
+window.moment = moment;
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 Vue.component('date-picker', VuePersianDatetimePicker);
 Vue.use(require('vue-moment-jalaali'));

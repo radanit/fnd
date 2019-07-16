@@ -98,7 +98,9 @@
     height: 55px;
 }
 /* Custom CSS */
-	
+.el-button--mini{
+    font-size:11px !important;
+}	
     //medium+ screen sizes
     @media screen and (min-width:992px) {
       #mobile-only {
