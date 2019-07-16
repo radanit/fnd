@@ -17,7 +17,7 @@
               <div class="card-body table-responsive p-0">                
 				<el-table
 					:data="tableData.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
-          :default-sort = "{prop: 'fullname', order: 'ascending'}"
+          :default-sort = "{prop: 'reception_date', order: 'descending'}"
 					style="width: 100%"
           :empty-text = "trans('app.no_data_found')"
           @selection-change="handleSelectionChange">
@@ -50,7 +50,21 @@
 					  :label="trans('reception.mobile_number')"
                       sortable
 					  prop="patient.mobile">
-					</el-table-column>                    
+					</el-table-column>
+          <el-table-column
+              prop="status"
+              :label="trans('reception.status')"
+              width="100"
+              :filters="[{ text:trans('reception.recepted'), value: 'recepted' }, { text: trans('reception.rejected'), value: 'rejected' }]"
+              :filter-method="filterStatus"
+              multi=false
+              filter-placement="bottom-end">
+              <template slot-scope="scope">
+                  <el-tag
+                  :type="scope.row.status === 'recepted' ? 'success' : 'danger'"
+                  disable-transitions><span v-if="scope.row.status=='recepted'">{{trans('reception.recepted')}}</span><span v-else>{{trans('reception.rejected')}}</span></el-tag>
+              </template>
+          </el-table-column>                    
 					<el-table-column class="float-left"
 					  align="right">
 					  <template slot="header" slot-scope="scope">
@@ -65,7 +79,7 @@
               size="mini"
               @click="viewReception(scope.row)">{{trans('app.showBtnLbl')}} <i class="fa fa-eye blue"></i></el-button>
 					  </template>                    
-					</el-table-column>
+					</el-table-column>       
                     <!--<infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
@@ -101,6 +115,7 @@ import {errorMessage} from '../../../utilities';
         {
           return{
             receptions :{},
+            status :'recepted|rejected',
             form: 
             {
               id: '',
@@ -132,7 +147,19 @@ import {errorMessage} from '../../../utilities';
                 return "";  
               }                    
               return Vue.moment(date).locale('fa').format('jYYYY/jM/jD');
-            },           
+            },
+            /*
+            |--------------------------------------------------------------------------
+            | Filter Status user Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Filter Status Users
+            |
+            */  
+            filterStatus(value, row) {
+                return row.status === value;                
+            },                  
             /*
             |--------------------------------------------------------------------------
             | Lazy Load Method
@@ -143,7 +170,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/capture", {
+                axios.get("../api/receptions/capture?filter[status]='recepted,rejected'", {
                     params: {
                     page: this.page,
                     },
@@ -178,8 +205,8 @@ import {errorMessage} from '../../../utilities';
             | This method Load Profile Info
             |
             */
-            loadReception(){                
-                axios.get("../api/receptions/capture",{params:{page:this.page}}).then(({
+            loadReception(status){                
+                axios.get("../api/receptions/capture?filter[status]="+status,{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -201,7 +228,10 @@ import {errorMessage} from '../../../utilities';
             |
             */      
             viewReception(record){
-              this.$router.push({ name: 'view_registered_receptions', params: { receptionId: record.id } });
+              if (record.status == 'recepted')
+                this.$router.push({ name: 'view_registered_receptions', params: { receptionId: record.id } });
+              else if (record.status == 'rejected')
+                this.$router.push({ name: 'view_rejected_receptions', params: { receptionId: record.id } });
             },            
             /*
             |--------------------------------------------------------------------------
@@ -279,7 +309,7 @@ import {errorMessage} from '../../../utilities';
             }
         },           
         created() {
-          this.loadReception();
+          this.loadReception(this.status);
             Fire.$on('AfterCrud',() => {
                 //
             });

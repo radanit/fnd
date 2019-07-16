@@ -47,4 +47,7 @@ return [
     'radtoTypeDes' => 'توضیحات تصویر',
     'graphy_result' => 'توضیحات عکسبرداری',
     'download_dicom' => 'دانلود فایل Dicom',
+    'status' => 'وضعیت',
+    'recepted' => 'پذیرش شده',
+    'rejected' => 'برگشت شده'
 ];

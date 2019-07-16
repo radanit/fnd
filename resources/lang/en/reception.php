@@ -47,4 +47,7 @@ return [
     'radtoTypeDes' =>'radto Type Des',
     'graphy_result' => 'Graphy Result',
     'download_dicom' => 'Download Dicom',
+    'status' => 'status',
+    'recepted' => 'recepted',
+    'rejected' => 'rejected'
 ];
