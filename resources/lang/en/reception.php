@@ -49,5 +49,9 @@ return [
     'download_dicom' => 'Download Dicom',
     'status' => 'status',
     'recepted' => 'recepted',
-    'rejected' => 'rejected'
+    'rejected' => 'rejected',
+    'patient_fullname' => 'Patient Sir/Mam :',
+    'add_vote_card_title' => 'Do You Like Add Vote For Pictures?',
+    'dontlike_add_vote_btn_lbl' => 'dont like now',
+    'like_add_vote_btn_lbl' => 'add vote'
 ];

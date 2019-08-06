@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item :title="trans('reception.registered_reception_info')" name="receptionInfo">
+            <el-collapse-item :title="trans('reception.registered_reception_info')+' - '+trans('reception.patient_fullname')+this.form.patient.fullname" name="receptionInfo">
                 <show-reception :apiUrl="apiUrl"></show-reception>
             </el-collapse-item>
-            <el-collapse-item :title="trans('reception.reception_pictures')" name="receptionPictures">
+            <el-collapse-item :title="trans('reception.reception_pictures')+' - '+trans('reception.patient_fullname')+this.form.patient.fullname" name="receptionPictures">
                 <view-pictures :form = form></view-pictures>
             </el-collapse-item>
-            <el-collapse-item :title="trans('reception.reception_opinion')" name="receptionOpinion">
+            <el-collapse-item :title="trans('reception.reception_opinion')+' - '+trans('reception.patient_fullname')+this.form.patient.fullname" name="receptionOpinion">
                 <opinion-reception></opinion-reception>
             </el-collapse-item>
         </el-collapse>
