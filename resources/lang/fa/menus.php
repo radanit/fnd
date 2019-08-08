@@ -24,5 +24,6 @@ return [
 'captured_reception' => 'تصویربرداری شده',
 'all_user_receptions' => 'کلیه ی پرونده های من',
 'all_receptions' => 'کلیه ی پرونده ها',
+'compeleted_receptions' => 'کلیه ی پرونده ها',
 'rejected_reception' => 'رد شده',
 ];
