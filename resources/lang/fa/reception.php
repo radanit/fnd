@@ -53,6 +53,8 @@ return [
     'patient_fullname' => 'بیمار خانم/آقا :',
     'add_vote_card_title' => 'آیا مایل به امتیاز دهی به تصاویر می باشید؟',
     'dontlike_add_vote_btn_lbl' => 'فعلا نه',
-    'like_add_vote_btn_lbl' => 'ثبت امتیاز'
+    'like_add_vote_btn_lbl' => 'ثبت امتیاز',
+    'today_recept_btn_lbl' => 'پرونده های امروز',
+    'all_recept_btn_lbl' => 'کلیه ی پرونده ها'
 
 ];

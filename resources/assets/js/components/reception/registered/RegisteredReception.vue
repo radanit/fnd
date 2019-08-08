@@ -11,6 +11,9 @@
                     <el-step title="تصویربرداری"></el-step>
                     <el-step title="تکمیل"></el-step>                                                   
                   </el-steps>
+                  <el-button type="warning"
+                    size="mini"
+                    @click="todayReception">{{trans('app.today_recept_btn_lbl')}} <i class="fas fa-calendar fa-fw"></i></el-button>                  
                 </div>
               </div>
               <!-- /.card-header -->
@@ -218,6 +221,28 @@ import {errorMessage} from '../../../utilities';
                     });               
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Load Profile Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Profile Info
+            |
+            */
+            todayReception(status){                
+                axios.get("../api/receptions/capture?filter[today]=true&filter[status]="+status,{params:{page:this.page}}).then(({
+                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    let msgErr = errorMessage(error.response.data.errors);
+                    this.$message({
+                      title: '',
+                      message: msgErr,
+                      center: true,
+                      dangerouslyUseHTMLString: true,
+                      type: 'error'
+                    });               
+                });
+            },            
             /*
             |--------------------------------------------------------------------------
             | Go To Edit Profile Page
