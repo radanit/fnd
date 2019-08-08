@@ -19,5 +19,7 @@ return [
     'action' => 'Action',
     'first_nameError' => 'Patient Firts Name is required!',
     'last_nameError' => 'Patient Last Name is required!',
-    'national_codeError' => 'Patient National Code Is Required!'    
+    'national_codeError' => 'Patient National Code Is Required!',
+    'male' => 'Mr',
+    'female' => 'Mis',
 ];

@@ -19,5 +19,7 @@ return [
     'action' => 'عملیات',
     'first_nameError' => 'نام اجباری است!',
     'last_nameError' => 'نام خانوادگی اجباری است',
-    'national_codeError' => 'کد ملی اجباری است!'    
+    'national_codeError' => 'کد ملی اجباری است!',
+    'male' => 'آقای',
+    'female' => 'خانم',
 ];

@@ -21,7 +21,7 @@ class ReceptionResource extends JsonResource
                 'national_id' => $this->national_id,
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'fullname' => $this->first_name.' '.$this->last_name,
+                'fullname' => $this->__gender($this->gender).' '.$this->first_name.' '.$this->last_name,
                 'mobile' => $this->mobile,
                 'gender' => $this->gender,
                 'birth_year' => $this->birth_year,
@@ -37,5 +37,11 @@ class ReceptionResource extends JsonResource
 			'graphy_jpg' => MediaResource::collection($this->getMedia('graphy_jpg')),
 			'results' => ReceptionResultCollection::collection($this->whenLoaded('results')),	
         ];
+    }
+
+    private function __gender() 
+    {
+        return ($this->gender) ? __('patient.female'):__('patient.male');
+        
     }
 }
