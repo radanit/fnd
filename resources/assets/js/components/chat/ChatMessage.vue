@@ -10,7 +10,7 @@
             <span class="direct-chat-name float-right">رادیولوژی بهار</span>
             <span class="direct-chat-timestamp float-left">{{ file.reception_date | moment("jYYYY/jM/jD") }}</span>
           </div>
-          <img src="assets/images/user1-128x128.jpg" alt="message user image" class="direct-chat-img">
+          <img src="assets/images/logo.png" alt="message user image" class="direct-chat-img">
           <div class="direct-chat-text">{{trans('chat.fileDes')}}<a href="#" @click="viewReception(file.id)">{{file.id}}</a>{{trans('chat.patientName')}}{{file.patient.fullname}}{{trans('chat.receivedMsg')}}</div>
         </div>
       </div>
@@ -20,7 +20,7 @@
             <span class="direct-chat-name float-left">‌Bahar Radiology</span>
             <span class="direct-chat-timestamp float-right">{{ file.reception_date }}</span>
           </div>
-          <img src="assets/images/user1-128x128.jpg" alt="message user image" class="direct-chat-img">
+          <img src="assets/images/logo.png" alt="message user image" class="direct-chat-img">
           <div class="direct-chat-text">{{trans('chat.fileDes')}}<a href="#" @click="viewReception(file.id)">{{file.id}}</a>{{trans('chat.patientName')}}{{file.patient.fullname}}{{trans('chat.receivedMsg')}}</div>
         </div>
       </div>      

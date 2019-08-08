@@ -50,10 +50,11 @@ return [
     'status' => 'status',
     'recepted' => 'recepted',
     'rejected' => 'rejected',
-    'patient_fullname' => 'Patient Sir/Mam :',
+    'patient_fullname' => 'Patient:',
     'add_vote_card_title' => 'Do You Like Add Vote For Pictures?',
     'dontlike_add_vote_btn_lbl' => 'dont like now',
     'like_add_vote_btn_lbl' => 'add vote',
     'today_recept_btn_lbl' => 'Today Receptions',
-    'all_recept_btn_lbl' => 'All Receptions'
+    'all_recept_btn_lbl' => 'All Receptions',
+    'download_pic' => 'Download Pic'
 ];

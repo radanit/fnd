@@ -67,5 +67,5 @@ return [
     'deletedBtnLbl' => 'کاربران حذف شده',
     'usersListBtnLbl' => 'کاربران موجود',
     'rejectBtnLbl' => 'عدم تایید',
-    'completeBtnLbl' => 'تایید',
+    'completeBtnLbl' => 'تایید',    
 ];
