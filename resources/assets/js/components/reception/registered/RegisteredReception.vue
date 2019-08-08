@@ -13,7 +13,7 @@
                   </el-steps>
                   <el-button :type="btnType"
                     size="mini"
-                    @click="todayReception">{{todayBtnLbl}} <i :class="btnIcon"></i></el-button>                  
+                    @click="todayReception(status)">{{todayBtnLbl}} <i :class="btnIcon"></i></el-button>                  
                 </div>
               </div>
               <!-- /.card-header -->
