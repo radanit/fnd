@@ -233,7 +233,6 @@ import {errorMessage} from '../../../utilities';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
                   this.loadReception();
                 }                
-
             },            
             /*
             |--------------------------------------------------------------------------
