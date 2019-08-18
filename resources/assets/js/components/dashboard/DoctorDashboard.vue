@@ -16,7 +16,7 @@
         },
         methods:{
             loadReceptions(){
-                axios.get("../api/receptions/result",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/result?filter[status]=captured",{params:{page:this.page}}).then(({
                     data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
