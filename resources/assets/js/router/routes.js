@@ -47,6 +47,7 @@ const routes = [
 	{ path: '/view_registered_receptions',name:'view_registered_receptions', component: require('../components/reception/registered/ViewRegisteredReception.vue').default },
 	{ path: '/view_rejected_receptions',name:'view_rejected_receptions', component: require('../components/reception/rejected/ViewRejectedReception.vue').default },
 	{ path: '/view_captured_reception',name:'view_captured_reception', component: require('../components/reception/captured/ViewCapturedReception.vue').default },
+	{ path: '/all_receptions',name:'all_receptions', component: require('../components/reception/AllReception.vue').default },
 	/*End receptions Routes*/
 
 	/*Begin RadioType Routes*/

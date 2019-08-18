@@ -1,19 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container" @keydown.alt.67="createReception">
         <div class="row justify-content-center mt-4">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{trans('reception.card_title')}}</h3>
                 <div class="card-tools">
-                  <el-steps :space="300" :active="2" process-status="error" >
-                    <el-step title="پذیرش"></el-step>
-                    <el-step title="تصویربرداری"></el-step>
-                    <el-step title="رد"></el-step>                                                   
-                  </el-steps>
-                  <el-button :type="btnType"
-                    size="mini"
-                    @click="todayReception">{{todayBtnLbl}} <i :class="btnIcon"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -37,7 +29,13 @@
 					  :label="trans('reception.national_id')"
                       sortable
 					  prop="patient.national_id">
-					</el-table-column>                             
+					</el-table-column>
+          <el-table-column
+					  :label="trans('reception.reception_date')"
+                      sortable
+            :formatter="dateFormat"
+					  prop="reception_date">
+					</el-table-column>                              
 					<el-table-column
 					  :label="trans('reception.fullname')"
                       sortable
@@ -47,7 +45,21 @@
 					  :label="trans('reception.mobile_number')"
                       sortable
 					  prop="patient.mobile">
-					</el-table-column>                    
+					</el-table-column>
+          <el-table-column
+              prop="status"
+              :label="trans('reception.status')"
+              width="100"
+              :filters="[{ text:trans('reception.captured'), value: 'captured' },{ text: trans('reception.completed'), value: 'completed' }, { text: trans('reception.rejected'), value: 'rejected' }]"
+              :filter-method="filterStatus"
+              multi=false
+              filter-placement="bottom-end">
+              <template slot-scope="scope">
+                  <el-tag
+                  :type="scope.row.status === 'captured' ? 'success' : scope.row.status === 'completed' ? 'primary':'danger'"
+                  disable-transitions><span v-if="scope.row.status=='captured'">{{trans('reception.captured')}}</span><span v-if="scope.row.status=='rejected'">{{trans('reception.rejected')}}</span><span v-if="scope.row.status=='completed'">{{trans('reception.completed')}}</span></el-tag>
+              </template>
+          </el-table-column>                           
 					<el-table-column class="float-left"
 					  align="right">
 					  <template slot="header" slot-scope="scope">
@@ -57,17 +69,13 @@
                         <el-input first_name="id" type="hidden" v-model.number="form.id" autocomplete="off"></el-input>
 					  </template>
 					  <template slot-scope="scope" class="float-left">
-            <el-button
-              :title="trans('app.showBtnLbl')"
-              size="mini"
-              @click="viewReception(scope.row)">{{trans('app.showBtnLbl')}} <i class="fa fa-eye blue"></i></el-button>
+              <el-button
+                class="mr-3"
+                :title="trans('app.showBtnLbl')"
+                size="mini"
+                @click="viewReception(scope.row)">{{trans('app.showBtnLbl')}} <i class="fa fa-eye blue"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <!--<infinite-loading
-                    slot="append"
-                    @infinite="infiniteHandler"
-                    force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
 				  </el-table>
                   <div class="block">
                         <el-pagination
@@ -90,13 +98,19 @@
     </div>
 </template>
 <script>
-import {errorMessage} from '../../../utilities';
+import {errorMessage} from '../../utilities';
     export default 
     {
       props: ['currentuser'],
         data()
         {
           return{
+            cancelAlert : trans('app.cancelAlert'),
+            noticTxt : trans('app.noticTxt'),
+            cancelButtonText : trans('app.cancelButtonText'),
+            confirmButtonText : trans('app.confirmButtonText'),
+            warningAlert : trans('app.warningAlert'),
+            editMod :false,
             receptions :{},
             form: 
             {
@@ -120,6 +134,41 @@ import {errorMessage} from '../../../utilities';
         methods :{
             /*
             |--------------------------------------------------------------------------
+            | Persian Date Format
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Is Persian Date Format
+            |
+            */   
+            dateFormat(row, column) {  
+              var date = row[column.property];  
+              if (date == undefined) {  
+                return "";  
+              }                    
+              return Vue.moment(date).locale('fa').format('jYYYY/jM/jD');
+            },
+            /*
+            |--------------------------------------------------------------------------
+            | Go To View Reception Page
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Edit profile Component
+            |
+            */      
+            viewReception(record){
+              console.log(record.status);
+              if(record.status=='rejected')
+                this.$router.push({ name: 'view_rejected_receptions', params: { receptionId: record.id } });
+              else if(record.status=='completed')
+                this.$router.push({ name: 'view_completed_receptions', params: { receptionId: record.id } });
+              else if(record.status=='captured')
+                this.$router.push({ name: 'view_captured_reception', params: { receptionId: record.id } });
+              
+            },              
+            /*
+            |--------------------------------------------------------------------------
             | Lazy Load Method
             | Added By e.bagherzadegan            
             |--------------------------------------------------------------------------
@@ -128,7 +177,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions?filter[status]=rejected", {
+                axios.get("../api/receptions/result", {
                     params: {
                     page: this.page,
                     },
@@ -142,6 +191,18 @@ import {errorMessage} from '../../../utilities';
                     }
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Filter Status user Method
+            | Added By e.bagherzadegan            
+            |--------------------------------------------------------------------------
+            |
+            | This method Filter Status Users
+            |
+            */  
+            filterStatus(value, row) {
+                return row.status === value;                
+            },  
             /*
             |--------------------------------------------------------------------------
             | handleSelectionChange Method
@@ -164,7 +225,7 @@ import {errorMessage} from '../../../utilities';
             |
             */
             loadReception(){                
-                axios.get("../api/receptions?filter[status]=rejected",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/result",{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -178,52 +239,40 @@ import {errorMessage} from '../../../utilities';
             },
             /*
             |--------------------------------------------------------------------------
-            | Load Today Reception Method
+            | Load Today Receptions Method
             | Added By e.bagherzadegan
             |--------------------------------------------------------------------------
             |
-            | This method Today Reception Info
+            | This method Load Today Receptions Info
             |
             */
             todayReception(){
-                if (this.showToday==0)
-                {
-                  this.showToday = 1;
-                  this.btnType ='primary';
-                  this.btnIcon = 'fas fa-list fa-fw';
-                  this.todayBtnLbl =trans('reception.all_recept_btn_lbl');
-                  axios.get("../api/receptions?filter[status]=rejected&filter[today]=1",{params:{page:this.page}}).then(({
-                      data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
-                      let msgErr = errorMessage(error.response.data.errors);
-                      this.$message({
-                        title: '',
-                        message: msgErr,
-                        center: true,
-                        dangerouslyUseHTMLString: true,
-                        type: 'error'
-                      });               
-                  });                  
-                }
-                else {
-                  this.showToday = 0;
-                  this.btnType ='warning';
-                  this.btnIcon = 'fas fa-calendar fa-fw';
-                  this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.loadReception();
-                }                
-            },            
-            /*
-            |--------------------------------------------------------------------------
-            | Go To Edit Profile Page
-            | Added By e.bagherzadegan            
-            |--------------------------------------------------------------------------
-            |
-            | This method Load Edit profile Component
-            |
-            */      
-            viewReception(record){
-              this.$router.push({ name: 'view_rejected_receptions', params: { receptionId: record.id } });
-            },            
+              if (this.showToday==0)
+              {
+                this.showToday = 1;
+                this.btnType ='primary';
+                this.btnIcon = 'fas fa-list fa-fw';
+                this.todayBtnLbl =trans('reception.all_recept_btn_lbl');
+                axios.get("../api/receptions?filter[status]=recepted&filter[today]=1",{params:{page:this.page}}).then(({
+                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    let msgErr = errorMessage(error.response.data.errors);
+                    this.$message({
+                      title: '',
+                      message: msgErr,
+                      center: true,
+                      dangerouslyUseHTMLString: true,
+                      type: 'error'
+                    });               
+                });                  
+              }
+              else {
+                this.showToday = 0;
+                this.btnType ='warning';
+                this.btnIcon = 'fas fa-calendar fa-fw';
+                this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
+                this.loadReception();
+              }
+            },        
             /*
             |--------------------------------------------------------------------------
             | Go To Create Profile Page
@@ -302,7 +351,7 @@ import {errorMessage} from '../../../utilities';
         created() {
           this.loadReception();
             Fire.$on('AfterCrud',() => {
-                //
+                this.loadReception();
             });
         }
     }
@@ -369,5 +418,8 @@ import {errorMessage} from '../../../utilities';
   }
   .el-button + .el-button{
     margin-left: 0px !important;
+  }
+  .el-steps{
+    width: 425px !important;
   }
 </style>

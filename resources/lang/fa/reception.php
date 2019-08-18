@@ -50,6 +50,8 @@ return [
     'status' => 'وضعیت',
     'recepted' => 'پذیرش شده',
     'rejected' => 'برگشت شده',
+    'completed' =>'تکمیل شده',
+    'captured' => 'تصویربرداری شده',
     'patient_fullname' => 'بیمار:',
     'add_vote_card_title' => 'آیا مایل به امتیاز دهی به تصاویر می باشید؟',
     'dontlike_add_vote_btn_lbl' => 'فعلا نه',

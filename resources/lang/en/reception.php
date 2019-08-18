@@ -50,6 +50,8 @@ return [
     'status' => 'status',
     'recepted' => 'recepted',
     'rejected' => 'rejected',
+    'completed' =>'completed',
+    'captured' => 'captured',
     'patient_fullname' => 'Patient:',
     'add_vote_card_title' => 'Do You Like Add Vote For Pictures?',
     'dontlike_add_vote_btn_lbl' => 'dont like now',
