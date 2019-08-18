@@ -66,5 +66,5 @@ return [
     'graphy_rate' => 'Graphy Rate',
     'deletedBtnLbl' => 'Deleted Users',
     'rejectBtnLbl' => 'Reject',
-    'completeBtnLbl' => 'Confirmation'
+    'completeBtnLbl' => 'Confirmation',
 ];

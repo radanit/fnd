@@ -6,15 +6,18 @@
               <div class="card-header">
                 <h3 class="card-title">{{trans('reception.card_title')}}</h3>
                 <div class="card-tools">
-                  <el-steps :space="300" :active="0" finish-status="success">
+                  <el-steps :space="200" :active="0" finish-status="success">
                     <el-step title="پذیرش"></el-step>
                     <el-step title="تصویربرداری"></el-step>
                     <el-step title="تکمیل"></el-step>                                                   
                   </el-steps>
                   <el-button type="success"
-                            v-focus
+                    v-focus
                     size="mini"
                     @click="createReception">{{trans('app.addBtnLbl')}} <i class="fas fa-plus fa-fw"></i></el-button>
+                  <el-button :type="btnType"
+                    size="mini"
+                    @click="todayReception">{{todayBtnLbl}} <i :class="btnIcon"></i></el-button>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -124,11 +127,15 @@ import {errorMessage} from '../../utilities';
               structure:'',
             },
             tableData:[],
-                search: '',
-                page:0,
-                pagination:{},
-                list: [],
-                infiniteId: +new Date(),
+            search: '',
+            page:0,
+            pagination:{},
+            list: [],
+            infiniteId: +new Date(),
+            showToday:0,
+            btnType :'warning',
+            btnIcon :'fas fa-calendar fa-fw',
+            todayBtnLbl:trans('reception.today_recept_btn_lbl')
           }
         },
         methods :{
@@ -206,6 +213,42 @@ import {errorMessage} from '../../utilities';
                     });               
                 });
             },
+            /*
+            |--------------------------------------------------------------------------
+            | Load Today Receptions Method
+            | Added By e.bagherzadegan
+            |--------------------------------------------------------------------------
+            |
+            | This method Load Today Receptions Info
+            |
+            */
+            todayReception(){
+              if (this.showToday==0)
+              {
+                this.showToday = 1;
+                this.btnType ='primary';
+                this.btnIcon = 'fas fa-list fa-fw';
+                this.todayBtnLbl =trans('reception.all_recept_btn_lbl');
+                axios.get("../api/receptions?filter[status]=recepted&filter[today]=1",{params:{page:this.page}}).then(({
+                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    let msgErr = errorMessage(error.response.data.errors);
+                    this.$message({
+                      title: '',
+                      message: msgErr,
+                      center: true,
+                      dangerouslyUseHTMLString: true,
+                      type: 'error'
+                    });               
+                });                  
+              }
+              else {
+                this.showToday = 0;
+                this.btnType ='warning';
+                this.btnIcon = 'fas fa-calendar fa-fw';
+                this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
+                this.loadReception();
+              }
+            },          
             /*
             |--------------------------------------------------------------------------
             | Go To Edit Profile Page
@@ -363,5 +406,8 @@ import {errorMessage} from '../../utilities';
   }
   .el-button + .el-button{
     margin-left: 0px !important;
+  }
+  .el-steps{
+    width: 425px !important;
   }
 </style>

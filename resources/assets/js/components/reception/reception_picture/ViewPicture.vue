@@ -7,9 +7,10 @@
                 </div>
                 <br>
                 <div class="images" v-viewer v-loading="loading">
-                  <span v-for="item in form.graphy_jpg" :key="item.id">
+                  <span class="recept-pic" v-for="item in form.graphy_jpg" :key="item.id">
                       {{getReceptionPics(item.id)}}
                       <img :id="item.id"  style="width: 100px; height: 100px;padding-left:10px;" class="pointer" />
+                      <a :id="'dnl-'+item.id">{{trans('reception.download_pic')}}</a>
                   </span>
                 </div>
         </el-card>
@@ -27,6 +28,7 @@ export default {
       return {
         loading:true,
         src: [],
+        dnl: [],
         DicomSrc:[],
         dialogImageUrl: '',
         dialogVisible: false,
@@ -56,7 +58,9 @@ export default {
                 var bytes = new Uint8Array(response.data);
                 var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
                 this.src[id] = "data:image/jpeg;base64," + btoa(binary);
+                this.dnl[id] = this.src[id].replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
                 document.getElementById(id).src=this.src[id];
+                document.getElementById('dnl-'+id).href=this.dnl[id];
                 this.loading = false;
             }).catch(()=>{
               let msgErr = errorMessage(error.response.data.errors);
@@ -114,4 +118,5 @@ export default {
     width:auto !important;
 }
 .pointer { cursor: pointer; }
+.recept-pic{display:inline-grid}
 </style>

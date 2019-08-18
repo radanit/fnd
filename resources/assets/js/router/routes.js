@@ -39,7 +39,7 @@ const routes = [
 	{ path: '/receptions',name:'receptions', component: require('../components/reception/Reception.vue').default },
 	{ path: '/registered_receptions',name:'registered_receptions', component: require('../components/reception/registered/RegisteredReception.vue').default },
 	{ path: '/captured_receptions',name:'captured_receptions', component: require('../components/reception/captured/CapturedReception.vue').default },
-	{ path: '/all_receptions',name:'all_receptions', component: require('../components/reception/completed/CompletedReception.vue').default },
+	{ path: '/compeleted_receptions',name:'compeleted_receptions', component: require('../components/reception/completed/CompletedReception.vue').default },
 	{ path: '/view_completed_receptions',name:'view_completed_receptions', component: require('../components/reception/completed/ViewCompletedReception.vue').default },
 	{ path: '/rejected_receptions',name:'rejected_receptions', component: require('../components/reception/rejected/RejectedReception.vue').default },
 	{ path: '/create_receptions',name:'create_receptions', component: require('../components/reception/CreateReception.vue').default },

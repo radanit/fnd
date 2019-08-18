@@ -26,5 +26,6 @@ return [
     'captured_reception' => 'Captured Reception',
     'all_user_receptions' => 'All My Receptions',
     'all_receptions' => 'All Receptions',
+    'compeleted_receptions' => 'Compeleted Receptions',
     'rejected_reception' => 'Rejected Reception',
 ];

@@ -14,6 +14,7 @@ use App\Http\Requests\UpdateReceptionResultRequest;
 use App\Http\Requests\RejectReceptionResultRequest;
 use App\Events\ReceptionStatusEvent;
 use App\Events\ReceptionSetVotesEvent;
+use Carbon\Carbon;
 
 class ReceptionResultController extends APIController
 {
@@ -48,7 +49,7 @@ class ReceptionResultController extends APIController
     protected $resourceCollection = ReceptionCollection::class;
 
     protected $filterable = [
-        'national_id', 'status',
+        'national_id', 'status', 'today'
     ];    
     
     private function doReceptionResult($request,$reception,$status)    
@@ -201,6 +202,7 @@ class ReceptionResultController extends APIController
     {
         return [
             'national_id' => 'digits:10',
+            'today' => 'boolean',
             //'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
         ];       
     }
@@ -223,6 +225,8 @@ class ReceptionResultController extends APIController
                     $status = explode('|', $this->getFilter('status'));                    
                     $query = $query->whereStatus($status);
                     break;
+                case 'today':
+                    $query = $query->whereDate('reception_date', Carbon::today());
             }            
         }
 

@@ -15,6 +15,7 @@ use App\Events\ReceptionStatusEvent;
 use MediaUploader;
 use Plank\Mediable\MediaUploadException;
 use Plank\Mediable\Media;
+use Carbon\Carbon;
 
 class ReceptionCaptureController extends APIController
 {
@@ -54,7 +55,7 @@ class ReceptionCaptureController extends APIController
      * @var array
      */
     protected $filterable = [
-        'national_id', 'status',
+        'national_id', 'status', 'today'
     ];
 
     private $oldGraphyDelete = false;
@@ -242,6 +243,7 @@ class ReceptionCaptureController extends APIController
     {
         return [
             'national_id' => 'digits:10',
+            'today' => 'boolean',
             //'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
         ];
     }
@@ -264,6 +266,8 @@ class ReceptionCaptureController extends APIController
                     $status = explode('|', $this->getFilter('status'));                    
                     $query = $query->whereStatus($status);
                     break;
+                case 'today':
+                    $query = $query->whereDate('reception_date', Carbon::today());
             }            
         }
 

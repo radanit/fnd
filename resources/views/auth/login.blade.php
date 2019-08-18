@@ -65,39 +65,37 @@
                 </div>                
             </div>
         </div>
-        <div class="col-md-8">
-			<!--div id="carouselControls desktop-only" class="carousel slide " data-ride="carousel"-->
-			<div id="desktop-only" class="carousel slide " data-ride="carousel">
+        <div class="col-md-8">		
+			<div id="desktop-only" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
-					<li data-target="#carouselControls" data-slide-to="0" class="active"></li>
-					<li data-target="#carouselControls" data-slide-to="1"></li>
-					<li data-target="#carouselControls" data-slide-to="2"></li>
-					<li data-target="#carouselControls" data-slide-to="3"></li>
+					<li data-target="#desktop-only" data-slide-to="0" class="active"></li>
+					<li data-target="#desktop-only" data-slide-to="1"></li>
+					<li data-target="#desktop-only" data-slide-to="2"></li>
+					<li data-target="#desktop-only" data-slide-to="4"></li>
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block w-100 h-100" src="{{URL::asset('/assets/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
-					</div>
-					<!--				
-					<div class="carousel-item">
-						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/2.jpg')}}" style="vertical-align:center;" alt="Second slide">
-					</div>					
-					<div class="carousel-item">
-						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/3.jpg')}}" style="vertical-align:center;" alt="Third slide">
+					<img class="d-block w-100 h-100" src="{{URL::asset('/assets/images/slideshows/1.jpg')}}" style="vertical-align:center;" alt="First slide">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100 h-100" src="{{URL::asset('/images/slideshows/4.jpg')}}" style="vertical-align:center;" alt="Third slide">
-					</div>-->
+					<img class="d-block w-100 h-100" src="{{URL::asset('/assets/images/slideshows/2.jpg')}}" style="vertical-align:center;" alt="First slide">
+					</div>
+					<div class="carousel-item">
+					<img class="d-block w-100 h-100" src="{{URL::asset('/assets/images/slideshows/3.jpg')}}" style="vertical-align:center;" alt="First slide">
+					</div>
+					<div class="carousel-item">
+					<img class="d-block w-100 h-100" src="{{URL::asset('/assets/images/slideshows/4.jpg')}}" style="vertical-align:center;" alt="First slide">
+					</div>
 				</div>
-				<a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+				<a class="carousel-control-prev" href="#desktop-only" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 					<span class="sr-only">Previous</span>
 				</a>
-				<a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+				<a class="carousel-control-next" href="#desktop-only" role="button" data-slide="next">
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="sr-only">Next</span>
 				</a>
-			</div>
+			</div>			
         </div>
     </div>
 	<!-- Footer -->

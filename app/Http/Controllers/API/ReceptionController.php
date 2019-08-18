@@ -15,6 +15,7 @@ use App\Events\ReceptionStatusEvent;
 use App\Notifications\ReceptionRegisterd;
 use App\Radan\Auth\Models\User;
 use Profile;
+use Carbon\Carbon;
 
 /**
  * @group Reception
@@ -65,7 +66,7 @@ class ReceptionController extends APIController
     protected $resourceCollection = ReceptionCollection::class;
 
     protected $filterable = [
-        'national_id', 'status',
+        'national_id', 'status', 'today'
     ];
 
     /**
@@ -203,6 +204,7 @@ class ReceptionController extends APIController
     {
         return [
             'national_id' => 'digits:10',
+            'today' => 'boolean',
            // 'status' => 'nullable|in:recepted,captured,visited,completed,rejected',
         ];       
     }
@@ -214,7 +216,7 @@ class ReceptionController extends APIController
      * @return \Illuminate\Http\Response
      */
     protected function filter($query)
-    {        
+    {
         foreach($this->getFilter() as $key => $filter)
         {
             switch ($key) {
@@ -225,6 +227,8 @@ class ReceptionController extends APIController
                     $status = explode('|', $this->getFilter('status'));                    
                     $query = $query->whereStatus($status);
                     break;
+                case 'today':
+                    $query = $query->whereDate('reception_date', Carbon::today());
             }            
         }
 
