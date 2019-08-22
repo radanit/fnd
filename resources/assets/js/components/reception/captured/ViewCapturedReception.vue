@@ -34,7 +34,7 @@ import ReceptionOpinion from './ReceptionOpinion.vue';
   export default {
     data() {
       return {
-        activeNames: ['receptionOpinion'],
+        activeNames: ['receptionPictures'],
         apiUrl:"../api/receptions/"+this.$route.params.receptionId+"/result",
         form:{
           id: '',

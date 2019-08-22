@@ -20,7 +20,7 @@
               <div class="card-body table-responsive p-0">                
 				<el-table
 					:data="tableData.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
-          :default-sort = "{prop: 'fullname', order: 'ascending'}"
+          :default-sort = "{prop: 'id', order: 'descending'}"
 					style="width: 100%"
           :empty-text = "trans('app.no_data_found')"
           @selection-change="handleSelectionChange">
@@ -222,7 +222,7 @@ import {errorMessage} from '../../../utilities';
             |
             */      
             viewReception(record){
-              this.$router.push({ name: 'view_registered_receptions', params: { receptionId: record.id } });
+              this.$router.push({ name: 'view_rejected_receptions', params: { receptionId: record.id } });
             },            
             /*
             |--------------------------------------------------------------------------

@@ -178,9 +178,9 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/all_receptions" class="nav-link">
+                <router-link to="/compeleted_receptions" class="nav-link">
                   <i class="fas fa-tasks nav-icon green"></i>
-                  <p>{{ __('menus.all_receptions') }}</p>
+                  <p>{{ __('menus.compeleted_receptions') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">
