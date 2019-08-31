@@ -2,6 +2,11 @@
    <div id="container">
      <el-form>
        <el-form-item>
+        <el-button  size="mini" type="success" @click="dialogVisible = true" plain>{{trans('app.completeBtnLbl')}} <i class="fas fa-check fa-fw"></i></el-button>
+        <el-button  size="mini" type="warning" @click="RejectReception()" plain>{{trans('app.rejectBtnLbl')}} <i class="fas fa-times-circle"></i></el-button>
+        <el-button size="mini" type="info" @click="backToReceptionList()" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
+        </el-form-item>  
+       <el-form-item>
           <vue-editor v-model="result" :editorToolbar="customToolbar"></vue-editor>
        </el-form-item>        
         <el-dialog
