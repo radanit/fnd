@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     orderdList: function () {
-      return _.orderBy(this.list, ['reception_date','id'],['desc'])
+      return _.orderBy(this.list, ['id'],['desc'])
     }
   },
   methods:{
