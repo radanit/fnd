@@ -58,6 +58,7 @@ return [
     'like_add_vote_btn_lbl' => 'ثبت امتیاز',
     'today_recept_btn_lbl' => 'پرونده های امروز',
     'all_recept_btn_lbl' => 'کلیه ی پرونده ها',
-    'download_pic' => 'دانلود تصویر'
+    'download_pic' => 'دانلود تصویر',
+    'new_reception' => 'پرونده های جدید'
 
 ];

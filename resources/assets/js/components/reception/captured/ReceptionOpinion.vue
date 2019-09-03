@@ -12,7 +12,7 @@
         <el-dialog
           :title="trans('reception.add_vote_card_title')"
           :visible.sync="dialogVisible"
-          width="20%"
+          width="45%"
           :before-close="handleClose">
           <el-form-item :label="trans('app.graphy_rate')">
             <el-rate

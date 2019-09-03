@@ -6,7 +6,7 @@ return [
 'users' => 'مدیریت کاربران',
 'configuration' => 'پیکربندی',
 'auth_managment' => 'مدیریت امنیت',
-'dashboard' => 'داشبورد',
+'dashboard' => 'صفحه اصلی',
 'admin_area' => 'بخش مدیریت',
 'user_roles' => 'مدیریت نقش های کاربری',
 'user_permissions' => 'مدیریت سطوح دسترسی',
@@ -15,7 +15,7 @@ return [
 'publicTable' => 'جداول عمومی',
 'speciality' => 'تخصص ها',
 'profile_structure' => 'مدیریت پروفایل ها',
-'reception_management' =>'مدیریت پذیرش ها',
+'reception_management' =>'پرونده ها',
 'reception' => 'ثبت پذیرش',
 'password_policy' => 'سیاست های رمز عبور',
 'doctor_management' => 'پزشکان',
@@ -26,4 +26,5 @@ return [
 'all_receptions' => 'کلیه ی پرونده ها',
 'compeleted_receptions' => 'تکمیل شده',
 'rejected_reception' => 'رد شده',
+'new_reception' => 'پرونده های جدید'
 ];

@@ -152,7 +152,7 @@
               <li class="nav-item">
                 <router-link to="/captured_receptions" class="nav-link">
                   <i class="fas fa-camera-retro nav-icon green"></i>
-                  <p>{{ __('menus.captured_reception') }}</p>
+                  <p>{{ __('menus.new_reception') }}</p>
                 </router-link>
               </li>
               <li class="nav-item">

@@ -58,5 +58,6 @@ return [
     'like_add_vote_btn_lbl' => 'add vote',
     'today_recept_btn_lbl' => 'Today Receptions',
     'all_recept_btn_lbl' => 'All Receptions',
-    'download_pic' => 'Download Pic'
+    'download_pic' => 'Download Pic',
+    'new_reception' => 'New Receptions'
 ];
