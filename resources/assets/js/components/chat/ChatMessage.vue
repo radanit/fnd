@@ -3,7 +3,7 @@
     <div class="card-header ui-sortable-handle" style="cursor: move;">
       <h3 class="card-title">{{trans('chat.recivedFile')}}</h3>
     </div>
-    <div class="card-body" v-for="file in list" :key="file.id">
+    <div class="card-body" v-for="file in orderdList" :key="file.id">
       <div v-if="trans('app.dir')=='rtl'" class="direct-chat-messages right">
         <div class="direct-chat-msg">
           <div class="direct-chat-info clearfix">
@@ -74,6 +74,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  computed: {
+    orderdList: function () {
+      return _.orderBy(this.list, ['reception_date'],['desc'])
     }
   },
   methods:{
