@@ -22,7 +22,8 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="/media/profile/Mpp5jgadk9wO37iYAgn3fjvx1MSO4OtzrlQJDrZi.jpeg" alt="User Avatar" class="img-size-50 ml-3 img-circle">
+              <!--<img src="/media/profile/Mpp5jgadk9wO37iYAgn3fjvx1MSO4OtzrlQJDrZi.jpeg" alt="User Avatar" class="img-size-50 ml-3 img-circle">-->
+              <img v-if="user.avatar" :src="user.avatar" class="img-circle el-icon-plus elevation-2" alt="User profile picture">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   test
