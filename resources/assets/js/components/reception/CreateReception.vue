@@ -26,7 +26,7 @@
                     :label="trans('reception.national_id')"
                     prop="national_id"
                     :rules="[
-                      { required: true,pattern:/^((?!())[0-9]{10})$/,message: trans('reception.national_id_number_error')},
+                      { required: true,pattern:/^([0-9]{10})$/,message: trans('reception.national_id_number_error')},
                      
                     ]"
                     >
