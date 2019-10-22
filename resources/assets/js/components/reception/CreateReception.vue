@@ -26,11 +26,11 @@
                     :label="trans('reception.national_id')"
                     prop="national_id"
                     :rules="[
-                      { required: true,pattern:/^((?!(0))[0-9]{10})$/,message: trans('reception.national_id_number_error')},
+                      { required: true,pattern:/^((?!())[0-9]{10})$/,message: trans('reception.national_id_number_error')},
                      
                     ]"
                     >
-                    <el-input tabindex=1 name="national_id" ref="national_id" @blur="loadPatientInfo" type="number"  v-model.number="form.national_id" autocomplete="off"></el-input>
+                    <el-input tabindex=1 name="national_id" ref="national_id" @blur="loadPatientInfo" type="text"  v-model="form.national_id" autocomplete="off"></el-input>
                     </el-form-item>                    
                   </el-col>                  
                 </el-row>
