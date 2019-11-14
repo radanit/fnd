@@ -42,6 +42,17 @@ class RadioTypeController extends APIController
     
 
     /**
+     * Return number of records return per page
+     *
+     * @return integer
+     */
+	protected function getPaginationCount()
+	{
+        // means return all data rows
+        return 0;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
