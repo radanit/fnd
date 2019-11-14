@@ -49,7 +49,7 @@ class RadioTypeController extends APIController
 	protected function getPaginationCount()
 	{
         // means return all data rows
-        return 0;
+        return 1000;
     }
 
     /**
