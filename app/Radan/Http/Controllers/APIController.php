@@ -9,11 +9,13 @@ use Illuminate\Contracts\Config\Repository as Config;
 use App\Http\Controllers\Controller as BaseController;
 use App\Radan\Fundation\Traits\RadanResponseCodeTrait;
 use App\Radan\Fundation\Traits\RadanDataQueryFilterTrait;
+use App\Radan\Fundation\Traits\RadanDataQueryOrderTrait;
 
 class APIController extends BaseController 
 {    
     use RadanResponseCodeTrait;
     use RadanDataQueryFilterTrait;
+	use RadanDataQueryOrderTrait;
 	
 	/**
      * Instance of config repository
@@ -78,6 +80,18 @@ class APIController extends BaseController
     ];
 	
 	/**
+     * Instance of http request order
+     * 
+     * @var array
+     */
+    protected $orders;
+
+    protected $requestOrderName;
+
+    protected $orderable = [
+    ];
+	
+	/**
      * Create a new controller instance.
      *
      * @return void
@@ -87,6 +101,7 @@ class APIController extends BaseController
         $this->config = $config;
         $this->request = $request;
         $this->fetchFilters($request);         
+		$this->fetchOrders($request);         
 
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
@@ -111,7 +126,14 @@ class APIController extends BaseController
                     $this->model = is_null($filterModel) ? $this->model: $filterModel; 
                 }
             }
-            return $this->model;      
+			if ($this->hasOrder() and $scopes)
+            {				
+				foreach($this->orders as $order => $sort) 
+				{					
+					$this->model->orderBy($order,$sort);
+				}                
+            }			
+            return $this->model;
         }
         
         return null;        
