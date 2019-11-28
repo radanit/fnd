@@ -218,7 +218,7 @@ import {errorMessage} from '../../../utilities';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');
                   //axios.get("../api/receptions?filter[status]=completed&filter[today]=1&sort=-reeption_date",{params:{page:this.page}}).then(({
                   axios.get("../api/receptions?filter[status]=completed&filter[today]=1&sort=-reeption_date").then(({
-                      data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                      data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
                         title: '',
