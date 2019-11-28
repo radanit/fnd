@@ -157,7 +157,8 @@ import {errorMessage} from '../../../utilities';
                 }).then(({ data }) => {
                     if (data.data.length) {
                     this.page += 1;
-                    this.list.unshift(...data.data.reverse());
+                    //this.list.unshift(...data.data.reverse());
+                    this.list = this.list.concat(data.data);
                     $state.loaded();
                     } else {
                     $state.complete();
@@ -394,4 +395,8 @@ import {errorMessage} from '../../../utilities';
   .el-button + .el-button{
     margin-left: 0px !important;
   }
+  .el-table .cell {
+  white-space: nowrap;
+  overflow: hidden;
+}
 </style>

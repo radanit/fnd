@@ -163,7 +163,7 @@ import {errorMessage} from '../../utilities';
             |
             */      
             viewReception(record){
-              console.log(record.status);
+              //console.log(record.status);
               if(record.status=='rejected')
                 this.$router.push({ name: 'view_rejected_receptions', params: { receptionId: record.id } });
               else if(record.status=='completed')
@@ -187,9 +187,10 @@ import {errorMessage} from '../../utilities';
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (pagination.total>this.page) {
+                    if (data.data.length) {
                     this.page += 1;
-                    this.list.unshift(...data.data.reverse());
+                    //this.list.unshift(...data.data.reverse());
+                    this.list = this.list.concat(data.data);
                     $state.loaded();
                     } else {
                     $state.complete();
@@ -429,4 +430,8 @@ import {errorMessage} from '../../utilities';
   .el-steps{
     width: 425px !important;
   }
+  .el-table .cell {
+  white-space: nowrap;
+  overflow: hidden;
+}
 </style>
