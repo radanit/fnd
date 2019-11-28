@@ -216,7 +216,7 @@ import {errorMessage} from '../../../utilities';
             loadReception(status){                
                 //axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status,{params:{page:this.page}}).then(({
                 axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status).then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
@@ -245,7 +245,7 @@ import {errorMessage} from '../../../utilities';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');                             
                   //axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status,{params:{page:this.page}}).then(({
                   axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status).then(({
-                      data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                      data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
                         title: '',
@@ -261,7 +261,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.loadReception(status);
+                  this.infiniteHandler(status);
                 }                
             },            
             /*
