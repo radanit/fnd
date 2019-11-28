@@ -280,7 +280,7 @@ class ReceptionCaptureController extends APIController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    protected function where($query)
+   /* protected function where($query)
     {
         if ($this->user->hasRole('admin')) {
             return $query;
@@ -295,5 +295,5 @@ class ReceptionCaptureController extends APIController
             // Return receptions with specific type
             return $query->whereIn('radio_type_id',$radioType);
         }
-    }
+    }*/
 }
