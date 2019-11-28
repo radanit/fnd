@@ -111,7 +111,7 @@
 				},
 				tableData:[],
                 search: '',
-                page: 0,
+                page: 1,
                 pagination:{},
                 list: [],
                 infiniteId: +new Date(),
