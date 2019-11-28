@@ -76,8 +76,13 @@
                 @click="viewReception(scope.row)">{{trans('app.showBtnLbl')}} <i class="fa fa-eye blue"></i></el-button>
 					  </template>                    
 					</el-table-column>
-				  </el-table>
-                  <div class="block">
+			</el-table>
+            <infinite-loading
+            slot="append"
+            @infinite="infiniteHandler"
+            force-use-infinite-wrapper=".el-table__body-wrapper">
+            </infinite-loading>
+                  <!--<div class="block">
                         <el-pagination
                             background
                             layout="prev, pager, next"
@@ -87,7 +92,7 @@
                             :total="pagination.total"
                             @current-change="loadReception"
                             :current-page.sync="page">
-                        </el-pagination>             
+                        </el-pagination> -->            
                   </div>
               </div>
               <!-- /.card-body -->
@@ -121,7 +126,7 @@ import {errorMessage} from '../../utilities';
             },
             tableData:[],
             search: '',
-            page:0,
+            page:1,
             pagination:{},
             list: [],
             infiniteId: +new Date(),
@@ -158,7 +163,7 @@ import {errorMessage} from '../../utilities';
             |
             */      
             viewReception(record){
-              console.log(record.status);
+              //console.log(record.status);
               if(record.status=='rejected')
                 this.$router.push({ name: 'view_rejected_receptions', params: { receptionId: record.id } });
               else if(record.status=='completed')
@@ -184,7 +189,8 @@ import {errorMessage} from '../../utilities';
                 }).then(({ data }) => {
                     if (data.data.length) {
                     this.page += 1;
-                    this.list.unshift(...data.data.reverse());
+                    //this.list.unshift(...data.data.reverse());
+                    this.list = this.list.concat(data.data);
                     $state.loaded();
                     } else {
                     $state.complete();
@@ -225,7 +231,8 @@ import {errorMessage} from '../../utilities';
             |
             */
             loadReception(){                
-                axios.get("../api/receptions/result?sort=-reception_date",{params:{page:this.page}}).then(({
+                //axios.get("../api/receptions/result?sort=-reception_date",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/result?sort=-reception_date").then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -253,7 +260,8 @@ import {errorMessage} from '../../utilities';
                 this.btnType ='primary';
                 this.btnIcon = 'fas fa-list fa-fw';
                 this.todayBtnLbl =trans('reception.all_recept_btn_lbl');
-                axios.get("../api/receptions?filter[status]=recepted&filter[today]=1&sort=-reception_date",{params:{page:this.page}}).then(({
+                //axios.get("../api/receptions?filter[status]=recepted&filter[today]=1&sort=-reception_date",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions?filter[status]=recepted&filter[today]=1&sort=-reception_date").then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -270,7 +278,7 @@ import {errorMessage} from '../../utilities';
                 this.btnType ='warning';
                 this.btnIcon = 'fas fa-calendar fa-fw';
                 this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                this.loadReception();
+                this.infiniteHandler();
               }
             },        
             /*
@@ -349,9 +357,9 @@ import {errorMessage} from '../../utilities';
             }
         },           
         created() {
-          this.loadReception();
+          //this.loadReception();
             Fire.$on('AfterCrud',() => {
-                this.loadReception();
+                this.infiniteHandler();
             });
         }
     }
@@ -422,4 +430,8 @@ import {errorMessage} from '../../utilities';
   .el-steps{
     width: 425px !important;
   }
+  .el-table .cell {
+  white-space: nowrap;
+  overflow: hidden;
+}
 </style>

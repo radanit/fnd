@@ -83,13 +83,13 @@
               @click="viewReception(scope.row)">{{trans('app.showBtnLbl')}} <i class="fa fa-eye blue"></i></el-button>
 					  </template>                    
 					</el-table-column>       
-                    <!--<infinite-loading
+                    <infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
+                    </infinite-loading>
 				  </el-table>
-                  <div class="block">
+                  <!--<div class="block">
                         <el-pagination
                             background
                             layout="prev, pager, next"
@@ -100,7 +100,7 @@
                             @current-change="loadReception"
                             :current-page.sync="page">
                         </el-pagination>             
-                  </div>
+                  </div>-->
               </div>
               <!-- /.card-body -->
             </div>
@@ -213,7 +213,8 @@ import {errorMessage} from '../../../utilities';
             |
             */
             loadReception(status){                
-                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status,{params:{page:this.page}}).then(({
+                //axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status,{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -241,7 +242,8 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='primary';
                   this.btnIcon = 'fas fa-list fa-fw';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');                             
-                  axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status,{params:{page:this.page}}).then(({
+                  //axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status,{params:{page:this.page}}).then(({
+                  axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status).then(({
                       data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({

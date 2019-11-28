@@ -19,7 +19,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
+           height="624"
+					:data="list.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
           :default-sort = "{prop: 'id', order: 'descending'}"
 					style="width: 100%"
           :empty-text = "trans('app.no_data_found')"
@@ -69,13 +70,13 @@
               @click="viewReception(scope.row)">{{trans('app.showBtnLbl')}} <i class="fa fa-eye blue"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <!--<infinite-loading
+                    <infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
+                    </infinite-loading>
 				  </el-table>
-                  <div class="block">
+                  <!--<div class="block">
                         <el-pagination
                             background
                             layout="prev, pager, next"
@@ -85,7 +86,7 @@
                             :total="pagination.total"
                             @current-change="loadReception"
                             :current-page.sync="page">
-                        </el-pagination>             
+                        </el-pagination>-->             
                   </div>
               </div>
               <!-- /.card-body -->
@@ -113,7 +114,7 @@ import {errorMessage} from '../../../utilities';
             },
             tableData:[],
             search: '',
-            page:0,
+            page:1,
             pagination:{},
             list: [],
             infiniteId: +new Date(),
@@ -157,7 +158,8 @@ import {errorMessage} from '../../../utilities';
                 }).then(({ data }) => {
                     if (data.data.length) {
                     this.page += 1;
-                    this.list.unshift(...data.data.reverse());
+                    //this.list.unshift(...data.data.reverse());
+                    this.list = this.list.concat(data.data);
                     $state.loaded();
                     } else {
                     $state.complete();
@@ -192,7 +194,8 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='primary';
                   this.btnIcon = 'fas fa-list fa-fw';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');               
-                  axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured&filter[today]=1",{params:{page:this.page}}).then(({
+                  //axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured&filter[today]=1",{params:{page:this.page}}).then(({
+                  axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured&filter[today]=1").then(({
                       data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
@@ -222,7 +225,8 @@ import {errorMessage} from '../../../utilities';
             |
             */
             loadReception(){                
-                axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured",{params:{page:this.page}}).then(({
+                //axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured",{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured").then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -392,4 +396,8 @@ import {errorMessage} from '../../../utilities';
   .el-button + .el-button{
     margin-left: 0px !important;
   }
+  .el-table .cell {
+  white-space: nowrap;
+  overflow: hidden;
+}
 </style>
