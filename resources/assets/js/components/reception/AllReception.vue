@@ -187,7 +187,7 @@ import {errorMessage} from '../../utilities';
                     page: this.page,
                     },
                 }).then(({ data }) => {
-                    if (data.data.length) {
+                    if (pagination.total>this.page) {
                     this.page += 1;
                     this.list.unshift(...data.data.reverse());
                     $state.loaded();
@@ -277,7 +277,7 @@ import {errorMessage} from '../../utilities';
                 this.btnType ='warning';
                 this.btnIcon = 'fas fa-calendar fa-fw';
                 this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                this.loadReception();
+                this.infiniteHandler();
               }
             },        
             /*
@@ -356,9 +356,9 @@ import {errorMessage} from '../../utilities';
             }
         },           
         created() {
-          this.loadReception();
+          //this.loadReception();
             Fire.$on('AfterCrud',() => {
-                this.loadReception();
+                this.infiniteHandler();
             });
         }
     }
