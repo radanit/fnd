@@ -86,8 +86,8 @@
                             :total="pagination.total"
                             @current-change="loadReception"
                             :current-page.sync="page">
-                        </el-pagination>-->             
-                  </div>
+                        </el-pagination>             
+                  </div>-->
               </div>
               <!-- /.card-body -->
             </div>

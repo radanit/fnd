@@ -15,7 +15,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+                    height="624"
+					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'ascending'}"
                     :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
