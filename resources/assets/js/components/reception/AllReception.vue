@@ -360,7 +360,7 @@ import {errorMessage} from '../../utilities';
         created() {
           //this.loadReception();
             Fire.$on('AfterCrud',() => {
-                this.infiniteHandler();
+                //this.infiniteHandler();
             });
         }
     }
