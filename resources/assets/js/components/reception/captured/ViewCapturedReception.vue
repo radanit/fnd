@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <el-collapse v-model="activeNames" @change="handleChange" accordion=false>
+        <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item :title="trans('reception.registered_reception_info')+' - '+trans('reception.patient_fullname')+this.form.patient.fullname" name="receptionInfo">
                 <show-reception :apiUrl="apiUrl"></show-reception>
             </el-collapse-item>

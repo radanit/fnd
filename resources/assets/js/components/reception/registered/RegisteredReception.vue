@@ -177,7 +177,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/capture?filter[status]='recepted,rejected'", {
+                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]='recepted,rejected'", {
                     params: {
                     page: this.page,
                     },
@@ -213,7 +213,7 @@ import {errorMessage} from '../../../utilities';
             |
             */
             loadReception(status){                
-                axios.get("../api/receptions/capture?filter[status]="+status,{params:{page:this.page}}).then(({
+                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status,{params:{page:this.page}}).then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
@@ -241,7 +241,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='primary';
                   this.btnIcon = 'fas fa-list fa-fw';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');                             
-                  axios.get("../api/receptions/capture?filter[today]=1&filter[status]="+status,{params:{page:this.page}}).then(({
+                  axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status,{params:{page:this.page}}).then(({
                       data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
