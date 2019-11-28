@@ -78,13 +78,13 @@
 						  @click="deleteReception(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <!--<infinite-loading
+                    <infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
+                    </infinite-loading>
 				  </el-table>
-                  <div class="block">
+                  <!--<div class="block">
                         <el-pagination
                             background
                             layout="prev, pager, next"
@@ -95,7 +95,7 @@
                             @current-change="loadReception"
                             :current-page.sync="page">
                         </el-pagination>             
-                  </div>
+                  </div>-->
               </div>
               <!-- /.card-body -->
             </div>
