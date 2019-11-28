@@ -178,7 +178,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]='recepted,rejected'", {
+                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]=recepted|rejected").then(({
                     params: {
                     page: this.page,
                     },

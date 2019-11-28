@@ -151,7 +151,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions?filter[status]=complited&sort=-reception_date", {
+                axios.get("../api/receptions?filter[status]=completed&sort=-reception_date", {
                     params: {
                     page: this.page,
                     },
