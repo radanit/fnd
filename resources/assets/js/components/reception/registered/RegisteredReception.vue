@@ -178,7 +178,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]=recepted|rejected").then(({
+                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]=rejected|recepted", {
                     params: {
                     page: this.page,
                     },
@@ -261,7 +261,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.infiniteHandler(status);
+                  this.infiniteHandler();
                 }                
             },            
             /*
