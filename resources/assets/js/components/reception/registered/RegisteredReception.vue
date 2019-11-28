@@ -355,7 +355,7 @@ import {errorMessage} from '../../../utilities';
             }
         },           
         created() {
-          this.loadReception(this.status);
+          this.infiniteHandler();
             Fire.$on('AfterCrud',() => {
                 //
             });
