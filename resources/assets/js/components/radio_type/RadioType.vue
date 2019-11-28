@@ -177,7 +177,8 @@
             |
             */
             loadRadioTypes(){                
-                axios.get("../api/radiotypes",{params:{page:this.page}}).then(({
+                //axios.get("../api/radiotypes",{params:{page:this.page}}).then(({
+                axios.get("../api/radiotypes").then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({

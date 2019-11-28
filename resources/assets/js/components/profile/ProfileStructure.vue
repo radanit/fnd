@@ -154,7 +154,8 @@
             |
             */
             loadProfileStructure(){                
-                axios.get("../api/profiles",{params:{page:this.page}}).then(({
+                //axios.get("../api/profiles",{params:{page:this.page}}).then(({
+                axios.get("../api/profiles").then(({
                     data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch((error)=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
