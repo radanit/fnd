@@ -212,7 +212,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.loadReception();
+                  this.infiniteHandler();
                 }                
             },            
             /*
@@ -303,7 +303,7 @@ import {errorMessage} from '../../../utilities';
             }
         },           
         created() {
-          this.loadReception();
+          //this.loadReception();
             Fire.$on('AfterCrud',() => {
                 //
             });
