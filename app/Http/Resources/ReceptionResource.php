@@ -31,6 +31,7 @@ class ReceptionResource extends JsonResource
             'doctor' => new DoctorResource($this->doctor),
             'doctor_id' => $this->doctor_id,
             'radio_type_id' => $this->radioType->id,
+            'radio_cat_id' => $this->radioType->radio_cat_id,
             'radio_type_name' => $this->radioType->name,
             'status' => new ReceptionStatusResource($this->whenLoaded('status')->last()),
 			'graphy_dicom' => MediaResource::collection($this->getMedia('graphy_dicom')),
