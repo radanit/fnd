@@ -68,7 +68,7 @@ return [
   |
   */
   'pagination' => [
-    'count' => 15, // if set to 0, return all records
+    'count' => 30, // if set to 0, return all records
   ],
 
   /*
