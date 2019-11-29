@@ -11,7 +11,7 @@
     <el-dialog
       :title="trans('reception.reception_pictures')"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="80%"
       >
       <view-pictures :form="form"></view-pictures>
     </el-dialog>
