@@ -128,7 +128,7 @@
                       { required: false, message: trans('reception.radtoTypeDes_required_error')}
                     ]"
                     >
-                    <el-input tabindex=10 label="right" name="radtoTypeDes" ref="radtoTypeDes" type="text" v-model="form.radtoTypeDes" autocomplete="off"></el-input>
+                    <el-input tabindex=10 label="right" name="radtoTypeDes" ref="radtoTypeDes" type="textarea" :rows="2" v-model="form.radtoTypeDes" autocomplete="off"></el-input>
                     </el-form-item>
                   </el-col>                  
                   <el-col :span="12">

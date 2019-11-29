@@ -204,7 +204,7 @@ import {errorMessage} from '../../utilities';
             loadReception(){                
                 //axios.get("../api/receptions?filter[status]=recepted&sort=-reception_date",{params:{page:this.page}}).then(({
                 axios.get("../api/receptions?filter[status]=recepted&sort=-reception_date").then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
@@ -249,7 +249,7 @@ import {errorMessage} from '../../utilities';
                 this.btnType ='warning';
                 this.btnIcon = 'fas fa-calendar fa-fw';
                 this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                this.infiniteHandler();
+                this.loadReception();
               }
             },          
             /*

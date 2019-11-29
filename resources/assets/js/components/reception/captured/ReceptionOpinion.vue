@@ -7,7 +7,8 @@
         <el-button size="mini" type="info" @click="backToReceptionList()" plain>{{trans('app.backBtnLbl')}} <i class="fas fa-undo"></i></el-button>
         </el-form-item>  
        <el-form-item>
-          <vue-editor v-model="result" :editorToolbar="customToolbar"></vue-editor>
+          <vue-editor class="mobileHide" v-model="result" :editorToolbar="customToolbar"></vue-editor>
+          <el-input class="mobileShow" tabindex=1  name="radtoTypeDes" type="textarea" :rows="2" v-model="result" autocomplete="off"></el-input>
        </el-form-item>        
         <el-dialog
           :title="trans('reception.add_vote_card_title')"
@@ -42,6 +43,23 @@
  .ql-container{
    font-family: Vazir, Tahoma, sans-serif !important;
  }
+ .mobileShow {display: none;}
+
+  /* Smartphone Portrait and Landscape */
+  @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 480px){ 
+      .mobileShow {display: inline;}
+  }
+  
+ .mobileHide { display: inline; }
+
+  /* Smartphone Portrait and Landscape */
+  @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 480px){
+     .mobileHide { display: none;}
+  }
  </style>
  
  <script>
