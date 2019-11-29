@@ -59,6 +59,9 @@ return [
     'today_recept_btn_lbl' => 'پرونده های امروز',
     'all_recept_btn_lbl' => 'کلیه ی پرونده ها',
     'download_pic' => 'دانلود تصویر',
-    'new_reception' => 'پرونده های جدید'
+    'new_reception' => 'پرونده های جدید',
+    'reception_history' => 'تاریخچه',
+    'done_in' => 'پذیرش شده در تاریخ',
+    'whithout_pic' => '(تصویربرداری نشده)'
 
 ];

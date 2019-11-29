@@ -10,6 +10,9 @@
             <el-collapse-item :title="trans('reception.reception_opinion')+' - '+trans('reception.patient_fullname')+this.form.patient.fullname" name="receptionOpinion">
                 <opinion-reception></opinion-reception>
             </el-collapse-item>
+            <el-collapse-item :title="trans('reception.reception_history')+' - '+trans('reception.patient_fullname')+this.form.patient.fullname" name="receptionHistory">
+                <reception-history></reception-history>
+            </el-collapse-item>            
         </el-collapse>
     </div>
 </template>
@@ -27,10 +30,11 @@
 }
 </style>
 <script>
-import {errorMessage} from '../../../utilities';
-import ShowReception from '../ShowReception.vue';
-import ViewPictures from '../reception_picture/ViewPicture.vue';
-import ReceptionOpinion from './ReceptionOpinion.vue';
+  import {errorMessage} from '../../../utilities';
+  import ShowReception from '../ShowReception.vue';
+  import ViewPictures from '../reception_picture/ViewPicture.vue';
+  import ReceptionOpinion from './ReceptionOpinion.vue';
+  import ReceptionHistory from './ReceptionHistory.vue';
   export default {
     data() {
       return {
@@ -89,6 +93,7 @@ import ReceptionOpinion from './ReceptionOpinion.vue';
         'show-reception' : ShowReception,
         'view-pictures' : ViewPictures,
         'opinion-reception' : ReceptionOpinion,
+        'reception-history' : ReceptionHistory
     }
   }
 </script>

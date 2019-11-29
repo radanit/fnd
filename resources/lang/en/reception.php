@@ -59,5 +59,8 @@ return [
     'today_recept_btn_lbl' => 'Today Receptions',
     'all_recept_btn_lbl' => 'All Receptions',
     'download_pic' => 'Download Pic',
-    'new_reception' => 'New Receptions'
+    'new_reception' => 'New Receptions',
+    'reception_history' => 'History',
+    'done_in' => 'done in',
+    'whithout_pic' => '(without pic)'
 ];

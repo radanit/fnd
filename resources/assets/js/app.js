@@ -29,6 +29,7 @@ import {Pagination,
   DropdownMenu,
   DropdownItem,
   Menu,
+  Link,
   Submenu,
   MenuItem,
   MenuItemGroup,
@@ -111,6 +112,7 @@ Vue.use(Submenu);
 Vue.use(MenuItem);
 Vue.use(MenuItemGroup);
 Vue.use(Input);
+Vue.use(Link);
 Vue.use(InputNumber);
 Vue.use(Radio);
 Vue.use(RadioGroup);

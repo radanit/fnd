@@ -249,7 +249,7 @@ import {errorMessage} from '../../../utilities';
             |
             */      
             viewReception(record){
-              this.$router.push({ name: 'view_captured_reception', params: { receptionId: record.id } });
+              this.$router.push({ name: 'view_captured_reception', params: { receptionId: record.id,national_id:record.patient.national_id } });
             },            
             /*
             |--------------------------------------------------------------------------
