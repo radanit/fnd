@@ -86,8 +86,8 @@
                             :total="pagination.total"
                             @current-change="loadReception"
                             :current-page.sync="page">
-                        </el-pagination>-->             
-                  </div>
+                        </el-pagination>             
+                  </div>-->
               </div>
               <!-- /.card-body -->
             </div>
@@ -196,7 +196,7 @@ import {errorMessage} from '../../../utilities';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');               
                   //axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured&filter[today]=1",{params:{page:this.page}}).then(({
                   axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured&filter[today]=1").then(({
-                      data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                      data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
                         title: '',
@@ -212,7 +212,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.loadReception();
+                  this.infiniteHandler();
                 }
             },
             /*
@@ -326,7 +326,7 @@ import {errorMessage} from '../../../utilities';
             }
         },           
         created() {
-          this.loadReception();
+          //this.infiniteHandler();
             Fire.$on('AfterCrud',() => {
                 //
             });

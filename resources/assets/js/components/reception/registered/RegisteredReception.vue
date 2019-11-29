@@ -19,7 +19,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
+        height="624"
+					:data="list.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
           :default-sort = "{prop: 'id', order: 'descending'}"
 					style="width: 100%"
           :empty-text = "trans('app.no_data_found')"
@@ -128,7 +129,7 @@ import {errorMessage} from '../../../utilities';
             },
             tableData:[],
             search: '',
-            page:0,
+            page:1,
             pagination:{},
             list: [],
             infiniteId: +new Date(),
@@ -177,7 +178,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]='recepted,rejected'", {
+                axios.get("../api/receptions/capture?sort=-reception_date&filter[status]=rejected|recepted", {
                     params: {
                     page: this.page,
                     },
@@ -215,7 +216,7 @@ import {errorMessage} from '../../../utilities';
             loadReception(status){                
                 //axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status,{params:{page:this.page}}).then(({
                 axios.get("../api/receptions/capture?sort=-reception_date&filter[status]="+status).then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
@@ -244,7 +245,7 @@ import {errorMessage} from '../../../utilities';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');                             
                   //axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status,{params:{page:this.page}}).then(({
                   axios.get("../api/receptions/capture?sort=-reception_date&filter[today]=1&filter[status]="+status).then(({
-                      data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                      data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
                         title: '',
@@ -260,7 +261,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.loadReception(status);
+                  this.infiniteHandler();
                 }                
             },            
             /*
@@ -354,7 +355,7 @@ import {errorMessage} from '../../../utilities';
             }
         },           
         created() {
-          this.loadReception(this.status);
+          //this.infiniteHandler();
             Fire.$on('AfterCrud',() => {
                 //
             });

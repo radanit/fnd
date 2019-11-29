@@ -19,7 +19,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
+          height="624"
+					:data="list.filter(data => !search || data.patient.fullname.toLowerCase().includes(search.toLowerCase())|| data.patient.national_id.toLowerCase().includes(search.toLowerCase())|| data.patient.mobile.toLowerCase().includes(search.toLowerCase()))"
           :default-sort = "{prop: 'file_number', order: 'descending'}"
 					style="width: 100%"
           :empty-text = "trans('app.no_data_found')"
@@ -150,7 +151,7 @@ import {errorMessage} from '../../../utilities';
             |
             */                
             infiniteHandler($state) {
-                axios.get("../api/receptions?filter[status]=complited&sort=-reception_date", {
+                axios.get("../api/receptions?filter[status]=completed&sort=-reception_date", {
                     params: {
                     page: this.page,
                     },
@@ -188,7 +189,7 @@ import {errorMessage} from '../../../utilities';
             loadReception(){                
                 //axios.get("../api/receptions?filter[status]=completed&sort=-reception_date",{params:{page:this.page}}).then(({
                 axios.get("../api/receptions?filter[status]=completed&sort=-reception_date").then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
@@ -217,7 +218,7 @@ import {errorMessage} from '../../../utilities';
                   this.todayBtnLbl =trans('reception.all_recept_btn_lbl');
                   //axios.get("../api/receptions?filter[status]=completed&filter[today]=1&sort=-reeption_date",{params:{page:this.page}}).then(({
                   axios.get("../api/receptions?filter[status]=completed&filter[today]=1&sort=-reeption_date").then(({
-                      data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                      data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                       let msgErr = errorMessage(error.response.data.errors);
                       this.$message({
                         title: '',
@@ -233,7 +234,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.loadReception();
+                  this.infiniteHandler();
                 }                
             },            
             /*
@@ -324,7 +325,7 @@ import {errorMessage} from '../../../utilities';
             }
         },           
         created() {
-          this.loadReception();
+          //this.loadReception();
             Fire.$on('AfterCrud',() => {
                 //
             });

@@ -15,7 +15,8 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">                
 				<el-table
-					:data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
+                    height="624"
+					:data="list.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase())|| data.description.toLowerCase().includes(search.toLowerCase()))"
                     :default-sort = "{prop: 'name', order: 'ascending'}"
                     :empty-text = "trans('app.no_data_found')"
 					style="width: 100%" @selection-change="handleSelectionChange">
@@ -51,13 +52,13 @@
 						  @click="deleteProfileStructure(scope.row)">{{trans('app.deleteBtnLbl')}} <i class="fa fa-trash red"></i></el-button>
 					  </template>                    
 					</el-table-column>
-                    <!--<infinite-loading
+                    <infinite-loading
                     slot="append"
                     @infinite="infiniteHandler"
                     force-use-infinite-wrapper=".el-table__body-wrapper">
-                    </infinite-loading>-->
+                    </infinite-loading>
 				  </el-table>
-                  <div class="block">
+                  <!--<div class="block">
                         <el-pagination
                             background
                             layout="prev, pager, next"
@@ -68,7 +69,7 @@
                             @current-change="loadProfileStructure"
                             :current-page.sync="page">
                         </el-pagination>             
-                  </div>
+                  </div>-->
               </div>
               <!-- /.card-body -->
             </div>
