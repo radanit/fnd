@@ -28,6 +28,7 @@ class ReceptionCollection extends JsonResource
             ],
             'description' => $this->description,
             'radio_type_name' => $this->radioType->name,
+            'radio_type_description' => $this->radioType->description,
             'radio_cat_id' => $this->radioType->radio_cat_id,
             'status' => $this->whenLoaded('status')->last()->status,
             'status_description' => __('bahar.reception_status.'.$this->whenLoaded('status')->last()->status),
