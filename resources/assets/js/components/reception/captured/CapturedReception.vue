@@ -105,6 +105,7 @@ import {errorMessage} from '../../../utilities';
         {
           return{
             receptions :{},
+            status:'captured',
             form: 
             {
               id: '',
@@ -212,7 +213,7 @@ import {errorMessage} from '../../../utilities';
                   this.btnType ='warning';
                   this.btnIcon = 'fas fa-calendar fa-fw';
                   this.todayBtnLbl =trans('reception.today_recept_btn_lbl');
-                  this.infiniteHandler();
+                  this.loadReception(status);
                 }
             },
             /*
@@ -227,7 +228,7 @@ import {errorMessage} from '../../../utilities';
             loadReception(){                
                 //axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured",{params:{page:this.page}}).then(({
                 axios.get("../api/receptions/result?sort=-reception_date&filter[status]=captured").then(({
-                    data})=>{(this.tableData = data.data),(this.pagination= data.meta)}).catch(()=>{
+                    data})=>{(this.list = data.data),(this.pagination= data.meta)}).catch(()=>{
                     let msgErr = errorMessage(error.response.data.errors);
                     this.$message({
                       title: '',
