@@ -9,7 +9,13 @@
        <el-form-item>
           <vue-editor class="mobileHide" v-model="result" :editorToolbar="customToolbar"></vue-editor>
           <el-input class="mobileShow" tabindex=1  name="radtoTypeDes" type="textarea" :rows="2" v-model="result" autocomplete="off"></el-input>
-       </el-form-item>        
+       </el-form-item>
+       <el-form-item label="social-sharing">
+            <google :url="url" scale="3"></google>
+            <email :url="url" subject="Hello" scale="3"></email>
+            <telegram :url="url" scale="3"></telegram>
+            <whats-app :url="url" title="Hello" scale="3"></whats-app>
+       </el-form-item>      
         <el-dialog
           :title="trans('reception.add_vote_card_title')"
           :visible.sync="dialogVisible"
@@ -65,15 +71,25 @@
  <script>
    import { VueEditor } from 'vue2-editor'
    import {errorMessage} from '../../../utilities';
-
+   import {
+    Telegram,
+    WhatsApp,
+    Email,
+    Google
+  } from "vue-socialmedia-share";
    export default {
  
    components: {
-      VueEditor
+      VueEditor,
+      Telegram,
+      WhatsApp,
+      Email,
+      Google
    },
  
    data() {
        return {
+         url: "http://127.0.0.1:8000/api/receptions/result?filter[national_id]=1278567342",
          dialogVisible: false,
          rate:null,
          receptId:'',
