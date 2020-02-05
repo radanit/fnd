@@ -181,6 +181,7 @@ return [
         'graphy_jpg' => 'گرافی',
         'graphy_dicom' => 'گرافی دایکام',
         'graphy_result' => 'نتیجه گرافی',
+		'medical_id' => 'شماره نظام پزشکی',
     ],
 
 ];

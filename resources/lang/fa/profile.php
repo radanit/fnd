@@ -33,6 +33,8 @@ return [
     'birthYear' => 'سال تولد',
     'gender' => 'جنسیت',
     'mobile' => 'تلفن همراه',
-    'my_profile' => 'پروفایل من'
+    'my_profile' => 'پروفایل من',
+	'medical_id' => 'شماره نظام پزشکی',
+    'medicalIdError' => 'شماره نظام پزشکی صحیح نمی باشد',
 
 ];

@@ -63,6 +63,16 @@ class DoctorProfileTableSeeder extends Seeder
 					"errorMsg" => "profile.specialityError",
 					"rules" => "required|string|exists:specialities,id",					
 				],
+				[
+					"id" => "5",
+					"name" => "medical_id",
+					"item" => "el-input",					
+					"type" => "text",
+					"required" => "true",
+					"label" => "profile.medical_id",
+					"errorMsg" => "profile.medicalIdError",
+					"rules" => "required|digits_between:5,20",					
+				],
 			]												
 		));	
 
